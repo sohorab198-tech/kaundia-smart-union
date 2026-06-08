@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নাগরিক তথ্য নিবন্ধন - কাউন্দিয়া ইউনিয়ন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col justify-between">
+
+    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 text-emerald-600 hover:text-emerald-700 transition">
+                <i class="fas fa-arrow-left text-lg"></i>
+                <span class="font-bold text-lg">হোমপেজে ফিরুন</span>
+            </a>
+            <div class="text-right">
+                <h1 class="font-bold text-gray-800 text-md sm:text-xl">কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</h1>
+                <p class="text-xs text-emerald-600 font-semibold tracking-wider uppercase">নাগরিক সেবা কেন্দ্র</p>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-4 py-10 w-full">
+        <div class="bg-white p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100">
+            
+            <div class="text-center mb-8 border-b border-gray-100 pb-6">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">ডিজিটাল নাগরিক নিবন্ধন ফর্ম</h2>
+                <p class="text-gray-500 mt-2 text-sm sm:text-base">সঠিক তথ্য দিয়ে ডিজিটাল ইউনিয়ন গঠনে সহায়তা করুন। আপনার তথ্য সম্পূর্ণ নিরাপদ থাকবে।</p>
+            </div>
+
+            <div id="successMessage" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-xl flex items-center space-x-3">
+                <i class="fas fa-check-circle text-xl text-emerald-600"></i>
+                <span class="font-semibold">অভিনন্দন! আপনার তথ্যটি সফলভাবে ডাটাবেজে যুক্ত হয়েছে এবং পরিসংখ্যান আপডেট হয়েছে।</span>
+            </div>
+
+            <form id="citizenForm" class="space-y-6">
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-emerald-600 mb-4 flex items-center">
+                        <i class="fas fa-id-card mr-2 text-sm"></i> ব্যক্তিগত বিবরণী
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">পূর্ণ নাম (বাংলায়) <span class="text-red-500">*</span></label>
+                            <input type="text" id="name" required placeholder="উদা: মোঃ আব্দুর রহমান" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">মোবাইল নম্বর <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" required placeholder="উদা: 017XXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">জাতীয় পরিচয়পত্র (NID) / জন্ম নিবন্ধন নম্বর</label>
+                            <input type="number" id="nid" placeholder="১৭ বা ১০ ডিজিটের নম্বরটি দিন" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">পেশা <span class="text-red-500">*</span></label>
+                            <select id="profession" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                                <option value="">পেশা নির্বাচন করুন</option>
+                                <option value="কৃষক">কৃষক</option>
+                                <option value="ব্যবসায়ী">ব্যবসায়ী</option>
+                                <option value="চাকরিজীবী">চাকরিজীবী</option>
+                                <option value="গৃহিণী">গৃহিণী</option>
+                                <option value="ছাত্র/ছাত্রী">ছাত্র/ছাত্রী</option>
+                                <option value="প্রবাসী">প্রবাসী</option>
+                                <option value="অন্যান্য">অন্যান্য</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <div>
+                    <h3 class="text-lg font-semibold text-emerald-600 mb-4 flex items-center">
+                        <i class="fas fa-heartbeat mr-2 text-sm"></i> বয়স ও বিশেষ তথ্য (পরিসংখ্যানের জন্য)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">বর্তমান বয়স <span class="text-red-500">*</span></label>
+                            <input type="number" id="age" required min="0" max="120" placeholder="উদা: ৩৫" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">লিঙ্গ <span class="text-red-500">*</span></label>
+                            <select id="genderSelect" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                                <option value="">লিঙ্গ নির্বাচন করুন</option>
+                                <option value="পুরুষ">পুরুষ</option>
+                                <option value="মহিলা">মহিলা</option>
+                                <option value="অন্যান্য">অন্যান্য</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div id="maternitySection" class="hidden bg-rose-50 p-4 rounded-2xl border border-rose-100 transition-all">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" id="isPregnant" class="w-5 h-5 text-rose-600 border-gray-300 rounded focus:ring-rose-500">
+                                <span class="text-gray-700 font-semibold text-sm">আপনি কি একজন গর্ভবতী/প্রসূতি মা? (টিক দিন)</span>
+                            </label>
+                        </div>
+
+                        <div id="voterWishSection" class="hidden bg-blue-50 p-4 rounded-2xl border border-blue-100 transition-all">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" id="wantsToVote" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <span class="text-gray-700 font-semibold text-sm">আপনার বয়স ১৮+ হওয়া সত্ত্বেও কি আপনি এখনও ভোটার হননি এবং ভোটার হতে ইচ্ছুক? (টিক দিন)</span>
+                            </label>
+                        </div>
+
+                        <div id="schoolSection" class="hidden bg-teal-50 p-4 rounded-2xl border border-teal-100 transition-all">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">শিশু/কিশোরটি কি বর্তমানে কোনো শিক্ষা প্রতিষ্ঠানে অধ্যায়নরত আছে? <span class="text-red-500">*</span></label>
+                            <select id="isGoingToSchool" class="w-full px-4 py-2 rounded-xl border border-gray-200 bg-white focus:outline-none focus:border-teal-500 text-gray-700 transition">
+                                <option value="yes">হ্যাঁ, নিয়মিত স্কুলে যাচ্ছে</option>
+                                <option value="no">না, বর্তমানে স্কুলে যাচ্ছে না (ঝরে পড়া/অন্যান্য)</option>
+                            </select>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 transition-all">
+                            <label class="flex items-center space-x-3 cursor-pointer mb-3">
+                                <input type="checkbox" id="isFamilyHead" class="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <span class="text-gray-700 font-bold text-sm">আপনি কি আপনার পরিবারের প্রধান (Family Head)? (টিক দিন)</span>
+                            </label>
+                            
+                            <div id="homeStatusSection" class="hidden mt-3 pl-8 border-l-2 border-indigo-300 space-y-2">
+                                <label class="block text-gray-700 text-sm font-semibold mb-1">আপনার আবাসন স্থিতি নির্বাচন করুন: <span class="text-red-500">*</span></label>
+                                <div class="flex space-x-6">
+                                    <label class="flex items-center space-x-2 cursor-pointer">
+                                        <input type="radio" name="homeStatus" value="মালিক" checked class="w-4 h-4 text-indigo-600">
+                                        <span class="text-gray-700 text-sm font-medium">নিজস্ব বাড়ির মালিক (স্থায়ী বাসিন্দা)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 cursor-pointer">
+                                        <input type="radio" name="homeStatus" value="ভাড়াটিয়া" class="w-4 h-4 text-indigo-600">
+                                        <span class="text-gray-700 text-sm font-medium">ভাড়াটিয়া</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <div>
+                    <h3 class="text-lg font-semibold text-emerald-600 mb-4 flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2 text-sm"></i> গ্রাম ও ওয়ার্ড নম্বর
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">ওয়ার্ড নম্বর <span class="text-red-500">*</span></label>
+                            <select id="ward" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                                <option value="">ওয়ার্ড নম্বর নির্বাচন করুন</option>
+                                <option value="১">১ নম্বর ওয়ার্ড</option>
+                                <option value="২">২ নম্বর ওয়ার্ড</option>
+                                <option value="৩">৩ নম্বর ওয়ার্ড</option>
+                                <option value="৪">৪ নম্বর ওয়ার্ড</option>
+                                <option value="৫">৫ নম্বর ওয়ার্ড</option>
+                                <option value="৬">৬ নম্বর ওয়ার্ড</option>
+                                <option value="৭">৭ নম্বর ওয়ার্ড</option>
+                                <option value="৮">৮ নম্বর ওয়ার্ড</option>
+                                <option value="৯">৯ নম্বর ওয়ার্ড</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">গ্রাম / পাড়ার নাম <span class="text-red-500">*</span></label>
+                            <input type="text" id="village" required placeholder="উদা: কাউন্দিয়া উত্তর পাড়া" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-emerald-500 text-gray-700 transition">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-150 flex items-center justify-center space-x-2 text-lg">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>তথ্য জমা দিন (Submit)</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm border-t border-gray-700">
+        <p>© ২০২৬ কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        const genderSelect = document.getElementById('genderSelect');
+        const maternitySection = document.getElementById('maternitySection');
+        const voterWishSection = document.getElementById('voterWishSection');
+        const schoolSection = document.getElementById('schoolSection');
+        const ageInput = document.getElementById('age');
+        const isFamilyHeadCheckbox = document.getElementById('isFamilyHead');
+        const homeStatusSection = document.getElementById('homeStatusSection');
+        const citizenForm = document.getElementById('citizenForm');
+        const successMessage = document.getElementById('successMessage');
+
+        genderSelect.addEventListener('change', function() {
+            if (this.value === 'মহিলা') maternitySection.classList.remove('hidden');
+            else {
+                maternitySection.classList.add('hidden');
+                document.getElementById('isPregnant').checked = false;
+            }
+        });
+
+        ageInput.addEventListener('input', function() {
+            const val = parseInt(this.value) || 0;
+            // ১৮+ হলে ভোটার হতে ইচ্ছুক কি না অপশন দেখাবে
+            if (val >= 18) voterWishSection.classList.remove('hidden');
+            else {
+                voterWishSection.classList.add('hidden');
+                document.getElementById('wantsToVote').checked = false;
+            }
+
+            // ৫ থেকে ১৮ বছরের মধ্যে হলে স্কুলের তথ্য জানতে চাইবে
+            if (val >= 5 && val <= 18) schoolSection.classList.remove('hidden');
+            else {
+                schoolSection.classList.add('hidden');
+            }
+        });
+
+        isFamilyHeadCheckbox.addEventListener('change', function() {
+            if (this.checked) homeStatusSection.classList.remove('hidden');
+            else homeStatusSection.classList.add('hidden');
+        });
+
+        citizenForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const currentAge = parseInt(ageInput.value) || 0;
+            const isHead = isFamilyHeadCheckbox.checked;
+            const selectedHomeStatus = isHead ? document.querySelector('input[name="homeStatus"]:checked').value : null;
+
+            const citizenData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                nid: document.getElementById('nid').value,
+                profession: document.getElementById('profession').value,
+                age: currentAge,
+                gender: genderSelect.value,
+                isPregnant: document.getElementById('isPregnant').checked,
+                wantsToVote: document.getElementById('wantsToVote').checked && currentAge >= 18,
+                isStudent: (currentAge >= 5 && currentAge <= 18) ? document.getElementById('isGoingToSchool').value : null,
+                isFamilyHead: isHead,
+                homeStatus: selectedHomeStatus,
+                ward: document.getElementById('ward').value,
+                village: document.getElementById('village').value
+            };
+
+            let totalCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
+            totalCitizens.push(citizenData);
+            localStorage.setItem('unionCitizens', JSON.stringify(totalCitizens));
+
+            citizenForm.reset();
+            maternitySection.classList.add('hidden');
+            voterWishSection.classList.add('hidden');
+            schoolSection.classList.add('hidden');
+            homeStatusSection.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+
+            setTimeout(() => { successMessage.classList.add('hidden'); }, 4000);
+        });
+    </script>
+</body>
+</html>
