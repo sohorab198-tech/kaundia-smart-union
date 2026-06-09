@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বেচ্ছাসেবক নেটওয়ার্ক - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-red-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-handshake-angle"></i> কাউন্দিয়া পোর্টাল
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> হোমপেজ
+                    </a>
+                    <a href="#volunteer-form" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-user-plus mr-1"></i> স্বেচ্ছাসেবক হোন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-red-700 to-rose-600 text-white text-center py-12 px-4 shadow-inner">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🤝 স্বেচ্ছাসেবক নেটওয়ার্ক (Volunteer)</h1>
+        <p class="text-lg text-red-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের যেকোনো সামাজিক প্রয়োজনে, রক্তদানে বা দুর্যোগে এলাকাভিত্তিক স্বেচ্ছাসেবকদের খুঁজে নিন অথবা নিজে একজন কর্মী হিসেবে যুক্ত হোন।</p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full md:w-1/2">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">
+                        <i class="fa-solid fa-map-location-dot text-red-600 mr-1"></i> এলাকা নির্বাচন করুন:
+                    </label>
+                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-red-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
+                        <option value="1">১. মধ্য কাউন্দিয়া</option>
+                        <option value="2">২. পশ্চিমপাড়া</option>
+                        <option value="3">৩. বাগসাত্রা</option>
+                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="6">৬. নয়াবাজার</option>
+                        <option value="7">৭. পাঁচকানী</option>
+                        <option value="8">৮. ঘাসিরদিয়া</option>
+                        <option value="9">৯. সিংগাসার</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">
+                        <i class="fa-solid fa-layer-group text-red-600 mr-1"></i> কার্যক্রমের ধরন নির্বাচন করুন:
+                    </label>
+                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-red-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব ধরনের সাহায্যকারী</option>
+                        <option value="1">১. পরিচ্ছন্নতা অভিযান কর্মী</option>
+                        <option value="2">২. রক্তদানে আগ্রহী</option>
+                        <option value="3">৩. মাদক বিরোধী অভিযান</option>
+                        <option value="4">৪. অন্যান্য সাহায্য (দুর্যোগ/শীতবস্ত্র)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-red-500 text-xl font-bold border border-red-100 overflow-hidden shrink-0">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">মো: রাসেল আহমেদ</h3>
+                                <p class="text-xs text-gray-500 font-semibold"><i class="fa-solid fa-location-dot text-gray-400 mr-1"></i> পশ্চিমপাড়া</p>
+                            </div>
+                        </div>
+                        <div class="bg-red-600 text-white w-10 h-10 rounded-lg flex flex-col items-center justify-center font-bold shadow-sm shrink-0">
+                            <span class="text-xs leading-none">O+</span>
+                            <span class="text-[9px] font-normal tracking-tighter mt-0.5">গ্রুপ</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5 text-sm text-gray-700">
+                        <p><i class="fa-solid fa-calendar-day text-red-500 w-5"></i> <strong>বয়স:</strong> ২৩ বছর</p>
+                        
+                        <div class="pt-1">
+                            <strong class="block text-xs text-gray-500 mb-1">কার্যক্রমের ক্ষেত্রসমূহ:</strong>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="bg-green-50 text-green-700 border border-green-200 text-[11px] font-bold px-2 py-0.5 rounded">
+                                    <i class="fa-solid fa-broom mr-1"></i> পরিচ্ছন্নতা কর্মী
+                                </span>
+                                <span class="bg-red-50 text-red-700 border border-red-200 text-[11px] font-bold px-2 py-0.5 rounded">
+                                    <i class="fa-solid fa-droplet mr-1"></i> রক্তদানে আগ্রহী
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 border-t border-gray-100 pt-4">
+                    <a href="tel:01700000000" class="w-full bg-red-600 hover:bg-red-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
+                        <i class="fa-solid fa-phone"></i> সরাসরি যোগাযোগ করুন
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-red-500 text-xl font-bold border border-red-100 overflow-hidden shrink-0">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">মো: আরিফ হাসান</h3>
+                                <p class="text-xs text-gray-500 font-semibold"><i class="fa-solid fa-location-dot text-gray-400 mr-1"></i> সিংগাসার</p>
+                            </div>
+                        </div>
+                        <div class="bg-red-600 text-white w-10 h-10 rounded-lg flex flex-col items-center justify-center font-bold shadow-sm shrink-0">
+                            <span class="text-xs leading-none">A+</span>
+                            <span class="text-[9px] font-normal tracking-tighter mt-0.5">গ্রুপ</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5 text-sm text-gray-700">
+                        <p><i class="fa-solid fa-calendar-day text-red-500 w-5"></i> <strong>বয়স:</strong> ২৫ বছর</p>
+                        
+                        <div class="pt-1">
+                            <strong class="block text-xs text-gray-500 mb-1">কার্যক্রমের ক্ষেত্রসমূহ:</strong>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-bold px-2 py-0.5 rounded">
+                                    <i class="fa-solid fa-ban mr-1"></i> মাদক বিরোধী অভিযান
+                                </span>
+                                <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-2 py-0.5 rounded">
+                                    <i class="fa-solid fa-hand-holding-heart mr-1"></i> অন্যান্য সাহায্য
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 border-t border-gray-100 pt-4">
+                    <a href="tel:01800000000" class="w-full bg-red-600 hover:bg-red-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
+                        <i class="fa-solid fa-phone"></i> সরাসরি যোগাযোগ করুন
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section id="volunteer-form" class="bg-gray-100 py-16 px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-4 flex items-center gap-3">
+                <i class="fa-solid fa-circle-plus text-2xl"></i>
+                <div>
+                    <h2 class="text-xl font-bold">স্বেচ্ছাসেবক হিসেবে নাম লেখান</h2>
+                    <p class="text-xs text-red-100">কাউন্দিয়া ইউনিয়নের যেকোনো মানবিক কাজে নিজেকে নিয়োজিত করতে ফরমটি পূরণ করুন</p>
+                </div>
+            </div>
+            
+            <form class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); alert('স্বেচ্ছাসেবক হিসেবে আপনার নাম সফলভাবে নিবন্ধিত হয়েছে!');">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার পূর্ণ নাম *</label>
+                    <input type="text" placeholder="যেমন: মো: রাসেল আহমেদ" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">যোগাযোগের মোবাইল নাম্বার *</label>
+                    <input type="tel" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার বয়স *</label>
+                    <input type="number" min="15" placeholder="যেমন: ২৩" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">রক্তের গ্রুপ *</label>
+                    <select required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="">বাছাই করুন...</option>
+                        <option value="A+">A+ (এ পজিটিভ)</option>
+                        <option value="A-">A- (এ নেগেটিভ)</option>
+                        <option value="B+">B+ (বি পজিটিভ)</option>
+                        <option value="B-">B- (বি নেগেটিভ)</option>
+                        <option value="O+">O+ (ও পজিটিভ)</option>
+                        <option value="O-">O- (ও নেগেটিভ)</option>
+                        <option value="AB+">AB+ (এবি পজিটিভ)</option>
+                        <option value="AB-">AB- (এবি নেগেটিভ)</option>
+                        <option value="unknown">জানা নেই</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার এলাকা *</label>
+                    <select required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="">বাছাই করুন...</option>
+                        <option value="1">১. মধ্য কাউন্দিয়া</option>
+                        <option value="2">২. পশ্চিমপাড়া</option>
+                        <option value="3">৩. বাগsাত্রা</option>
+                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="6">৬. নয়াবাজার</option>
+                        <option value="7">৭. পাঁচকানী</option>
+                        <option value="8">৮. ঘাসিরদিয়া</option>
+                        <option value="9">৯. সিংগাসার</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার প্রফাইল ছবি আপলোড করুন</label>
+                    <input type="file" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+
+                <div class="md:col-span-2 bg-red-50/50 p-4 rounded-xl border border-red-100">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">💡 আপনি কোন কোন কার্যক্রমে অংশগ্রহণ করতে চান? (এক বা একাধিক সিলেক্ট করুন) *</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-2.5 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer font-semibold text-sm hover:bg-red-50 transition">
+                            <input type="checkbox" name="activity" value="clean" class="rounded text-red-600 focus:ring-red-500 w-4 h-4"> ১. পরিচ্ছন্নতা অভিযান কর্মী
+                        </label>
+                        <label class="flex items-center gap-2.5 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer font-semibold text-sm hover:bg-red-50 transition">
+                            <input type="checkbox" name="activity" value="blood" class="rounded text-red-600 focus:ring-red-500 w-4 h-4"> ২. রক্তদানে আগ্রহী
+                        </label>
+                        <label class="flex items-center gap-2.5 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer font-semibold text-sm hover:bg-red-50 transition">
+                            <input type="checkbox" name="activity" value="anti-drug" class="rounded text-red-600 focus:ring-red-500 w-4 h-4"> ৩. মাদক বিরোধী অভিযান
+                        </label>
+                        <label class="flex items-center gap-2.5 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer font-semibold text-sm hover:bg-red-50 transition">
+                            <input type="checkbox" name="activity" value="others" class="rounded text-red-600 focus:ring-red-500 w-4 h-4"> ৪. অন্যান্য সাহায্য (দুর্যোগ/তহবিল)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-heart mr-1"></i> স্বেচ্ছাসেবক দলে যোগ দিন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+</body>
+</html>

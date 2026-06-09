@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দোকান ও পণ্য নিবন্ধন - কাউন্দিয়া ডিজিটাল বাজার</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 md:p-10">
+
+    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 md:p-8 text-center relative">
+            <a href="market.html" class="absolute left-4 top-6 text-white hover:text-emerald-200 transition text-sm">
+                <i class="fa-solid fa-arrow-left text-lg"></i> বাজারে ফিরুন
+            </a>
+            <h2 class="text-2xl md:text-3xl font-extrabold flex items-center justify-center gap-2">
+                <i class="fa-solid fa-store"></i> ডিজিটাল দোকান ও পণ্য নিবন্ধন ফর্ম
+            </h2>
+            <p class="text-xs md:text-sm text-emerald-100 mt-2">আপনার দোকান বা ফ্যাশন পণ্যের তথ্য দিয়ে ফর্মটি পূরণ করুন। অ্যাডমিন যাচাই করে সাইটে লাইভ করে দেবে।</p>
+        </div>
+
+        <form id="storeForm" class="p-6 md:p-8 space-y-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-shop text-emerald-600 mr-1"></i> দোকান/ব্র্যান্ডের নাম *</label>
+                    <input type="text" id="shopName" required placeholder="উদা: আল্লাহর দান স্টোর বা মিম ফ্যাশন" 
+                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-user text-emerald-600 mr-1"></i> বিক্রেতা/মালিকের নাম *</label>
+                    <input type="text" id="ownerName" required placeholder="উদা: মো: আব্দুর রহমান" 
+                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-layer-group text-emerald-600 mr-1"></i> ব্যবসার ধরন/ক্যাটাগরি *</label>
+                    <select id="category" required 
+                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white transition">
+                        <option value="" disabled selected>ক্যাটাগরি সিলেক্ট করুন</option>
+                        <option value="fashion">✨ ৪. এক্সক্লুসিভ ফ্যাশন ও টেক্সটাইল</option>
+                        <option value="grocery">১. মুদি মালামাল</option>
+                        <option value="vegetable">২. কাঁচা তরকারি</option>
+                        <option value="meat">৩. মাছ ও মাংস</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> মোবাইল নম্বর (WhatsApp সহ) *</label>
+                    <input type="tel" id="phone" required placeholder="উদা: 017XXXXXXXX" pattern="[0-9]{11}"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> সুনির্দিষ্ট ঠিকানা/লোকেশন *</label>
+                <input type="text" id="address" required placeholder="উদা: কাউন্দিয়া মধ্যপাড়া, স্কুল রোডের পাশে" 
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-boxes-stacked text-emerald-600 mr-1"></i> প্রধান প্রধান পণ্যসমূহের নাম ও দাম *</label>
+                <textarea id="products" required rows="3" placeholder="উদা: সুতি থ্রি-পিস (৳৯৫০), সিল্ক শাড়ি (৳১৮০০), প্রিন্টেড লুঙ্গি (৳৩৮০) ইত্যাদি।" 
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition"></textarea>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-paper-plane"></i> আবেদনের তথ্য জমা দিন
+            </button>
+        </form>
+
+        <div id="successMessage" class="hidden p-8 text-center space-y-4">
+            <span class="text-6xl text-emerald-500 block"><i class="fa-solid fa-circle-check"></i></span>
+            <h3 class="text-2xl font-bold text-gray-800">আবেদনটি সফলভাবে জমা হয়েছে!</h3>
+            <p class="text-sm text-gray-600 max-w-md mx-auto">ধন্যবাদ, আপনার পণ্যের তথ্য সংরক্ষিত হয়েছে। অ্যাডমিন প্যানেল থেকে এটি অনুমোদন করার পর মূল পেজে লাইভ করা হবে।</p>
+            <div class="pt-4">
+                <a href="market.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition">
+                    ডিজিটাল বাজারে ফিরে যান
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("storeForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let newStoreRequest = {
+                id: Date.now(),
+                shopName: document.getElementById("shopName").value,
+                ownerName: document.getElementById("ownerName").value,
+                category: document.getElementById("category").value,
+                phone: document.getElementById("phone").value,
+                address: document.getElementById("address").value,
+                products: document.getElementById("products").value
+            };
+            let pendingStores = JSON.parse(localStorage.getItem("pendingStores")) || [];
+            pendingStores.push(newStoreRequest);
+            localStorage.setItem("pendingStores", JSON.stringify(pendingStores));
+
+            document.getElementById("storeForm").classList.add("hidden");
+            document.getElementById("successMessage").classList.remove("hidden");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শিক্ষা ও ধর্মীয় প্রতিষ্ঠান - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-teal-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-school-flag"></i> কাউন্দিয়া পোর্টাল
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> হোমপেজ
+                    </a>
+                    <a href="#school-login-section" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-database mr-1"></i> স্টুডেন্ট ডাটা প্যানেল
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-teal-700 to-cyan-600 text-white text-center py-12 px-4 shadow-inner">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🏫 শিক্ষা ও ধর্মীয় প্রতিষ্ঠান সমূহ</h1>
+        <p class="text-lg text-teal-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের সকল স্কুল, মাদরাসা এবং মসজিদের সুনির্দিষ্ট অবস্থান ও প্রয়োজনীয় যোগাযোগের নম্বর একসাথেই খুঁজে নিন।</p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">
+                        <i class="fa-solid fa-map-location-dot text-teal-600 mr-1"></i> এলাকা নির্বাচন করুন:
+                    </label>
+                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-teal-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
+                        <option value="1">১. মধ্য কাউন্দিয়া</option>
+                        <option value="2">২. পশ্চিমপাড়া</option>
+                        <option value="3">৩. বাগসাত্রা</option>
+                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="6">৬. নয়াবাজার</option>
+                        <option value="7">৭. পাঁচকানী</option>
+                        <option value="8">৮. ঘাসিরদিয়া</option>
+                        <option value="9">৯. সিংগাসার</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">
+                        <i class="fa-solid fa-layer-group text-teal-600 mr-1"></i> প্রতিষ্ঠানের ধরন:
+                    </label>
+                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-teal-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব ধরনের প্রতিষ্ঠান</option>
+                        <option value="school">স্কুল (School)</option>
+                        <option value="madrasah">মাদরাসা (Madrasah)</option>
+                        <option value="mosque">মসজিদ (Mosque)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                    <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-full mb-3">
+                        <i class="fa-solid fa-school mr-1"></i> উচ্চ বিদ্যালয়
+                    </span>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">কাউন্দিয়া উচ্চ বিদ্যালয়</h3>
+                    <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> মধ্য কাউন্দিয়া, কাউন্দিয়া, সাভার।</p>
+                    
+                    <div class="bg-gray-50 p-3 rounded-lg text-sm space-y-2 text-gray-700">
+                        <p><strong>প্রধান শিক্ষক:</strong> মো: আশরাফ আলী</p>
+                    </div>
+                </div>
+                <div class="mt-6 border-t border-gray-100 pt-4">
+                    <a href="tel:01711111111" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center font-bold py-2 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
+                        <i class="fa-solid fa-phone"></i> প্রধান শিক্ষককে কল করুন
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                    <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full mb-3">
+                        <i class="fa-solid fa-book mr-1"></i> মাদরাসা
+                    </span>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">কাউন্দিয়া ইসলামিয়া দাখিল মাদরাসা</h3>
+                    <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> উত্তর কাউন্দিয়া, কাউন্দিয়া।</p>
+                    
+                    <div class="bg-gray-50 p-3 rounded-lg text-sm space-y-2 text-gray-700">
+                        <p><strong>সুপারিন্টেনডেন্ট:</strong> মাওলানা মো: ইউসুফ আলী</p>
+                    </div>
+                </div>
+                <div class="mt-6 border-t border-gray-100 pt-4">
+                    <a href="tel:01822222222" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center font-bold py-2 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
+                        <i class="fa-solid fa-phone"></i> সুপারের সাথে যোগাযোগ
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md border-t-4 border-emerald-600 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">
+                            <i class="fa-solid fa-mosque mr-1"></i> জামে মসজিদ
+                        </span>
+                        <span class="text-xs text-gray-500 font-semibold"><i class="fa-solid fa-location-dot"></i> সিংগাসার</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">সিংগাসার কেন্দ্রীয় জামে মসজিদ</h3>
+                    
+                    <div class="bg-emerald-50/50 p-3 rounded-xl text-sm space-y-3 text-gray-700 border border-emerald-100">
+                        <div class="flex items-center justify-between border-b border-emerald-100/50 pb-2">
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">ইмам ও খতিব:</p>
+                                <p class="font-bold text-gray-900">হাফেজ মাওলানা মো: ওবায়দুল্লাহ</p>
+                            </div>
+                            <a href="tel:01933333333" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-full transition text-xs shadow-sm">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">মুয়াজ্জিন সাহেব:</p>
+                                <p class="font-bold text-gray-900">মো: বেলাল হোসেন</p>
+                            </div>
+                            <a href="tel:01744444444" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-full transition text-xs shadow-sm">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-2 text-center text-xs text-gray-400 font-semibold">
+                    <i class="fa-solid fa-circle-info mr-1"></i> নামাজের সুনির্দিষ্ট সময়সূচীর জন্য যোগাযোগ করুন
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section id="school-login-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-200">
+        <div class="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-2xl p-6 md:p-8 shadow-xl mb-12">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div>
+                    <h2 class="text-2xl font-bold flex items-center gap-2 text-yellow-400">
+                        <i class="fa-solid fa-server"></i> ইনস্টিটিউশন ডাটা ম্যানেজমেন্ট সিস্টেম (IDMS)
+                    </h2>
+                    <p class="text-sm text-slate-300 mt-1">কাউন্দিয়ার স্কুল ও মাদরাসাগুলোর জন্য নিজস্ব ড্যাশবোর্ড থেকে শিক্ষার্থীর স্থায়ী ডাটা সংরক্ষণ ও পরীক্ষার রেজাল্ট আপলোড প্যানেল।</p>
+                </div>
+                <button onclick="document.getElementById('demo-dashboard').classList.toggle('hidden');" class="bg-yellow-500 hover:bg-yellow-600 text-gray-950 font-bold px-6 py-3 rounded-xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-gauge-high"></i> ডেমো ড্যাশবোর্ড দেখুন / ডাটা এন্ট্রি করুন
+                </button>
+            </div>
+        </div>
+
+        <div id="demo-dashboard" class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hidden transition-all duration-300">
+            <div class="bg-teal-600 text-white p-4 px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span class="font-bold flex items-center gap-2 text-lg"><i class="fa-solid fa-building-columns"></i> লগইন অ্যাকাউন্ট: কাউন্দিয়া উচ্চ বিদ্যালয়</span>
+                <span class="bg-teal-700 px-3 py-1 rounded text-xs font-bold border border-teal-500">EIIN: 108431</span>
+            </div>
+
+            <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 lg:col-span-1">
+                    <h3 class="font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4 text-base flex items-center gap-2 text-teal-700">
+                        <i class="fa-solid fa-user-plus"></i> নতুন শিক্ষার্থীর ডাটা প্রিজার্ভ করুন
+                    </h3>
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('শিক্ষার্থীর স্থায়ী ডাটা সফলভাবে প্রিজার্ভ (সংরক্ষণ) করা হয়েছে!');">
+                        <div class="p-3 bg-white rounded-lg border border-gray-200 space-y-3">
+                            <span class="text-xs font-bold text-teal-600 block border-b border-gray-100 pb-1">১. শিক্ষার্থীর মৌলিক তথ্য</span>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 mb-1">শিক্ষার্থীর নাম *</label>
+                                <input type="text" placeholder="যেমন: মো: নাজমুল হাসান" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">জন্ম নিবন্ধন নং *</label>
+                                    <input type="text" placeholder="১৭ ডিজিট" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">রক্তের গ্রুপ *</label>
+                                    <select required class="w-full bg-gray-50 border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 font-semibold">
+                                        <option value="">বাছাই...</option>
+                                        <option value="A+">A+</option><option value="A-">A-</option>
+                                        <option value="B+">B+</option><option value="B-">B-</option>
+                                        <option value="O+">O+</option><option value="O-">O-</option>
+                                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-gray-200 space-y-3">
+                            <span class="text-xs font-bold text-teal-600 block border-b border-gray-100 pb-1">২. বাবা-মায়ের তথ্য</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">বাবার নাম *</label>
+                                    <input type="text" placeholder="বাবার নাম" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">বাবার NID *</label>
+                                    <input type="text" placeholder="NID নম্বর" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">মায়ের নাম *</label>
+                                    <input type="text" placeholder="মায়ের নাম" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">মায়ের NID *</label>
+                                    <input type="text" placeholder="NID নম্বর" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-gray-200">
+                            <span class="text-xs font-bold text-teal-600 block border-b border-gray-100 pb-1 mb-2">৩. মোবাইল নাম্বার</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">বাবার ফোন নম্বর *</label>
+                                    <input type="tel" placeholder="017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">মায়ের ফোন নম্বর</label>
+                                    <input type="tel" placeholder="01XXXXXXXXX" class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-gray-200 space-y-2">
+                            <span class="text-xs font-bold text-teal-600 block border-b border-gray-100 pb-1">৪. শ্রেণী ও স্থায়ী ঠিকানা</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">ক্লাস (শ্রেণী) *</label>
+                                    <select required class="w-full bg-gray-50 border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 font-semibold">
+                                        <option value="6">৬ষ্ঠ শ্রেণী</option><option value="7">৭ম শ্রেণী</option>
+                                        <option value="8">৮ম শ্রেণী</option><option value="9">৯ম শ্রেণী</option>
+                                        <option value="10">১০ম শ্রেণী</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-600 mb-1">রোল নম্বর *</label>
+                                    <input type="number" placeholder="যেমন: ০৫" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 mb-1">স্থায়ী ঠিকানা *</label>
+                                <input type="text" placeholder="যেমন: গ্রাম- পশ্চিমপাড়া, ৩ নং ওয়ার্ড, কাউন্দিয়া" required class="w-full bg-gray-50 border border-gray-300 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition shadow flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> ডাটাবেজে সংরক্ষণ করুন
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-2 mb-4 gap-2">
+                            <h3 class="font-bold text-gray-800 text-base flex items-center gap-2 text-slate-700">
+                                <i class="fa-solid fa-folder-open"></i> সংরক্ষিত ডাটাবেজ (ক্লাস ভিত্তিক ফিল্টার)
+                            </h3>
+                            <select class="bg-gray-50 border border-gray-300 rounded px-3 py-1 text-xs font-bold text-gray-700">
+                                <option>৯ম শ্রেণী (৯ম ব্যাচ)</option>
+                                <option>১০ম শ্রেণী</option>
+                                <option>৮ম শ্রেণী</option>
+                            </select>
+                        </div>
+
+                        <div class="overflow-x-auto border border-gray-200 rounded-xl">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-700 border-b border-gray-200 font-bold">
+                                        <th class="p-3">রোল/নাম</th>
+                                        <th class="p-3">১. জন্ম নিবন্ধন ও রক্ত</th>
+                                        <th class="p-3">২. পিতা-মাতা ও NID</th>
+                                        <th class="p-3">৩. ফোন নম্বর</th>
+                                        <th class="p-3">৪. ঠিকানা</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-gray-700">
+                                    <tr class="hover:bg-slate-50 transition">
+                                        <td class="p-3 font-semibold"><span class="text-teal-600 block">রোল: ০১</span> মো: নাজমুল হাসান</td>
+                                        <td class="p-3">
+                                            <span class="block text-gray-500 font-mono">BRN: 201026925...</span>
+                                            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded text-[10px] font-bold inline-block mt-0.5">O+ (পজিটিভ)</span>
+                                        </td>
+                                        <td class="p-3">
+                                            <span class="block">পিতা: মো: রফিকুল ইসলাম (NID: 4612...)</span>
+                                            <span class="block text-gray-500">মাতা: সুফিয়া বেগম (NID: 8231...)</span>
+                                        </td>
+                                        <td class="p-3 font-mono text-slate-600">
+                                            <span class="block">পিতা: 01711223344</span>
+                                            <span class="block">মাতা: 01911223344</span>
+                                        </td>
+                                        <td class="p-3 text-gray-500">গ্রাম: পশ্চিমপাড়া, ৩ নং ওয়ার্ড, কাউন্দিয়া।</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 transition">
+                                        <td class="p-3 font-semibold"><span class="text-teal-600 block">রোল: ০২</span> মোসাম্মৎ ফাতেমা আক্তার</td>
+                                        <td class="p-3">
+                                            <span class="block text-gray-500 font-mono">BRN: 201126925...</span>
+                                            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded text-[10px] font-bold inline-block mt-0.5">A+ (পজিটিভ)</span>
+                                        </td>
+                                        <td class="p-3">
+                                            <span class="block">পিতা: মো: আব্দুল জলিল (NID: 1985...)</span>
+                                            <span class="block text-gray-500">মাতা: রহিমা খাতুন (NID: 3265...)</span>
+                                        </td>
+                                        <td class="p-3 font-mono text-slate-600">
+                                            <span class="block">পিতা: 01855667788</span>
+                                            <span class="block text-gray-500">মাতা: N/A</span>
+                                        </td>
+                                        <td class="p-3 text-gray-500">গ্রাম: মধ্য কাউন্দিয়া, ১ নং ওয়ার্ড।</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-teal-50 border border-teal-100 rounded-xl flex items-center justify-between text-xs">
+                        <span class="text-teal-800 font-semibold"><i class="fa-solid fa-circle-info"></i> এই ডেটাবেসটি সরাসরি পরীক্ষার রেজাল্ট শিট তৈরির সাথে যুক্ত।</span>
+                        <button onclick="alert('রেজাল্ট শিট মডিউলটি সক্রিয় করা হচ্ছে...');" class="bg-teal-600 text-white px-3 py-1.5 rounded font-bold hover:bg-teal-700 transition">পরীক্ষার রেজাল্ট ইনপুট দিন &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="institution-form" class="bg-gray-100 py-16 px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-6 py-4 flex items-center gap-3">
+                <i class="fa-solid fa-circle-plus text-2xl"></i>
+                <div>
+                    <h2 class="text-xl font-bold">নতুন প্রতিষ্ঠান তালিকাভুক্ত করুন</h2>
+                    <p class="text-xs text-teal-100">এলাকার কোনো স্কুল, মাদরাসা বা মসজিদের তথ্য বাদ পড়ে থাকলে তা যুক্ত করুন</p>
+                </div>
+            </div>
+            
+            <form class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); alert('প্রতিষ্ঠানের তথ্য সফলভাবে সাবমিট হয়েছে!');">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">প্রতিষ্ঠানের নাম *</label>
+                    <input type="text" placeholder="যেমন: সিংগাসার জামে মসজিদ..." required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">প্রতিষ্ঠানের ধরন *</label>
+                    <select required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="">বাছাই করুন...</option>
+                        <option value="school">স্কুল (School)</option>
+                        <option value="madrasah">মাদরাসা (Madrasah)</option>
+                        <option value="mosque">মসজিদ (Mosque)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">অবস্থান/এলাকা নির্বাচন করুন *</label>
+                    <select required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="">বাছাই করুন...</option>
+                        <option value="1">১. মধ্য কাউন্দিয়া</option>
+                        <option value="2">২. পশ্চিমপাড়া</option>
+                        <option value="3">৩. বাগসাত্রা</option>
+                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="6">৬. নয়াবাজার</option>
+                        <option value="7">৭. পাঁচকানী</option>
+                        <option value="8">৮. ঘাসিরদিয়া</option>
+                        <option value="9">৯. সিংগাসার</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">সুনির্দিষ্ট ঠিকানা/লোকেশন *</label>
+                    <input type="text" placeholder="যেমন: সিংগাসার মেইন বাজার সংলগ্ন, ৩ নং ওয়ার্ড" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                </div>
+                <div class="md:col-span-2 border-t border-gray-200 pt-4">
+                    <p class="text-sm font-bold text-teal-700 mb-3"><i class="fa-solid fa-graduation-cap"></i> যদি প্রতিষ্ঠানটি স্কুল বা মাদরাসা হয়:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">প্রধান শিক্ষক / সুপারের নাম</label>
+                            <input type="text" placeholder="যেমন: মো: আশরাফ আলী" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">যোগাযোগের মোবাইল নাম্বার</label>
+                            <input type="tel" placeholder="যেমন: 017XXXXXXXX" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-teal-500 focus:outline-none text-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 border-t border-gray-200 pt-4">
+                    <p class="text-sm font-bold text-emerald-700 mb-3"><i class="fa-solid fa-mosque"></i> যদি প্রতিষ্ঠানটি মসজিদ হয়:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">ইмам সাহেবের নাম</label>
+                            <input type="text" placeholder="যেমন: হাফেজ মাওলানা ওবায়দুল্লাহ" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">ইмам সাহেবের মোবাইল নাম্বার</label>
+                            <input type="tel" placeholder="যেমন: 019XXXXXXXX" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">মুয়াজ্জিন সাহেবের নাম</label>
+                            <input type="text" placeholder="যেমন: মো: বেলাল হোসেন" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">মুয়াজ্জিন সাহেবের মোবাইল নাম্বার</label>
+                            <input type="tel" placeholder="যেমন: 017XXXXXXXX" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 mt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> প্রতিষ্ঠানের তথ্য জমা দিন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+</body>
+</html>
