@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>চিকিৎসক ও জরুরি স্বাস্থ্যসেবা - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-red-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-user-doctor"></i> কাউন্দিয়া পোর্টাল
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> হোমপেজ
+                    </a>
+                    <a href="#doctor-form" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-plus-circle mr-1"></i> চিকিৎসক নিবন্ধন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-red-700 to-rose-600 text-white text-center py-12 px-4 shadow-inner">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🩺 কাউন্দিয়া ইউনিয়ন চিকিৎসক ও স্বাস্থ্যসেবা ডিরেক্টরি</h1>
+        <p class="text-lg text-red-100 max-w-2xl mx-auto">চেম্বারের সময়সূচী জানুন, সিরিয়াল বুক করুন এবং গভীর রাতে জরুরি প্রয়োজনে হোম সার্ভিস ও লাইভ সচল ডাক্তারদের খুঁজে নিন।</p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full md:w-2/3 flex flex-col sm:flex-row gap-3">
+                    <div class="w-full">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">বিশেষজ্ঞতা (Specialty) বাছুন:</label>
+                        <select id="filter-specialty" onchange="renderDoctors()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-red-500 focus:outline-none font-semibold text-gray-700">
+                            <option value="all">সব চিকিৎসক (All Doctors)</option>
+                            <option value="medicine">💊 মেডিসিন ও সাধারণ রোগ</option>
+                            <option value="child">👶 শিশু রোগ বিশেষজ্ঞ</option>
+                            <option value="gynae">👩‍⚕️ স্ত্রী রোগ ও প্রসূতি</option>
+                            <option value="dental">🦷 দন্ত চিকিৎসা</option>
+                            <option value="rmp">🏥 পল্লী চিকিৎসক / আর.এম.পি</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">জরুরি হোম সার্ভিস সুবিধা:</label>
+                        <select id="filter-homeservice" onchange="renderDoctors()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-red-500 focus:outline-none font-semibold text-gray-700">
+                            <option value="all">হোম সার্ভিস (সব)</option>
+                            <option value="yes">🏠 শুধু হোম সার্ভিস প্রদানকারী</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 text-right md:mt-6">
+                    <p class="text-sm text-gray-500 font-semibold">
+                        <i class="fa-solid fa-stethoscope text-red-600 mr-1"></i> ডিরেক্টরিতে মোট <span id="doctor-count" class="text-red-600 font-bold text-base">০</span> জন চিকিৎসক নিবন্ধিত আছেন
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="doctors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+    </main>
+
+    <section id="doctor-form" class="bg-gray-100 py-16 px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-4 flex items-center gap-3">
+                <i class="fa-solid fa-user-md text-2xl"></i>
+                <div>
+                    <h2 class="text-xl font-bold">চিকিৎসক নিবন্ধন ফরম</h2>
+                    <p class="text-xs text-red-100">ইউনিয়নের রোগীদের সেবায় আপনার সঠিক তথ্য দিয়ে তালিকায় নাম যুক্ত করুন</p>
+                </div>
+            </div>
+            
+            <form id="doctor-submit-form" class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleFormSubmit(event)">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">চিকিৎসকের নাম *</label>
+                    <input type="text" id="doc-name" placeholder="যেমন: ডা: মো: আরিফুর রহমান" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">পদবি ও শিক্ষাগত যোগ্যতা (Degree) *</label>
+                    <input type="text" id="doc-degree" placeholder="যেমন: MBBS, BCS (মেডিসিন বিশেষজ্ঞ)" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বিশেষজ্ঞতার বিভাগ *</label>
+                    <select id="doc-specialty" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="medicine">💊 মেডিসিন ও সাধারণ রোগ</option>
+                        <option value="child">👶 শিশু রোগ বিশেষজ্ঞ</option>
+                        <option value="gynae">👩‍⚕️ স্ত্রী রোগ ও প্রসূতি</option>
+                        <option value="dental">🦷 দন্ত চিকিৎসা</option>
+                        <option value="rmp">🏥 পল্লী চিকিৎসক / আর.এম.পি</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">BMDC রেজি: নং বা লাইসেন্স (যদি থাকে)</label>
+                    <input type="text" id="doc-bmdc" placeholder="যেমন: A-56789" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">কর্মরত প্রতিষ্ঠানের নাম (যদি থাকে)</label>
+                    <input type="text" id="doc-hospital" placeholder="যেমন: সোহরাওয়ার্দী মেডিকেল কলেজ হাসপাতাল" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">মোবাইল নম্বর (সিরিয়াল/যোগাযোগ) *</label>
+                    <input type="tel" id="doc-phone" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">চেম্বার ঠিকানা ও সময়সূচী *</label>
+                    <input type="text" id="doc-chamber" placeholder="যেমন: কাউন্দিয়া বাজার ফার্মেসি, শনি থেকে বৃহস্পতি (বিকাল ৪টা - রাত ৮টা)" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ভিজিট ফি (টাকা) *</label>
+                    <input type="text" id="doc-fee" placeholder="যেমন: ৪০০ টাকা / ফ্রী" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ইমার্জেন্সি হোম সার্ভিস সুবিধা? *</label>
+                    <select id="doc-homeservice" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="yes">হ্যাঁ, প্রয়োজনে হোম সার্ভিস দিতে পারব</option>
+                        <option value="no">না, শুধু চেম্বারেই রোগী দেখি</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">জরুরি ওষুধ হোম ডেলিভারি সুবিধা? *</label>
+                    <select id="doc-delivery" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="yes">হ্যাঁ, জরুরি ওষুধ ডেলিভারির ব্যবস্থা আছে</option>
+                        <option value="no">না, এই সুবিধা নেই</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-red-600 mb-1"><i class="fa-solid fa-key mr-1"></i> ৪ ডিজিটের গোপন পিন সেট করুন *</label>
+                    <input type="password" id="doc-pin" maxlength="4" pattern="\d{4}" placeholder="যেমন: ৪৪৫৫" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none font-mono">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">গভীর রাতের অন-কল স্থিতি (Status) *</label>
+                    <select id="doc-status" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none font-semibold">
+                        <option value="on" selected>On (রাত ১১টা-সকাল ৬টা: ইমার্জেন্সি ফোনে/হোম সার্ভিসে পাওয়া যাবে)</option>
+                        <option value="off">Off (গভীর রাতে ফোন বন্ধ/অফলাইন)</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user-md"></i> তালিকায় নাম অন্তর্ভুক্ত করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        // ৩টি বৈচিত্র্যময় ডেমো ডাক্তার ডাটা
+        const defaultDoctors = [
+            {
+                id: "doc_1",
+                name: "ডা: মো: মাহফুজুর রহমান",
+                degree: "MBBS, BCS (মেডিসিন ও শিশু রোগ বিশেষজ্ঞ)",
+                specialty: "medicine",
+                bmdc: "A-62415",
+                hospital: "শহীদ সোহরাওয়ার্দী মেডিকেল কলেজ",
+                phone: "01755555555",
+                chamber: "কাউন্দিয়া বাজার ফার্মেসি, শনি ও বুধ (বিকাল ৫ - রাত ৯টা)",
+                fee: "৫०० টাকা",
+                homeservice: "yes",
+                delivery: "yes",
+                status: "on",
+                pin: "5555"
+            },
+            {
+                id: "doc_2",
+                name: "ডা: ফারহানা আক্তার মিলি",
+                degree: "MBBS, FCPS (স্ত্রী রোগ ও প্রসূতি বিশেষজ্ঞ)",
+                specialty: "gynae",
+                bmdc: "A-71230",
+                hospital: "ঢাকা মেডিকেল কলেজ হাসপাতাল",
+                phone: "01866666666",
+                chamber: "মায়ের দোয়া ডায়াগনস্টিক, রবি ও মঙ্গল (বিকাল ৪ - সন্ধ্যা ৭টা)",
+                fee: "৬০০ টাকা",
+                homeservice: "no",
+                delivery: "no",
+                status: "off",
+                pin: "5555"
+            },
+            {
+                id: "doc_3",
+                name: "ডা: আব্দুল আলীম (RMP)",
+                degree: "পল্লী চিকিৎসক ও প্রাথমিক ট্রমা সার্জন",
+                specialty: "rmp",
+                bmdc: "নেই",
+                hospital: "কাউন্দিয়া গ্রামীন সেবা চেম্বার",
+                phone: "01977777777",
+                chamber: "নয়াবাজার ঘাট সংলগ্ন, প্রতিদিন (সকাল ৯টা - রাত ১০টা)",
+                fee: "১০০ টাকা / পরামর্শ ফ্রী",
+                homeservice: "yes",
+                delivery: "yes",
+                status: "on",
+                pin: "5555"
+            }
+        ];
+
+        // লোকাল স্টোরেজ ডাটা ইনিশিয়ালাইজেশন
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem('portal_doctors')) {
+                localStorage.setItem('portal_doctors', JSON.stringify(defaultDoctors));
+            }
+            renderDoctors();
+        });
+
+        // ডক্টরস কার্ড রেন্ডার ফাংশন
+        function renderDoctors() {
+            const grid = document.getElementById('doctors-grid');
+            const countSpan = document.getElementById('doctor-count');
+            const selectedSpecialty = document.getElementById('filter-specialty').value;
+            const selectedHomeService = document.getElementById('filter-homeservice').value;
+
+            const doctors = JSON.parse(localStorage.getItem('portal_doctors')) || [];
+            let filtered = doctors;
+
+            if (selectedSpecialty !== 'all') {
+                filtered = filtered.filter(d => d.specialty === selectedSpecialty);
+            }
+            if (selectedHomeService === 'yes') {
+                filtered = filtered.filter(d => d.homeservice === 'yes');
+            }
+
+            countSpan.innerText = filtered.length;
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-200">
+                        <i class="fa-solid fa-user-slash text-4xl mb-2 text-gray-300 block"></i>
+                        এই ক্যাটাগরিতে বর্তমানে কোনো ডাক্তার পাওয়া যায়নি।
+                    </div>`;
+                return;
+            }
+
+            filtered.forEach(doc => {
+                const isOn = doc.status === 'on';
+                
+                // ডাক্তার টাইপ আইকন নির্ধারণ
+                let avatarIcon = "fa-user-md";
+                if (doc.specialty === "gynae") avatarIcon = "fa-user-doctor text-pink-600";
+                if (doc.specialty === "dental") avatarIcon = "fa-tooth text-blue-500";
+
+                const docHeaderBg = `
+                    <div class="bg-gradient-to-br from-red-50 to-rose-50 p-5 border-b border-gray-100 flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full bg-white border-2 border-red-200 flex items-center justify-center text-3xl shadow-sm">
+                            <i class="fa-solid ${avatarIcon}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">${doc.name}</h3>
+                            <p class="text-xs font-semibold text-red-700">${doc.degree}</p>
+                            ${doc.bmdc && doc.bmdc !== 'নেই' ? `<span class="text-[10px] bg-gray-200 text-gray-700 px-2 py-0.5 rounded-md font-mono">BMDC: ${doc.bmdc}</span>` : ''}
+                        </div>
+                    </div>`;
+
+                // গভীর রাতের অন/অফ বাটন কাস্টমাইজেশন
+                const statusLabel = isOn ? "রাত ১১ - সকাল ৬: অন-কল সচল (On)" : "রাত ১১ - সকাল ৬: অফলাইন/বন্ধ (Off)";
+                const statusBtnColor = isOn 
+                    ? "bg-green-100 text-green-800 border border-green-300" 
+                    : "bg-gray-100 text-gray-500 border border-gray-300";
+
+                // হোম সার্ভিস এবং ওষধ ডেলিভারি ব্যাজ
+                const homeServiceBadge = doc.homeservice === 'yes'
+                    ? `<span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2 py-1 rounded-md border border-emerald-200"><i class="fa-solid fa-house-medical"></i> হোম সার্ভিস দিতে সক্ষম</span>`
+                    : `<span class="bg-gray-50 text-gray-400 text-xs font-medium px-2 py-1 rounded-md border border-gray-200"><i class="fa-solid fa-ban"></i> হোম সার্ভিস নেই</span>`;
+
+                const deliveryBadge = doc.delivery === 'yes'
+                    ? `<span class="bg-blue-50 text-blue-700 text-xs font-bold px-2 py-1 rounded-md border border-blue-200"><i class="fa-solid fa-truck-medical"></i> ওষুধ ডেলিভারি আছে</span>`
+                    : '';
+
+                const cardHtml = `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                        <div>
+                            ${docHeaderBg}
+                            <div class="p-5 text-sm space-y-2 text-gray-700">
+                                ${doc.hospital ? `<p><strong>🏢 কর্মস্থল:</strong> <span class="text-gray-600">${doc.hospital}</span></p>` : ''}
+                                <p><strong>📍 চেম্বার ও সময়:</strong> <span class="text-gray-600">${doc.chamber}</span></p>
+                                <p><strong>💵 ভিジット ফি:</strong> <span class="font-bold text-red-600">${doc.fee}</span></p>
+                                
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    ${homeServiceBadge}
+                                    ${deliveryBadge}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 pt-0">
+                            <div class="text-center text-xs font-bold p-2 rounded-lg mb-3 ${statusBtnColor}">
+                                <i class="fa-solid fa-moon mr-1"></i> ${statusLabel}
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <a href="tel:${doc.phone}" class="bg-red-600 hover:bg-red-700 text-white text-center text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-phone"></i> সিরিয়াল/কল করুন
+                                </a>
+                                <button onclick="toggleDoctorStatus('${doc.id}')" class="bg-gray-800 hover:bg-gray-900 text-white text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-key text-[10px]"></i> স্থিতি পরিবর্তন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // ৪ ডিজিটের পিন দিয়ে লাইভ স্ট্যাটাস চেঞ্জ লজিক
+        function toggleDoctorStatus(docId) {
+            const doctors = JSON.parse(localStorage.getItem('portal_doctors')) || [];
+            const index = doctors.findIndex(item => item.id === docId);
+            
+            if (index === -1) return;
+
+            const inputPin = prompt("আপনার গভীর রাতের অন-কল স্থিতি (On / Off) পরিবর্তন করতে আপনার ৪-ডিজিটের গোপন পিন নম্বরটি দিন:");
+            if (inputPin === null) return; 
+
+            if (doctors[index].pin.toString() === inputPin.trim()) {
+                if (doctors[index].status === 'on') {
+                    doctors[index].status = 'off';
+                    alert("আপনার রাতের স্থিতি পরিবর্তন করে 'বন্ধ (Off)' করা হয়েছে।");
+                } else {
+                    doctors[index].status = 'on';
+                    alert("আপনার রাতের স্থিতি পরিবর্তন করে 'সচল (On)' করা হয়েছে। জরুরি রোগীকে সর্বোচ্চ সহযোগিতা করুন!");
+                }
+                localStorage.setItem('portal_doctors', JSON.stringify(doctors));
+                renderDoctors();
+            } else {
+                alert("দুঃখিত! আপনার গোপন পিন নম্বরটি সঠিক নয়।");
+            }
+        }
+
+        // নতুন ডাক্তারের ডাটা ফর্ম হ্যান্ডলার
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const newDoctor = {
+                id: "doc_" + Date.now(),
+                name: document.getElementById('doc-name').value.trim(),
+                degree: document.getElementById('doc-degree').value.trim(),
+                specialty: document.getElementById('doc-specialty').value,
+                bmdc: document.getElementById('doc-bmdc').value.trim() || "নেই",
+                hospital: document.getElementById('doc-hospital').value.trim(),
+                phone: document.getElementById('doc-phone').value.trim(),
+                chamber: document.getElementById('doc-chamber').value.trim(),
+                fee: document.getElementById('doc-fee').value.trim(),
+                homeservice: document.getElementById('doc-homeservice').value,
+                delivery: document.getElementById('doc-delivery').value,
+                pin: document.getElementById('doc-pin').value.trim(),
+                status: document.getElementById('doc-status').value
+            };
+
+            let doctors = JSON.parse(localStorage.getItem('portal_doctors')) || [];
+            doctors.push(newDoctor);
+            localStorage.setItem('portal_doctors', JSON.stringify(doctors));
+
+            alert('চিকিৎসক তালিকায় আপনার তথ্য সফলভাবে নিবন্ধিত ও লাইভ করা হয়েছে!');
+            document.getElementById('doctor-submit-form').reset();
+            
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+            renderDoctors();
+        }
+    </script>
+</body>
+</html>

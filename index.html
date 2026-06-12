@@ -93,7 +93,7 @@
                     </div>
                     <div>
                         <h3 class="font-black text-base md:text-lg tracking-wide">ব্যবহার বিধি ও উপকারিতা</h3>
-                        <p class="text-[11px] text-slate-300">কাউন্দিয়া ডিজিটাল বাজার পোর্টাল গাইডলাইন</p>
+                        <p class="text-[11px] text-slate-300">কাউন্দিয়া ডিজিটাল পোর্টাল গাইডলাইন</p>
                     </div>
                 </div>
                 <button onclick="closeGuidelineModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition cursor-pointer">
@@ -103,7 +103,7 @@
 
             <div class="p-5 overflow-y-auto space-y-4 bg-slate-50/50">
                 <p class="text-xs md:text-sm text-slate-600 font-medium leading-relaxed bg-amber-50 border border-amber-200/70 p-3.5 rounded-xl text-center">
-                    ✨ <strong>স্বাগতম কাউন্দিয়া ডিজিটাল বাজারে!</strong> আমাদের এলাকার মানুষের দৈনন্দিন জীবনকে সহজ করতে এবং প্রযুক্তিগতভাবে সবাইকে এক সুতোয় বাঁধতে এই পোর্টালটি তৈরি করা হয়েছে। নিচে সংক্ষেপে আমাদের সেবাগুলোর মূল উপকারিতা দেওয়া হলো:
+                    ✨ <strong>স্বাগতম কাউন্দিয়া ডিজিটাল পোর্টালে!</strong> আমাদের এলাকার মানুষের দৈনন্দিন জীবনকে সহজ করতে এবং প্রযুক্তিগতভাবে সবাইকে এক সুতোয় বাঁধতে এই পোর্টালটি তৈরি করা হয়েছে। নিচে সংক্ষেপে আমাদের সেবাগুলোর মূল উপকারিতা উল্লেখ করা হলো :
                 </p>
 
                 <div class="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-xs">
@@ -176,7 +176,13 @@
             </div>
         </div>
     </div>
-
+    <!-- মতামত দেওয়ার নতুন পপআপ ওপেনিং বাটন -->
+<div class="flex justify-center my-4">
+    <button onclick="openFeedbackModal()" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm px-5 py-3 rounded-xl transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap cursor-pointer">
+        <i class="fa-solid fa-pen-to-square"></i> সাইট মূল্যায়ন ও মতামত দিন
+    </button>
+</div>
+</div>
     <script>
         function openGuidelineModal() {
             const modal = document.getElementById('guidelineModal');
@@ -295,7 +301,7 @@
                         <h4 class="font-bold text-gray-800 mb-2">নৌকা বুকিং</h4>
                         <p class="text-xs text-gray-500">সহজে নৌকা বুকিং করুন এবং সময় বাঁচান</p>
                     </div>
-                    <a href="#" class="text-xs text-purple-600 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
+                    <a href="boat.html" class="text-xs text-purple-600 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
                 </div>
 
                 <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 text-center flex flex-col justify-between hover:shadow-lg transition">
@@ -304,7 +310,7 @@
                         <h4 class="font-bold text-gray-800 mb-2">অটো সার্ভিস</h4>
                         <p class="text-xs text-gray-500">রাতে বা যেকোনো সময় অটো ডেকে নিন সহজেই</p>
                     </div>
-                    <a href="#" class="text-xs text-amber-500 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
+                    <a href="auto.html" class="text-xs text-amber-500 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
                 </div>
 
                 <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 text-center flex flex-col justify-between hover:shadow-lg transition">
@@ -313,9 +319,24 @@
                         <h4 class="font-bold text-gray-800 mb-2">Doctor's Service</h4>
                         <p class="text-xs text-gray-500">ডাক্তারের অ্যাপয়েন্টমেন্ট নিন এবং স্বাস্থ্য সেবা পান</p>
                     </div>
-                    <a href="#" class="text-xs text-red-500 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
+                    <a href="doctor.html" class="text-xs text-red-500 font-bold mt-4 inline-block hover:underline">বিস্তারিত →</a>
                 </div>
-
+<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 flex flex-col justify-between hover:shadow-lg transition transform hover:-translate-y-1">
+    <div class="space-y-3">
+        <div class="w-12 h-12 bg-violet-100 text-violet-600 rounded-full flex items-center justify-center text-xl shadow-inner">
+            <i class="fa-solid fa-bullhorn"></i>
+        </div>
+        <h3 class="font-bold text-gray-900 text-lg">কাউন্দিয়া ডিজিটাল বিজ্ঞাপন ওয়াল</h3>
+        <p class="text-xs text-gray-500 leading-relaxed">
+            এলাকার যেকোনো শিক্ষক নিয়োগ, পুরাতন জিনিস কেনাবেচা, বাসা বা দোকান ভাড়ার বিজ্ঞপ্তি দিন সম্পূর্ণ ফ্রিতে এবং মুহূর্তেই পৌঁছে যান সবার কাছে।
+        </p>
+    </div>
+    <div class="mt-5 pt-4 border-t border-gray-50">
+        <a href="advertisements.html" class="w-full inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm">
+            বিজ্ঞাপন ওয়াল দেখুন <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
                 <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 text-center flex flex-col justify-between hover:shadow-lg transition">
                     <div>
                         <div class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto text-xl mb-4"><i class="fas fa-shopping-basket"></i></div>
@@ -366,70 +387,6 @@
         </div>
     </section>
 
-    <section class="my-10 px-4 md:px-12">
-        <div class="container mx-auto bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="space-y-2 text-center md:text-left">
-                <span class="bg-purple-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Exclusive Clothes Shop Feature</span>
-                <h3 class="text-2xl md:text-3xl font-black">মনমতো পোশাক খুঁজে পাচ্ছেন না? 🛍️</h3>
-                <p class="text-purple-200 text-xs md:text-sm max-w-xl">
-                    স্টক আউট হোক বা আপনার ইন্টারনেটে দেখা যেকোনো পছন্দের ইউনিক ডিজাইন—আমাদের জানান! আমরা সরাসরি আপনার পছন্দের পোশাকটি এনে দেওয়ার শতভাগ ব্যবস্থা করব।
-                </p>
-            </div>
-            <div>
-                <a href="https://wa.me/8801700000000?text=আসসালামু%20আলাইকুম,%20কাউন্দিয়া%20ডিজিটাল%20পোর্টাল%20এর%20Exclusive%20Clothes%20Shop%20থেকে%20যোগাযোগ%20করছি।%20আমার%20একটি%20পছন্দের%20পোশাকের%20রিকোয়েস্ট%20আছে।" 
-                   target="_blank" 
-                   class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-4 rounded-2xl shadow-lg transition flex items-center gap-2 text-sm md:text-base cursor-pointer">
-                    <i class="fab fa-whatsapp text-xl"></i>
-                    <span>পোশাকের বিবরণ/ছবি পাঠান</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="school-login-section" class="py-16 px-4 md:px-12 bg-slate-100 scroll-mt-20">
-        <div class="container mx-auto max-w-4xl">
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-                <div class="bg-gradient-to-br from-blue-900 to-indigo-950 p-8 text-white flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl mb-4 text-emerald-400">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">স্টুডেন্ট ডাটা ও রেজাল্ট প্যানেল</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            কাউন্দিয়া ইউনিয়নের অন্তর্ভুক্ত সকল স্কুল ও মাদরাসার শিক্ষক ও এডমিনদের জন্য নির্ধারিত ডাটা এন্ট্রি পোর্টাল। এখান থেকে শিক্ষার্থীদের বার্ষিক রেজাল্ট এবং প্রোফাইল আপডেট করা যাবে।
-                        </p>
-                    </div>
-                    <div class="mt-6 text-xs text-emerald-400 font-semibold">
-                        <i class="fa-solid fa-circle-exclamation mr-1"></i> লগইন আইডি বা কোডের জন্য ইউনিয়ন ডিজিটাল সেন্টারে যোগাযোগ করুন।
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h4 class="text-gray-800 font-bold text-lg mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-lock text-emerald-600"></i> institution Login
-                    </h4>
-                    <form onsubmit="event.preventDefault(); alert('সাকসেস! আপনার শিক্ষা প্রতিষ্ঠানের স্টুডেন্ট ডাটাবেজ ড্যাশবোর্ড ওপেন হচ্ছে...');" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-600 mb-1">শিক্ষা প্রতিষ্ঠানের EIIN / কোড</label>
-                            <input type="text" placeholder="যেমন: ১৩০XXX" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-600">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-600 mb-1">পাসওয়ার্ড</label>
-                            <input type="password" placeholder="••••••••" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-600">
-                        </div>
-                        <div class="flex items-center justify-between text-xs pt-1">
-                            <label class="flex items-center gap-1 text-gray-500 cursor-pointer">
-                                <input type="checkbox" class="accent-emerald-600"> মনে রাখুন
-                            </label>
-                            <a href="#" class="text-blue-600 hover:underline">পাসওয়ার্ড ভুলে গেছেন?</a>
-                        </div>
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm mt-2 shadow-md cursor-pointer">
-                            ডাটা প্যানেলে প্রবেশ করুন
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="directory-section" class="bg-emerald-50 py-8 px-4 md:px-12 border-t border-b border-emerald-100">
         <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 text-center">
@@ -463,7 +420,126 @@
             </div>
         </div>
     </section>
+<!-- ================= মতামত ও পরামর্শ পপআপ মডাল শুরু ================= -->
+<div id="feedback-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+    <div id="feedback-box" class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-gray-100 overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+        
+        <!-- মডাল হেডার এবং বন্ধ করার বাটন -->
+        <div class="bg-gradient-to-r from-teal-800 to-indigo-900 text-white p-5 flex justify-between items-center shrink-0">
+            <div class="flex items-center gap-2 text-left">
+                <i class="fa-solid fa-comments text-xl text-teal-300"></i>
+                <div>
+                    <h3 class="text-lg font-bold text-white leading-tight">আপনার মূল্যবান মতামত ও পরামর্শ</h3>
+                    <p class="text-[11px] text-teal-100/80 mt-0.5">সাইটটি কাউন্দিয়ার জন্য কতটা গুরুত্বপূর্ণ তা আমাদের জানান।</p>
+                </div>
+            </div>
+            <!-- পপআপ বন্ধ করার ক্রস (X) বাটন -->
+            <button onclick="closeFeedbackModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
 
+        <!-- মূল ফর্ম (স্ক্রলযোগ্য কন্টেইনার) -->
+        <form id="feedback-form" onsubmit="submitUserFeedback(event)" class="p-6 space-y-4 overflow-y-auto text-left">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-user text-gray-400 text-[10px]"></i> আপনার নাম
+                    </label>
+                    <input type="text" id="fb-name" required placeholder="যেমন: আবির হাসান" class="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 bg-gray-50/50 text-sm text-gray-800">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-map-location-dot text-gray-400 text-[10px]"></i> আপনার এলাকা/গ্রাম
+                    </label>
+                    <input type="text" id="fb-area" required placeholder="যেমন: উত্তর কাউন্দিয়া" class="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 bg-gray-50/50 text-sm text-gray-800">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1">
+                    <i class="fa-solid fa-star text-gray-400 text-[10px]"></i> সাইটটি এলাকার জন্য কতটা গুরুত্বপূর্ণ বলে মনে করেন?
+                </label>
+                <select id="fb-importance" required class="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 bg-gray-50/50 text-sm cursor-pointer text-gray-800">
+                    <option value="" disabled selected>একটি অপশন বেছে নিন</option>
+                    <option value="অত্যন্ত গুরুত্বপূর্ণ (খুবই প্রয়োজন ছিল)">অত্যন্ত গুরুত্বপূর্ণ (খুবই প্রয়োজন ছিল)</option>
+                    <option value="মোটামুটি গুরুত্বপূর্ণ (উপকারে আসবে)">মোটামুটি গুরুত্বপূর্ণ (উপকারে আসবে)</option>
+                    <option value="সাধারণ (আরো উন্নত করা দরকার)">সাধারণ (আরো উন্নত করা দরকার)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1">
+                    <i class="fa-solid fa-pen-to-square text-gray-400 text-[10px]"></i> সংক্ষেপে আপনার মতামত বা উন্নয়নের পরামর্শ
+                </label>
+                <textarea id="fb-comment" required rows="3" placeholder="আপনার চমৎকার পরামর্শ বা মতামতটি এখানে লিখুন..." class="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 bg-gray-50/50 text-sm text-gray-800"></textarea>
+            </div>
+
+            <div class="pt-2 flex gap-3">
+                <button type="button" onclick="closeFeedbackModal()" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 px-4 rounded-xl transition text-sm cursor-pointer">
+                    বাতিল করুন
+                </button>
+                <button type="submit" class="w-2/3 bg-teal-700 hover:bg-teal-800 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-md flex items-center justify-center gap-2 text-sm cursor-pointer">
+                    <i class="fa-solid fa-paper-plane text-xs"></i> মতামত জমা দিন
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- কন্ট্রোল জাভাস্ক্রিপ্ট লজিক -->
+<script>
+function openFeedbackModal() {
+    const modal = document.getElementById('feedback-modal');
+    const box = document.getElementById('feedback-box');
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        box.classList.remove('scale-95');
+    }, 10);
+    document.body.style.overflow = 'hidden'; // মডাল খুললে ব্যাকগ্রাউন্ড স্ক্রল বন্ধ থাকবে
+}
+
+function closeFeedbackModal() {
+    const modal = document.getElementById('feedback-modal');
+    const box = document.getElementById('feedback-box');
+    modal.classList.add('opacity-0');
+    box.classList.add('scale-95');
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+    document.body.style.overflow = ''; // ব্যাকগ্রাউন্ড স্ক্রল আবার চালু হবে
+}
+
+function submitUserFeedback(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('fb-name').value.trim();
+    const area = document.getElementById('fb-area').value.trim();
+    const importance = document.getElementById('fb-importance').value;
+    const comment = document.getElementById('fb-comment').value.trim();
+
+    const newFeedback = {
+        id: Date.now(),
+        name: name,
+        area: area,
+        importance: importance,
+        comment: comment,
+        date: new Date().toLocaleDateString('bn-BD')
+    };
+
+    let userFeedbacks = JSON.parse(localStorage.getItem('userFeedbacks')) || [];
+    userFeedbacks.push(newFeedback);
+    localStorage.setItem('userFeedbacks', JSON.stringify(userFeedbacks));
+
+    alert('✅ আপনার মূল্যবান মতামত ও পরামর্শটি সফলভাবে জমা হয়েছে। কাউন্দিয়া পোর্টালের সাথে থাকার জন্য আপনাকে ধন্যবাদ!');
+    
+    document.getElementById('feedback-form').reset();
+    closeFeedbackModal(); // সফলভাবে সাবমিট হলে পপআপ বন্ধ হয়ে যাবে
+}
+</script>
+<!-- ================= মতামত ও পরামর্শ পপআপ মডাল শেষ ================= -->
     <footer id="contact-section" class="bg-blue-950 text-gray-300 pt-12 pb-6 px-4 md:px-12 text-sm">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div class="space-y-4">

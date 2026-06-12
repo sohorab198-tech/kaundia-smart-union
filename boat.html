@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নৌকা পারাপার সেবা - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-ship"></i> কাউন্দিয়া পোর্টাল
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> হোমপেজ
+                    </a>
+                    <a href="#boat-form" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md text-sm font-semibold transition">
+                        <i class="fa-solid fa-anchor mr-1"></i> মাঝি নিবন্ধন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হেডার সেকশন -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white text-center py-12 px-4 shadow-inner">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🛶 গভীর রাতের জরুরি নৌকা পারাপার ডিরেক্টরি</h1>
+        <p class="text-lg text-blue-100 max-w-2xl mx-auto">রাত ১টা থেকে ভোর ৫টা পর্যন্ত জরুরি প্রয়োজনে নদী পারাপারের জন্য স্ট্যান্ডে থাকা সচল নৌকা চালকদের সাথে সরাসরি যোগাযোগ করুন।</p>
+    </header>
+
+    <!-- ফিল্টার সেকশন -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="w-full sm:w-1/2">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">ঘাট বা অবস্থান নির্বাচন করুন:</label>
+                    <select id="filter-ghat" onchange="renderBoats()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব ঘাট (কাউন্দিয়া ও দিয়াবাড়ি)</option>
+                        <option value="1">১. কাউন্দিয়া নৌকা ঘাট</option>
+                        <option value="2">২. দিয়াবাড়ি নৌকা ঘাট</option>
+                        <option value="3">৩. ঈদগাহ মাঠ ঘাট</option>
+                        <option value="4">৪. পালপাড়া ঘাট</option>
+                        <option value="5">৫. পাঁচকানী ঘাট</option>
+                    </select>
+                </div>
+                <div class="w-full sm:w-1/2 text-right sm:mt-6">
+                    <p class="text-sm text-gray-500 font-semibold">
+                        <i class="fa-solid fa-circle-nodes text-blue-600 mr-1"></i> তালিকায় মোট <span id="boat-count" class="text-blue-600 font-bold text-base">০</span> জন মাঝি ভাই আছেন
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- মাঝিদের তালিকা গ্রিড -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="boats-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- জাভাস্ক্রিপ্ট এর মাধ্যমে কার্ড লোড হবে -->
+        </div>
+    </main>
+
+    <!-- নৌকা ও মাঝি নিবন্ধন ফর্ম -->
+    <section id="boat-form" class="bg-gray-100 py-16 px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-4 flex items-center gap-3">
+                <i class="fa-solid fa-clipboard-list text-2xl"></i>
+                <div>
+                    <h2 class="text-xl font-bold">জরুরি সেবায় ইচ্ছুক নৌকা চালকরা নাম নিবন্ধন করুন</h2>
+                    <p class="text-xs text-blue-100">সঠিক তথ্য দিয়ে ফরমটি পূরণ করুন যেন গভীর রাতে রোগীবাহী বা বিপদে পড়া মানুষ আপনার খোঁজ পায়</p>
+                </div>
+            </div>
+            
+            <form id="boat-submit-form" class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleFormSubmit(event)">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">মাঝি/চালকের নাম *</label>
+                    <input type="text" id="boat-driver-name" placeholder="যেমন: মো: কাসেম আলী" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বয়স *</label>
+                    <input type="number" id="boat-driver-age" min="18" max="70" placeholder="যেমন: ৪০" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার মূল ঘাট (যেখানে নৌকা থাকে) *</label>
+                    <select id="boat-ghat" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="">বাছাই করুন...</option>
+                        <option value="1">১. কাউন্দিয়া নৌকা ঘাট</option>
+                        <option value="2">২. দিয়াবাড়ি নৌকা ঘাট</option>
+                        <option value="3">৩. ঈদগাহ মাঠ ঘাট</option>
+                        <option value="4">৪. পালপাড়া ঘাট</option>
+                        <option value="5">৫. পাঁচকানী ঘাট</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">মোবাইল নাম্বার *</label>
+                    <input type="tel" id="boat-phone" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-red-600 mb-1"><i class="fa-solid fa-key mr-1"></i> ৪ ডিজিটের গোপন পিন সেট করুন *</label>
+                    <input type="password" id="boat-pin" maxlength="4" pattern="\d{4}" placeholder="যেমন: ৪৩২১" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">গভীর রাতের ডিউটি স্থিতি (Status) *</label>
+                    <select id="boat-status" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold">
+                        <option value="on" selected>On (রাত ১-ভোর ৫ টা পর্যন্ত রেডি আছেন)</option>
+                        <option value="off">Off (বর্তমানে বন্ধ/বিশ্রামে আছেন)</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-anchor"></i> তালিকায় নাম যুক্ত করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- জাভাস্ক্রিপ্ট লজিক অংশ -->
+    <script>
+        // প্রাথমিক ডেমো ডাটা (নতুন ঘাটসহ মাঝিদের ডেমো লিস্ট)
+        const defaultBoats = [
+            {
+                id: "boat_1",
+                name: "মো: কাসেম আলী",
+                age: "৪৫",
+                ghat: "1",
+                ghatName: "কাউন্দিয়া নৌকা ঘাট",
+                phone: "01722222222",
+                status: "on",
+                pin: "1122"
+            },
+            {
+                id: "boat_2",
+                name: "আব্দুল জলিল",
+                age: "৩৮",
+                ghat: "2",
+                ghatName: "দিয়াবাড়ি নৌকা ঘাট",
+                phone: "01833333333",
+                status: "on",
+                pin: "1122"
+            },
+            {
+                id: "boat_3",
+                name: "মো: ইসমাইল হোসেন",
+                age: "২৯",
+                ghat: "3",
+                ghatName: "ঈদগাহ মাঠ ঘাট",
+                phone: "01944444444",
+                status: "off",
+                pin: "1122"
+            },
+            {
+                id: "boat_4",
+                name: "সুমন সরকার",
+                age: "৩২",
+                ghat: "4",
+                ghatName: "পালপাড়া ঘাট",
+                phone: "01555555555",
+                status: "on",
+                pin: "1122"
+            }
+        ];
+
+        // পেজ লোড হলে লোকাল স্টোরেজ চেক ও রেন্ডার
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem('portal_boats')) {
+                localStorage.setItem('portal_boats', JSON.stringify(defaultBoats));
+            }
+            renderBoats();
+        });
+
+        // বোট সার্ভিস কার্ড রেন্ডারিং ফাংশন
+        function renderBoats() {
+            const grid = document.getElementById('boats-grid');
+            const countSpan = document.getElementById('boat-count');
+            const selectedGhat = document.getElementById('filter-ghat').value;
+
+            const boats = JSON.parse(localStorage.getItem('portal_boats')) || [];
+            let filtered = boats;
+
+            if (selectedGhat !== 'all') {
+                filtered = filtered.filter(b => b.ghat === selectedGhat);
+            }
+
+            countSpan.innerText = filtered.length;
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-200">
+                        <i class="fa-solid fa-water text-4xl mb-2 text-gray-300 block"></i>
+                        এই ঘাটে বর্তমানে কোনো জরুরি সেয়ার নৌকা পাওয়া যায়নি।
+                    </div>`;
+                return;
+            }
+
+            filtered.forEach(boat => {
+                const isOn = boat.status === 'on';
+                
+                const vehicleBg = `
+                    <div class="bg-sky-600 h-32 flex flex-col items-center justify-center text-white relative">
+                        <i class="fa-solid fa-ferry text-5xl mb-1"></i>
+                        <span class="text-xs font-bold bg-sky-800 px-2.5 py-0.5 rounded-full">⛵ ছোট খেয়া নৌকা (৫/৬ জন)</span>
+                    </div>`;
+
+                const statusLabel = isOn ? "রাত ১ - ভোর ৫: ঘাটে রেডি আছেন (On)" : "রাত ১ - ভোর ৫: অফলাইন/বন্ধ (Off)";
+                const statusBtnColor = isOn 
+                    ? "bg-green-100 text-green-800 border border-green-300" 
+                    : "bg-gray-100 text-gray-500 border border-gray-300";
+
+                const cardHtml = `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                        <div>
+                            ${vehicleBg}
+                            <div class="p-5">
+                                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full mb-2">
+                                    <i class="fa-solid fa-anchor mr-1"></i> ${boat.ghatName}
+                                </span>
+                                
+                                <h3 class="text-xl font-bold text-gray-900">${boat.name}</h3>
+                                <p class="text-sm text-gray-500 mt-1"><strong>বয়স:</strong> ${boat.age} বছর</p>
+                                <p class="text-xs text-gray-400 mt-2"><i class="fa-solid fa-circle-info"></i> জরুরি প্রয়োজনে একা বা গ্রুপে পারাপার হওয়া যাবে।</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 pt-0">
+                            <!-- অন/অফ স্থিতি বাটন -->
+                            <div class="text-center text-xs font-bold p-2 rounded-lg mb-3 ${statusBtnColor}">
+                                ${statusLabel}
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <a href="tel:${boat.phone}" class="bg-blue-600 hover:bg-blue-700 text-white text-center text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-phone"></i> কল করুন
+                                </a>
+                                <button onclick="toggleBoatStatus('${boat.id}')" class="bg-gray-800 hover:bg-gray-900 text-white text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-power-off text-[10px]"></i> স্থিতি পরিবর্তন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // পিন নম্বর ভেরিফাই করে মাঝিদের অন/অফ স্থিতি পরিবর্তন লজিক
+        function toggleBoatStatus(boatId) {
+            const boats = JSON.parse(localStorage.getItem('portal_boats')) || [];
+            const index = boats.findIndex(item => item.id === boatId);
+            
+            if (index === -1) return;
+
+            const inputPin = prompt("আপনার রাতের ডিউটি স্থিতি (On / Off) পরিবর্তন করতে আপনার ৪-ডিজিটের গোপন পিন নম্বরটি দিন:");
+            if (inputPin === null) return; 
+
+            if (boats[index].pin.toString() === inputPin.trim()) {
+                if (boats[index].status === 'on') {
+                    boats[index].status = 'off';
+                    alert("আপনার স্থিতি পরিবর্তন করে 'বন্ধ (Off)' করা হয়েছে।");
+                } else {
+                    boats[index].status = 'on';
+                    alert("আপনার স্থিতি পরিবর্তন করে 'সচল (On)' করা হয়েছে। গভীর রাতে সাবধানে থাকবেন!");
+                }
+                localStorage.setItem('portal_boats', JSON.stringify(boats));
+                renderBoats();
+            } else {
+                alert("দুঃখিত! আপনার দেওয়া গোপন পিন নম্বরটি সঠিক নয়।");
+            }
+        }
+
+        // ফর্ম সাবমিট হ্যান্ডলার (নতুন মাঝির তথ্য সেভ করা)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const ghatSelect = document.getElementById('boat-ghat');
+            const ghatName = ghatSelect.options[ghatSelect.selectedIndex].text.replace(/^\d+\.\s*/, '');
+
+            const newBoat = {
+                id: "boat_" + Date.now(),
+                name: document.getElementById('boat-driver-name').value.trim(),
+                age: document.getElementById('boat-driver-age').value.trim(),
+                ghat: ghatSelect.value,
+                ghatName: ghatName,
+                phone: document.getElementById('boat-phone').value.trim(),
+                pin: document.getElementById('boat-pin').value.trim(),
+                status: document.getElementById('boat-status').value
+            };
+
+            let boats = JSON.parse(localStorage.getItem('portal_boats')) || [];
+            boats.push(newBoat);
+            localStorage.setItem('portal_boats', JSON.stringify(boats));
+
+            alert('তালিকায় মাঝি ভাইয়ের নাম ও মোবাইল নম্বর সফলভাবে যুক্ত করা হয়েছে!');
+            document.getElementById('boat-submit-form').reset();
+            
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+            renderBoats();
+        }
+    </script>
+</body>
+</html>
