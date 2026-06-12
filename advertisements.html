@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডিজিটাল বিজ্ঞাপন ওয়াল - কাউন্দিয়া</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <section class="bg-gradient-to-r from-violet-600 to-indigo-700 text-white text-center py-12 px-4 shadow-md">
+        <div class="max-w-7xl mx-auto text-left mb-4">
+            <a href="index.html" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold py-2 px-4 rounded-xl backdrop-blur-xs transition">
+                <i class="fa-solid fa-house"></i> প্রধান পেজে ফিরুন
+            </a>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-3">📢 কাউন্দিয়া ডিজিটাল বিজ্ঞাপন ওয়াল</h1>
+        <p class="text-base md:text-lg text-violet-100 max-w-2xl mx-auto mb-6">শিক্ষক নিয়োগ, পুরাতন জিনিস কেনাবেচা, বাসা-দোকান ভাড়া কিংবা যেকোনো বিজ্ঞাপন দিন সম্পূর্ণ ফ্রিতে!</p>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+        
+        <div class="bg-violet-50 border border-violet-100 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
+            <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+                <span class="bg-violet-600 text-white p-4 rounded-full text-2xl shadow-md"><i class="fa-solid fa-bullhorn animate-bounce"></i></span>
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">আপনারও কি কোনো বিজ্ঞাপন দেওয়ার আছে?</h3>
+                    <p class="text-sm text-gray-600 mt-1">নিচের বোতামে ক্লিক করে ফরমটি পূরণ করুন। অ্যাডমিন অনুমোদন করলেই আপনার বিজ্ঞাপনটি ওয়ালে ঝুলে যাবে!</p>
+                </div>
+            </div>
+            <button onclick="toggleModal(true)" class="w-full md:w-auto bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-xl text-base flex items-center justify-center gap-2 shadow-md transition transform active:scale-95 cursor-pointer">
+                <i class="fa-solid fa-pen-to-square"></i> ফ্রি বিজ্ঞাপন পোস্ট করুন
+            </button>
+        </div>
+
+        <section>
+            <div class="border-l-4 border-violet-600 pl-3 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">📌 সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+                <p class="text-sm text-gray-500 mt-0.5">এলাকার মানুষের দেওয়া সর্বশেষ সচল বিজ্ঞাপনসমূহ</p>
+            </div>
+
+            <div id="notice-wall" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
+        </section>
+    </main>
+
+    <div id="noticeModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50 backdrop-blur-xs">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden transform transition-all">
+            <div class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white p-5 text-center relative">
+                <button onclick="toggleModal(false)" class="absolute right-4 top-5 text-white/80 hover:text-white text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="text-xl font-bold flex items-center justify-center gap-2"><i class="fa-solid fa-bullhorn"></i> নতুন বিজ্ঞাপন ফরম</h3>
+            </div>
+            
+            <form id="noticeForm" class="p-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">বিজ্ঞাপনের ক্যাটাগরি *</label>
+                        <select id="noticeType" required onchange="checkCategory(this.value)" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none bg-white">
+                            <option value="" disabled selected>সিলেক্ট করুন</option>
+                            <option value="🎯 teacher">🎯 শিক্ষক নিয়োগ / টিউটর চাই</option>
+                            <option value="🔄 পুরাতন জিনিস কেনাবেচা">🔄 পুরাতন জিনিস কেনাবেচা</option>
+                            <option value="🏠 বাসা/দোকান ভাড়া">🏠 বাসা / দোকান ভাড়া হবে</option>
+                            <option value="📢 হারানো বিজ্ঞপ্তি">📢 হারানো বিজ্ঞপ্তি</option>
+                            <option value="💰 জমি/বাড়ি বিক্রি">💰 জমি / বাড়ি বিক্রি হবে</option>
+                            <option value="✨ অন্যান্য বিজ্ঞাপন">✨ অন্যান্য দরকারি বিজ্ঞাপন</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">বিজ্ঞাপনের মেয়াদ *</label>
+                        <select id="noticeDuration" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none bg-white">
+                            <option value="7">৭ দিন দেখাবে</option>
+                            <option value="15">১৫ দিন দেখাবে</option>
+                            <option value="30" selected>৩০ দিন দেখাবে</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="priceField" class="hidden">
+                    <label class="block text-sm font-bold text-gray-700 mb-1">জিনিসের মূল্য (টাকা) *</label>
+                    <input type="number" id="itemPrice" placeholder="কত টাকায় বিক্রি করবেন লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">আপনার নাম *</label>
+                        <input type="text" id="notifierName" required placeholder="নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">যোগাযোগ নম্বর *</label>
+                        <input type="tel" id="notifierPhone" required placeholder="01XXXXXXXXX" pattern="[0-9]{11}" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">আপনার এলাকা/ঠিকানা *</label>
+                    <input type="text" id="notifierAddress" required placeholder="উদা: কাউন্দিয়া ১ নং ওয়ার্ড, মধ্যপাড়া" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">বিজ্ঞাপনের মূল লেখা *</label>
+                    <textarea id="noticeText" required rows="3" maxlength="300" placeholder="বিজ্ঞাপনের বিস্তারিত বিবরণ এখানে লিখুন..." class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-paper-plane"></i> বিজ্ঞাপনটি জমা দিন</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(show) {
+            const modal = document.getElementById('noticeModal');
+            if(show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function checkCategory(val) {
+            const priceField = document.getElementById('priceField');
+            const itemPrice = document.getElementById('itemPrice');
+            if(val === "🔄 পুরাতন জিনিস কেনাবেচা") {
+                priceField.classList.remove('hidden');
+                itemPrice.required = true;
+            } else {
+                priceField.classList.add('hidden');
+                itemPrice.required = false;
+                itemPrice.value = '';
+            }
+        }
+
+        const cardColors = [
+            { bg: 'bg-amber-50', border: 'border-amber-200', tag: 'bg-amber-200 text-amber-900', btn: 'bg-amber-600 hover:bg-amber-700' },
+            { bg: 'bg-emerald-50', border: 'border-emerald-200', tag: 'bg-emerald-200 text-emerald-900', btn: 'bg-emerald-600 hover:bg-emerald-700' },
+            { bg: 'bg-sky-50', border: 'border-sky-200', tag: 'bg-sky-200 text-sky-900', btn: 'bg-sky-600 hover:bg-sky-700' },
+            { bg: 'bg-rose-50', border: 'border-rose-200', tag: 'bg-rose-200 text-rose-900', btn: 'bg-rose-600 hover:bg-rose-700' },
+            { bg: 'bg-purple-50', border: 'border-purple-200', tag: 'bg-purple-200 text-purple-900', btn: 'bg-purple-600 hover:bg-purple-700' }
+        ];
+
+        document.getElementById("noticeForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            let durationDays = parseInt(document.getElementById("noticeDuration").value);
+            let expireDate = Date.now() + (durationDays * 24 * 60 * 60 * 1000);
+
+            let newAd = {
+                id: Date.now(),
+                type: document.getElementById("noticeType").value,
+                name: document.getElementById("notifierName").value,
+                phone: document.getElementById("notifierPhone").value,
+                address: document.getElementById("notifierAddress").value,
+                text: document.getElementById("noticeText").value,
+                price: document.getElementById("itemPrice").value || null,
+                date: new Date().toLocaleDateString('bn-BD'),
+                expireAt: expireDate
+            };
+
+            let pendingAds = JSON.parse(localStorage.getItem("pendingAds")) || [];
+            pendingAds.push(newAd);
+            localStorage.setItem("pendingAds", JSON.stringify(pendingAds));
+
+            alert("আপনার বিজ্ঞাপনটি জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করলেই এটি ওয়ালে দেখা যাবে।");
+            document.getElementById("noticeForm").reset();
+            checkCategory('');
+            toggleModal(false);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let approvedAds = JSON.parse(localStorage.getItem("approvedAds")) || [];
+            let wall = document.getElementById("notice-wall");
+            let now = Date.now();
+
+            let validAds = approvedAds.filter(ad => !ad.expireAt || ad.expireAt > now);
+            if(approvedAds.length !== validAds.length) {
+                localStorage.setItem("approvedAds", JSON.stringify(validAds));
+            }
+
+            if(validAds.length === 0) {
+                wall.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">বর্তমানে কোনো লাইভ বিজ্ঞাপন নেই। প্রথম বিজ্ঞাপনটি আপনার দিন!</p>`;
+                return;
+            }
+
+            validAds.forEach((ad, index) => {
+                let color = cardColors[index % cardColors.length];
+                
+                // ওয়ান-ক্লিক মূল্যের অতিরিক্ত ডিজাইন প্যানেল
+                let priceAndContactInfo = '';
+                if(ad.type === "🔄 পুরাতন জিনিস কেনাবেচা" && ad.price) {
+                    priceAndContactInfo = `
+                        <div class="mt-2 pt-2 border-t border-dashed border-gray-300 space-y-0.5">
+                            <div class="text-lg font-black text-rose-600"><i class="fa-solid fa-tag"></i> মূল্য: ${ad.price} ৳</div>
+                            <div class="text-xs text-gray-600 font-semibold"><i class="fa-solid fa-phone text-gray-400"></i> কল: ${ad.phone}</div>
+                            <div class="text-xs text-gray-600 font-semibold truncate"><i class="fa-solid fa-location-dot text-gray-400"></i> ${ad.address}</div>
+                        </div>
+                    `;
+                } else {
+                    // অন্যান্য বিজ্ঞপ্তির জন্যও নিচে ছোট করে ঠিকানা দেখাবে
+                    priceAndContactInfo = `
+                        <div class="mt-2 pt-2 border-t border-dashed border-gray-300">
+                            <div class="text-xs text-gray-600 font-semibold truncate"><i class="fa-solid fa-location-dot text-gray-400"></i> স্থান: ${ad.address}</div>
+                        </div>
+                    `;
+                }
+                
+                let card = `
+                    <div class="${color.bg} ${color.border} border-2 rounded-2xl p-5 h-85 flex flex-col justify-between shadow-xs hover:shadow-md transition transform hover:-translate-y-1">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="text-xs font-bold ${color.tag} px-2.5 py-1 rounded-lg">${ad.type}</span>
+                                <span class="text-[11px] text-gray-500 font-medium"><i class="fa-regular fa-calendar"></i> ${ad.date}</span>
+                            </div>
+                            <div class="text-gray-800 font-bold text-base md:text-lg h-36 overflow-y-auto custom-scrollbar pr-1 leading-snug">
+                                "${ad.text}"
+                                ${priceAndContactInfo}
+                            </div>
+                        </div>
+                        
+                        <div class="pt-2 border-t border-gray-200/60 flex items-center justify-between gap-2">
+                            <div class="truncate">
+                                <span class="text-[11px] text-gray-400 block">বিজ্ঞাপনদাতা:</span>
+                                <span class="text-xs font-bold text-gray-700">${ad.name}</span>
+                            </div>
+                            <a href="https://wa.me/88${ad.phone}?text=আসসালামু%20আলাইকুম।%20কাউন্দিয়া%20পোর্টালের%20'${encodeURIComponent(ad.type)}'%20বিজ্ঞাপনটি%20দেখে%20যোগাযোগ%20করলাম।" target="_blank" 
+                                class="${color.btn} text-white font-bold py-1.5 px-3 rounded-xl text-xs flex items-center gap-1.5 shadow-xs transition shrink-0">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> চ্যাট করুন
+                            </a>
+                        </div>
+                    </div>
+                `;
+                wall.innerHTML += card;
+            });
+        });
+    </script>
+</body>
+</html>

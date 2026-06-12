@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডেলিভারি ম্যান রেজিস্ট্রেশন ফরম - কাউন্দিয়া</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <main class="min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 text-center relative">
+                <a href="index.html" class="absolute left-4 top-6 text-white/80 hover:text-white text-sm font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-left"></i> হোমে ফিরুন
+                </a>
+                <h2 class="text-2xl font-bold mt-2"><i class="fa-solid fa-motorcycle animate-pulse"></i> স্বাধীন ডেলিভারি ভাই ফরম</h2>
+                <p class="text-emerald-100 text-xs mt-1">কাউন্দিয়া ডিজিটাল বাজারে ডেলিভারি ম্যান হিসেবে যুক্ত হোন</p>
+            </div>
+
+            <form id="deliverymanForm" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">আপনার সম্পূর্ণ নাম *</label>
+                    <input type="text" id="dmName" required placeholder="উদা: মোঃ সোলেমান" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">মোবাইল নম্বর *</label>
+                        <input type="tel" id="dmPhone" required placeholder="01XXXXXXXXX" pattern="[0-9]{11}" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">জাতীয় পরিচয়পত্র (NID) নম্বর *</label>
+                        <input type="number" id="dmNid" required placeholder="জাতীয় পরিচয়পত্র নম্বর" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">আপনার বাহন/যানবাহন *</label>
+                        <select id="dmVehicle" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                            <option value="" disabled selected>সিলেক্ট করুন</option>
+                            <option value="🚲 বাইসাইকেল">🚲 বাইসাইকেল</option>
+                            <option value="🛺 ইজি-বাইক / অটো">🛺 ইজি-বাইক / অটো</option>
+                            <option value="🛺 রিকশা">🛺 রিকশা</option>
+                            <option value="🏍️ মোটরসাইকেল">🏍️ মোটরসাইকেল</option>
+                            <option value="🏃 হেঁটে (কাছাকাছি)">🏃 হেঁটে (কাছাকাছি)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">কাজের এলাকা/ওয়ার্ড *</label>
+                        <input type="text" id="dmArea" required placeholder="উদা: ১, ২ ও ৩ নং ওয়ার্ড বা পুরো কাউন্দিয়া" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-3 text-xs space-y-1">
+                    <p class="font-bold"><i class="fa-solid fa-circle-info"></i> গুরুত্বপূর্ণ নিয়মাবলী:</p>
+                    <p>• প্রতিটি সফল ডেলিভারির জন্য দূরত্ব ভেদে ক্রেতার কাছ থেকে ২০ থেকে ৩০ টাকা ডেলিভারি চার্জ নিতে পারবেন।</p>
+                    <p>• ক্যাশ অন ডেলিভারির ক্ষেত্রে ক্রেতার কাছ থেকে পণ্যের সঠিক মূল্য বুঝে নিয়ে বিক্রেতার নিকট পৌঁছে দিতে হবে।</p>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition flex items-center justify-center gap-2 cursor-pointer transform active:scale-95">
+                    <i class="fa-solid fa-paper-plane"></i> আবেদনটি জমা দিন
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById("deliverymanForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            let newDM = {
+                id: Date.now(),
+                name: document.getElementById("dmName").value,
+                phone: document.getElementById("dmPhone").value,
+                nid: document.getElementById("dmNid").value,
+                vehicle: document.getElementById("dmVehicle").value,
+                area: document.getElementById("dmArea").value
+            };
+
+            let pendingDMs = JSON.parse(localStorage.getItem("pendingDMs")) || [];
+            pendingDMs.push(newDM);
+            localStorage.setItem("pendingDMs", JSON.stringify(pendingDMs));
+
+            alert("আপনার আবেদনটি সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে খুব দ্রুত আপনাকে ডেলিভারি তালিকায় যুক্ত করবেন।");
+            document.getElementById("deliverymanForm").reset();
+        });
+    </script>
+</body>
+</html>

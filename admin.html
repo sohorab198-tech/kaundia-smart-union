@@ -3,172 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অ্যাডমিন প্যানেল - কাউন্দিয়া ডিজিটাল বাজার</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>অ্যাডমিন প্যানেল - প্রতিষ্ঠান অনুমোদন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="bg-gray-100 font-sans antialiased">
 
-    <nav class="bg-slate-900 text-white shadow-md px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-            <span class="text-2xl text-emerald-500"><i class="fa-solid fa-user-shield"></i></span>
-            <div>
-                <h1 class="text-xl font-black tracking-wide text-gray-100">কাউন্দিয়া পোর্টাল ড্যাশবোর্ড</h1>
-                <p class="text-xs text-slate-400">বাজার ডিরেক্টরি ও কন্ট্রোল প্যানেল</p>
-            </div>
-        </div>
-        <div class="flex gap-3">
-            <a href="market.html" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-xs md:text-sm text-gray-200 font-bold py-2 px-4 rounded-xl flex items-center gap-2 transition">
-                <i class="fa-solid fa-eye"></i> বাজার পেজ দেখুন
-            </a>
-        </div>
-    </nav>
-
-    <main class="max-w-6xl mx-auto px-4 py-10 space-y-8">
+    <div class="flex flex-col md:flex-row min-h-screen">
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-500">পেন্ডিং আবেদন</p>
-                    <h3 id="pending-count" class="text-3xl font-black text-amber-500 mt-1">০</h3>
-                </div>
-                <span class="text-3xl text-amber-500 bg-amber-50 p-3 rounded-xl"><i class="fa-solid fa-hourglass-half"></i></span>
+        <div class="w-full md:w-64 bg-teal-800 text-white flex flex-col shadow-xl">
+            <div class="p-5 text-2xl font-bold border-b border-teal-700 flex items-center gap-2">
+                <i class="fa-solid fa-user-shield"></i> অ্যাডমিন প্যানেল
             </div>
-            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-500">অনুমোদিত দোকান (লাইভ)</p>
-                    <h3 id="approved-count" class="text-3xl font-black text-emerald-600 mt-1">০</h3>
-                </div>
-                <span class="text-3xl text-emerald-500 bg-emerald-50 p-3 rounded-xl"><i class="fa-solid fa-circle-check"></i></span>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="bg-slate-800 text-white p-5 flex items-center justify-between">
-                <h2 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-clipboard-list text-emerald-400"></i> নতুন দোকানের আবেদনসমূহ
-                </h2>
-                <button onclick="clearAllData()" class="text-xs bg-red-600 hover:bg-red-700 text-white py-1.5 px-3 rounded-lg transition font-semibold cursor-pointer">
-                    <i class="fa-solid fa-trash-can mr-1"></i> সব ডেটা রিসেট করুন
-                </button>
-            </div>
-
-            <div id="request-container" class="p-6">
-                <div id="no-requests" class="text-center py-12 text-gray-400 space-y-3">
-                    <span class="text-5xl block"><i class="fa-solid fa-folder-open"></i></span>
-                    <p class="text-base font-medium">এই মুহূর্তে কোনো নতুন আবেদন জমা নেই।</p>
-                </div>
-
-                <div id="requests-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
-                    </div>
+            <nav class="flex-grow p-4 space-y-2">
+                <a href="#" class="block px-4 py-2.5 rounded bg-teal-950 text-white font-medium transition flex items-center gap-3">
+                    <i class="fa-solid fa-school"></i> প্রতিষ্ঠানের তালিকা
+                </a>
+                <a href="#" class="block px-4 py-2.5 rounded hover:bg-teal-700 text-teal-100 hover:text-white transition flex items-center gap-3">
+                    <i class="fa-solid fa-chart-line"></i> ড্যাশবোর্ড
+                </a>
+                <a href="#" class="block px-4 py-2.5 rounded hover:bg-teal-700 text-teal-100 hover:text-white transition flex items-center gap-3">
+                    <i class="fa-solid fa-gear"></i> সেটিংস
+                </a>
+            </nav>
+            <div class="p-4 border-t border-teal-700 text-sm text-teal-300 text-center">
+                ভার্সন ১.০.০
             </div>
         </div>
 
-    </main>
+        <div class="flex-grow p-6 md:p-10">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-gray-200 mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-gray-800">প্রতিষ্ঠানের ঘর (আবেদনসমূহ)</h1>
+                    <p class="text-sm text-gray-500 mt-1">নতুন নিবন্ধিত স্কুলের আবেদন রিভিউ এবং অনুমোদন করুন।</p>
+                </div>
+                <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 flex items-center gap-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-sm font-medium text-gray-700">সিস্টেম লাইভ আছে</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+                <div class="p-5 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
+                    <h2 class="font-bold text-gray-700 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-teal-600"></i> পেন্ডিং ও অনুমোদিত তালিকা
+                    </h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 border-b border-gray-200 text-gray-600 font-semibold text-sm">
+                                <th class="p-3 text-right md:text-left">প্রতিষ্ঠানের নাম ও আইডি</th>
+                                <th class="p-3">প্রধান / যোগাযোগ</th>
+                                <th class="p-3">অবস্থা (Status)</th>
+                                <th class="p-3">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-gray-100">
+                            <tr>
+                                <td colspan="4" class="p-8 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner animate-spin text-xl mb-2 block"></i> ডাটা লোড হচ্ছে...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", renderDashboard);
+        // পেজ লোড হওয়া মাত্রই যাতে ডাটা টেবিলে দেখায়
+        document.addEventListener("DOMContentLoaded", function() {
+            renderAdminInstitutions();
+        });
 
-        function renderDashboard() {
-            // লোকাল স্টোরেজ থেকে ডেটা লোড করা
-            let pendingStores = JSON.parse(localStorage.getItem("pendingStores")) || [];
-            let approvedStores = JSON.parse(localStorage.getItem("approvedStores")) || [];
+        // অ্যাডমিন প্যানেলে প্রতিষ্ঠানের তালিকা দেখানোর মূল ফাংশন
+        function renderAdminInstitutions() {
+            const adminTableBody = document.getElementById('admin-table-body'); 
+            if (!adminTableBody) return;
 
-            // কাউন্টার আপডেট
-            document.getElementById("pending-count").innerText = pendingStores.length;
-            document.getElementById("approved-count").innerText = approvedStores.length;
+            // LocalStorage থেকে ডাটা আনা হচ্ছে
+            const institutions = JSON.parse(localStorage.getItem('institutions')) || [];
+            adminTableBody.innerHTML = '';
 
-            let noRequestsDiv = document.getElementById("no-requests");
-            let requestsGrid = document.getElementById("requests-grid");
+            // যদি কোনো ডাটা না থাকে
+            if (institutions.length === 0) {
+                adminTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="p-8 text-center text-gray-500">
+                            <i class="fa-regular fa-folder-open text-3xl mb-2 text-gray-300 block"></i>
+                            কোনো প্রতিষ্ঠানের আবেদন পাওয়া যায়নি।
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            // লুপ চালিয়ে প্রতিটি ডাটা টেবিলে বসানো হচ্ছে
+            institutions.forEach((item, index) => {
+                // স্ট্যাটাস অনুযায়ী সুন্দর ব্যাজ তৈরি
+                let statusBadge = item.status === 'pending' 
+                    ? `<span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-medium shadow-sm border border-yellow-200">পেন্ডিং</span>`
+                    : `<span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-medium shadow-sm border border-green-200">অনুমোদিত</span>`;
+
+                // অ্যাকশন বাতন (পেন্ডিং থাকলে Approve বাটন দেখাবে, অনুমোদিত হলে Approved লেখা দেখাবে)
+                let actionButton = item.status === 'pending'
+                    ? `<button onclick="approveInstitution('${item.id}')" class="bg-teal-600 hover:bg-teal-700 text-white text-xs px-3 py-1.5 rounded font-medium shadow transition duration-200">Approve</button>`
+                    : `<span class="text-green-600 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Approved</span>`;
+
+                const row = `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50/70 text-sm transition">
+                        <td class="p-3 font-semibold text-gray-800">
+                            ${item.name} <br>
+                            <span class="text-xs text-gray-400 font-mono font-normal">ID: ${item.id}</span>
+                        </td>
+                        <td class="p-3 text-gray-600">
+                            <span class="font-medium">${item.leader}</span> <br>
+                            <span class="text-xs text-gray-500"><i class="fa-solid fa-phone text-[10px]"></i> ${item.phone || 'N/A'}</span>
+                        </td>
+                        <td class="p-3">${statusBadge}</td>
+                        <td class="p-3 flex gap-4 items-center h-full">
+                            ${actionButton}
+                            <button onclick="deleteInstitution(${index})" class="text-red-400 hover:text-red-600 transition duration-150" title="মুছে ফেলুন">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                adminTableBody.innerHTML += row;
+            });
+        }
+
+        // প্রতিষ্ঠান অনুমোদন (Approve) করার ফাংশন
+        function approveInstitution(id) {
+            let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
             
-            // গ্রিড খালি করা
-            requestsGrid.innerHTML = "";
+            // আইডি ম্যাচ করে স্ট্যাটাস 'approved' করা হচ্ছে
+            institutions = institutions.map(item => {
+                if (item.id === id) {
+                    item.status = 'approved'; 
+                }
+                return item;
+            });
 
-            if (pendingStores.length === 0) {
-                noRequestsDiv.classList.remove("hidden");
-                requestsGrid.classList.add("hidden");
-            } else {
-                noRequestsDiv.classList.add("hidden");
-                requestsGrid.classList.remove("hidden");
-
-                pendingStores.forEach(store => {
-                    // বাংলা ক্যাটাগরি কনভার্টার
-                    let categoryName = "";
-                    if (store.category === "grocery") categoryName = "মুদি মালামাল";
-                    else if (store.category === "vegetable") categoryName = "কাঁচা তরকারি";
-                    else if (store.category === "meat") categoryName = "মাছ ও মাংস";
-
-                    let card = `
-                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4">
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="font-bold text-xl text-slate-800">${store.shopName}</h3>
-                                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-0.5 rounded-md">${categoryName}</span>
-                                </div>
-                                <p class="text-sm text-gray-600"><strong>মালিক:</strong> ${store.ownerName}</p>
-                                <p class="text-sm text-gray-600"><strong>মোবাইল:</strong> ${store.phone}</p>
-                                <p class="text-sm text-gray-600"><strong>ঠিকানা:</strong> ${store.address}</p>
-                                <div class="bg-white p-3 rounded-xl border border-gray-100 text-xs text-gray-600">
-                                    <strong class="text-gray-700 block mb-1">📦 পণ্য তালিকা:</strong>
-                                    ${store.products}
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 pt-2">
-                                <button onclick="rejectStore(${store.id})" class="bg-white border border-red-200 text-red-600 hover:bg-red-50 font-bold py-2 px-4 rounded-xl text-xs transition cursor-pointer">
-                                    <i class="fa-solid fa-xmark mr-1"></i> বাতিল করুন
-                                </button>
-                                <button onclick="approveStore(${store.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition shadow-xs cursor-pointer">
-                                    <i class="fa-solid fa-check mr-1"></i> অনুমোদন করুন
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    requestsGrid.innerHTML += card;
-                });
-            }
+            localStorage.setItem('institutions', JSON.stringify(institutions));
+            alert('প্রতিষ্ঠানটি সফলভাবে অনুমোদন করা হয়েছে!');
+            renderAdminInstitutions(); // টেবিল ইনস্ট্যান্ট আপডেট বা রিফ্রেশ
         }
 
-        // দোকান অনুমোদন (Approve) করার ফাংশন
-        function approveStore(id) {
-            let pendingStores = JSON.parse(localStorage.getItem("pendingStores")) || [];
-            let approvedStores = JSON.parse(localStorage.getItem("approvedStores")) || [];
-
-            // আইডি অনুযায়ী কাঙ্ক্ষিত দোকানটি খুঁজে বের করা
-            let storeToApprove = pendingStores.find(store => store.id === id);
-
-            if (storeToApprove) {
-                // অনুমোদিত লিস্টে পুশ করা
-                approvedStores.push(storeToApprove);
-                // পেন্ডিং লিস্ট থেকে রিমুভ করা
-                pendingStores = pendingStores.filter(store => store.id !== id);
-
-                // লোকাল স্টোরেজ আপডেট
-                localStorage.setItem("pendingStores", JSON.stringify(pendingStores));
-                localStorage.setItem("approvedStores", JSON.stringify(approvedStores));
-
-                // ড্যাশবোর্ড রি-রেন্ডার করা
-                renderDashboard();
-                alert("🎉 দোকানটি সফলভাবে অনুমোদন করা হয়েছে এবং এটি এখন মূল পেজে লাইভ!");
-            }
-        }
-
-        // দোকান বাতিল (Reject) করার ফাংশন
-        function rejectStore(id) {
-            if (confirm("আপনি কি নিশ্চিত যে এই আবেদনটি বাতিল করতে চান?")) {
-                let pendingStores = JSON.parse(localStorage.getItem("pendingStores")) || [];
-                pendingStores = pendingStores.filter(store => store.id !== id);
-                localStorage.setItem("pendingStores", JSON.stringify(pendingStores));
-                renderDashboard();
-            }
-        }
-
-        // পুরো ড্যাশবোর্ড ডেটা ক্লিয়ার/রিসেট করার ফাংশন
-        function clearAllData() {
-            if (confirm("সাবধান! এটি আপনার প্যানেল ও মেইন পেজের সব নতুন যুক্ত করা দোকানের ডেটা মুছে ফেলবে। আপনি কি রিসেট করতে চান?")) {
-                localStorage.removeItem("pendingStores");
-                localStorage.removeItem("approvedStores");
-                renderDashboard();
-                alert("সব ডেটা সফলভাবে রিসেট করা হয়েছে।");
+        // আবেদন ডিলিট করার ফাংশন
+        function deleteInstitution(index) {
+            if (confirm('আপনি কি এই আবেদনটি তালিকা থেকে চিরতরে মুছে ফেলতে চান?')) {
+                let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
+                institutions.splice(index, 1); // নির্দিষ্ট ইনডেক্সের ডাটা বাদ দেওয়া
+                localStorage.setItem('institutions', JSON.stringify(institutions));
+                renderAdminInstitutions(); // টেবিল রিফ্রেশ
             }
         }
     </script>

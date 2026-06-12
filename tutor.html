@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>টিউটর মিডিয়া (গৃহশিক্ষক) - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <title>টিউটর মিডিয়া (গৃহশিক্ষক) - কাউন্দিয়া শিক্ষা প্রতিষ্ঠান পোর্টাল</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -20,12 +20,12 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="index.html" class="text-xl font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap"></i> কাউন্দিয়া পোর্টাল
+                        <i class="fa-solid fa-graduation-cap"></i> কাউন্দিয়া শিক্ষা প্রতিষ্ঠান পোর্টাল
                     </a>
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="index.html" class="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-md text-sm font-semibold transition">
-                        <i class="fa-solid fa-arrow-left mr-1"></i> হোমপেজ
+                        <i class="fa-solid fa-house mr-1"></i> হোমপেজ
                     </a>
                     <a href="#tutor-form" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md text-sm font-semibold transition">
                         <i class="fa-solid fa-user-plus mr-1"></i> টিউটর রেজিস্ট্রেশন
@@ -36,8 +36,8 @@
     </nav>
 
     <header class="bg-gradient-to-r from-blue-700 to-indigo-600 text-white text-center py-12 px-4 shadow-inner">
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">🎓 টিউটর মিডিয়া (গৃহশিক্ষক খুঁজুন)</h1>
-        <p class="text-lg text-blue-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের ৯টি এলাকার অভিভাবকরা সহজেই খুঁজে নিন উপযুক্ত গৃহশিক্ষক এবং শিক্ষকরা করুন টিউটর হিসেবে রেজিস্ট্রেশন।</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🎓 টিউটর মিডিয়া (গৃহশিক্ষক খুঁজুন)</h1>
+        <p class="text-lg text-blue-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের ৯টি এলাকার অভিভাবকরা সহজেই খুঁজে নিন উপযুক্ত গৃহশিক্ষক এবং শিক্ষকরা করুন টিউটর হিসেবে রেজিস্ট্রেশন।</p>
     </header>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
@@ -47,106 +47,31 @@
                     <label class="block text-sm font-semibold text-gray-600 mb-2">
                         <i class="fa-solid fa-map-location-dot text-blue-600 mr-1"></i> এলাকা ভিত্তিক শিক্ষক খুঁজুন:
                     </label>
-                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold text-gray-700">
-                        <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
-                        <option value="1">১. মধ্য কাউন্দিয়া</option>
-                        <option value="2">২. পশ্চিমপাড়া</option>
-                        <option value="3">৩. বাগসাত্রা</option>
-                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
-                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
-                        <option value="6">৬. নয়াবাজার</option>
-                        <option value="7">৭. পাঁচকানী</option>
-                        <option value="8">৮. ঘাসিরদিয়া</option>
-                        <option value="9">৯. সিংগাসার</option>
+                    <select id="filter-area" onchange="renderTutors()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold text-gray-700">
+                        <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
+                        <option value="মধ্য কাউন্দিয়া">১. মধ্য কাউন্দিয়া</option>
+                        <option value="পশ্চিমপাড়া">২. পশ্চিমপাড়া</option>
+                        <option value="বাগসাত্রা">৩. বাগসাত্রা</option>
+                        <option value="উত্তর কাউন্দিয়া">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="দক্ষিণ কাউন্দিয়া">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="নয়াবাজার">৬. নয়াবাজার</option>
+                        <option value="পাঁচকানী">৭. পাঁচকানী</option>
+                        <option value="ঘাসিরদিয়া">৮. ghasirdia</option>
+                        <option value="সিংগাসার">৯. সিংগাসার</option>
                     </select>
                 </div>
                 <div class="w-full md:w-1/2 text-right md:mt-6">
-                    <p class="text-sm text-gray-500 font-semibold"><i class="fa-solid fa-users text-blue-600 mr-1"></i> বর্তমানে ২ জন টিউটর প্রফাইল পাওয়া গেছে</p>
+                    <p class="text-sm text-gray-500 font-semibold">
+                        <i class="fa-solid fa-users text-blue-600 mr-1"></i> বর্তমানে <span id="tutor-count" class="text-blue-600 font-bold text-base">০</span> জন টিউটর প্রোফাইল পাওয়া গেছে
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center gap-4 border-b border-gray-100 pb-4 mb-4">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold border border-blue-200 overflow-hidden shrink-0">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900">সোহরাব হোসেন</h3>
-                            <p class="text-sm text-gray-500 font-semibold"><i class="fa-solid fa-calendar-day mr-1"></i> বয়স: ২২ বছর</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 text-sm text-gray-700">
-                        <p><i class="fa-solid fa-user-graduate text-blue-600 w-5"></i> <strong>যোগ্যতা:</strong> বিএসসি (অনার্স) ২য় বর্ষ</p>
-                        <p><i class="fa-solid fa-building-columns text-blue-600 w-5"></i> <strong>প্রতিষ্ঠান:</strong> মিরপুর বাংলা কলেজ</p>
-                        <p><i class="fa-solid fa-book-open text-blue-600 w-5"></i> <strong>পড়াতে চান:</strong> সাধারণ গণিত, উচ্চতর গণিত, রসায়ন (SSC লেভেল)</p>
-                        <p><i class="fa-solid fa-location-dot text-blue-600 w-5"></i> <strong>পড়ানোর এলাকা:</strong> পশ্চিমপাড়া, নয়াবাজার, মধ্য কাউন্দিয়া</p>
-                        <p><i class="fa-solid fa-clock text-orange-500 w-5"></i> <strong>পড়ানোর সময়:</strong> <span class="text-orange-700 font-semibold">বিকেল ও রাত (বিকাল ৪:০০ - রাত ৮:৩০)</span></p>
-                        
-                        <div class="mt-4 pt-2">
-                            <span class="inline-flex items-center gap-1.5 bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full">
-                                <i class="fa-solid fa-users text-sm"></i> ব্যাচ আকারে ও এককভাবে পড়ান
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-6 border-t border-gray-100 pt-4">
-                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-lg mb-3">
-                        <span class="text-sm text-blue-800 font-semibold">মাসিক वेतन:</span>
-                        <span class="text-base font-bold text-blue-700">৳ ৩,০০০ (আলোচনা সাপেক্ষে)</span>
-                    </div>
-                    <a href="tel:01700000000" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-phone"></i> শিক্ষকের সাথে যোগাযোগ করুন
-                    </a>
-                </div>
+        <div id="tutors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
-
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center gap-4 border-b border-gray-100 pb-4 mb-4">
-                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 text-2xl font-bold border border-pink-200 overflow-hidden shrink-0">
-                            <i class="fa-solid fa-user-nurse"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900">মোসাম্মৎ তানিয়া আক্তার</h3>
-                            <p class="text-sm text-gray-500 font-semibold"><i class="fa-solid fa-calendar-day mr-1"></i> বয়স: ২০ বছর</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 text-sm text-gray-700">
-                        <p><i class="fa-solid fa-user-graduate text-blue-600 w-5"></i> <strong>যোগ্যতা:</strong> এইচএসসি পাস (বিজ্ঞান বিভাগ)</p>
-                        <p><i class="fa-solid fa-building-columns text-blue-600 w-5"></i> <strong>প্রতিষ্ঠান:</strong> সরকারি বাঙলা কলেজ</p>
-                        <p><i class="fa-solid fa-book-open text-blue-600 w-5"></i> <strong>পড়াতে চান:</strong> অল সাবজেক্ট (Class 1-5), বিজ্ঞান ও গণিত (Class 6-8)</p>
-                        <p><i class="fa-solid fa-location-dot text-blue-600 w-5"></i> <strong>পড়ানোর এলাকা:</strong> সিংগাসার, বাগসাত্রা, উত্তর কাউন্দিয়া</p>
-                        <p><i class="fa-solid fa-clock text-orange-500 w-5"></i> <strong>পড়ানোর সময়:</strong> <span class="text-orange-700 font-semibold">সকাল ও বিকেল (সকাল ৭:৩০ - ১০:০০, বিকাল ৩:৩০ - ৫:০০)</span></p>
-                        
-                        <div class="mt-4 pt-2">
-                            <span class="inline-flex items-center gap-1.5 bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full">
-                                <i class="fa-solid fa-user text-sm"></i> শুধুমাত্র এককভাবে (Single) পড়ান
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-6 border-t border-gray-100 pt-4">
-                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-lg mb-3">
-                        <span class="text-sm text-blue-800 font-semibold">মাসিক বেতন:</span>
-                        <span class="text-base font-bold text-blue-700">৳ ২,০০০ / মাস</span>
-                    </div>
-                    <a href="tel:01800000000" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-phone"></i> শিক্ষকের সাথে যোগাযোগ করুন
-                    </a>
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <section id="tutor-form" class="bg-gray-100 py-16 px-4">
@@ -155,84 +80,79 @@
                 <i class="fa-solid fa-user-graduate text-2xl"></i>
                 <div>
                     <h2 class="text-xl font-bold">টিউটর হিসেবে রেজিস্ট্রেশন করুন</h2>
-                    <p class="text-xs text-blue-100">কাউন্দিয়া ইউনিয়নে গৃহশিক্ষকতা করতে আপনার তথ্যগুলো এখানে জমা দিন</p>
+                    <p class="text-xs text-blue-100">কাউন্দিয়া ইউনিয়নে গৃহশিক্ষকতা করতে আপনার তথ্যগুলো এখানে জমা দিন</p>
                 </div>
             </div>
             
-            <form class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); alert('আপনার টিউটর রেজিস্ট্রেশন সফল হয়েছে!');">
+            <form id="tutor-reg-form" class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleFormSubmit(event)">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার পূর্ণ নাম *</label>
-                    <input type="text" placeholder="যেমন: সোহরাব হোসেন" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <input type="text" id="tutor-name" placeholder="যেমন: সোহরাব হোসেন" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার বয়স *</label>
-                    <input type="number" min="15" placeholder="যেমন: ২২" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার বয়স *</label>
+                    <input type="number" id="tutor-age" min="15" placeholder="যেমন: ২২" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">বর্তমান শিক্ষাগত যোগ্যতা *</label>
-                    <input type="text" placeholder="যেমন: বিএসসি (অনার্স) ২য় বর্ষ" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <input type="text" id="tutor-qualification" placeholder="যেমন: বিএসসি (অনার্স) ২য় বর্ষ" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">কলেজ বা বিশ্ববিদ্যালয়ের নাম *</label>
-                    <input type="text" placeholder="যেমন: মিরপুর সরকারি বাঙলা কলেজ" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">কলেজ বা বিশ্ববিদ্যালয়ের নাম *</label>
+                    <input type="text" id="tutor-college" placeholder="যেমন: মিরপুর সরকারি বাঙলা কলেজ" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">যোগাযোগের মোবাইল নাম্বার *</label>
-                    <input type="tel" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <input type="tel" id="tutor-phone" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">মাসিক কাঙ্ক্ষিত বেতন (টাকা) *</label>
-                    <input type="text" placeholder="যেমন: ৩,০০০ টাকা বা আলোচনা সাপেক্ষে" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <input type="text" id="tutor-salary" placeholder="যেমন: ৩,০০০ টাকা বা আলোচনা সাপেক্ষে" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
+                
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">আপনি কি ব্যাচ আকারে পড়ান? *</label>
-                    <div class="flex items-center gap-6 bg-gray-50 border border-gray-300 p-3 rounded-lg">
-                        <label class="flex items-center gap-2 text-gray-700 font-semibold cursor-pointer">
-                            <input type="radio" name="batch_option" value="yes" required class="text-blue-600 focus:ring-blue-500"> হ্যাঁ, ব্যাচ আকারে পড়াই
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">আপনি কি ব্যাচ আকারে পড়ান? *</label>
+                    <div class="flex flex-wrap items-center gap-4 bg-gray-50 border border-gray-300 p-3 rounded-lg">
+                        <label class="flex items-center gap-2 text-gray-700 font-semibold cursor-pointer text-sm">
+                            <input type="radio" name="batch_option" value="ব্যাচ আকারে ও এককভাবে পড়ান" checked required class="text-blue-600 focus:ring-blue-500"> উভয় পদ্ধতিতেই পড়াই
                         </label>
-                        <label class="flex items-center gap-2 text-gray-700 font-semibold cursor-pointer">
-                            <input type="radio" name="batch_option" value="no" class="text-blue-600 focus:ring-blue-500"> না, শুধু এককভাবে (Single) পড়াই
-                        </label>
-                        <label class="flex items-center gap-2 text-gray-700 font-semibold cursor-pointer">
-                            <input type="radio" name="batch_option" value="both" class="text-blue-600 focus:ring-blue-500"> উভয় পদ্ধতিতেই পড়াই
+                        <label class="flex items-center gap-2 text-gray-700 font-semibold cursor-pointer text-sm">
+                            <input type="radio" name="batch_option" value="শুধুমাত্র এককভাবে (Single) পড়ান" class="text-blue-600 focus:ring-blue-500"> না, শুধু এককভাবে পড়াই
                         </label>
                     </div>
                 </div>
                 
                 <div class="md:col-span-2 bg-blue-50/50 p-4 rounded-xl border border-blue-100">
-                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-clock text-blue-600 mr-1"></i> পড়ানোর সময় ও নির্দিষ্ট শিফট নির্বাচন করুন *</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
-                        <label class="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-300 cursor-pointer font-semibold text-sm">
-                            <input type="checkbox" name="time_shift" value="morning" class="rounded text-blue-600 focus:ring-blue-500"> ☀️ সকাল (Morning)
-                        </label>
-                        <label class="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-300 cursor-pointer font-semibold text-sm">
-                            <input type="checkbox" name="time_shift" value="afternoon" class="rounded text-blue-600 focus:ring-blue-500"> ⛅ বিকেল (Afternoon)
-                        </label>
-                        <label class="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-300 cursor-pointer font-semibold text-sm">
-                            <input type="checkbox" name="time_shift" value="night" class="rounded text-blue-600 focus:ring-blue-500"> 🌙 রাত (Night)
-                        </label>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">সুনির্দিষ্ট সময়টি লিখে দিন (যেমন: বিকাল ৪:০০ - সন্ধ্যা ৬:০০)</label>
-                        <input type="text" placeholder="যেমন: সকাল ৭:৩০ - ১০:০০ অথবা বিকাল ৪:০০ - রাত ৮:০০" required class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
-                    </div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-clock text-blue-600 mr-1"></i> পড়ানোর সময় ও সুনির্দিষ্ট শিফটটি লিখে দিন *</label>
+                    <input type="text" id="tutor-time" placeholder="যেমন: বিকেল ও রাত (বিকাল ৪:০০ - রাত ৮:৩০)" required class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">কোন কোন বিষয় ও ক্লাস পড়াতে চান? *</label>
-                    <input type="text" placeholder="যেমন: সাধারণ গণিত, উচ্চতর গণিত ও রসায়ন (SSC লেভেল)" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">কোন কোন বিষয় ও ক্লাস পড়াতে চান? *</label>
+                    <input type="text" id="tutor-subjects" placeholder="যেমন: সাধারণ গণিত, রসায়ন (SSC লেভেল)" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
+                
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">কাউন্দিয়ার কোন কোন এলাকায় পড়াতে পারবেন? *</label>
-                    <input type="text" placeholder="যেমন: মধ্য কাউন্দিয়া, নয়াবাজার, সিংগাসার" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">কাউন্দিয়ার কোন কোন এলাকায় পড়াতে পারবেন? (অবশ্যই কমা দিয়ে লিখবেন) *</label>
+                    <input type="text" id="tutor-areas" placeholder="যেমন: পশ্চিমপাড়া, নয়াবাজার, মধ্য কাউন্দিয়া" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">আপনার একটি সুন্দর প্রফাইল ছবি আপলোড করুন *</label>
-                    <input type="file" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                <div>
+                    <label class="block text-sm font-bold text-red-600 mb-1"><i class="fa-solid fa-key mr-1"></i> ৪ ডিজিটের গোপন পিন সেট করুন *</label>
+                    <input type="password" id="tutor-pin" maxlength="4" pattern="\d{4}" placeholder="যেমন: ১২৩৪" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono">
                 </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বর্তমান কাজের স্থিতি (Status) *</label>
+                    <select id="tutor-status" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold">
+                        <option value="available" selected>Available (পড়াতে ইচ্ছুক)</option>
+                        <option value="unavailable">Unavailable (বর্তমানে ব্যাস্ত)</option>
+                    </select>
+                </div>
+
                 <div class="md:col-span-2 mt-2">
                     <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i> টিউটর প্রফাইল তৈরি করুন
+                        <i class="fa-solid fa-paper-plane"></i> টিউটর প্রোফাইল তৈরি করুন
                     </button>
                 </div>
             </form>
@@ -240,8 +160,225 @@
     </section>
 
     <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
-        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p>&copy; 2026 কাউন্দিয়া শিক্ষা প্রতিষ্ঠান পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
 
+    <script>
+        // ডিফল্ট ২ জন শিক্ষকের ডাটা স্ট্রাকচার (উভয়ের গোপন পিন কোড ডিফল্ট ভাবে: 1234)
+        const defaultTutors = [
+            {
+                id: "tutor_1",
+                name: "সোহরাব হোসেন",
+                age: "২২",
+                qualification: "বিএসসি (অনার্স) ২য় বর্ষ",
+                college: "মিরপুর বাংলা কলেজ",
+                phone: "01700000000",
+                salary: "৳ ৩,০০০ (আলোচনা সাপেক্ষে)",
+                batch: "ব্যাচ আকারে ও এককভাবে পড়ান",
+                time: "বিকেল ও রাত (বিকাল ৪:০০ - রাত ৮:৩০)",
+                subjects: "সাধারণ গণিত, উচ্চতর গণিত, রসায়ন (SSC লেভেল)",
+                areas: "পশ্চিমপাড়া, নয়াবাজার, মধ্য কাউন্দিয়া",
+                pin: "1234",
+                status: "available",
+                gender: "male"
+            },
+            {
+                id: "tutor_2",
+                name: "মোসাম্মৎ তানিয়া আক্তার",
+                age: "২০",
+                qualification: "এইচএসসি পাস (বিজ্ঞান বিভাগ)",
+                college: "সরকারি বাঙলা কলেজ",
+                phone: "01800000000",
+                salary: "৳ ২,০০০ / মাস",
+                batch: "শুধুমাত্র এককভাবে (Single) পড়ান",
+                time: "সকাল ও বিকেল (সকাল ۷:৩০ - ১০:০০, বিকেল ৩:৩০ - ৫:০০)",
+                subjects: "অল সাবজেক্ট (Class 1-5), বিজ্ঞান ও গণিত (Class 6-8)",
+                areas: "সিংগাসার, বাগসাত্রা, উত্তর কাউন্দিয়া",
+                pin: "1234",
+                status: "available",
+                gender: "female"
+            }
+        ];
+
+        // অ্যাপ লোড হওয়ার সময় লোকাল স্টোরেজ চেক করা
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem('tutors')) {
+                localStorage.setItem('tutors', JSON.stringify(defaultTutors));
+            }
+            renderTutors();
+        });
+
+        // টিউটরদের তালিকা রেন্ডার ও ফিল্টার ফাংশন
+        function renderTutors() {
+            const grid = document.getElementById('tutors-grid');
+            const countSpan = document.getElementById('tutor-count');
+            const selectedArea = document.getElementById('filter-area').value;
+            
+            const tutors = JSON.parse(localStorage.getItem('tutors')) || [];
+            
+            // এলাকা অনুযায়ী ফিল্টার করার লজিক
+            let filteredTutors = tutors;
+            if (selectedArea !== 'all') {
+                filteredTutors = tutors.filter(tutor => tutor.areas && tutor.areas.includes(selectedArea));
+            }
+
+            countSpan.innerText = filteredTutors.length;
+            grid.innerHTML = '';
+
+            if (filteredTutors.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500 bg-white rounded-xl shadow-sm border">
+                        <i class="fa-regular fa-folder-open text-4xl mb-2 text-gray-300 block"></i>
+                        এই এলাকায় বর্তমানে কোনো গৃহশিক্ষকের তথ্য পাওয়া যায়নি।
+                    </div>`;
+                return;
+            }
+
+            filteredTutors.forEach(tutor => {
+                // স্ট্যাটাস অনুসারে ব্যাজের ডিজাইন পরিবর্তন
+                const isAvailable = tutor.status === 'available';
+                const statusBadge = isAvailable 
+                    ? `<span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Available (পড়াতে পারবেন)</span>`
+                    : `<span class="bg-red-100 text-red-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> Unavailable (ব্যস্ত আছেন)</span>`;
+
+                // জেন্ডার অনুযায়ী আইকন বক্স নির্বাচন
+                const avatarBg = tutor.gender === 'female' ? 'bg-pink-100 text-pink-600 border-pink-200' : 'bg-blue-100 text-blue-600 border-blue-200';
+                const avatarIcon = tutor.gender === 'female' ? 'fa-user-nurse' : 'fa-user-tie';
+
+                const cardHtml = `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-14 ${avatarBg} rounded-full flex items-center justify-center text-xl font-bold border overflow-hidden shrink-0">
+                                        <i class="fa-solid ${avatarIcon}"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">${tutor.name}</h3>
+                                        <p class="text-sm text-gray-500 font-semibold"><i class="fa-solid fa-calendar-day mr-1"></i> বয়স: ${tutor.age} বছর</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    ${statusBadge}
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-sm text-gray-700">
+                                <p><i class="fa-solid fa-user-graduate text-blue-600 w-5"></i> <strong>যোগ্যতা:</strong> ${tutor.qualification}</p>
+                                <p><i class="fa-solid fa-building-columns text-blue-600 w-5"></i> <strong>প্রতিষ্ঠান:</strong> ${tutor.college}</p>
+                                <p><i class="fa-solid fa-book-open text-blue-600 w-5"></i> <strong>বিষয়সমূহ:</strong> ${tutor.subjects}</p>
+                                <p><i class="fa-solid fa-location-dot text-blue-600 w-5"></i> <strong>এলাকা:</strong> <span class="text-blue-800 font-medium">${tutor.areas}</span></p>
+                                <p><i class="fa-solid fa-clock text-orange-500 w-5"></i> <strong>সময়:</strong> <span class="text-orange-700 font-semibold">${tutor.time}</span></p>
+                                
+                                <div class="mt-4 pt-2">
+                                    <span class="inline-flex items-center gap-1.5 bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full">
+                                        <i class="fa-solid fa-users text-sm"></i> ${tutor.batch}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 border-t border-gray-100 pt-4">
+                            <div class="flex items-center justify-between bg-blue-50 p-2.5 rounded-lg mb-3">
+                                <span class="text-sm text-blue-800 font-semibold">মাসিক বেতন:</span>
+                                <span class="text-base font-bold text-blue-700">${tutor.salary}</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <a href="tel:${tutor.phone}" class="bg-blue-600 hover:bg-blue-700 text-white text-center text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-phone"></i> কল করুন
+                                </a>
+                                <button onclick="changeStatus('${tutor.id}')" class="bg-gray-800 hover:bg-gray-900 text-white text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-key text-[10px]"></i> স্থিতি পরিবর্তন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // [নতুন ফিচার] শিক্ষকদের গোপন পিন ভেরিফিকেশন ও লাইভ স্ট্যাটাস টগল মেকানিজম
+        function changeStatus(tutorId) {
+            const tutors = JSON.parse(localStorage.getItem('tutors')) || [];
+            const tutorIndex = tutors.findIndex(t => t.id === tutorId);
+            
+            if (tutorIndex === -1) return;
+
+            const inputPin = prompt("আপনার কাজের স্থিতি (Available / Unavailable) পরিবর্তন করতে ৪ ডিজিটের গোপন পিন কোডটি দিন:");
+            if (inputPin === null) return; // বাতিল করলে ব্যাক করবে
+
+            if (tutors[tutorIndex].pin.toString() === inputPin.trim()) {
+                // স্ট্যাটাস টগল লজিক
+                if (tutors[tutorIndex].status === 'available') {
+                    tutors[tutorIndex].status = 'unavailable';
+                    alert(`"${tutors[tutorIndex].name}" আপনার স্থিতি এখন 'Unavailable (ব্যস্ত)' সেট করা হয়েছে।`);
+                } else {
+                    tutors[tutorIndex].status = 'available';
+                    alert(`"${tutors[tutorIndex].name}" আপনার স্থিতি এখন 'Available (ফ্রি)' সেট করা হয়েছে।`);
+                }
+                
+                localStorage.setItem('tutors', JSON.stringify(tutors));
+                renderTutors(); // লাইভ স্ক্রিন আপডেট
+            } else {
+                alert("দুঃখিত! আপনার দেওয়া গোপন পিন নম্বরটি সঠিক নয়।");
+            }
+        }
+
+        // নতুন টিউটর অ্যাকাউন্ট তৈরি করার ফর্ম হ্যান্ডলার
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('tutor-name').value.trim();
+            const age = document.getElementById('tutor-age').value.trim();
+            const qualification = document.getElementById('tutor-qualification').value.trim();
+            const college = document.getElementById('tutor-college').value.trim();
+            const phone = document.getElementById('tutor-phone').value.trim();
+            const salary = document.getElementById('tutor-salary').value.trim();
+            const batch = document.querySelector('input[name="batch_option"]:checked').value;
+            const time = document.getElementById('tutor-time').value.trim();
+            const subjects = document.getElementById('tutor-subjects').value.trim();
+            const areas = document.getElementById('tutor-areas').value.trim();
+            const pin = document.getElementById('tutor-pin').value.trim();
+            const status = document.getElementById('tutor-status').value;
+
+            let tutors = JSON.parse(localStorage.getItem('tutors')) || [];
+
+            // মোবাইল নম্বর দিয়ে ডুপ্লিকেট অ্যাকাউন্ট চেক
+            if (tutors.some(t => t.phone === phone)) {
+                alert("এই মোবাইল নম্বর ব্যবহার করে ইতিমধ্যে একটি প্রোফাইল তৈরি করা হয়েছে!");
+                return;
+            }
+
+            // নতুন টিউটর অবজেক্ট গঠন
+            const newTutor = {
+                id: "tutor_" + Date.now(), // ইউনিক আইডি ক্রিয়েশন
+                name: name,
+                age: age,
+                qualification: qualification,
+                college: college,
+                phone: phone,
+                salary: salary.includes('৳') ? salary : '৳ ' + salary,
+                batch: batch,
+                time: time,
+                subjects: subjects,
+                areas: areas,
+                pin: pin,
+                status: status,
+                gender: "male" // অটোমেটিক ডিফাইন
+            };
+
+            tutors.push(newTutor);
+            localStorage.setItem('tutors', JSON.stringify(tutors));
+
+            alert('অভিনন্দন! আপনার টিউটর প্রোফাইলটি সফলভাবে তৈরি হয়েছে এবং লাইভ তালিকায় যুক্ত হয়েছে।');
+            document.getElementById('tutor-reg-form').reset();
+            
+            // স্ক্রিন স্ক্রল করে লিস্টে নিয়ে যাওয়া
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+            renderTutors();
+        }
+    </script>
 </body>
 </html>

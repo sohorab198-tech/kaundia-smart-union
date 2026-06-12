@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বাসা ভাড়া ও বিজ্ঞাপন - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <title>বাসা ভাড়া ও বিজ্ঞাপন - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="index.html" class="text-xl font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-house-chimney"></i> কাউন্দিয়া পোর্টাল
+                        <i class="fa-solid fa-house-chimney"></i> কাউন্দিয়া পোর্টাল
                     </a>
                 </div>
                 <div class="flex items-center gap-4">
@@ -36,160 +36,54 @@
     </nav>
 
     <header class="bg-gradient-to-r from-green-700 to-emerald-600 text-white text-center py-12 px-4 shadow-inner">
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">🏡 বাসা ভাড়া ও এলাকাভিত্তিক বিজ্ঞাপন</h1>
-        <p class="text-lg text-green-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের যেকোনো এলাকার বাসা ও ফ্ল্যাট ভাড়া খুঁজুন অথবা আপনার বাসার বিজ্ঞাপন দিন একদম সহজে।</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">🏡 বাসা ভাড়া ও এলাকাভিত্তিক বিজ্ঞাপন</h1>
+        <p class="text-lg text-green-100 max-w-2xl mx-auto">কাউন্দিয়া ইউনিয়নের যেকোনো এলাকার বাসা ও ফ্ল্যাট ভাড়া খুঁজুন অথবা আপনার বাসার বিজ্ঞাপন দিন একদম সহজে।</p>
     </header>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
         <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="w-full md:w-1/2">
-                    <label class="block text-sm font-semibold text-gray-600 mb-2">
-                        <i class="fa-solid fa-location-dot text-green-600 mr-1"></i> এলাকা নির্বাচন করুন:
-                    </label>
-                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-500 focus:outline-none font-semibold text-gray-700">
-                        <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
-                        <option value="1">১. মধ্য কাউন্দিয়া</option>
-                        <option value="2">২. পশ্চিমপাড়া</option>
-                        <option value="3">৩. বাগসাত্রা</option>
-                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
-                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
-                        <option value="6">৬. নয়াবাজার</option>
-                        <option value="7">৭. পাঁচকানী</option>
-                        <option value="8">৮. ঘাসিরদিয়া</option>
-                        <option value="9">৯. সিংগাসার</option>
-                    </select>
-                    <select class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-    <option value="all">ভাড়ার ধরন (সব)</option>
-    <option value="family">👨‍👩‍👧‍👦 শুধু ফ্যামিলি</option>
-    <option value="bachelor">👨‍🎓 ব্যাচেলর অনুমোদিত</option>
-</select>
+                <div class="w-full md:w-1/2 flex flex-col sm:flex-row gap-3">
+                    <div class="w-full">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">
+                            <i class="fa-solid fa-location-dot text-green-600 mr-1"></i> এলাকা নির্বাচন করুন:
+                        </label>
+                        <select id="filter-area" onchange="renderRentals()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-500 focus:outline-none font-semibold text-gray-700">
+                            <option value="all">সব এলাকা (পুরো কাউন্দিয়া)</option>
+                            <option value="1">১. মধ্য কাউন্দিয়া</option>
+                            <option value="2">২. পশ্চিমপাড়া</option>
+                            <option value="3">৩. বাগসাত্রা</option>
+                            <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                            <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                            <option value="6">৬. নয়াবাজার</option>
+                            <option value="7">৭. পাঁচকানী</option>
+                            <option value="8">৮. ঘাসিরদিয়া</option>
+                            <option value="9">৯. সিংগাসার</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">
+                            <i class="fa-solid fa-filter text-green-600 mr-1"></i> ভাড়ার ধরন:
+                        </label>
+                        <select id="filter-type" onchange="renderRentals()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-500 focus:outline-none font-semibold text-gray-700">
+                            <option value="all">ভাড়ার ধরন (সব)</option>
+                            <option value="family">👨‍👩‍👧‍👦 শুধু ফ্যামিলি</option>
+                            <option value="bachelor">👨‍🎓 ব্যাচেলর অনুমোদিত</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="w-full md:w-1/2 text-right md:mt-6">
-                    <p class="text-sm text-gray-500 font-semibold"><i class="fa-solid fa-list-check text-green-600 mr-1"></i> বর্তমানে ৩টি সচল বিজ্ঞাপন পাওয়া গেছে</p>
+                    <p class="text-sm text-gray-500 font-semibold">
+                        <i class="fa-solid fa-list-check text-green-600 mr-1"></i> বর্তমানে <span id="ad-count" class="text-green-600 font-bold text-base">০</span>টি সচল বিজ্ঞাপন পাওয়া গেছে
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                    <div class="bg-gray-200 h-48 flex items-center justify-between px-2 text-gray-400 relative">
-                        <i class="fa-solid fa-chevron-left text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                        <span class="text-sm font-semibold bg-black/50 text-white px-3 py-1 rounded-full"><i class="fa-regular fa-image mr-1"></i> ফ্ল্যাটের ছবি (১/৩)</span>
-                        <i class="fa-solid fa-chevron-right text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                    </div>
-                    <div class="p-5">
-                        <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full mb-3">
-                            <i class="fa-solid fa-location-dot mr-1"></i> পশ্চিমপাড়া
-                        </span>
-                        <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded-full mt-2 ml-2">
-    👨‍🎓 ব্যাচেলর অনুমোদিত
-</span>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">সোহেল ভিলা (ফ্ল্যাট ভাড়া)</h3>
-                        <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> মেইন রোড সংলগ্ন, পশ্চিমপাড়া, কাউন্দিয়া।</p>
-                        
-                        <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
-                            <div><i class="fa-solid fa-bed text-green-600 mr-1"></i> রুম: <strong>৩টি</strong></div>
-                            <div><i class="fa-solid fa-bath text-green-600 mr-1"></i> বাথরুম: <strong>২টি</strong></div>
-                            <div><i class="fa-solid fa-mountain text-green-600 mr-1"></i> বেলকনি: <strong>১টি</strong></div>
-                            <div><i class="fa-solid fa-layer-group text-green-600 mr-1"></i> তলা: <strong>৩য় তলা</strong></div>
-                        </div>
-                        
-                        <div class="mt-4 pt-3 border-t border-gray-100 text-sm">
-                            <p class="text-gray-600"><strong>মালিকের নাম:</strong> মো: সোহেল রানা</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-5 pt-0">
-                    <div class="flex items-center justify-between bg-emerald-50 p-3 rounded-lg mb-3">
-                        <span class="text-sm text-emerald-800 font-semibold">মাসিক ভাড়া:</span>
-                        <span class="text-xl font-bold text-emerald-700">৳ ৮,৫০০</span>
-                    </div>
-                    <a href="tel:01700000000" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-phone"></i> মালিককে কল করুন
-                    </a>
-                </div>
+        <div id="rentals-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
-
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                    <div class="bg-gray-200 h-48 flex items-center justify-between px-2 text-gray-400 relative">
-                        <i class="fa-solid fa-chevron-left text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                        <span class="text-sm font-semibold bg-black/50 text-white px-3 py-1 rounded-full"><i class="fa-regular fa-image mr-1"></i> ফ্ল্যাটের ছবি (১/২)</span>
-                        <i class="fa-solid fa-chevron-right text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                    </div>
-                    <div class="p-5">
-                        <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full mb-3">
-                            <i class="fa-solid fa-location-dot mr-1"></i> নয়াবাজার
-                        </span>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">খান ম্যানশন</h3>
-                        <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> নয়াবাজার বাজারের পাশে, কাউন্দিয়া।</p>
-                        
-                        <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
-                            <div><i class="fa-solid fa-bed text-green-600 mr-1"></i> রুম: <strong>২টি</strong></div>
-                            <div><i class="fa-solid fa-bath text-green-600 mr-1"></i> বাথরুম: <strong>১টি</strong></div>
-                            <div><i class="fa-solid fa-mountain text-green-600 mr-1"></i> বেলকনি: <strong>নেই</strong></div>
-                            <div><i class="fa-solid fa-layer-group text-green-600 mr-1"></i> তলা: <strong>১ম তলা</strong></div>
-                        </div>
-                        
-                        <div class="mt-4 pt-3 border-t border-gray-100 text-sm">
-                            <p class="text-gray-600"><strong>মালিকের নাম:</strong> হাজী মো: আরমান খান</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-5 pt-0">
-                    <div class="flex items-center justify-between bg-emerald-50 p-3 rounded-lg mb-3">
-                        <span class="text-sm text-emerald-800 font-semibold">মাসিক ভাড়া:</span>
-                        <span class="text-xl font-bold text-emerald-700">৳ ৫,০০০</span>
-                    </div>
-                    <a href="tel:01800000000" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-phone"></i> মালিককে কল করুন
-                    </a>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
-                <div>
-                    <div class="bg-gray-200 h-48 flex items-center justify-between px-2 text-gray-400 relative">
-                        <i class="fa-solid fa-chevron-left text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                        <span class="text-sm font-semibold bg-black/50 text-white px-3 py-1 rounded-full"><i class="fa-regular fa-image mr-1"></i> ফ্ল্যাটের ছবি (১/৩)</span>
-                        <i class="fa-solid fa-chevron-right text-xl cursor-pointer p-2 hover:text-gray-700"></i>
-                    </div>
-                    <div class="p-5">
-                        <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full mb-3">
-                            <i class="fa-solid fa-location-dot mr-1"></i> মধ্য কাউন্দিয়া
-                        </span>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">স্বপ্ননীড় ফ্ল্যাট</h3>
-                        <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয় সংলগ্ন।</p>
-                        
-                        <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
-                            <div><i class="fa-solid fa-bed text-green-600 mr-1"></i> রুম: <strong>৪টি</strong></div>
-                            <div><i class="fa-solid fa-bath text-green-600 mr-1"></i> বাথরুম: <strong>৩টি</strong></div>
-                            <div><i class="fa-solid fa-mountain text-green-600 mr-1"></i> বেলকনি: <strong> ২টি</strong></div>
-                            <div><i class="fa-solid fa-layer-group text-green-600 mr-1"></i> তলা: <strong>৪র্থ তলা</strong></div>
-                        </div>
-                        
-                        <div class="mt-4 pt-3 border-t border-gray-100 text-sm">
-                            <p class="text-gray-600"><strong>মালিকের নাম:</strong> মো: আব্দুর রহমান</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-5 pt-0">
-                    <div class="flex items-center justify-between bg-emerald-50 p-3 rounded-lg mb-3">
-                        <span class="text-sm text-emerald-800 font-semibold">মাসিক ভাড়া:</span>
-                        <span class="text-xl font-bold text-emerald-700">৳ ১২,০০০</span>
-                    </div>
-                    <a href="tel:01900000000" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg inline-flex items-center justify-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-phone"></i> মালিককে কল করুন
-                    </a>
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <section id="ad-form" class="bg-gray-100 py-16 px-4">
@@ -197,67 +91,99 @@
             <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-4 flex items-center gap-3">
                 <i class="fa-solid fa-circle-plus text-2xl"></i>
                 <div>
-                    <h2 class="text-xl font-bold">নতুন বাসা ভাড়ার বিজ্ঞাপন দিন</h2>
+                    <h2 class="text-xl font-bold">নতুন বাসা ভাড়ার বিজ্ঞাপন দিন</h2>
                     <p class="text-xs text-green-100">ফর্মটি নির্ভুলভাবে পূরণ করে আপনার বিজ্ঞাপনি তথ্য সাবমিট করুন</p>
                 </div>
             </div>
             
-            <form class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); alert('আপনার তথ্য সফলভাবে জমা হয়েছে!');">
+            <form id="rental-submit-form" class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleFormSubmit(event)">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">মালিকের নাম *</label>
-                    <input type="text" placeholder="যেমন: মো: সোহরাব হোসেন" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="text" id="owner-name" placeholder="যেমন: মো: সোহরাব হোসেন" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">মোবাইল নাম্বার *</label>
-                    <input type="tel" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="tel" id="owner-phone" placeholder="যেমন: 017XXXXXXXX" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">বাসার নাম (যদি থাকে)</label>
-                    <input type="text" placeholder="যেমন: মায়ের দোয়া ভিলা" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="text" id="home-name" placeholder="যেমন: মায়ের দোয়া ভিলা" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">বাসার এলাকা নির্বাচন করুন *</label>
-                    <select required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700 font-semibold">
+                    <select id="home-area" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700 font-semibold">
                         <option value="">বাছাই করুন...</option>
-                        <option value="1">১. মধ্য কাউন্দিয়া</option>
-                        <option value="2">২. পশ্চিমপাড়া</option>
+                        <option value="1">১. মধ্য কাউন্দিয়া</option>
+                        <option value="2">২. পশ্চিমপাড়া</option>
                         <option value="3">৩. বাগসাত্রা</option>
-                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
-                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
-                        <option value="6">৬. নয়াবাজার</option>
+                        <option value="4">৪. উত্তর কাউন্দিয়া</option>
+                        <option value="5">৫. দক্ষিণ কাউন্দিয়া</option>
+                        <option value="6">৬. নয়াবাজার</option>
                         <option value="7">৭. পাঁচকানী</option>
-                        <option value="8">৮. ঘাসিরদিয়া</option>
+                        <option value="8">৮. ঘাসিরদিয়া</option>
                         <option value="9">৯. সিংগাসার</option>
                     </select>
                 </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ভাড়ার ধরন *</label>
+                    <select id="home-type" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="family">👨‍👩‍👧‍👦 শুধু ফ্যামিলি</option>
+                        <option value="bachelor">👨‍🎓 ব্যাচেলর অনুমোদিত</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ফ্ল্যাটটি কত তলায়? *</label>
+                    <input type="text" id="home-floor" placeholder="যেমন: ২য় তলা" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-gray-700 mb-1">বাসার সুনির্দিষ্ট লোকেশন/ঠিকানা *</label>
-                    <input type="text" placeholder="যেমন: কাউন্দিয়া ঘাট সংলগ্ন, মসজিদের পাশে।" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="text" id="home-address" placeholder="যেমন: কাউন্দিয়া ঘাট সংলগ্ন, মসজিদের পাশে।" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">ফ্ল্যাটে রুমের সংখ্যা *</label>
-                    <input type="number" min="1" placeholder="যেমন: 3" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="number" id="home-rooms" min="1" placeholder="যেমন: 3" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">বাথরুমের সংখ্যা *</label>
-                    <input type="number" min="1" placeholder="যেমন: 2" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <input type="number" id="home-baths" min="1" placeholder="যেমন: 2" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ড্রয়িং রুম আছে কি? *</label>
+                    <select id="home-drawing" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="আছে">হ্যাঁ, আছে</option>
+                        <option value="নেই">না, নেই</option>
+                    </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">বেলকনি কয়টি? *</label>
-                    <input type="text" placeholder="যেমন: ১টি বা নেই" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ডাইনিং রুম আছে কি? *</label>
+                    <select id="home-dining" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700 font-semibold">
+                        <option value="আছে">হ্যাঁ, আছে</option>
+                        <option value="নেই">না, নেই</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বেলকনি কয়টি? *</label>
+                    <input type="text" id="home-balcony" placeholder="যেমন: ১টি বা নেই" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">ফ্ল্যাটটি কত তলায়? *</label>
-                    <input type="text" placeholder="যেমন: ২য় তলা" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">ভাড়ার পরিমাণ (মাসিক) *</label>
+                    <input type="text" id="home-rent" placeholder="যেমন: ৭,৫০০ টাকা" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-red-600 mb-1"><i class="fa-solid fa-key mr-1"></i> ৪ ডিজিটের গোপন পিন সেট করুন *</label>
+                    <input type="password" id="owner-pin" maxlength="4" pattern="\d{4}" placeholder="যেমন: ৫৬৭৮" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none font-mono">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">ভাড়ার পরিমাণ (মাসিক) *</label>
-                    <input type="text" placeholder="যেমন: ৭,৫০০ টাকা বা আলোচনা সাপেক্ষে" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বিজ্ঞাপনের প্রাথমিক স্থিতি (Status) *</label>
+                    <select id="home-status" required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none font-semibold">
+                        <option value="available" selected>Available (ফাঁকা আছে)</option>
+                        <option value="unavailable">Unavailable (ভাড়া হয়ে গেছে)</option>
+                    </select>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">ফ্ল্যাট বা বাসার ছবি (২/৩ টি ছবি) *</label>
-                    <input type="file" multiple required class="w-full bg-gray-50 border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
-                </div>
+
                 <div class="md:col-span-2 mt-2">
                     <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md inline-flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i> বিজ্ঞাপনটি প্রকাশ করুন
@@ -268,8 +194,237 @@
     </section>
 
     <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
-        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
 
+    <script>
+        // ৩টি ডেমো ডাটা (ড্রয়িং ও ডাইনিং ভ্যালুসহ)
+        const defaultRentals = [
+            {
+                id: "rent_1",
+                owner: "মো: সোহেল রানা",
+                phone: "01700000000",
+                name: "সোহেল ভিলা (ফ্ল্যাট ভাড়া)",
+                area: "2", 
+                areaName: "পশ্চিমপাড়া",
+                type: "bachelor",
+                address: "মেইন রোড সংলগ্ন, পশ্চিমপাড়া, কাউন্দিয়া।",
+                rooms: "৩টি",
+                baths: "২টি",
+                drawing: "আছে",
+                dining: "আছে",
+                balcony: "১টি",
+                floor: "৩য় তলা",
+                rent: "৳ ৮,৫০০",
+                pin: "1234",
+                status: "available"
+            },
+            {
+                id: "rent_2",
+                owner: "হাজী মো: আরমান খান",
+                phone: "01800000000",
+                name: "খান ম্যানশন",
+                area: "6", 
+                areaName: "নয়াবাজার",
+                type: "family",
+                address: "নয়াবাজার বাজারের পাশে, কাউন্দিয়া।",
+                rooms: "২টি",
+                baths: "১টি",
+                drawing: "নেই",
+                dining: "আছে",
+                balcony: "নেই",
+                floor: "১ম তলা",
+                rent: "৳ ৫,০০০",
+                pin: "1234",
+                status: "available"
+            },
+            {
+                id: "rent_3",
+                owner: "মো: আব্দুর রহমান",
+                phone: "01900000000",
+                name: "স্বপ্ননীড় ফ্ল্যাট",
+                area: "1", 
+                areaName: "মধ্য কাউন্দিয়া",
+                type: "family",
+                address: "কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয় সংলগ্ন।",
+                rooms: "৪টি",
+                baths: "৩টি",
+                drawing: "আছে",
+                dining: "আছে",
+                balcony: " ২টি",
+                floor: "৪র্থ তলা",
+                rent: "৳ ১২,০০০",
+                pin: "1234",
+                status: "available"
+            }
+        ];
+
+        // পেজ লোড হলে লোকাল স্টোরেজ চেক করা
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem('portal_rentals')) {
+                localStorage.setItem('portal_rentals', JSON.stringify(defaultRentals));
+            }
+            renderRentals();
+        });
+
+        // কার্ড রেন্ডারিং এবং ফিল্টারিং ফাংশন
+        function renderRentals() {
+            const grid = document.getElementById('rentals-grid');
+            const countSpan = document.getElementById('ad-count');
+            const selectedArea = document.getElementById('filter-area').value;
+            const selectedType = document.getElementById('filter-type').value;
+            
+            const rentals = JSON.parse(localStorage.getItem('portal_rentals')) || [];
+            let filtered = rentals;
+
+            if (selectedArea !== 'all') {
+                filtered = filtered.filter(item => item.area === selectedArea);
+            }
+
+            if (selectedType !== 'all') {
+                filtered = filtered.filter(item => item.type === selectedType);
+            }
+
+            countSpan.innerText = filtered.length;
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-200">
+                        <i class="fa-regular fa-folder-open text-4xl mb-2 text-gray-300 block"></i>
+                        এই ক্যাটাগরিতে বর্তমানে কোনো বাসা ভাড়ার বিজ্ঞাপন পাওয়া যায়নি।
+                    </div>`;
+                return;
+            }
+
+            filtered.forEach(rental => {
+                const isAvailable = rental.status === 'available';
+                
+                const statusBadge = isAvailable
+                    ? `<span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> ফাঁকা আছে (Available)</span>`
+                    : `<span class="bg-red-100 text-red-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-red-500"></span> ভাড়া হয়ে গেছে (Booked)</span>`;
+
+                const typeBadge = rental.type === 'bachelor'
+                    ? `<span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded-full mt-2 ml-2">👨‍🎓 ব্যাচেলর অনুমোদিত</span>`
+                    : `<span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full mt-2 ml-2">👨‍👩‍👧‍👦 শুধু ফ্যামিলি</span>`;
+
+                const cardHtml = `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                        <div>
+                            <div class="bg-gray-200 h-48 flex items-center justify-between px-2 text-gray-400 relative">
+                                <i class="fa-solid fa-chevron-left text-xl cursor-pointer p-2 hover:text-gray-700"></i>
+                                <span class="text-sm font-semibold bg-black/50 text-white px-3 py-1 rounded-full"><i class="fa-regular fa-image mr-1"></i> ফ্ল্যাটের ছবি (১/৩)</span>
+                                <i class="fa-solid fa-chevron-right text-xl cursor-pointer p-2 hover:text-gray-700"></i>
+                                <div class="absolute top-3 right-3 z-10">${statusBadge}</div>
+                            </div>
+                            <div class="p-5">
+                                <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full mb-1">
+                                    <i class="fa-solid fa-location-dot mr-1"></i> ${rental.areaName}
+                                </span>
+                                ${typeBadge}
+                                
+                                <h3 class="text-xl font-bold text-gray-900 my-2">${rental.name}</h3>
+                                <p class="text-sm text-gray-600 mb-4"><i class="fa-solid fa-map-marker-alt text-red-500 mr-1"></i> ${rental.address}</p>
+                                
+                                <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                                    <div><i class="fa-solid fa-bed text-green-600 mr-1"></i> রুম: <strong>${rental.rooms}</strong></div>
+                                    <div><i class="fa-solid fa-bath text-green-600 mr-1"></i> বাথরুম: <strong>${rental.baths}</strong></div>
+                                    <div><i class="fa-solid fa-couch text-green-600 mr-1"></i> ড্রয়িং: <strong>${rental.drawing || 'নেই'}</strong></div>
+                                    <div><i class="fa-solid fa-utensils text-green-600 mr-1"></i> ডাইনিং: <strong>${rental.dining || 'নেই'}</strong></div>
+                                    <div><i class="fa-solid fa-mountain text-green-600 mr-1"></i> বেলকনি: <strong>${rental.balcony}</strong></div>
+                                    <div><i class="fa-solid fa-layer-group text-green-600 mr-1"></i> তলা: <strong>${rental.floor}</strong></div>
+                                </div>
+                                
+                                <div class="mt-4 pt-3 border-t border-gray-100 text-sm">
+                                    <p class="text-gray-600"><strong>মালিকের নাম:</strong> ${rental.owner}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0">
+                            <div class="flex items-center justify-between bg-emerald-50 p-3 rounded-lg mb-3">
+                                <span class="text-sm text-emerald-800 font-semibold">মাসিক ভাড়া:</span>
+                                <span class="text-xl font-bold text-emerald-700">${rental.rent}</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <a href="tel:${rental.phone}" class="bg-green-600 hover:bg-green-700 text-white text-center text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-phone"></i> কল করুন
+                                </a>
+                                <button onclick="toggleStatus('${rental.id}')" class="bg-gray-800 hover:bg-gray-900 text-white text-xs font-bold py-2.5 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition shadow-sm">
+                                    <i class="fa-solid fa-key text-[10px]"></i> স্থিতি পরিবর্তন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // পিন নম্বর যাচাই করে স্ট্যাটাস পরিবর্তন করার মেকানিজম
+        function toggleStatus(rentalId) {
+            const rentals = JSON.parse(localStorage.getItem('portal_rentals')) || [];
+            const index = rentals.findIndex(item => item.id === rentalId);
+            
+            if (index === -1) return;
+
+            const inputPin = prompt("বাসার স্থিতি (Available / Unavailable) পরিবর্তন করতে আপনার ৪-ডিজিটের গোপন পিন নম্বরটি দিন:");
+            if (inputPin === null) return; 
+
+            if (rentals[index].pin.toString() === inputPin.trim()) {
+                if (rentals[index].status === 'available') {
+                    rentals[index].status = 'unavailable';
+                    alert("বিজ্ঞাপনের স্ট্যাটাস পরিবর্তন করে 'ভাড়া হয়ে গেছে (Unavailable)' সেট করা হয়েছে।");
+                } else {
+                    rentals[index].status = 'available';
+                    alert("বিজ্ঞাপনের স্ট্যাটাস পরিবর্তন করে 'ফাঁকা আছে (Available)' সেট করা হয়েছে।");
+                }
+                localStorage.setItem('portal_rentals', JSON.stringify(rentals));
+                renderRentals();
+            } else {
+                alert("দুঃখিত! আপনার দেওয়া গোপন পিন নম্বরটি সঠিক নয়।");
+            }
+        }
+
+        // ফর্ম সাবমিট হ্যান্ডলার (নতুন কার্ড ডাটাবেজে যুক্ত করা)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const areaSelect = document.getElementById('home-area');
+            const areaName = areaSelect.options[areaSelect.selectedIndex].text.replace(/^\d+\.\s*/, '');
+
+            const newRental = {
+                id: "rent_" + Date.now(),
+                owner: document.getElementById('owner-name').value.trim(),
+                phone: document.getElementById('owner-phone').value.trim(),
+                name: document.getElementById('home-name').value.trim() || "ফ্ল্যাট ভাড়া",
+                area: areaSelect.value,
+                areaName: areaName,
+                type: document.getElementById('home-type').value,
+                address: document.getElementById('home-address').value.trim(),
+                rooms: document.getElementById('home-rooms').value + "টি",
+                baths: document.getElementById('home-baths').value + "টি",
+                drawing: document.getElementById('home-drawing').value, // নতুন যুক্ত
+                dining: document.getElementById('home-dining').value,   // নতুন যুক্ত
+                balcony: document.getElementById('home-balcony').value.trim(),
+                floor: document.getElementById('home-floor').value.trim(),
+                rent: document.getElementById('home-rent').value.trim().includes('৳') 
+                        ? document.getElementById('home-rent').value.trim() 
+                        : '৳ ' + document.getElementById('home-rent').value.trim(),
+                pin: document.getElementById('owner-pin').value.trim(),
+                status: document.getElementById('home-status').value
+            };
+
+            let rentals = JSON.parse(localStorage.getItem('portal_rentals')) || [];
+            rentals.push(newRental);
+            localStorage.setItem('portal_rentals', JSON.stringify(rentals));
+
+            alert('আপনার বাসার বিজ্ঞাপনটি সফলভাবে সিস্টেমে যুক্ত ও লাইভ করা হয়েছে!');
+            document.getElementById('rental-submit-form').reset();
+            
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+            renderRentals();
+        }
+    </script>
 </body>
 </html>
