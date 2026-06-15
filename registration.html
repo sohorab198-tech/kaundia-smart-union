@@ -39,7 +39,7 @@
 
             <div id="successMessage" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-xl flex items-center space-x-3">
                 <i class="fas fa-check-circle text-xl text-emerald-600"></i>
-                <span class="font-semibold">অভিনন্দন! আপনার তথ্যটি সফলভাবে ডাটাবেজে যুক্ত হয়েছে এবং পরিসংখ্যান আপডেট হয়েছে।</span>
+                <span class="font-semibold">অভিনন্দন! আপনার তথ্যটি সফলভাবে অ্যাডমিনের প্যানেলে যুক্ত হয়েছে। অ্যাডমিন অ্যাডমিন অ্যাপ্রুভের পরে পরিসংখ্যান আপডেট হবে।</span>
             </div>
 
             <form id="citizenForm" class="space-y-6">
@@ -251,10 +251,35 @@
                 ward: document.getElementById('ward').value,
                 village: document.getElementById('village').value
             };
+            // --- ডুপ্লিকেট চেক সিস্টেম ---
+    let currentVerifiedList = JSON.parse(localStorage.getItem('unionCitizens')) || [];
+    let currentPendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
+    let completeCombinedList = [...currentVerifiedList, ...currentPendingList];
 
-            let totalCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
-            totalCitizens.push(citizenData);
-            localStorage.setItem('unionCitizens', JSON.stringify(totalCitizens));
+    // বয়স, ওয়ার্ড এবং গ্রামের মিল থাকলে ডুপ্লিকেট হিসেবে ধরবে
+    const isCitizenDuplicate = completeCombinedList.some(person => 
+        person.age === citizenData.age && 
+        person.ward === citizenData.ward &&
+        person.village === citizenData.village
+    );
+
+    if (isCitizenDuplicate) {
+        alert("⚠️ দুঃখিত, এই ব্যক্তির তথ্য ইতোমধ্যে আমাদের ডাটাবেজে বা পেন্ডিং তালিকায় যুক্ত আছে!");
+        return; // ফর্মের বাকি কোড রান হওয়া এখানেই বন্ধ করে দেবে
+    }
+    // --- ডুপ্লিকেট চেক শেষ ---
+// --- নতুন পেন্ডিং সেভ সিস্টেম ---
+    let pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
+    
+    // ইউনিক আইডি এবং প্রাথমিক স্ট্যাটাস যুক্ত করা
+    citizenData.id = "KUN-" + Date.now();
+    citizenData.status = "Unverified"; 
+
+    // পেন্ডিং তালিকায় পুশ করা
+    pendingList.push(citizenData);
+    localStorage.setItem('pendingRegistrations', JSON.stringify(pendingList));
+    // --- কোড শেষ ---
+            
 
             citizenForm.reset();
             maternitySection.classList.add('hidden');

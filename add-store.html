@@ -3,110 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>দোকান ও পণ্য নিবন্ধন - কাউন্দিয়া ডিজিটাল বাজার</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>নতুন দোকান যুক্ত করুন - কাউন্দিয়া ডিজিটাল বাজার</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 md:p-10">
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-        
-        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 md:p-8 text-center relative">
-            <a href="market.html" class="absolute left-4 top-6 text-white hover:text-emerald-200 transition text-sm">
-                <i class="fa-solid fa-arrow-left text-lg"></i> বাজারে ফিরুন
+    <!-- হেডার -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <a href="market.html" class="inline-flex items-center text-sm bg-blue-700/40 hover:bg-blue-700/60 px-4 py-1.5 rounded-full mb-3 transition">
+                <i class="fas fa-arrow-left mr-2"></i> ডিজিটাল বাজারে ফিরে যান
             </a>
-            <h2 class="text-2xl md:text-3xl font-extrabold flex items-center justify-center gap-2">
-                <i class="fa-solid fa-store"></i> ডিজিটাল দোকান ও পণ্য নিবন্ধন ফর্ম
-            </h2>
-            <p class="text-xs md:text-sm text-emerald-100 mt-2">আপনার দোকান বা ফ্যাশন পণ্যের তথ্য দিয়ে ফর্মটি পূরণ করুন। অ্যাডমিন যাচাই করে সাইটে লাইভ করে দেবে।</p>
+            <h1 class="text-2xl md:text-3xl font-bold flex items-center justify-center gap-2">
+                <i class="fas fa-store text-yellow-300"></i> নতুন দোকান রেজিস্ট্রেশন
+            </h1>
+            <p class="text-xs md:text-sm text-blue-100 mt-1">আপনার ব্যবসাকে কাউন্দিয়া ইউনিয়নের সবার কাছে পৌঁছে দিন</p>
         </div>
+    </header>
 
-        <form id="storeForm" class="p-6 md:p-8 space-y-6">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-shop text-emerald-600 mr-1"></i> দোকান/ব্র্যান্ডের নাম *</label>
-                    <input type="text" id="shopName" required placeholder="উদা: আল্লাহর দান স্টোর বা মিম ফ্যাশন" 
-                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+    <!-- মূল ফর্ম -->
+    <main class="container mx-auto px-4 py-8 flex-grow max-w-lg">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 text-2xl mx-auto mb-2">
+                    <i class="fas fa-shop"></i>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-user text-emerald-600 mr-1"></i> বিক্রেতা/মালিকের নাম *</label>
-                    <input type="text" id="ownerName" required placeholder="উদা: মো: আব্দুর রহমান" 
-                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                </div>
+                <h2 class="text-xl font-bold text-slate-800">দোকানের তথ্য প্রদান করুন</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form id="storeForm" onsubmit="handleStoreSubmit(event)" class="space-y-5">
+                
+                <!-- দোকানের নাম -->
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-layer-group text-emerald-600 mr-1"></i> ব্যবসার ধরন/ক্যাটাগরি *</label>
-                    <select id="category" required 
-                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white transition">
-                        <option value="" disabled selected>ক্যাটাগরি সিলেক্ট করুন</option>
-                        <option value="fashion">✨ ৪. এক্সক্লুসিভ ফ্যাশন ও টেক্সটাইল</option>
-                        <option value="grocery">১. মুদি মালামাল</option>
-                        <option value="vegetable">২. কাঁচা তরকারি</option>
-                        <option value="meat">৩. মাছ ও মাংস</option>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">দোকানের নাম</label>
+                    <input type="text" id="storeName" required placeholder="উদাঃ ভাই ভাই স্টোর" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 transition text-sm">
+                </div>
+
+                <!-- ক্যাটাগরি -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">দোকানের ধরণ</label>
+                    <select id="storeCategory" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 transition text-sm">
+                        <option>মুদি দোকান</option>
+                        <option>কাঁচাবাজার</option>
+                        <option>ঔষধের দোকান</option>
+                        <option>ইলেকট্রনিক্স</option>
+                        <option>অন্যান্য</option>
                     </select>
                 </div>
 
+                <!-- ঠিকানা -->
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> মোবাইল নম্বর (WhatsApp সহ) *</label>
-                    <input type="tel" id="phone" required placeholder="উদা: 017XXXXXXXX" pattern="[0-9]{11}"
-                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">দোকানের অবস্থান</label>
+                    <input type="text" id="storeLocation" required placeholder="উদাঃ কাউন্দিয়া মেইন রোড" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 transition text-sm">
                 </div>
-            </div>
 
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> সুনির্দিষ্ট ঠিকানা/লোকেশন *</label>
-                <input type="text" id="address" required placeholder="উদা: কাউন্দিয়া মধ্যপাড়া, স্কুল রোডের পাশে" 
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-            </div>
+                <!-- ফোন -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">মোবাইল নাম্বার</label>
+                    <input type="tel" id="storePhone" required placeholder="01XXXXXXXXX" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 transition text-sm">
+                </div>
 
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-boxes-stacked text-emerald-600 mr-1"></i> প্রধান প্রধান পণ্যসমূহের নাম ও দাম *</label>
-                <textarea id="products" required rows="3" placeholder="উদা: সুতি থ্রি-পিস (৳৯৫০), সিল্ক শাড়ি (৳১৮০০), প্রিন্টেড লুঙ্গি (৳৩৮০) ইত্যাদি।" 
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition"></textarea>
-            </div>
-
-            <button type="submit" 
-                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-paper-plane"></i> আবেদনের তথ্য জমা দিন
-            </button>
-        </form>
-
-        <div id="successMessage" class="hidden p-8 text-center space-y-4">
-            <span class="text-6xl text-emerald-500 block"><i class="fa-solid fa-circle-check"></i></span>
-            <h3 class="text-2xl font-bold text-gray-800">আবেদনটি সফলভাবে জমা হয়েছে!</h3>
-            <p class="text-sm text-gray-600 max-w-md mx-auto">ধন্যবাদ, আপনার পণ্যের তথ্য সংরক্ষিত হয়েছে। অ্যাডমিন প্যানেল থেকে এটি অনুমোদন করার পর মূল পেজে লাইভ করা হবে।</p>
-            <div class="pt-4">
-                <a href="market.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition">
-                    ডিজিটাল বাজারে ফিরে যান
-                </a>
-            </div>
+                <!-- সাবমিট -->
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-md transition-all mt-4">
+                    <i class="fas fa-paper-plane mr-2"></i> দোকান রেজিস্ট্রেশন করুন
+                </button>
+            </form>
         </div>
+    </main>
 
-    </div>
+    <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার ডিরেক্টরি।</p>
+    </footer>
 
     <script>
-        document.getElementById("storeForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            let newStoreRequest = {
-                id: Date.now(),
-                shopName: document.getElementById("shopName").value,
-                ownerName: document.getElementById("ownerName").value,
-                category: document.getElementById("category").value,
-                phone: document.getElementById("phone").value,
-                address: document.getElementById("address").value,
-                products: document.getElementById("products").value
-            };
-            let pendingStores = JSON.parse(localStorage.getItem("pendingStores")) || [];
-            pendingStores.push(newStoreRequest);
-            localStorage.setItem("pendingStores", JSON.stringify(pendingStores));
-
-            document.getElementById("storeForm").classList.add("hidden");
-            document.getElementById("successMessage").classList.remove("hidden");
-        });
+        function handleStoreSubmit(event) {
+            event.preventDefault();
+            const shopName = document.getElementById('storeName').value;
+            alert(`অভিনন্দন! "${shopName}" সফলভাবে আমাদের ডিজিটাল বাজারের তালিকায় যুক্ত হওয়ার আবেদন সম্পন্ন করেছে। অ্যাডমিন যাচাই করে খুব দ্রুত আপনাদের সাথে যোগাযোগ করবে।`);
+            document.getElementById('storeForm').reset();
+            window.location.href = "market.html";
+        }
     </script>
 </body>
 </html>

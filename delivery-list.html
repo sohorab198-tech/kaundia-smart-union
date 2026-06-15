@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লাইভ ডেলিভারি ম্যান তালিকা - কাউন্দিয়া ডিজিটাল বাজার</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- হেডার সেকশন -->
+    <header class="bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <a href="market.html" class="inline-flex items-center text-sm bg-orange-700/40 hover:bg-orange-700/60 px-4 py-1.5 rounded-full mb-3 transition">
+                <i class="fas fa-arrow-left mr-2"></i> ডিজিটাল বাজারে ফিরে যান
+            </a>
+            <h1 class="text-2xl md:text-3xl font-bold flex items-center justify-center gap-2">
+                <i class="fas fa-motorcycle text-yellow-300"></i> আমাদের একটিভ ডেলিভারি রাইডার্স
+            </h1>
+            <p class="text-xs md:text-sm text-orange-100 mt-1">কাউন্দিয়া ইউনিয়নের যেকোনো প্রান্তে দ্রুত ও নিরাপদে পণ্য পৌঁছে দিতে তারা প্রস্তুত</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+
+        <!-- নতুন ডেলিভারি ম্যান যুক্ত হওয়ার সেকশন ও বাটন -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="text-center sm:text-left">
+                <h3 class="font-bold text-slate-800 text-lg">আপনি কি কাউন্দিয়া এলাকার একজন রাইডার?</h3>
+                <p class="text-sm text-slate-500">আমাদের ডিজিটাল বাজারে ডেলিভারি ম্যান হিসেবে যুক্ত হয়ে প্রতিদিন আয় করুন।</p>
+            </div>
+            <a href="add-deliveryman.html" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow transition flex items-center gap-1 shrink-0">
+                <i class="fas fa-user-plus"></i> ডেলিভারি ম্যান হিসেবে যুক্ত হোন
+            </a>
+        </div>
+
+        <!-- ডেলিভারি ম্যানদের তালিকা গ্রিড -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- ডেলিভারি ম্যান ১ -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 relative overflow-hidden transition hover:shadow-md">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 text-xl font-bold">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg">মোঃ রাসেল মিয়া</h3>
+                            <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full block w-max mt-0.5">আইডি: কডিবি-২০১</span>
+                        </div>
+                    </div>
+                    
+                    <!-- লাইভ এভেইলেবল বাটন (রাইডার নিজে পরিবর্তন করতে পারবেন) -->
+                    <div class="text-right">
+                        <button onclick="toggleStatus(this)" class="status-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition bg-emerald-100 text-emerald-800 border border-emerald-200">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="btn-text">Available</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5 text-sm text-slate-600 border-t border-b border-slate-50 py-3 my-3">
+                    <p class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-slate-400 w-4"></i> 
+                        <span><strong>ঠিকানা:</strong> কাউন্দিয়া মধ্যপাড়া (সমগ্র কাউন্দিয়া এলাকায় ডেলিভারি দেন)</span>
+                    </p>
+                    <p class="flex items-center gap-2">
+                        <i class="fas fa-phone-alt text-slate-400 w-4"></i> 
+                        <span><strong>ফোন নম্বর:</strong> ০১৭XXXXXXXX</span>
+                    </p>
+                </div>
+
+                <!-- কাস্টমার কল অ্যাকশন বাটন -->
+                <a href="tel:017XXXXXXXX" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-center text-sm font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fas fa-phone-volume"></i> পণ্য ডেলিভারির জন্য কল করুন
+                </a>
+            </div>
+
+            <!-- ডেলিভারি ম্যান ২ -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 relative overflow-hidden transition hover:shadow-md">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 text-xl font-bold">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg">আল-আমিন হোসেন</h3>
+                            <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full block w-max mt-0.5">আইডি: কডিবি-২০২</span>
+                        </div>
+                    </div>
+                    
+                    <!-- লাইভ এভেইলেবল বাটন (শুরুতে এটি Not Available দেখানো হলো টেস্ট করার জন্য) -->
+                    <div class="text-right">
+                        <button onclick="toggleStatus(this)" class="status-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition bg-rose-100 text-rose-800 border border-rose-200">
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            <span class="btn-text">Not Available</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5 text-sm text-slate-600 border-t border-b border-slate-50 py-3 my-3">
+                    <p class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-slate-400 w-4"></i> 
+                        <span><strong>ঠিকানা:</strong> কাউন্দিয়া বটতলা মোড় (সমগ্র কাউন্দিয়া এলাকায় ডেলিভারি দেন)</span>
+                    </p>
+                    <p class="flex items-center gap-2">
+                        <i class="fas fa-phone-alt text-slate-400 w-4"></i> 
+                        <span><strong>ফোন নম্বর:</strong> ০১৮XXXXXXXX</span>
+                    </p>
+                </div>
+
+                <a href="tel:018XXXXXXXX" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-center text-sm font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fas fa-phone-volume"></i> পণ্য ডেলিভারির জন্য কল করুন
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-12 border-t border-slate-800 text-sm">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার ডিরেক্টরি। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- ডেলিভারি ম্যানের নিজের স্ট্যাটাস লাইভ চেঞ্জ করার জাভাস্ক্রিপ্ট ম্যাজিক -->
+    <script>
+        function toggleStatus(button) {
+            const textSpan = button.querySelector('.btn-text');
+            const dotSpan = button.querySelector('span:first-child');
+            
+            if (textSpan.innerText === "Available") {
+                // Not Available এ পরিবর্তন
+                textSpan.innerText = "Not Available";
+                button.className = "status-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition bg-rose-100 text-rose-800 border border-rose-200";
+                dotSpan.className = "w-2 h-2 rounded-full bg-rose-500";
+            } else {
+                // Available এ পরিবর্তন
+                textSpan.innerText = "Available";
+                button.className = "status-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition bg-emerald-100 text-emerald-800 border border-emerald-200";
+                dotSpan.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+            }
+        }
+    </script>
+</body>
+</html>

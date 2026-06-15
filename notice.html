@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ডিজিটাল নোটিশ বোর্ড - কাউন্দিয়া ইউনিয়ন</title>
+    <title>ডিজিটাল নোটিশ বোর্ড - কাউন্দিয়া ইউনিয়ন</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; }
+        /* নির্দিষ্ট নোটিশে ক্লিক করে আসলে হাইলাইট করার অ্যানিমেশন */
+        @keyframes highlightPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px 5px rgba(79, 70, 229, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .highlight-notice {
+            animation: highlightPulse 2s ease-in-out 2;
+            border-color: #4f46e5 !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col justify-between">
@@ -20,7 +30,7 @@
                 <span class="font-bold text-lg">হোমপেজে ফিরুন</span>
             </a>
             <div class="text-right">
-                <h1 class="font-bold text-gray-800 text-md sm:text-xl">কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</h1>
+                <h1 class="font-bold text-gray-800 text-md sm:text-xl">কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</h1>
                 <p class="text-xs text-emerald-600 font-semibold tracking-wider uppercase">তথ্য ও নোটিশ কেন্দ্র</p>
             </div>
         </div>
@@ -33,73 +43,130 @@
                 <i class="fas fa-bullhorn animate-bounce"></i>
             </div>
             <h2 class="text-3xl font-bold text-blue-950">📢 ডিজিটাল নোটিশ বোর্ড</h2>
-            <p class="text-gray-500 mt-2 text-sm sm:text-base">কাউন্দিয়া ইউনিয়নের সকল সরকারি সেবা, জনসচেতনতা এবং জরুরি ঘোষণা একনজরে দেখে নিন।</p>
+            <p class="text-gray-500 mt-2 text-sm sm:text-base">কাউন্দিয়া ইউনিয়নের সকল সরকারি সেবা, জনসচেতনতা এবং জরুরি ঘোষণা একনজরে দেখে নিন।</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <div class="bg-white rounded-3xl p-6 shadow-md border-l-8 border-red-500 border-t border-b border-r border-gray-100 hover:shadow-xl transition duration-200">
-                <div class="flex justify-between items-start mb-4">
-                    <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-exclamation-circle mr-1"></i> জরুরি ঘোষণা</span>
-                    <span class="text-xs text-gray-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ০৮ জুন, ২০২৬</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-red-600 transition cursor-pointer">বর্ষাকালীন বন্যা ও নদী ভাঙন সতর্কবার্তা</h3>
-                <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    কাউন্দিয়া ইউনিয়নের চারপাশ নদীবেষ্টিত হওয়ায় বর্ষার পানি বৃদ্ধির সম্ভাবনা রয়েছে। নদী তীরবর্তী নিম্নাঞ্চলের সকল নাগরিককে সতর্ক থাকার জন্য অনুরোধ করা যাচ্ছে। যেকোনো জরুরি প্রয়োজনে ইউনিয়ন পরিষদের কন্ট্রোল রুমে যোগাযোগ করুন।
-                </p>
-                <div class="flex items-center text-xs font-bold text-red-600">
-                    <i class="fas fa-phone-alt mr-1"></i> হেল্পলাইন: 017XXXXXXXX (২৪ ঘণ্টা খোলা)
-                </div>
+        <div id="noticeGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             </div>
-
-            <div class="bg-white rounded-3xl p-6 shadow-md border-l-8 border-emerald-500 border-t border-b border-r border-gray-100 hover:shadow-xl transition duration-200">
-                <div class="flex justify-between items-start mb-4">
-                    <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-gift mr-1"></i> সরকারি অনুদান</span>
-                    <span class="text-xs text-gray-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ০৬ জুন, ২০২৬</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-emerald-600 transition cursor-pointer">২০২৬ অর্থ বছরের ভিজিডি (VGD) কার্ডের চাল বিতরণ</h3>
-                <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    কাউন্দিয়া ইউনিয়নের তালিকাভুক্ত উপকারভোগী মহিলাদের অবগতির জন্য জানানো যাচ্ছে যে, আগামী ১০ জুন থেকে ১২ জুন পর্যন্ত ইউনিয়ন পরিষদ প্রাঙ্গণে মাসিক ৩০ কেজি করে চাল বিতরণ করা হবে। অনুগ্রহ করে নিজ নিজ কার্ড সাথে নিয়ে আসবেন।
-                </p>
-                <div class="flex items-center text-xs font-bold text-emerald-600">
-                    <i class="fas fa-clock mr-1"></i> সময়: সকাল ৯:০০ টা থেকে বিকেল ৪:০০ টা
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-6 shadow-md border-l-8 border-blue-500 border-t border-b border-r border-gray-100 hover:shadow-xl transition duration-200">
-                <div class="flex justify-between items-start mb-4">
-                    <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-heartbeat mr-1"></i> স্বাস্থ্য সেবা</span>
-                    <span class="text-xs text-gray-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ০৪ জুন, ২০২৬</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-blue-600 transition cursor-pointer">ফ্রি ফ্রাইডে মেডিকেল ক্যাম্প ও প্রসূতি মায়েদের চিকিৎসা</h3>
-                <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    উপজেলা স্বাস্থ্য কমপ্লেক্সের সৌজন্যে আগামী শুক্রবার কাউন্দিয়া ইউনিয়ন স্বাস্থ্য কেন্দ্রে একটি ফ্রি মেডিকেল ক্যাম্পের আয়োজন করা হয়েছে। সেখানে অভিজ্ঞ ডাক্তার দ্বারা প্রসূতি মা ও শিশুদের বিনামূল্যে চিকিৎসা এবং ওষুধ প্রদান করা হবে।
-                </p>
-                <div class="flex items-center text-xs font-bold text-blue-600">
-                    <i class="fas fa-map-marker-alt mr-1"></i> স্থান: ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ কেন্দ্র
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-6 shadow-md border-l-8 border-purple-500 border-t border-b border-r border-gray-100 hover:shadow-xl transition duration-200">
-                <div class="flex justify-between items-start mb-4">
-                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-id-card mr-1"></i> স্মার্ট এনআইডি</span>
-                    <span class="text-xs text-gray-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ০১ জুন, ২০২৬</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-purple-600 transition cursor-pointer">১, ২ ও ৩ নং ওয়ার্ডের স্মার্ট জাতীয় পরিচয়পত্র বিতরণ</h3>
-                <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    যেসব নাগরিকের পুরাতন কাগজের এনআইডি কার্ড রয়েছে, তাদের নতুন স্মার্ট কার্ড বিতরণ করা হবে। আগামী ১৫ই জুন থেকে পর্যায়ক্রমে ইউনিয়ন পরিষদ কমপ্লেক্সে কার্ড দেওয়া হবে। কার্ড নেওয়ার সময় পুরাতন মূল কার্ডটি সাথে আনতে হবে।
-                </p>
-                <div class="flex items-center text-xs font-bold text-purple-600">
-                    <i class="fas fa-info-circle mr-1"></i> দ্রষ্টব্য: ফিঙ্গারপ্রিন্ট ও চোখের আইরিশের ম্যাচিং বাধ্যতামূলক।
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <footer class="bg-blue-950 text-gray-400 py-6 text-center text-xs border-t border-blue-900">
-        <p>© ২০২৬ কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p>© ২০২৬ কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
+
+    <script>
+        // ১. ব্যাকআপ স্ট্যাটিক নোটিশ তালিকা
+        const defaultNotices = [
+            {
+                id: "static-1",
+                type: "জরুরি ঘোষণা",
+                typeClass: "bg-red-100 text-red-700 border-red-500",
+                date: "০৮ জুন, ২০২৬",
+                title: "বর্ষাকালীন বন্যা ও নদী ভাঙন সতর্কবার্তা",
+                content: "কাউন্দিয়া ইউনিয়নের চারপাশ নদীবেষ্টিত হওয়ায় বর্ষার পানি বৃদ্ধির সম্ভাবনা রয়েছে। নদী তীরবর্তী নিম্নাঞ্চলের সকল নাগরিককে সতর্ক থাকার জন্য অনুরোধ করা যাচ্ছে। যেকোনো জরুরি প্রয়োজনে ইউনিয়ন পরিষদের কন্ট্রোল রুমে যোগাযোগ করুন।",
+                footer: "<i class='fas fa-phone-alt mr-1'></i> হেল্পলাইন: 017XXXXXXXX (২৪ ঘণ্টা খোলা)"
+            },
+            {
+                id: "static-2",
+                type: "सरकारी अनुदान",
+                typeClass: "bg-emerald-100 text-emerald-700 border-emerald-500",
+                date: "০৬ জুন, ২০২৬",
+                title: "২০২৬ অর্থ বছরের ভিজিডি (VGD) কার্ডের চাল বিতরণ",
+                content: "কাউন্দিয়া ইউনিয়নের তালিকাভুক্ত উপকারভোগী মহিলাদের অবগতির জন্য জানানো যাচ্ছে যে, আগামী ১০ জুন থেকে ১২ জুন পর্যন্ত ইউনিয়ন পরিষদ প্রাঙ্গণে মাসিক ৩০ কেজি করে চাল বিতরণ করা হবে। অনুগ্রহ করে নিজ নিজ কার্ড সাথে নিয়ে আসবেন।",
+                footer: "<i class='fas fa-clock mr-1'></i> সময়: সকাল ৯:০০ টা থেকে বিকেল ৪:০০  টা"
+            },
+            {
+                id: "static-3",
+                type: "স্বাস্থ্য সেবা",
+                typeClass: "bg-blue-100 text-blue-700 border-blue-500",
+                date: "০৪ জুন, ۲۰২৬",
+                title: "ফ্রি ফ্রাইডে মেডিকেল ক্যাম্প ও প্রসূতি মায়েদের চিকিৎসা",
+                content: "উপজেলা স্বাস্থ্য কমপ্লেক্সের সৌজন্যে আগামীশুক্রবার কাউন্দিয়া ইউনিয়ন স্বাস্থ্য কেন্দ্রে একটি ফ্রি মেডিকেল ক্যাম্পের আয়োজন করা হয়েছে। সেখানে অভিজ্ঞ ডাক্তার দ্বারা প্রসূতি মা ও শিশুদের বিনামূল্যে চিকিৎসা এবং ওষুধ প্রদান করা হবে।",
+                footer: "<i class='fas fa-map-marker-alt mr-1'></i> স্থান: ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ কেন্দ্র"
+            },
+            {
+                id: "static-4",
+                type: "স্মার্ট এনআইডি",
+                typeClass: "bg-purple-100 text-purple-700 border-purple-500",
+                date: "০১ জুন, ২০২৬",
+                title: "১, ২ ও ৩ নং ওয়ার্ডের স্মার্ট জাতীয় পরিচয়পত্র বিতরণ",
+                content: "যেসব নাগরিকের পুরাতন কাগজের এনআইডি কার্ড রয়েছে, তাদের নতুন স্মার্ট কার্ড বিতরণ করা হবে। আগামী ১৫ই জুন থেকে পর্যায়ক্রমে ইউনিয়ন পরিষদ কমপ্লেক্সে কার্ড দেওয়া হবে। কার্ড নেওয়ার সময় পুরাতন মূল কার্ডটি সাথে আনতে হবে।",
+                footer: "<i class='fas fa-info-circle mr-1'></i> দ্রষ্টব্য: ফিঙ্গারপ্রিন্ট ও চোখের আইরিশের ম্যাচিং বাধ্যতামুলক।"
+            }
+        ];
+
+        // ২. লোকাল স্টোরেজ থেকে সব নোটিশ রেন্ডার করার আপডেট ফাংশন
+        function loadAllDigitalNotices() {
+            // প্রতিষ্ঠান ও স্কুলের ডাইনামিক নোটিশ রিড করা
+            let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+            
+            // সাধারণ ইউজারদের পাঠানো এবং অ্যাডমিন প্যানেল থেকে অনুমোদিত নোটিশ রিড করা
+            let allUserNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
+            let approvedUserNotices = allUserNotices.filter(notice => notice.status === 'approved');
+
+            // অনুমোদিত ইউজার নোটিশের জন্য ডাটা ফরম্যাট সেট করা (টাইপ ও ফুটার স্টাইল)
+            let formattedUserNotices = approvedUserNotices.map(notice => {
+                return {
+                    id: notice.id,
+                    type: "নাগরিক নোটিশ",
+                    typeClass: "bg-amber-100 text-amber-800 border-amber-500",
+                    date: notice.date || "চলতি নোটিশ",
+                    title: notice.title,
+                    content: notice.content,
+                    footer: `<i class="fas fa-user-circle mr-1"></i> প্রেরক: ${notice.name || 'সাধারণ নাগরিক'}`
+                };
+            });
+
+            // সব ডাইনামিক নোটিশ (প্রতিষ্ঠান + অনুমোদিত নাগরিক) এবং ডিফল্ট নোটিশ ক্রমানুসারে সাজানো
+            let allNotices = [...formattedUserNotices, ...unionNotices, ...defaultNotices];
+
+            const grid = document.getElementById('noticeGrid');
+            if(!grid) return;
+
+            // যদি কোনো নোটিশই না থাকে
+            if (allNotices.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">এই মুহূর্তে কোনো নোটিশ উপলব্ধ নেই।</p>`;
+                return;
+            }
+
+            // গ্রিডে ডাটা ম্যাপ করে আউটপুট দেখানো
+            grid.innerHTML = allNotices.map(notice => {
+                const badgeClass = notice.typeClass || "bg-indigo-100 text-indigo-700 border-indigo-500";
+                const footerContent = notice.footer || `<i class="fas fa-university mr-1"></i> প্রকাশিত প্যানেল: প্রশাসন`;
+
+                return `
+                    <div id="notice-card-${notice.id}" class="bg-white rounded-3xl p-6 shadow-md border-l-8 ${badgeClass.split(' ').pop()} border-t border-b border-r border-gray-100 hover:shadow-xl transition duration-200">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="${badgeClass.replace(/border-\S+/, '')} text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">${notice.type}</span>
+                            <span class="text-xs text-gray-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ${notice.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-indigo-600 transition cursor-pointer">${notice.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">${notice.content}</p>
+                        <div class="flex items-center text-xs font-bold text-gray-500">
+                            ${footerContent}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // ৩. হোমপেজ বা অন্য পেজ থেকে নির্দিষ্ট নোটিশে স্ক্রল করে হাইলাইট করার লজিক
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetNoticeId = urlParams.get('noticeId');
+
+            if (targetNoticeId) {
+                setTimeout(() => {
+                    const targetElement = document.getElementById(`notice-card-${targetNoticeId}`);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        targetElement.classList.add('highlight-notice');
+                    }
+                }, 400);
+            }
+        }
+
+        // পেজ লোড সম্পূর্ণ হলে সিস্টেম চালু হবে
+        document.addEventListener("DOMContentLoaded", loadAllDigitalNotices);
+    </script>
 
 </body>
 </html>

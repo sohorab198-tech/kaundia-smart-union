@@ -3,526 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কাউন্দিয়া বাজার - বাজার করুন</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার</title>
+    <!-- Tailwind CSS CDN for Modern Design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri) for Beautiful Bengali Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* স্লাইডারের স্মুথ অ্যানিমেশনের জন্য কাস্টম স্টাইল */
-        .slider-item { display: none; }
-        .slider-item.active { display: block; animation: fadeEffect 0.8s; }
-        @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .active-tab {
+            background-color: #047857 !important;
+            color: white !important;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-slate-50 text-slate-800">
 
-    <section class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-center py-12 px-4 shadow-md relative">
-        <div class="max-w-7xl mx-auto text-left mb-3">
-            <a href="index.html" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold py-2 px-4 rounded-xl backdrop-blur-xs transition">
-                <i class="fa-solid fa-house"></i> প্রধান পেজে ফিরুন
+    <!-- হেডার ও ব্যানার সেকশন -->
+    <header class="bg-gradient-to-r href=# from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <a href="index.html" class="inline-flex items-center text-sm bg-emerald-700/50 hover:bg-emerald-800 px-4 py-1.5 rounded-full mb-4 transition">
+                <i class="fas fa-home mr-2"></i> প্রধান পেজে ফিরুন
             </a>
+            <h1 class="text-3xl md:text-4xl font-bold flex items-center justify-center gap-3">
+                <i class="fas fa-shopping-bag text-yellow-300"></i> কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার
+            </h1>
+            <p class="text-sm md:text-base text-emerald-100 mt-2">আপনার নিত্যপ্রয়োজনীয় তাজা বাজার এবং এক্সক্লুসিভ কালেকশন এখন এক ক্লিকেই!</p>
         </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold mb-3">🛍️ কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার</h1>
-        <p class="text-base md:text-lg text-emerald-100 max-w-2xl mx-auto mb-6">আপনার নিত্যপ্রয়োজনীয় তাজা বাজার এবং এক্সক্লুসিভ কালেকশন এখন এক ক্লিকেই!</p>
-        
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="https://ekhon.tv/prices" target="_blank" class="inline-block bg-white text-emerald-700 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-emerald-50 transition transform hover:scale-105 text-sm md:text-base">
-                <i class="fa-solid fa-chart-line mr-2"></i> আজকের লাইভ বাজারদর দেখতে এখানে ক্লিক করুন
-            </a>
-            <button onclick="toggleDeliveryModal(true)" class="bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105 text-sm md:text-base cursor-pointer">
-                <i class="fa-solid fa-motorcycle mr-2 animate-pulse"></i> 🛵 ডেলিভারি চালকদের তালিকা ও নিয়ম
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- বিশেষ শッピング, ডেলিভারি ও ডেলিভারি ম্যান বাটন ব্যানার -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8 text-center max-w-4xl mx-auto">
+            <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center justify-center gap-2">
+                <i class="fas fa-truck text-emerald-600"></i> আমাদের শপিং ও ডেলিভারি সুবিধা
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <!-- অপশন ১ -->
+                <div class="bg-emerald-50/50 border border-emerald-100 rounded-xl p-4 text-left">
+                    <h3 class="font-bold text-emerald-800 flex items-center gap-2 mb-1">
+                        <i class="fas fa-store-alt"></i> সরাসরি দেখে কেনার সুবিধা (In-Store)
+                    </h3>
+                    <p class="text-sm text-slate-600">আপনি চাইলে সরাসরি আমাদের ঠিকানায় চলে এসে কাপড়ের কোয়ালিটি ও সাইজ নিজের চোখে দেখে, পছন্দ করে ক্যাশ টাকা দিয়ে কিনে নিয়ে যেতে পারেন।</p>
+                </div>
+                <!-- অপশন ২ -->
+                <div class="bg-teal-50/50 border border-teal-100 rounded-xl p-4 text-left">
+                    <h3 class="font-bold text-teal-800 flex items-center gap-2 mb-1">
+                        <i class="fas fa-motorcycle"></i> ক্যাশ অন হোম ডেলিভারি
+                    </h3>
+                    <p class="text-sm text-slate-600">ঘরে বসে কিনতে চাইলে অনলাইনে অর্ডার করুন। আমাদের বিশ্বস্ত ডেলিভারিম্যান আপনার ঠিকানায় পণ্য পৌঁছে দিয়ে আসবেন। (ডেলিভারি চার্জ প্রযোজ্য)।</p>
+                </div>
+            </div>
+            <!-- ডেলিভারি ম্যানের তালিকায় যাওয়ার বাটন -->
+            <div class="inline-block">
+                <a href="delivery-list.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-6 py-3 rounded-full hover:from-amber-600 hover:to-orange-600 shadow-md transition-all transform hover:-translate-y-0.5">
+                    <i class="fas fa-users-cog animate-pulse"></i> আজকের লাইভ ডেলিভারি ম্যানদের তালিকা দেখুন
+                </a>
+            </div>
+        </section>
+
+        <!-- মূল ৪টি ক্যাটাগরি নেভিগেশন ট্যাব -->
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 bg-white p-2 rounded-xl shadow-sm border border-slate-100 max-w-5xl mx-auto">
+            <button onclick="openTab(event, 'kids-special')" class="tab-btn px-5 py-2.5 rounded-lg font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-2 active-tab">
+                <i class="fas fa-baby text-pink-500"></i> কিডস স্পেশাল (Kids Special)
             </button>
-        </div>
-    </section>
+            <button onclick="openTab(event, 'girls-special')" class="tab-btn px-5 py-2.5 rounded-lg font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fas fa-female text-purple-500"></i> গার্লস স্পেশাল (Female Corner)
+            </button>
+            <button onclick="openTab(event, 'local-ads')" class="tab-btn px-5 py-2.5 rounded-lg font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fas fa-bullhorn text-blue-500"></i> ইউনিয়ন ফ্যাশন গ্যালারি (Local Ads)
+            </button>
+            <button onclick="openTab(event, 'general-market')" class="tab-btn px-5 py-2.5 rounded-lg font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fas fa-store text-emerald-600"></i> নিত্যপ্রয়োজনীয় বাজার ডিরেক্টরি
+            </button>
+        </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
-        
-        <section class="bg-white border border-purple-100 rounded-3xl shadow-xs overflow-hidden">
-            <div class="bg-gradient-to-r from-purple-900 to-indigo-800 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-white">
-                <div>
-                    <h2 class="text-2xl md:text-3xl font-extrabold flex items-center gap-2">
-                        <span class="animate-pulse">✨</span> এক্সক্লুসিভ Fashion ও হোম টেক্সটাইল
-                    </h2>
-                    <p class="text-xs md:text-sm text-purple-100 mt-1">আমাদের নিজস্ব প্রিমিয়াম কালেকশন সরাসরি অনলাইনে অর্ডার করুন</p>
-                </div>
-                <div class="flex flex-wrap gap-2 text-[11px] font-bold">
-                    <span class="bg-white/10 border border-white/20 text-white px-3 py-1.5 rounded-xl backdrop-blur-xs">বিকাশ (Personal): 01778581617</span>
-                    <span class="bg-white/10 border border-white/20 text-white px-3 py-1.5 rounded-xl backdrop-blur-xs">নগদ (Personal): 01778581617</span>
-                </div>
-            </div>
-
-            <div class="w-full relative bg-gradient-to-br from-purple-50/50 via-white to-indigo-50/50 p-6 md:p-10">
-                <span class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md z-10 uppercase tracking-widest shadow-xs">অ্যাডমিন স্পেশাল</span>
-                
-                <div class="slider-item active">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div class="md:col-span-5 md:order-2 flex items-center justify-center bg-gradient-to-br from-purple-100 to-indigo-100 h-64 md:h-72 rounded-2xl text-purple-600 text-7xl shadow-inner">
-                            <i class="fa-solid fa-shirt"></i>
-                        </div>
-                        <div class="md:col-span-7 md:order-1 space-y-4 text-center md:text-left">
-                            <span class="inline-block text-xs font-bold text-purple-700 bg-purple-100 border border-purple-200 px-3 py-1 rounded-full">ফ্যাশন কালেকশন • শাড়ি</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-gray-800 leading-tight">রেডিমেড প্রিমিয়াম জামদানি শাড়ি</h3>
-                            <p class="text-sm text-gray-500">আভিজাত্য আর ঐতিহ্যের মেলবন্ধনে তৈরি আমাদের এই বিশেষ জামদানি শাড়িটি যেকোনো উৎসবের জন্য চমৎকার পছন্দ।</p>
-                            <div class="flex items-center justify-center md:justify-start gap-4">
-                                <span class="text-3xl font-black text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-xl border border-emerald-100">৳ ২,৪৯৯</span>
-                                <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-md border border-green-100"><i class="fa-solid fa-circle-check"></i> স্টক রেডি</span>
-                            </div>
-                            <button onclick="openOrderModal('01571398655', 'রেডিমেড প্রিমিয়াম জামদানি শাড়ি (৳ ২৪৯৯)')" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 text-base shadow-md hover:shadow-lg transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> অর্ডার করতে মেসেজ করুন
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div class="md:col-span-5 md:order-2 flex items-center justify-center bg-gradient-to-br from-purple-100 to-indigo-100 h-64 md:h-72 rounded-2xl text-purple-600 text-7xl shadow-inner">
-                            <i class="fa-solid fa-shirt"></i>
-                        </div>
-                        <div class="md:col-span-7 md:order-1 space-y-4 text-center md:text-left">
-                            <span class="inline-block text-xs font-bold text-purple-700 bg-purple-100 border border-purple-200 px-3 py-1 rounded-full">হোম টেক্সটাইল • লুঙ্গি</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-gray-800 leading-tight">আরামদায়ক সুতি প্রিমিয়াম লুঙ্গি</h3>
-                            <p class="text-sm text-gray-500">১০০% পিওর কটন সুতা দিয়ে তৈরি অত্যন্ত আরামদায়ক এবং টেকসই শতভাগ দেশি প্রিমিয়াম কোয়ালিটি লুঙ্গি।</p>
-                            <div class="flex items-center justify-center md:justify-start gap-4">
-                                <span class="text-3xl font-black text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-xl border border-emerald-100">৳ ৪৫০</span>
-                                <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-md border border-green-100"><i class="fa-solid fa-circle-check"></i> স্টক রেডি</span>
-                            </div>
-                            <button onclick="openOrderModal('01571398655', 'আরামদায়ক সুতি প্রিমিয়াম লুঙ্গি (৳ ৪৫০)')" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 text-base shadow-md hover:shadow-lg transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> অর্ডার করতে মেসেজ করুন
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div class="md:col-span-5 md:order-2 flex items-center justify-center bg-gradient-to-br from-purple-100 to-indigo-100 h-64 md:h-72 rounded-2xl text-purple-600 text-7xl shadow-inner">
-                            <i class="fa-solid fa-shirt"></i>
-                        </div>
-                        <div class="md:col-span-7 md:order-1 space-y-4 text-center md:text-left">
-                            <span class="inline-block text-xs font-bold text-purple-700 bg-purple-100 border border-purple-200 px-3 py-1 rounded-full">ফ্যাশন কালেকশন • থ্রি-পিস</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-gray-800 leading-tight">আধুনিক ডিজাইনার থ্রি-পিস কালেকশন</h3>
-                            <p class="text-sm text-gray-500">লেটেস্ট ট্রেন্ড আর আকর্ষণীয় ডিজাইনের চমৎকার থ্রি-পিস কালেকশন, যা আপনার ফ্যাশনে যোগ করবে নতুন মাত্রা।</p>
-                            <div class="flex items-center justify-center md:justify-start gap-4">
-                                <span class="text-3xl font-black text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-xl border border-emerald-100">৳ ১,২০০</span>
-                                <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-md border border-green-100"><i class="fa-solid fa-circle-check"></i> স্টক রেডি</span>
-                            </div>
-                            <button onclick="openOrderModal('01571398655', 'আধুনিক ডিজাইনার থ্রি-পিস কালেকশন (৳ ১২০০)')" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 text-base shadow-md hover:shadow-lg transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> অর্ডার করতে মেসেজ করুন
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div class="md:col-span-5 md:order-2 flex items-center justify-center bg-gradient-to-br from-purple-100 to-indigo-100 h-64 md:h-72 rounded-2xl text-purple-600 text-7xl shadow-inner">
-                            <i class="fa-solid fa-bed"></i>
-                        </div>
-                        <div class="md:col-span-7 md:order-1 space-y-4 text-center md:text-left">
-                            <span class="inline-block text-xs font-bold text-purple-700 bg-purple-100 border border-purple-200 px-3 py-1 rounded-full">হোম টেক্সটাইল • চাদর</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-gray-800 leading-tight">ডাবল বেডের আকর্ষণীয় সুতি চাদর</h3>
-                            <p class="text-sm text-gray-500">পাক্কা রঙ ও প্রিমিয়াম ডিজাইনের কিং সাইজ ডাবল বেডশিট, যা আপনার শোবার ঘরের সৌন্দর্য বহুগুণ বাড়িয়ে দেবে।</p>
-                            <div class="flex items-center justify-center md:justify-start gap-4">
-                                <span class="text-3xl font-black text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-xl border border-emerald-100">৳ ৮৫০</span>
-                                <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-md border border-green-100"><i class="fa-solid fa-circle-check"></i> স্টক রেডি</span>
-                            </div>
-                            <button onclick="openOrderModal('01571398655', 'ডাবল বেডের আকর্ষণীয় সুতি চাদর (৳ ৮৫০)')" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 text-base shadow-md hover:shadow-lg transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> অর্ডার করতে মেসেজ করুন
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 bg-gray-50/50 border-t border-gray-100">
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-3"><i class="fa-solid fa-rectangle-ad text-purple-500"></i> অন্যান্য বিক্রেতাদের পোশাকের বিজ্ঞাপন:</span>
-                <div id="cloth-ads-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- অন্যান্য বিক্রেতাদের পোশাকের ৩টি ডামি কার্ড (১৩৯ নম্বর লাইনের গ্রিড ডিভ-এর ভেতরে বসাবেন) -->
-
-<!-- কার্ড ১: সুতি থ্রি-পিস -->
-<div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition">
-    <div class="bg-gray-100 h-48 flex items-center justify-center relative">
-        <i class="fa-solid fa-shirt text-4xl text-purple-400"></i>
-        <span class="absolute top-2 left-2 bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">মনি ফ্যাশন</span>
-    </div>
-    <div class="p-4 space-y-2">
-        <h4 class="font-bold text-gray-800 text-base line-clamp-1">প্রিমিয়াম সুতি আনস্টিচড থ্রি-পিস</h4>
-        <p class="text-xs text-gray-500">১০০% সুতি আরামদায়ক কাপড়ের ওপর আকর্ষণীয় এমব্রয়ডারি ডিজাইন।</p>
-        <div class="flex items-center justify-between pt-2">
-            <span class="text-purple-700 font-bold text-base">৳ ৮৫০</span>
-            <span class="bg-green-50 text-green-700 text-[11px] font-bold px-2 py-0.5 rounded border border-green-200">স্টক রেডি</span>
-        </div>
-        <a href="https://wa.me/8801700000000?text=আমি%20মনি%20ফ্যাশনের%20সুতি%20থ্রি%20পিসটি%20অর্ডার%20করতে%20চাই" target="_blank" class="block w-full text-center bg-gray-800 hover:bg-gray-950 text-white text-xs font-bold py-2 rounded-lg transition mt-2">
-            <i class="fa-solid fa-envelope mr-1"></i> অর্ডার করতে মেসেজ করুন
-        </a>
-    </div>
-</div>
-
-<!-- কার্ড ২: জামদানি শাড়ি -->
-<div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition">
-    <div class="bg-gray-100 h-48 flex items-center justify-center relative">
-        <i class="fa-solid fa-scissors text-4xl text-rose-400"></i>
-        <span class="absolute top-2 left-2 bg-rose-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">কাউন্দিয়া শাড়ি ঘর</span>
-    </div>
-    <div class="p-4 space-y-2">
-        <h4 class="font-bold text-gray-800 text-base line-clamp-1">হাফ সিল্ক মানসম্মত জামদানি শাড়ি</h4>
-        <p class="text-xs text-gray-500">যেকোনো উৎসব বা অনুষ্ঠানের জন্য চমৎকার ও রাজকীয় ডিজাইনের শাড়ি।</p>
-        <div class="flex items-center justify-between pt-2">
-            <span class="text-rose-700 font-bold text-base">৳ ১,৬৫০</span>
-            <span class="bg-green-50 text-green-700 text-[11px] font-bold px-2 py-0.5 rounded border border-green-200">স্টক রেডি</span>
-        </div>
-        <a href="https://wa.me/8801700000000?text=আমি%20কাউন্দিয়া%20শাড়ি%20ঘরের%20জামদানি%20শাড়িটি%20অর্ডার%20করতে%20চাই" target="_blank" class="block w-full text-center bg-gray-800 hover:bg-gray-950 text-white text-xs font-bold py-2 rounded-lg transition mt-2">
-            <i class="fa-solid fa-envelope mr-1"></i> অর্ডার করতে মেসেজ করুন
-        </a>
-    </div>
-</div>
-
-<!-- কার্ড ৩: ছেলেদের পাঞ্জাবি -->
-<div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition">
-    <div class="bg-gray-100 h-48 flex items-center justify-center relative">
-        <i class="fa-solid fa-user-tie text-4xl text-blue-400"></i>
-        <span class="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">ভাই ভাই ক্লথ স্টোর</span>
-    </div>
-    <div class="p-4 space-y-2">
-        <h4 class="font-bold text-gray-800 text-base line-clamp-1">ডিজাইনার সেমি-লং সুতি পাঞ্জাবি</h4>
-        <p class="text-xs text-gray-500">গ্রীষ্মের উপযোগী আরামদায়ক ও নিখুঁত সুই-সুতার কাজ করা পাঞ্জাবি।</p>
-        <div class="flex items-center justify-between pt-2">
-            <span class="text-blue-700 font-bold text-base">৳ ৯৯০</span>
-            <span class="bg-yellow-50 text-yellow-700 text-[11px] font-bold px-2 py-0.5 rounded border border-yellow-200">অর্ডার ভিত্তিক</span>
-        </div>
-        <a href="https://wa.me/8801700000000?text=আমি%20ভাই%20ভাই%20ক্লথ%20স্টোরের%20পাঞ্জাবিটি%20অর্ডার%20করতে%20চাই" target="_blank" class="block w-full text-center bg-gray-800 hover:bg-gray-950 text-white text-xs font-bold py-2 rounded-lg transition mt-2">
-            <i class="fa-solid fa-envelope mr-1"></i> অর্ডার করতে মেসেজ করুন
-        </a>
-    </div>
-</div>
-                    </div>
-            </div>
-        </section>
- <section class="my-10 px-4 md:px-12">
-        <div class="container mx-auto bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="space-y-2 text-center md:text-left">
-                <span class="bg-purple-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Exclusive Clothes Shop Feature</span>
-                <h3 class="text-2xl md:text-3xl font-black">মনমতো পোশাক খুঁজে পাচ্ছেন না? 🛍️</h3>
-                <p class="text-purple-200 text-xs md:text-sm max-w-xl">
-                    স্টক আউট হোক বা আপনার অন্য কোনো বিশেষ পোশাক প্রয়োজন হলে —আমাদের জানান! আমরা সরাসরি আপনার পছন্দের পোশাকটি এনে দেওয়ার ব্যবস্থা করব।
-                </p>
-            </div>
-            <div>
-                <a href="https://wa.me/8801700000000?text=আসসালামু%20আলাইকুম,%20কাউন্দিয়া%20ডিজিটাল%20পোর্টাল%20এর%20Exclusive%20Clothes%20Shop%20থেকে%20যোগাযোগ%20করছি।%20আমার%20একটি%20পছন্দের%20পোশাকের%20রিকোয়েস্ট%20আছে।" 
-                   target="_blank" 
-                   class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-4 rounded-2xl shadow-lg transition flex items-center gap-2 text-sm md:text-base cursor-pointer">
-                    <i class="fab fa-whatsapp text-xl"></i>
-                    <span>পোশাকের বিবরণ/ছবি পাঠান</span>
-                </a>
-            </div>
-        </div>
-    </section>
-        <section class="space-y-10">
-            <div class="border-l-4 border-emerald-500 pl-3">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">🏪 কাউন্দিয়া ডিজিটাল বাজার ডিরেক্টরি</h2>
-                <p class="text-sm text-gray-500 mt-1">ফোনে অর্ডার করুন বা পণ্যের তালিকা লিখে পাঠান। ডেলিভারির সময় বা অনলাইনে মূল্য পরিশোধ করুন।</p>
-            </div>
-
-            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-3 text-center sm:text-left">
-                    <span class="text-3xl text-emerald-600"><i class="fa-solid fa-store"></i></span>
-                    <div>
-                        <h4 class="font-bold text-gray-800">আপনি কি কাউন্দিয়ার একজন ব্যবসায়ী?</h4>
-                        <p class="text-xs text-gray-600 mt-0.5">আপনার মুদি, তরকারি বা মাছ-মাংসের দোকানটি সম্পূর্ণ ফ্রিতে এই তালিকায় যুক্ত করতে নিচে আবেদন করুন।</p>
-                    </div>
-                </div>
-                <a href="add-store.html" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-2.5 px-5 rounded-xl text-sm flex items-center justify-center gap-2 whitespace-nowrap shadow-xs transition">
-                    <i class="fa-solid fa-plus-circle"></i> আপনার দোকান যুক্ত করুন
-                </a>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-                    <span class="bg-amber-100 text-amber-700 p-2.5 rounded-xl text-xl"><i class="fa-solid fa-basket-shopping"></i></span>
-                    <h3 class="text-xl font-bold text-gray-800">১. মুদি মালামালের দোকান</h3>
-                </div>
-                <div id="grocery-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 shadow-xs flex flex-col justify-between">
-                        <div>
-                            <h4 class="font-bold text-xl text-emerald-700">ভাই ভাই স্টোর</h4>
-                            <p class="text-sm text-gray-600 mt-2"><strong>দোকানদার:</strong> মো: আব্দুর রহমান</p>
-                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> <strong>ঠিকানা:</strong> কাউন্দিয়া মেইন বাজার, মসজিদ মার্কেট (দোকান নং-১২)</p>
-                            <div class="mt-3 pt-2 border-t border-dashed border-gray-200">
-                                <span class="text-xs font-semibold text-gray-500 block">📦 প্রধান পণ্যসমূহ:</span>
-                                <p class="text-xs text-gray-600 mt-0.5">মিনিকেট চাল, মসুর ডাল, সয়াবিন তেল, চিনি, আটা, গুড়া মশলা।</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 mt-5">
-                            <a href="tel:01700000000" class="bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition">
-                                <i class="fa-solid fa-phone"></i> ফোনে কল করুন
-                            </a>
-                            <button onclick="openOrderModal('01700000000', 'ভাই ভাই স্টোর এর বাজারের ফর্দ')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp"></i> lista পাঠান
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-                    <span class="bg-green-100 text-green-700 p-2.5 rounded-xl text-xl"><i class="fa-solid fa-carrot"></i></span>
-                    <h3 class="text-xl font-bold text-gray-800">২. কাঁচা তরকারির দোকান</h3>
-                </div>
-                <div id="vegetable-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 shadow-xs flex flex-col justify-between">
-                        <div>
-                            <h4 class="font-bold text-xl text-emerald-700">আল্লাহর দান আড়ত</h4>
-                            <p class="text-sm text-gray-600 mt-2"><strong>বিক্রেতা:</strong> মো: রফিকুল ইসলাম</p>
-                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> <strong>ঠিকানা:</strong> কাউন্দিয়া বটতলা মোড়, school রোডের পাশে</p>
-                            <div class="mt-3 pt-2 border-t border-dashed border-gray-200">
-                                <span class="text-xs font-semibold text-gray-500 block">🥬 প্রধান পণ্যসমূহ:</span>
-                                <p class="text-xs text-gray-600 mt-0.5">নতুন আলু, দেশি পেঁয়াজ, তাজা কাঁচামরিচ, টমেটো, বেগুন, লাউ।</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 mt-5">
-                            <a href="tel:01800000000" class="bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition">
-                                <i class="fa-solid fa-phone"></i> ফোনে কল করুন
-                            </a>
-                            <button onclick="openOrderModal('01800000000', 'আল্লাহর দান আড়ত এর সবজির ফর্দ')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp"></i> lista পাঠান
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-100">
-                    <span class="bg-red-100 text-red-700 p-2.5 rounded-xl text-xl"><i class="fa-solid fa-drumstick-bite"></i></span>
-                    <h3 class="text-xl font-bold text-gray-800">৩. মাছ ও মাংসের দোকান</h3>
-                </div>
-                <div id="meat-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 shadow-xs flex flex-col justify-between">
-                        <div>
-                            <h4 class="font-bold text-xl text-emerald-700">বিসমিল্লাহ্ মিট হাউজ</h4>
-                            <p class="text-sm text-gray-600 mt-2"><strong>বিক্রেতা:</strong> মো: কাশেম আলী</p>
-                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> <strong>ঠিকানা:</strong> কাউন্দিয়া ঘাট সংলগ্ন বাজার, শেড নম্বর-০৪</p>
-                            <div class="mt-3 pt-2 border-t border-dashed border-gray-200">
-                                <span class="text-xs font-semibold text-gray-500 block">🥩 প্রধান পণ্যসমূহ:</span>
-                                <p class="text-xs text-gray-600 mt-0.5">নদীর তাজা রুই ও ইলিশ মাছ, দেশি মুরগি, ব্রয়লার, খাসি ও গরুর মাংস।</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 mt-5">
-                            <a href="tel:01900000000" class="bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition">
-                                <i class="fa-solid fa-phone"></i> ফোনে কল করুন
-                            </a>
-                            <button onclick="openOrderModal('01900000000', 'বিসমিল্লাহ্ মিট হাউজ এর মালপত্র')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition cursor-pointer">
-                                <i class="fa-brands fa-whatsapp"></i> lista পাঠান
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="deliveryModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50 backdrop-blur-xs">
-        <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white p-5 text-center relative">
-                <button onclick="toggleDeliveryModal(false)" class="absolute right-4 top-5 text-white text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-                <h3 class="text-xl font-bold flex items-center justify-center gap-2"><i class="fa-solid fa-motorcycle"></i> স্বাধীন ডেলিভারি নেটওয়ার্ক</h3>
-            </div>
-            <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                <div class="bg-amber-50 border border-amber-200 text-amber-950 rounded-2xl p-4 text-xs md:text-sm space-y-1">
-                    <p class="font-bold text-amber-900 flex items-center gap-1.5 text-base"><i class="fa-solid fa-circle-info"></i> ডেলিভারি গাইডলাইন ও পেমেন্ট:</p>
-                    <p>• 💵 <strong>ক্যাশ অন ডেলিভারি:</strong> পণ্য বুঝে নিয়ে ডেলিভারি ম্যানের হাতে টাকা দিন।</p>
-                    <p>• 🚚 <strong>সার্ভিস চার্জ:</strong> কাউন্দিয়ার মধ্যে দূরত্বভেদে চার্জ <strong>২০ থেকে ৩০ টাকা</strong> নির্ধারণ করা হয়েছে।</p>
-                </div>
-                <h4 class="font-bold text-gray-800 border-b pb-2 text-sm"><i class="fa-solid fa-address-book text-emerald-600"></i> অন-ডিউটি ডেলিভারি ভাইদের তালিকা:</h4>
-                <div id="dm-list" class="space-y-3">
-                    </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="orderModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50 backdrop-blur-xs">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-5 text-center relative">
-                <button onclick="toggleOrderModal(false)" class="absolute right-4 top-5 text-white text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-                <h3 class="text-xl font-bold"><i class="fa-solid fa-truck-ramp-box"></i> ডেলিভারি ও কন্টাক্ট তথ্য</h3>
-                <p class="text-xs text-emerald-100 mt-1">ডেলিভারি চালক যেন আপনার লোকেশন সহজে খুঁজে পান</p>
+        <!-- ==================== ট্যাব ১: কিডস স্পেশাল ==================== -->
+        <div id="kids-special" class="tab-content active">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-pink-600"><i class="fas fa-heart"></i> ছোট সোনামণিদের কিউট শপ <i class="fas fa-heart"></i></h2>
+                <p class="text-sm text-slate-500 mt-1">বাচ্চাদের রেডিমেড প্রিমিয়াম জামা-কাপড় এবং জুতো কালেকশন</p>
             </div>
             
-            <form id="orderForm" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">আপনার নাম *</label>
-                    <input type="text" id="custName" required placeholder="নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">মোবাইল নম্বর *</label>
-                    <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" pattern="[0-9]{11}" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">অর্ডার লিস্ট / অতিরিক্ত নোট (ঐচ্ছিক)</label>
-                    <textarea id="orderNotes" rows="2" placeholder="নির্দিষ্ট কোনো সাইজ, কালার বা অতিরিক্ত কোনো পণ্য থাকলে লিখুন..." class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">পূর্ণাঙ্গ ডেলিভারি ঠিকানা *</label>
-                    <textarea id="custAddress" required rows="2" placeholder="উদা: ৩ নং ওয়ার্ড, মোল্লা বাড়ির দোতলা।" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                </div>
-                <div class="bg-gray-50 border p-3 rounded-xl text-xs text-gray-500">
-                    <i class="fa-solid fa-truck"></i> ডেলিভারি চার্জ ২০-৩০ টাকা ক্যাশ অন ডেলিভারিতে প্রযোজ্য।
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> হোয়াটসঅ্যাপে অর্ডার কনফার্ম করুন
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        let currentStoreWhatsApp = "";
-        let currentProductMeta = "";
-
-        // ১. অটো স্লাইডার ইঞ্জিন (৩ সেকেন্ড পর পর পরিবর্তন হবে)
-        let slideIndex = 0;
-        function runAutoSlider() {
-            let slides = document.getElementsByClassName("slider-item");
-            if(slides.length > 0) {
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].classList.remove("active");
-                }
-                slideIndex++;
-                if (slideIndex > slides.length) { slideIndex = 1 }
-                slides[slideIndex-1].classList.add("active");
-                setTimeout(runAutoSlider, 3000); 
-            }
-        }
-        document.addEventListener("DOMContentLoaded", runAutoSlider);
-
-        // ২. মোডাল টগল ফাংশনসমূহ
-        function toggleDeliveryModal(show) {
-            const modal = document.getElementById('deliveryModal');
-            if(show) { modal.classList.remove('hidden'); loadDeliveryNetwork(); }
-            else modal.classList.add('hidden');
-        }
-
-        function toggleOrderModal(show) {
-            const modal = document.getElementById('orderModal');
-            if(show) modal.classList.remove('hidden');
-            else modal.classList.add('hidden');
-        }
-
-        function openOrderModal(whatsappNumber, productTitle) {
-            currentStoreWhatsApp = whatsappNumber;
-            currentProductMeta = productTitle;
-            toggleOrderModal(true);
-        }
-
-        // ৩. ডেলিভারি ভাইদের ডাটাবেজ রেন্ডার করা
-        function loadDeliveryNetwork() {
-            let approvedDMs = JSON.parse(localStorage.getItem("approvedDMs")) || [];
-            let dmListArea = document.getElementById("dm-list");
-            if(approvedDMs.length === 0) {
-                dmListArea.innerHTML = `<p class="text-center text-gray-400 py-4 text-xs">বর্তমানে কোনো ডেলিভারি ম্যান লাইনে নেই।</p>`;
-                return;
-            }
-            dmListArea.innerHTML = "";
-            approvedDMs.forEach(dm => {
-                dmListArea.innerHTML += `
-                    <div class="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-xl">
-                        <div>
-                            <h5 class="font-bold text-gray-800 text-sm">${dm.name}</h5>
-                            <p class="text-xs text-gray-500"><i class="fa-solid fa-route"></i> রোড: ${dm.area} | <span class="text-emerald-600 font-semibold">${dm.vehicle}</span></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- প্রোডাক্ট ১: শার্ট প্যান্ট ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/8386689904014677997_0" alt="Kids Ready Dress 1" class="w-full h-56 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">রেডিমেড সেট</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">কিউট পার্টি শার্ট-প্যান্ট সেট</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>কাপড়:</strong> প্রিমিয়াম কটন সুতি, আরামদায়ক</p>
+                        <div class="mt-2 text-sm text-slate-600 space-y-0.5">
+                            <p><strong>সাইজ:</strong> ২-৩ বছর, ৪-৫ বছর</p>
+                            <p><strong>কালার:</strong> নেভি ব্লু ও হোয়াইট</p>
                         </div>
-                        <a href="tel:${dm.phone}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-1.5 px-3 rounded-lg flex items-center gap-1 transition shadow-xs">
-                            <i class="fa-solid fa-phone"></i> কল করুন
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ৪৫০</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">স্টক রেডি</span>
+                        </div>
+                        <!-- অ্যাকশন বাটনসমূহ -->
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> সরাসরি কল
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আমি%20কিউট%20পার্টি%20শার্ট-প্যান্ট%20সেট%20কিনতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> WhatsApp অর্ডার
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্রোডাক্ট ২: শার্ট প্যান্ট ২ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/8386689904014677997_1" alt="Kids Ready Dress 2" class="w-full h-56 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">ক্যাজুয়াল ইয়ার</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">স্টাইলিশ কটন ডেনিম ড্রেস</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>কাপড়:</strong> সফট কটন ব্লেড সুতি</p>
+                        <div class="mt-2 text-sm text-slate-600 space-y-0.5">
+                            <p><strong>সাইজ:</strong> ১-২ বছর, ৫-৬ বছর</p>
+                            <p><strong>কালার:</strong> স্কাই ব্লু ও জিন্স ফিনিশ</p>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ৫২০</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">স্টক রেডি</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> সরাসরি কল
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আমি%20স্টাইলিশ%20কটন%20ডেনিম%20ড্রেস%20কিনতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> WhatsApp অর্ডার
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্রোডাক্ট ৩: জুতো ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/5813927762118480583_0" alt="Kids Shoes 1" class="w-full h-56 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">সফট ফুটওয়্যার</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">রঙিন আরামদায়ক স্নিকার্স</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>উপাদান:</strong> এন্টি-স্লিপ গ্রিপ, লাইটওয়েট</p>
+                        <div class="mt-2 text-sm text-slate-600 space-y-0.5">
+                            <p><strong>সাইজ (ইনচ):</strong> ৪.৫ ইঞ্চি, ৫.২ ইঞ্চি</p>
+                            <p><strong>কালার:</strong> মাল্টিকালার মাল্টিস্ট্রাইপ</p>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ৩৮০</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">স্টক রেডি</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> Call Now
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আমি%20রঙিন%20আরামদায়ক%20স্নিকার্স%20জুতো%20কিনতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্রোডাক্ট ৪: জুতো ২ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/5813927762118480583_1" alt="Kids Shoes 2" class="w-full h-56 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">কিউট ওয়াকার</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">এলইডি লাইটিং আরামদায়ক জুতো</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>উপাদান:</strong> ফোম পেডেড ইনসোল</p>
+                        <div class="mt-2 text-sm text-slate-600 space-y-0.5">
+                            <p><strong>সাইজ (ইনচ):</strong> ৪.০ ইঞ্চি, ৫.০ ইঞ্চি</p>
+                            <p><strong>কালার:</strong> কিউট পিঙ্ক ও গ্লিটার গোল্ড</p>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ৪২০</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">স্টক রেডি</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> Call Now
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আমি%20এলইডি%20লাইটিং%20জুতো%20কিনতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ট্যাব ২: গার্লস স্পেশাল ==================== -->
+        <div id="girls-special" class="tab-content">
+            <!-- বিশেষ গোপনীয়তা ও স্বস্তির ব্যানার বার্তা -->
+            <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white rounded-2xl p-6 mb-8 shadow-md max-w-4xl mx-auto text-center border-2 border-purple-400">
+                <span class="bg-purple-600/60 text-purple-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-user-shield"></i> আপুদের জন্য ১০০% প্রাইভেট কর্নার</span>
+                <h3 class="text-xl md:text-2xl font-bold mt-2 text-purple-200">আপু, আপনার গোপনীয়তা আমাদের সর্বোচ্চ অগ্রাধিকার</h3>
+                <p class="text-sm text-purple-100 max-w-2xl mx-auto mt-2 leading-relaxed">
+                    এই সেকশনটি সম্পূর্ণভাবে একজন নারী (ফিমেল এডমিন) দ্বারা পরিচালিত ও কন্ট্রোল হয়। আপনার অর্ডার প্যাক করা থেকে শুরু করে ডেলিভারি এবং যেকোনো প্রোডাক্ট নিয়ে কথা বলা—সবকিছুই অত্যন্ত গোপন, নিরাপদ ও স্বস্তিদায়ক রাখা হবে। নির্দ্বিধায় অর্ডার করুন।
+                </p>
+                <div class="mt-3 inline-flex items-center gap-2 bg-indigo-950/80 px-4 py-1.5 rounded-full text-xs text-amber-300 font-semibold border border-indigo-700">
+                    <i class="fas fa-box-open"></i> ১০০% সিক্রেট প্যাকিং (ভেতরে কী আছে বাইরে থেকে বোঝার উপায় নেই)
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- শাড়ি ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/18281534052303279105_0" alt="Saree 1" class="w-full h-64 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">ঐতিহ্যবাহী</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">কাউন্দিয়া স্পেশাল ঢাকাই জামদানি</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>মেটেরিয়াল:</strong> সুতি সুতা ও জারি ওভেন কাজ</p>
+                        <p class="text-sm text-slate-600 mt-2">যেকোনো উৎসব বা ঘরোয়া অনুষ্ঠানে মানানসই রাজকীয় ডিজাইনের পিওর শাড়ি।</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ২,৪৫০</span>
+                            <span class="text-xs font-semibold text-purple-700 bg-purple-50 px-2 py-0.5 rounded">ফিমেল এডমিন ডিল</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> আপুকে কল দিন
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আপু%20আমি%20ঢাকাই%20জামদানি%20শাড়িটি%20দেখতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> আপুর WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- থ্রি পিস ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/7008664540232850847_0" alt="Three Piece 1" class="w-full h-64 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">স্টাইলিশ থ্রি-পিস</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">প্রিমিয়াম সুতি অর্গানজা থ্রি-পিস</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>মেটেরিয়াল:</strong> ১০০% সুতি সফট আরামদায়ক কাপড়</p>
+                        <p class="text-sm text-slate-600 mt-2">চমৎকার কালার কম্বিনেশন এবং গর্জিয়াস এমব্রয়ডারি ওড়না সেট।</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-emerald-600">৳ ১,৬৫০</span>
+                            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">স্টক রেডি</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> আপুকে কল দিন
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আপু%20আমি%20অর্গানজা%20থ্রি-পিসটি%20অর্ডার%20করতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> আপুর WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- গোপনীয় পোশাক (Underwear Package Image) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden hover:shadow-md transition border-t-4 border-t-purple-500">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/10362740511268189147_0" alt="Secret Underwear Clothes Package" class="w-full h-64 object-cover bg-slate-50">
+                    <div class="p-4">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full"><i class="fas fa-lock"></i> প্রাইভেট ক্যাটালগ</span>
+                        <h3 class="font-bold text-slate-800 text-lg mt-1">লেডিস ইম্পোর্টেড কমফোর্ট ইনারওয়্যার</h3>
+                        <p class="text-xs text-slate-500 mt-1"><strong>সাইজ ও ডিটেইলস:</strong> ফিমেল এডমিনের সাথে ইনবক্সে আলাপ করুন</p>
+                        <p class="text-sm text-slate-600 mt-2 bg-slate-50 p-2.5 rounded-lg border border-dashed border-slate-200">
+                            <span class="text-red-500 font-bold">লজ্জা বা দ্বিধা ছাড়াই</span> সরাসরি আপুর সাথে কথা বলে আপনার সঠিক সাইজ ও পছন্দের আইটেমটি বেছে নিন।
+                        </p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500">গোপন প্রাইসিং</span>
+                            <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">সিক্রেট প্যাকিং নিশ্চয়তা</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:01XXXXXXXXX" class="bg-purple-800 hover:bg-purple-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> আপুকে কল দিন
+                            </a>
+                            <a href="https://wa.me/8801XXXXXXXXX?text=আপু%20আমি%20ইনারওয়্যার%20কালেকশন%20ও%20সাইজ%20সম্পর্কে%20জানতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> আপুর WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ট্যাব ৩: ইউনিয়ন ফ্যাশন গ্যালারি (বিজ্ঞাপন) ==================== -->
+        <div id="local-ads" class="tab-content">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-blue-600"><i class="fas fa-bullhorn"></i> ইউনিয়ন ফ্যাশন গ্যালারি (পোশাকের বিজ্ঞাপন)</h2>
+                    <p class="text-sm text-slate-500 mt-1">কাউন্দিয়া ইউনিয়নের স্থানীয় ব্যবসায়ী ও উদ্যোক্তাদের কাপড়ের কালেকশন</p>
+                </div>
+                <a href="add-ad.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-1">
+                    <i class="fas fa-plus-circle"></i> আপনার কাপড়ের বিজ্ঞাপন দিন
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- বিজ্ঞাপন কার্ড ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden relative">
+                    <span class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded shadow">লোকাল বিজ্ঞাপন</span>
+                    <div class="p-4 bg-slate-50 border-b border-slate-100">
+                        <p class="text-xs font-bold text-slate-500 uppercase">বিজ্ঞাপনদাতা:</p>
+                        <h4 class="font-bold text-blue-700 text-base"><i class="fas fa-user-tie mr-1"></i> মোসাঃ ফাতেমা বুটিকস হাউস</h4>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-slate-800 text-lg">হাতে বোনা কুশিকাটার ওয়ান পিস ড্রেস</h3>
+                        <p class="text-sm text-slate-600 mt-1"><strong>ঠিকানা:</strong> পশ্চিম কাউন্দিয়া (স্কুল রোডের পাশে)</p>
+                        <p class="text-xs text-slate-500 mt-2">সম্পূর্ণ সুতি সুতা দিয়ে নিখুঁতভাবে তৈরি। কালার কাস্টমাইজ করা যাবে।</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xl font-bold text-blue-600">৳ ৮৫০</span>
+                            <span class="text-xs text-slate-400">অর্ডার অনুযায়ী তৈরি</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <a href="tel:017XXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fas fa-phone-alt"></i> সরাসরি কল
+                            </a>
+                            <a href="https://wa.me/88017XXXXXXXX?text=আমি%20ফাতেমা%20বুটিকসের%20কুশিকাটার%20ড্রেসটি%20কিনতে%20চাই" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2 rounded-lg transition flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> WhatsApp অর্ডার
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ট্যাব ৪: নিত্যপ্রয়োজনীয় বাজার ডিরেক্টরি ==================== -->
+        <div id="general-market" class="tab-content">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-emerald-700"><i class="fas fa-store"></i> স্থানীয় সাধারণ দোকানদারদের ডিরেক্টরি</h2>
+                    <p class="text-sm text-slate-500 mt-1">মুদি, কাঁচাবাজার ও অন্যান্য নিত্যপ্রয়োজনীয় জিনিস ঘরে বসেই অর্ডার করুন</p>
+                </div>
+                <a href="add-store.html" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-1">
+                    <i class="fas fa-store-alt-slash"></i> আপনার দোকান যুক্ত করুন
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- দোকানদার ১ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full"><i class="fas fa-shopping-basket"></i> মুদি মালামালের দোকান</span>
+                            <h3 class="font-bold text-slate-800 text-xl mt-1">ভাই ভাই স্টোর</h3>
+                        </div>
+                        <div class="text-right text-xs">
+                            <span class="block text-slate-500">পেমেন্ট সিস্টেম:</span>
+                            <span class="font-bold text-emerald-700">বিকাশ/নগদ/অন ডেলিভারি</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600"><strong>ঠিকানা:</strong> কাউন্দিয়া মেইন বাজার, ১নং ওয়ার্ড (নজরুল মার্কেট)</p>
+                    <div class="bg-slate-50 p-3 rounded-xl my-3 border border-slate-100">
+                        <p class="text-xs font-bold text-slate-500 mb-1">প্রধান পণ্যসমূহ:</p>
+                        <p class="text-sm text-slate-700">মিনিকেট চাল, মসুর ডাল, সয়াবিন তেল, চিনি, আটা, গুড়ো মশলা ইত্যাদি।</p>
+                    </div>
+                    <p class="text-xs text-slate-500"><strong>যোগাযোগ:</strong> মো: আব্দুর রহমান (০১৭xxxxxxxx)</p>
+                    <!-- অ্যাকশন বাটনসমূহ -->
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <a href="tel:017XXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1">
+                            <i class="fas fa-phone-alt"></i> ফোন করুন
                         </a>
-                    </div>`;
-            });
+                        <a href="https://wa.me/88017XXXXXXXX" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1">
+                            <i class="fab fa-whatsapp text-emerald-600"></i> WhatsApp
+                        </a>
+                        <a href="https://wa.me/88017XXXXXXXX?text=আমার%20বাজারের%20ফর্দ:%20" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1 col-span-1">
+                            <i class="fas fa-paper-plane"></i> ফর্দ (লিস্ট) পাঠান
+                        </a>
+                    </div>
+                </div>
+
+                <!-- দোকানদার ২ -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-0.5 rounded-full"><i class="fas fa-carrot"></i> কাঁচা তরকারির দোকান</span>
+                            <h3 class="font-bold text-slate-800 text-xl mt-1">আল্লাহর দান আড়ত</h3>
+                        </div>
+                        <div class="text-right text-xs">
+                            <span class="block text-slate-500">পেমেন্ট সিস্টেম:</span>
+                            <span class="font-bold text-emerald-700">ক্যাশ অন ডেলিভারি</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600"><strong>ঠিকানা:</strong> কাউন্দিয়া বটতলা মোড় (স্কুল রোডের পাশে)</p>
+                    <div class="bg-slate-50 p-3 rounded-xl my-3 border border-slate-100">
+                        <p class="text-xs font-bold text-slate-500 mb-1">প্রধান পণ্যসমূহ:</p>
+                        <p class="text-sm text-slate-700">নতুন আলু, দেশি পেঁয়াজ, তাজা কাঁচামরিচ, টমেটো, বেগুন, ও বিভিন্ন শাকসবজি।</p>
+                    </div>
+                    <p class="text-xs text-slate-500"><strong>যোগাযোগ:</strong> মো: রফিকুল ইসলাম (০১৮xxxxxxxx)</p>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <a href="tel:018XXXXXXXX" class="bg-slate-800 hover:bg-slate-900 text-white text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1">
+                            <i class="fas fa-phone-alt"></i> ফোন করুন
+                        </a>
+                        <a href="https://wa.me/88018XXXXXXXX" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1">
+                            <i class="fab fa-whatsapp text-emerald-600"></i> WhatsApp
+                        </a>
+                        <a href="https://wa.me/88018XXXXXXXX?text=আমার%20কাঁচাবাজারের%20লিস্ট:%20" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center gap-1">
+                            <i class="fas fa-paper-plane"></i> ফর্দ (লিস্ট) পাঠান
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ফুটার সেকশন -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-12 border-t border-slate-800 text-sm">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার ডিরেক্টরি। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- কাস্টম জাভাস্ক্রিপ্ট ট্যাব সিস্টেম হ্যান্ডেল করার জন্য -->
+    <script>
+        function openTab(evt, tabName) {
+            // সমস্ত ট্যাব কন্টেন্ট হাইড করা
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // সমস্ত বাটনের একটিভ কালার রিমুভ করা
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active-tab");
+            }
+
+            // নির্দিষ্ট ট্যাবটি ওপেন করা এবং বাটনে একটিভ ক্লাস দেওয়া
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active-tab");
         }
-
-        // ৪. স্মার্ট হোয়াটসঅ্যাপ অর্ডার সাবমিশন চেইন
-        document.getElementById("orderForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            let custName = document.getElementById("custName").value;
-            let custPhone = document.getElementById("custPhone").value;
-            let custAddress = document.getElementById("custAddress").value;
-            let orderNotes = document.getElementById("orderNotes").value;
-
-            let message = `*আসসালামু আলাইকুম, নতুন অর্ডার লিস্ট*\n\n`;
-            message += `🛍️ *পণ্য/দোকান:* ${currentProductMeta}\n`;
-            if(orderNotes.trim()) { message += `📝 *গ্রাহকের নোট:* ${orderNotes}\n`; }
-            message += `👤 *ক্রেতার নাম:* ${custName}\n`;
-            message += `📞 *মোবাইল নম্বর:* ${custPhone}\n`;
-            message += `📍 *ডেলিভারি ঠিকানা:* ${custAddress}\n\n`;
-            message += `🛵 দূরত্ব অনুযায়ী ২০-৩০ টাকা ডেলিভারি চার্জ ক্যাশ প্রযোজ্য।\n\n`;
-            message += `_কাউন্দিয়া স্মার্ট ইউনিয়ন প্ল্যাটফর্ম থেকে প্রেরিত_`;
-
-            let waUrl = `https://wa.me/88${currentStoreWhatsApp}?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
-            toggleOrderModal(false);
-            document.getElementById("orderForm").reset();
-        });
-
-        // ৫. ডাইনামিক শপ ও বিজ্ঞাপনের ডেটা রেন্ডার ইঞ্জিন
-        document.addEventListener("DOMContentLoaded", function () {
-            let approvedStores = JSON.parse(localStorage.getItem("approvedStores")) || [];
-            let clothAdsContainer = document.getElementById("cloth-ads-container");
-
-            approvedStores.forEach(store => {
-                // মোবাইল ব্যাংকিং ব্যাজ তৈরি লজিক
-                let paymentMethods = [];
-                if(store.bkash) paymentMethods.push(`<span class="bg-pink-50 border border-pink-200 text-pink-700 text-[10px] font-bold px-1.5 py-0.5 rounded">বিকাশ: ${store.bkash}</span>`);
-                if(store.nagad) paymentMethods.push(`<span class="bg-orange-50 border border-orange-200 text-orange-700 text-[10px] font-bold px-1.5 py-0.5 rounded">নগদ: ${store.nagad}</span>`);
-                if(store.rocket) paymentMethods.push(`<span class="bg-violet-50 border border-violet-200 text-violet-700 text-[10px] font-bold px-1.5 py-0.5 rounded">রকেট: ${store.rocket}</span>`);
-                let paymentUi = paymentMethods.length > 0 ? `<div class="flex flex-wrap gap-1 mt-2">${paymentMethods.join('')}</div>` : '';
-
-                // ক) যদি কোনো বিক্রেতা 'cloth' বা কাপড়ের ক্যাটাগরিতে আবেদন করে তবে তা বিজ্ঞাপনে যাবে
-                if(store.category === "cloth") {
-                    clothAdsContainer.innerHTML += `
-                        <div class="bg-white border border-purple-100 rounded-2xl p-4 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-                            <div>
-                                <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-sm"><i class="fa-solid fa-rectangle-ad"></i> স্পনসর্ড ফ্যাশন</span>
-                                <h3 class="font-bold text-lg text-gray-800 mt-2">${store.shopName}</h3>
-                                <p class="text-xs text-gray-500">প্রোপাইটার: ${store.ownerName}</p>
-                                <p class="text-xs text-gray-600 mt-2"><strong>কালেকশন:</strong> ${store.products}</p>
-                                ${paymentUi}
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-gray-100">
-                                <a href="tel:${store.phone}" class="bg-gray-100 text-gray-700 font-bold py-2 text-center rounded-xl text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-phone"></i> কল</a>
-                                <button onclick="openOrderModal('${store.phone}', '${store.shopName} - ফ্যাশন মালপত্র')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1 cursor-pointer"><i class="fa-brands fa-whatsapp"></i> অর্ডার</button>
-                            </div>
-                        </div>`;
-                } else {
-                    // খ) মুদি, তরকারি বা মাংসের ডাইনামিক দোকানগুলোর জন্য সাধারণ ডিরেক্টরি কার্ড
-                    let storeCard = `
-                        <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 shadow-xs flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center justify-between">
-                                    <h4 class="font-bold text-xl text-emerald-700">${store.shopName}</h4>
-                                    <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-circle-check"></i> ভেরিফাইড</span>
-                                </div>
-                                <p class="text-sm text-gray-600 mt-2"><strong>বিক্রেতা:</strong> ${store.ownerName}</p>
-                                <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> <strong>ঠিকানা:</strong> ${store.address}</p>
-                                ${paymentUi}
-                                <div class="mt-3 pt-2 border-t border-dashed border-gray-200">
-                                    <span class="text-xs font-semibold text-gray-500 block">📦 প্রধান পণ্যসমূহ:</span>
-                                    <p class="text-xs text-gray-600 mt-0.5">${store.products}</p>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 mt-5">
-                                <a href="tel:${store.phone}" class="bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition">
-                                    <i class="fa-solid fa-phone"></i> ফোনে কল করুন
-                                </a>
-                                <button onclick="openOrderModal('${store.phone}', '${store.shopName} এর বাজারের ফর্দ')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition cursor-pointer">
-                                    <i class="fa-brands fa-whatsapp"></i> lista পাঠান
-                                </button>
-                            </div>
-                        </div>`;
-
-                    if (store.category === "grocery") { document.getElementById("grocery-list").innerHTML += storeCard; } 
-                    else if (store.category === "vegetable") { document.getElementById("vegetable-list").innerHTML += storeCard; } 
-                    else if (store.category === "meat") { document.getElementById("meat-list").innerHTML += storeCard; }
-                }
-            });
-        });
     </script>
 </body>
 </html>

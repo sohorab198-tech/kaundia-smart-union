@@ -53,7 +53,15 @@
                 </div>
             </div>
         </div>
-
+<div class="rounded-2xl shadow-xs border border-gray-100 flex items-center justify-between p-4 bg-white">
+            <div>
+                <p class="font-bold text-gray-500 uppercase tracking-wider">পেন্ডিং নাগরিক</p>
+                <h3 id="pendingCitizensCount" class="text-3xl font-extrabold text-indigo-600 mt-1">0</h3>
+            </div>
+            <div class="bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center h-12 w-12 text-xl">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
         <div class="flex flex-wrap border-b border-gray-200 gap-2">
             <button onclick="switchTab('tab-institutions')" id="btn-tab-institutions" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition">
                 <i class="fa-solid fa-university"></i> প্রতিষ্ঠান অনুমোদন
@@ -64,6 +72,14 @@
             <button onclick="switchTab('tab-feedbacks')" id="btn-tab-feedbacks" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition">
                 <i class="fa-solid fa-comment-dots"></i> ইউজার মতামত ও পরামর্শ
             </button>
+            <button onclick="switchTab('tab-citizens')" id="btn-tab-citizens" class="tab-btn px-5 py-3 font-bold text-gray-500 flex items-center gap-2">
+                <i class="fa-solid fa-users-gear"></i> নাগরিক যাচাইকরণ
+            </button>
+            <button onclick="switchTab('tab-notices')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition text-gray-600 hover:bg-gray-100 cursor-pointer">
+    <i class="fa-solid fa-bullhorn text-blue-650"></i>
+    <span>ইউজার নোটিশ</span>
+    <span id="pending-notice-count" class="ml-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+</button>
         </div>
 
         <div id="tab-institutions" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -87,7 +103,44 @@
                 </table>
             </div>
         </div>
-
+<div id="tab-citizens" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 hidden">
+        <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+            <h2 class="text-base font-bold text-gray-800 flex items-center gap-2">
+                👥 নাগরিক আবেদনের তালিকা
+            </h2>
+            <p class="text-xs text-gray-500 mt-0.5">নতুন নিবন্ধনকৃত নাগরিকদের তথ্য যাচাই করে মূল পরিসংখ্যানে যুক্ত করুন।</p>
+        </div>
+        
+    <div class="p-6">
+        <div id="citizenPendingContainer" class="space-y-4">
+            <!-- জাভাস্ক্রিপ্ট ডাটা এই কন্টেইনারের ভেতর লোড হবে -->
+        </div>
+    </div>
+    </div>
+</div>
+<!-- 📢 ৫ নম্বর ট্যাব কন্টেন্ট: ইউজার নোটিশ তালিকা (সম্পূর্ণ নিখুঁত স্ট্রাকচার) -->
+<div id="tab-notices" class="tab-content hidden bg-white rounded-2xl shadow-sm border border-gray-150 p-6 mt-6 text-left">
+    <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+        <h2 class="text-base font-bold text-gray-800">📢 ইউজারদের পাঠানো নোটিশ অনুরোধ</h2>
+        <p class="text-xs text-gray-500 mt-0.5">ইউজারদের পাঠানো ফর্ম চেক করে অনুমোদন বা ডিলিট করুন।</p>
+    </div>
+    
+    <div class="overflow-x-auto mt-4">
+        <table class="w-full text-left border-collapse text-sm text-gray-650">
+            <thead>
+                <tr class="bg-gray-100/70 text-gray-700 font-bold border-b border-gray-200">
+                    <th class="px-4 py-3">তারিখ ও প্রেরক</th>
+                    <th class="px-4 py-3">নোটিশ শিরোনাম</th>
+                    <th class="px-4 py-3">বিস্তারিত বিবরণ</th>
+                    <th class="px-4 py-3 text-right">অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="admin-notice-table-body">
+                <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক ডাটা এখানে লোড হবে -->
+            </tbody>
+        </table>
+    </div>
+</div>
         <div id="tab-ads" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h2 class="text-base font-bold text-gray-800">📢 বিজ্ঞাপনের আবেদন তালিকা</h2>
@@ -138,6 +191,7 @@
         // পেজ লোড হলেই সমস্ত ডাটা রেন্ডার হবে
         document.addEventListener('DOMContentLoaded', () => {
             loadDashboardData();
+            renderAdminNotices();
         });
 
         // ট্যাব পরিবর্তনের লজিক
@@ -306,6 +360,177 @@
                 loadDashboardData();
             }
         }
+        // --- নাগরিক যাচাইকরণ ও লাইভ পরিসংখ্যান আপডেট সিস্টেম ---
+
+// ১. পেজ লোড হওয়ার সময় এবং ডেটা আপডেট হলে কাউন্টার ও তালিকা রিফ্রেশ করা
+function loadCitizenDashboardData() {
+    const pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
+    
+    // ড্যাশবোর্ডের "পেন্ডিং নাগরিক" কার্ডের সংখ্যা আপডেট
+    const countElement = document.getElementById('pendingCitizensCount');
+    if (countElement) {
+        countElement.innerText = pendingList.length;
+    }
+
+    // তালিকা দেখানোর কন্টেইনার
+    const container = document.getElementById('citizenPendingContainer');
+    if (!container) return;
+
+    if (pendingList.length === 0) {
+        container.innerHTML = `<p class="text-gray-500 text-center py-6 text-sm">কোনো নতুন নাগরিক আবেদন পেন্ডিং নেই।</p>`;
+        return;
+    }
+
+    // পেন্ডিং নাগরিকদের তালিকা তৈরি
+    container.innerHTML = pendingList.map((person, index) => `
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center gap-4">
+            <div>
+                <h4 class="font-bold text-gray-800 text-sm md:text-base">গ্রাম: ${person.village || 'অজানা'} | ওয়ার্ড নং: ${person.ward || '০'}</h4>
+                <p class="text-xs text-gray-500 mt-1">বয়স: ${person.age || '০'} বছর | লিঙ্গ: ${person.gender === 'male' ? 'পুরুষ' : 'নারী'} | পেশা: ${person.profession || 'নেই'}</p>
+            </div>
+            <div class="flex gap-2 shrink-0">
+                <button onclick="approveCitizen('${person.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition">
+                    Verify
+                </button>
+                <button onclick="rejectCitizen('${person.id}')" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition">
+                    বাতিল
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ২. Verify বাটন ক্লিক করলে পরিসংখ্যান লাইভ আপডেট করার লজিক
+function approveCitizen(citizenId) {
+    let pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
+    let verifiedList = JSON.parse(localStorage.getItem('unionCitizens')) || [];
+    
+    const personIndex = pendingList.findIndex(p => p.id === citizenId);
+    if (personIndex === -1) return;
+    
+    const citizen = pendingList[personIndex];
+
+    // মেইন তালিকায় নাগরিককে যুক্ত করা
+    verifiedList.push(citizen);
+    
+    // পেন্ডিং তালিকা থেকে তাকে বাদ দেওয়া
+    pendingList.splice(personIndex, 1);
+
+    // লোকাল স্টোরেজে আপডেট ডেটা সেভ করা
+    localStorage.setItem('unionCitizens', JSON.stringify(verifiedList));
+    localStorage.setItem('pendingRegistrations', JSON.stringify(pendingList));
+
+    alert("✅ নাগরিকের তথ্য সফলভাবে ভেরিফাই করা হয়েছে এবং মূল পরিসংখ্যানে যুক্ত হয়েছে!");
+    
+    // ড্যাশবোর্ড ও কাউন্টার রিফ্রেশ করা
+    loadCitizenDashboardData();
+    if (typeof loadDashboardData === 'function') {
+        loadDashboardData(); // আপনার মেইন ড্যাশবোর্ড লোড করার ফাংশন থাকলে তা রান হবে
+    }
+}
+
+// ৩. কোনো আবেদন ভুয়া মনে হলে বাতিল করার ফাংশন
+function rejectCitizen(citizenId) {
+    if (confirm("আপনি কি নিশ্চিত যে এই আবেদনটি বাতিল করতে চান?")) {
+        let pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
+        pendingList = pendingList.filter(p => p.id !== citizenId);
+        localStorage.setItem('pendingRegistrations', JSON.stringify(pendingList));
+        loadCitizenDashboardData();
+    }
+}
+
+// ৪. পেজ ওপেন হওয়ার সাথে সাথে যেন এই সিস্টেম চালু হয়ে যায়
+document.addEventListener("DOMContentLoaded", function() {
+    loadCitizenDashboardData();
+    renderAdminNotices();
+});
+// ================= 📢 ইউজার নোটিশ ম্যানেজমেন্ট ফাংশনসমূহ =================
+
+function renderAdminNotices() {
+    const tableBody = document.getElementById('admin-notice-table-body');
+    const badge = document.getElementById('pending-notice-count');
+    
+    if (!tableBody) return; // টেবিলটি অন্য ট্যাবে থাকলে বা না থাকলে এরর এড়াতে
+    
+    // লোকাল স্টোরেজ থেকে পাঠানো নোটিশ রিড করা
+    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
+    
+    // শুধুমাত্র পেন্ডিং নোটিশগুলোর কাউন্ট বের করা
+    const pendingNotices = userNotices.filter(n => n.status === 'pending');
+    
+    // ব্যাজ আপডেট করা (ট্যাব বাটনের লাল বা নীল কাউন্টার)
+    if (badge) {
+        if (pendingNotices.length > 0) {
+            badge.textContent = pendingNotices.length;
+            badge.classList.remove('hidden');
+        } else {
+            badge.classList.add('hidden');
+        }
+    }
+
+    tableBody.innerHTML = '';
+
+    if (pendingNotices.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="4" class="text-center py-8 text-gray-400 text-xs">
+                    <i class="fa-solid fa-folder-open text-2xl mb-2 block"></i>
+                    কোনো নতুন নোটিশের অনুরোধ নেই।
+                </td>
+            </tr>`;
+        return;
+    }
+
+    pendingNotices.forEach(notice => {
+        tableBody.innerHTML += `
+            <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition text-xs">
+                <td class="px-4 py-4.5 font-medium text-gray-800">
+                    <div class="font-bold">${notice.senderName}</div>
+                    <div class="text-[10px] text-gray-400 mt-0.5"><i class="fa-solid fa-phone"></i> ${notice.phone}</div>
+                    <div class="text-[10px] text-gray-400 mt-0.5"><i class="fa-solid fa-calendar"></i> ${notice.date}</div>
+                </td>
+                <td class="px-4 py-4.5 font-semibold text-blue-900">${notice.title}</td>
+                <td class="px-4 py-4.5 text-gray-600 max-w-xs truncate" title="${notice.content}">${notice.content}</td>
+                <td class="px-4 py-4.5 text-right space-x-1 whitespace-nowrap">
+                    <button onclick="approveNotice(${notice.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded-lg transition shadow-xs cursor-pointer">
+                        <i class="fa-solid fa-check"></i> অনুমোদন
+                    </button>
+                    <button onclick="deleteNotice(${notice.id})" class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold py-1.5 px-3 rounded-lg transition cursor-pointer">
+                        <i class="fa-solid fa-trash-can"></i> মুছুন
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// নোটিশ অনুমোদন (Approve) করার ফাংশন
+function approveNotice(id) {
+    if (!confirm('আপনি কি এই নোটিশটি লাইভ পোর্টালে প্রকাশ করতে চান?')) return;
+
+    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
+    let noticeIndex = userNotices.findIndex(n => n.id === id);
+
+    if (noticeIndex !== -1) {
+        userNotices[noticeIndex].status = 'approved';
+        localStorage.setItem('userNotices', JSON.stringify(userNotices));
+        
+        alert('✅ নোটিশটি সফলভাবে অনুমোদিত হয়েছে এবং লাইভ বোর্ডে যুক্ত হয়েছে!');
+        renderAdminNotices();
+    }
+}
+
+// নোটিশ মুছে ফেলার ফাংশন
+function deleteNotice(id) {
+    if (!confirm('আপনি কি এই নোটিশের অনুরোধটি চিরতরে মুছে ফেলতে চান?')) return;
+
+    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
+    userNotices = userNotices.filter(n => n.id !== id);
+    localStorage.setItem('userNotices', JSON.stringify(userNotices));
+
+    alert('🗑️ নোটিশের অনুরোধটি ডিলিট করা হয়েছে।');
+    renderAdminNotices();
+}
     </script>
 </body>
 </html>

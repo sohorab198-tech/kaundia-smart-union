@@ -3,90 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ডেলিভারি ম্যান রেজিস্ট্রেশন ফরম - কাউন্দিয়া</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>ডেলিভারি ম্যান হিসেবে যুক্ত হোন - কাউন্দিয়া ডিজিটাল বাজার</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <main class="min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8">
-        <div class="bg-white w-full max-w-lg rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 text-center relative">
-                <a href="index.html" class="absolute left-4 top-6 text-white/80 hover:text-white text-sm font-semibold flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-left"></i> হোমে ফিরুন
-                </a>
-                <h2 class="text-2xl font-bold mt-2"><i class="fa-solid fa-motorcycle animate-pulse"></i> স্বাধীন ডেলিভারি ভাই ফরম</h2>
-                <p class="text-emerald-100 text-xs mt-1">কাউন্দিয়া ডিজিটাল বাজারে ডেলিভারি ম্যান হিসেবে যুক্ত হোন</p>
+    <!-- হেডার সেকশন -->
+    <header class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <a href="delivery-list.html" class="inline-flex items-center text-sm bg-emerald-700/40 hover:bg-emerald-700/60 px-4 py-1.5 rounded-full mb-3 transition">
+                <i class="fas fa-arrow-left mr-2"></i> তালিকায় ফিরে যান
+            </a>
+            <h1 class="text-2xl md:text-3xl font-bold flex items-center justify-center gap-2">
+                <i class="fas fa-user-plus text-yellow-300"></i> নতুন ডেলিভারি রাইডার রেজিস্ট্রেশন
+            </h1>
+            <p class="text-xs md:text-sm text-emerald-100 mt-1">কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার টিমে আপনাকে স্বাগতম</p>
+        </div>
+    </header>
+
+    <!-- মূল ফর্ম সেকশন -->
+    <main class="container mx-auto px-4 py-8 flex-grow max-w-lg">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 text-2xl mx-auto mb-2">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h2 class="text-xl font-bold text-slate-800">আপনার সঠিক তথ্য প্রদান করুন</h2>
+                <p class="text-sm text-slate-500 mt-0.5">সবগুলো ঘর সঠিকভাবে পূরণ করে নিচের বাটনে ক্লিক করুন</p>
             </div>
 
-            <form id="deliverymanForm" class="p-6 space-y-4">
+            <!-- রেজিস্ট্রেশন ফর্ম -->
+            <form id="deliverymanForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                
+                <!-- ১. নাম ইনপুট -->
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">আপনার সম্পূর্ণ নাম *</label>
-                    <input type="text" id="dmName" required placeholder="উদা: মোঃ সোলেমান" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label for="riderName" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        <i class="fas fa-user text-slate-400 mr-1"></i> আপনার পুরো নাম
+                    </label>
+                    <input type="text" id="riderName" required placeholder="উদাঃ মোঃ রাসেল মিয়া" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition text-sm">
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">মোবাইল নম্বর *</label>
-                        <input type="tel" id="dmPhone" required placeholder="01XXXXXXXXX" pattern="[0-9]{11}" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">জাতীয় পরিচয়পত্র (NID) নম্বর *</label>
-                        <input type="number" id="dmNid" required placeholder="জাতীয় পরিচয়পত্র নম্বর" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
+                <!-- ২. ঠিকানা ইনপুট -->
+                <div>
+                    <label for="riderAddress" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        <i class="fas fa-map-marker-alt text-slate-400 mr-1"></i> আপনার বর্তমান ঠিকানা / এলাকা
+                    </label>
+                    <input type="text" id="riderAddress" required placeholder="উদাঃ কাউন্দিয়া মধ্যপাড়া, ১নং ওয়ার্ড" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition text-sm">
+                    <p class="text-xs text-amber-600 mt-1"><i class="fas fa-info-circle"></i> দ্রষ্টব্য: আপনাকে সমগ্র কাউন্দিয়া এলাকা জুড়েই ডেলিভারি দেওয়ার মানসিকতা রাখতে হবে।</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">আপনার বাহন/যানবাহন *</label>
-                        <select id="dmVehicle" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
-                            <option value="" disabled selected>সিলেক্ট করুন</option>
-                            <option value="🚲 বাইসাইকেল">🚲 বাইসাইকেল</option>
-                            <option value="🛺 ইজি-বাইক / অটো">🛺 ইজি-বাইক / অটো</option>
-                            <option value="🛺 রিকশা">🛺 রিকশা</option>
-                            <option value="🏍️ মোটরসাইকেল">🏍️ মোটরসাইকেল</option>
-                            <option value="🏃 হেঁটে (কাছাকাছি)">🏃 হেঁটে (কাছাকাছি)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">কাজের এলাকা/ওয়ার্ড *</label>
-                        <input type="text" id="dmArea" required placeholder="উদা: ১, ২ ও ৩ নং ওয়ার্ড বা পুরো কাউন্দিয়া" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
+                <!-- ৩. ফোন নাম্বার ইনপুট -->
+                <div>
+                    <label for="riderPhone" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        <i class="fas fa-phone-alt text-slate-400 mr-1"></i> একটিভ মোবাইল নাম্বার
+                    </label>
+                    <input type="tel" id="riderPhone" required placeholder="উদাঃ 017XXXXXXXX" pattern="[0-9]{11}"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition text-sm">
+                    <p class="text-xs text-slate-400 mt-1">১১ ডিজিটের সচল নাম্বারটি দিন (এই নাম্বারে কাস্টমার কল করবেন)।</p>
                 </div>
 
-                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-3 text-xs space-y-1">
-                    <p class="font-bold"><i class="fa-solid fa-circle-info"></i> গুরুত্বপূর্ণ নিয়মাবলী:</p>
-                    <p>• প্রতিটি সফল ডেলিভারির জন্য দূরত্ব ভেদে ক্রেতার কাছ থেকে ২০ থেকে ৩০ টাকা ডেলিভারি চার্জ নিতে পারবেন।</p>
-                    <p>• ক্যাশ অন ডেলিভারির ক্ষেত্রে ক্রেতার কাছ থেকে পণ্যের সঠিক মূল্য বুঝে নিয়ে বিক্রেতার নিকট পৌঁছে দিতে হবে।</p>
+                <!-- ৪. এনআইডি / আইডি কার্ড ভেরিফিকেশন (অপশনাল ট্রাস্টের জন্য) -->
+                <div>
+                    <label for="riderNid" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        <i class="fas fa-fingerprint text-slate-400 mr-1"></i> এনআইডি (NID) নাম্বার <span class="text-xs text-slate-400 font-normal">(ঐচ্ছিক)</span>
+                    </label>
+                    <input type="text" id="riderNid" placeholder="আপনার জাতীয় পরিচয়পত্র নম্বর দিন" 
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition text-sm">
                 </div>
 
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-base shadow-md transition flex items-center justify-center gap-2 cursor-pointer transform active:scale-95">
-                    <i class="fa-solid fa-paper-plane"></i> আবেদনটি জমা দিন
+                <!-- সাবমিট বাটন -->
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-6">
+                    <i class="fas fa-check-circle"></i> তথ্য জমা দিন (Register Now)
                 </button>
             </form>
         </div>
     </main>
 
+    <!-- ফুটার সেকশন -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs">
+        <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার ডিরেক্টরি। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- ফর্ম সাবমিট সাকসেস মেসেজ স্ক্রিপ্ট -->
     <script>
-        document.getElementById("deliverymanForm").addEventListener("submit", function(e) {
-            e.preventDefault();
+        function handleFormSubmit(event) {
+            event.preventDefault(); // পেজ রিফ্রেশ হওয়া বন্ধ করার জন্য
             
-            let newDM = {
-                id: Date.now(),
-                name: document.getElementById("dmName").value,
-                phone: document.getElementById("dmPhone").value,
-                nid: document.getElementById("dmNid").value,
-                vehicle: document.getElementById("dmVehicle").value,
-                area: document.getElementById("dmArea").value
-            };
-
-            let pendingDMs = JSON.parse(localStorage.getItem("pendingDMs")) || [];
-            pendingDMs.push(newDM);
-            localStorage.setItem("pendingDMs", JSON.stringify(pendingDMs));
-
-            alert("আপনার আবেদনটি সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে খুব দ্রুত আপনাকে ডেলিভারি তালিকায় যুক্ত করবেন।");
-            document.getElementById("deliverymanForm").reset();
-        });
+            // ইনপুট ভ্যালু নেওয়া
+            const name = document.getElementById('riderName').value;
+            
+            // একটি সুন্দর সাকসেস মেসেজ দেখানো
+            alert(`ধন্যবাদ ${name} ভাই!\nআপনার ডেলিভারি ম্যান রেজিস্ট্রেশন ফর্মটি সফলভাবে আমাদের সিস্টেমে জমা হয়েছে। অ্যাডমিন খুব দ্রুত আপনার সাথে যোগাযোগ করে তালিকায় নাম যুক্ত করে দেবেন।`);
+            
+            // ফর্ম রিসেট করা
+            document.getElementById('deliverymanForm').reset();
+            
+            // ফর্ম সাবমিট শেষে স্বয়ংক্রিয়ভাবে তালিকায় ফিরিয়ে নিয়ে যাওয়া
+            window.location.href = "delivery-list.html";
+        }
     </script>
 </body>
 </html>
