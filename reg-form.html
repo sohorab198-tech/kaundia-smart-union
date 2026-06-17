@@ -147,31 +147,37 @@
             const phone = document.getElementById('inst-phone').value.trim();
             const password = document.getElementById('inst-password').value;
 
-            let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
+           // --- ১৫০ নম্বর লাইন থেকে এই কোডটুকু পেস্ট করুন ---
+    let pendingInstitutions = JSON.parse(localStorage.getItem('pending_institutions')) || [];
+    let liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
 
-            // ডুপ্লিকেট EIIN চেক
-            const isExist = institutions.some(item => item.id.toString() === id.toString() || (item.eiin && item.eiin.toString() === id.toString()));
-            if (isExist) {
-                alert('দুঃখিত! এই EIIN/ID নম্বর দিয়ে ইতিমধ্যে একটি প্রতিষ্ঠান যুক্ত করা আছে।');
-                return;
-            }
+    // পেন্ডিং এবং লাইভ—উভয় তালিকায় আইডি চেক করা
+    const isExistInPending = pendingInstitutions.some(item => item.id.toString() === id.toString());
+    const isExistInLive = liveInstitutions.some(item => item.id.toString() === id.toString());
 
-            // নতুন প্রতিষ্ঠানের অবজেক্ট মেকানিজম (যা ড্যাশবোর্ড ও মেইন পেজের সাথে কানেক্টেড)
-            const newInstitution = {
-                id: id,
-                eiin: id, 
-                name: name,
-                type: type,
-                address: `${area}, Ward ${ward}, কাউন্দিয়া`, 
-                leader: leader,
-                phone: phone,
-                password: password,
-                pass: password, 
-                status: 'pending' // অ্যাডমিনের অনুমোদনের অপেক্ষায় থাকবে
-            };
+    if (isExistInPending || isExistInLive) {
+        alert('দুঃখিত! এই EIIN/ID নম্বর দিয়ে ইতিমধ্যে একটি প্রতিষ্ঠান যুক্ত বা আবেদনের প্রক্রিয়ায় আছে।');
+        return;
+    }
 
-            institutions.push(newInstitution);
-            localStorage.setItem('institutions', JSON.stringify(institutions));
+    // নতুন অবজেক্ট তৈরি
+    const newInstitution = {
+        id: id,
+        eiin: id,
+        name: name,
+        type: type,
+        area: area,
+        ward: ward,
+        leader: leader,
+        phone: phone,
+        password: password,
+        status: "pending"
+    };
+
+    // শুধুমাত্র পেন্ডিং তালিকায় জমা রাখা
+    pendingInstitutions.push(newInstitution);
+    localStorage.setItem('pending_institutions', JSON.stringify(pendingInstitutions));
+    // ----------------------------------------------
 
             alert('আপনার ফর্মটি সফলভাবে সাবমিট হয়েছে! Admin প্যানেল থেকে Approve করার পর এটি লিস্টে দেখা যাবে।');
             

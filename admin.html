@@ -27,7 +27,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded-2xl shadow-xs border border-gray-100 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">পেনন্ডিং প্রতিষ্ঠান</p>
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">পেন্ডিং প্রতিষ্ঠান</p>
                     <h3 id="count-institutions" class="text-3xl font-extrabold text-blue-600 mt-1">0</h3>
                 </div>
                 <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
@@ -53,7 +53,8 @@
                 </div>
             </div>
         </div>
-<div class="rounded-2xl shadow-xs border border-gray-100 flex items-center justify-between p-4 bg-white">
+
+        <div class="rounded-2xl shadow-xs border border-gray-100 flex items-center justify-between p-4 bg-white mt-6">
             <div>
                 <p class="font-bold text-gray-500 uppercase tracking-wider">পেন্ডিং নাগরিক</p>
                 <h3 id="pendingCitizensCount" class="text-3xl font-extrabold text-indigo-600 mt-1">0</h3>
@@ -62,24 +63,25 @@
                 <i class="fas fa-users"></i>
             </div>
         </div>
-        <div class="flex flex-wrap border-b border-gray-200 gap-2">
-            <button onclick="switchTab('tab-institutions')" id="btn-tab-institutions" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition">
+
+        <div class="flex flex-wrap border-b border-gray-200 gap-2 mt-6">
+            <button onclick="switchTab('tab-institutions')" id="btn-tab-institutions" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition cursor-pointer">
                 <i class="fa-solid fa-university"></i> প্রতিষ্ঠান অনুমোদন
             </button>
-            <button onclick="switchTab('tab-ads')" id="btn-tab-ads" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition">
+            <button onclick="switchTab('tab-ads')" id="btn-tab-ads" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition cursor-pointer">
                 <i class="fa-solid fa-images"></i> বিজ্ঞাপন রিকোয়েস্ট
             </button>
-            <button onclick="switchTab('tab-feedbacks')" id="btn-tab-feedbacks" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition">
+            <button onclick="switchTab('tab-feedbacks')" id="btn-tab-feedbacks" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition cursor-pointer">
                 <i class="fa-solid fa-comment-dots"></i> ইউজার মতামত ও পরামর্শ
             </button>
-            <button onclick="switchTab('tab-citizens')" id="btn-tab-citizens" class="tab-btn px-5 py-3 font-bold text-gray-500 flex items-center gap-2">
+            <button onclick="switchTab('tab-citizens')" id="btn-tab-citizens" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition cursor-pointer">
                 <i class="fa-solid fa-users-gear"></i> নাগরিক যাচাইকরণ
             </button>
-            <button onclick="switchTab('tab-notices')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition text-gray-600 hover:bg-gray-100 cursor-pointer">
-    <i class="fa-solid fa-bullhorn text-blue-650"></i>
-    <span>ইউজার নোটিশ</span>
-    <span id="pending-notice-count" class="ml-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
-</button>
+            <button onclick="switchTab('tab-notices')" id="btn-tab-notices" class="tab-btn px-5 py-3 font-bold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 transition cursor-pointer">
+                <i class="fa-solid fa-bullhorn text-blue-600"></i>
+                <span>ইউজার নোটিশ</span>
+                <span id="pending-notice-count" class="ml-1 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+            </button>
         </div>
 
         <div id="tab-institutions" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -98,49 +100,20 @@
                             <th class="p-4 text-right">অ্যাকশন</th>
                         </tr>
                     </thead>
-                    <tbody id="table-institutions" class="divide-y divide-gray-100">
-                        </tbody>
+                    <tbody id="table-institutions" class="divide-y divide-gray-100"></tbody>
+                </table>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-emerald-50/20 mt-6">
+                <h3 class="text-sm font-bold text-emerald-800 flex items-center gap-2">🟢 বর্তমানে লাইভ থাকা প্রতিষ্ঠানসমূহ</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm bg-white">
+                    <tbody id="table-live-institutions" class="divide-y divide-gray-100 text-gray-600"></tbody>
                 </table>
             </div>
         </div>
-<div id="tab-citizens" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 hidden">
-        <div class="p-6 border-b border-gray-100 bg-gray-50/50">
-            <h2 class="text-base font-bold text-gray-800 flex items-center gap-2">
-                👥 নাগরিক আবেদনের তালিকা
-            </h2>
-            <p class="text-xs text-gray-500 mt-0.5">নতুন নিবন্ধনকৃত নাগরিকদের তথ্য যাচাই করে মূল পরিসংখ্যানে যুক্ত করুন।</p>
-        </div>
-        
-    <div class="p-6">
-        <div id="citizenPendingContainer" class="space-y-4">
-            <!-- জাভাস্ক্রিপ্ট ডাটা এই কন্টেইনারের ভেতর লোড হবে -->
-        </div>
-    </div>
-    </div>
-</div>
-<!-- 📢 ৫ নম্বর ট্যাব কন্টেন্ট: ইউজার নোটিশ তালিকা (সম্পূর্ণ নিখুঁত স্ট্রাকচার) -->
-<div id="tab-notices" class="tab-content hidden bg-white rounded-2xl shadow-sm border border-gray-150 p-6 mt-6 text-left">
-    <div class="p-6 border-b border-gray-100 bg-gray-50/50">
-        <h2 class="text-base font-bold text-gray-800">📢 ইউজারদের পাঠানো নোটিশ অনুরোধ</h2>
-        <p class="text-xs text-gray-500 mt-0.5">ইউজারদের পাঠানো ফর্ম চেক করে অনুমোদন বা ডিলিট করুন।</p>
-    </div>
-    
-    <div class="overflow-x-auto mt-4">
-        <table class="w-full text-left border-collapse text-sm text-gray-650">
-            <thead>
-                <tr class="bg-gray-100/70 text-gray-700 font-bold border-b border-gray-200">
-                    <th class="px-4 py-3">তারিখ ও প্রেরক</th>
-                    <th class="px-4 py-3">নোটিশ শিরোনাম</th>
-                    <th class="px-4 py-3">বিস্তারিত বিবরণ</th>
-                    <th class="px-4 py-3 text-right">অ্যাকশন</th>
-                </tr>
-            </thead>
-            <tbody id="admin-notice-table-body">
-                <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক ডাটা এখানে লোড হবে -->
-            </tbody>
-        </table>
-    </div>
-</div>
+
         <div id="tab-ads" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h2 class="text-base font-bold text-gray-800">📢 বিজ্ঞাপনের আবেদন তালিকা</h2>
@@ -151,14 +124,13 @@
                     <thead>
                         <tr class="bg-gray-100/70 text-gray-600 font-bold border-b border-gray-200">
                             <th class="p-4">বিজ্ঞাপনদাতার নাম</th>
-                            <th class="p-4">ব্যানার/টপিক</th>
-                            <th class="p-4">যোগাযোগ</th>
+                            <th class="p-4">ব্যানার/টপিক/বিবরণ</th>
+                            <th class="p-4">যোগাযোগ ও মূল্য</th>
                             <th class="p-4">স্ট্যাটাস</th>
                             <th class="p-4 text-right">অ্যাকশন</th>
                         </tr>
                     </thead>
-                    <tbody id="table-ads" class="divide-y divide-gray-100">
-                        </tbody>
+                    <tbody id="table-ads" class="divide-y divide-gray-100"></tbody>
                 </table>
             </div>
         </div>
@@ -179,358 +151,198 @@
                             <th class="p-4 text-right">অ্যাকশন</th>
                         </tr>
                     </thead>
-                    <tbody id="table-feedbacks" class="divide-y divide-gray-100">
-                        </tbody>
+                    <tbody id="table-feedbacks" class="divide-y divide-gray-100"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-citizens" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 hidden">
+            <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+                <h2 class="text-base font-bold text-gray-800 flex items-center gap-2">👥 নাগরিক আবেদনের তালিকা</h2>
+                <p class="text-xs text-gray-500 mt-0.5">নতুন নিবন্ধনকৃত নাগরিকদের তথ্য যাচাই করে মূল পরিসংখ্যানে যুক্ত করুন।</p>
+            </div>
+            <div class="p-6">
+                <div id="citizenPendingContainer" class="space-y-4"></div>
+            </div>
+        </div>
+
+        <div id="tab-notices" class="tab-content hidden bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+                <h2 class="text-base font-bold text-gray-800">📢 ইউজারদের পাঠানো নোটিশ অনুরোধ (পেন্ডিং)</h2>
+                <p class="text-xs text-gray-500 mt-0.5">সাধারণ ব্যবহারকারীদের পাঠানো ফর্ম চেক করে অনুমোদন বা ডিলিট করুন।</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100/70 text-gray-600 font-bold border-b border-gray-200">
+                            <th class="p-4">তারিখ ও প্রেরণকারী</th>
+                            <th class="p-4">নোটিশ শিরোনাম</th>
+                            <th class="p-4">বিস্তারিত বিবরণ</th>
+                            <th class="p-4 text-right">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-notice-table-body" class="divide-y divide-gray-100"></tbody>
+                </table>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-purple-50/30 mt-6">
+                <h3 class="text-sm font-bold text-purple-900 flex items-center gap-2">🏫 শিক্ষা ও সরকারি প্রতিষ্ঠানের সরাসরি লাইভ নোটিশসমূহ</h3>
+                <p class="text-[11px] text-gray-500 mt-0.5">এই নোটিশগুলো পিন ভেরিফিকেশনের মাধ্যমে সরাসরি সাইটে লাইভ হয়েছে।</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm bg-white">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-600 font-semibold border-b border-gray-200 text-xs">
+                            <th class="p-4">তারিখ ও প্রতিষ্ঠান আইডি</th>
+                            <th class="p-4">নোটিশ শিরোনাম</th>
+                            <th class="p-4">বিস্তারিত বিবরণ</th>
+                            <th class="p-4 text-right">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-live-institution-notices" class="divide-y divide-gray-100"></tbody>
                 </table>
             </div>
         </div>
 
     </main>
 
-    <script>
-        // পেজ লোড হলেই সমস্ত ডাটা রেন্ডার হবে
-        document.addEventListener('DOMContentLoaded', () => {
-            loadDashboardData();
-            renderAdminNotices();
-        });
+<script>
+// পেজ লোড হলেই সমস্ত ডাটা রেন্ডার হবে
+document.addEventListener('DOMContentLoaded', () => {
+    loadDashboardData();
+    if (typeof loadCitizenDashboardData === "function") loadCitizenDashboardData(); 
+    if (typeof renderAdminNotices === "function") renderAdminNotices();      
+});
 
-        // ট্যাব পরিবর্তনের লজিক
-        function switchTab(tabId) {
-            // সব ট্যাব কন্টেন্ট হাইড করা
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            // সিলেক্টেড ট্যাব শো করা
-            document.getElementById(tabId).classList.remove('hidden');
+// ট্যাব পরিবর্তনের গ্লোবাল লজিক
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) activeTab.classList.remove('hidden');
 
-            // সব ট্যাবের বাটন স্টাইল রিসেট করা
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('border-indigo-600', 'text-indigo-600');
-                btn.classList.add('border-transparent', 'text-gray-500');
-            });
-            // অ্যাক্টিভ বাটন স্টাইল সেট করা
-            document.getElementById('btn-' + tabId).classList.remove('border-transparent', 'text-gray-500');
-            document.getElementById('btn-' + tabId).classList.add('border-indigo-600', 'text-indigo-600');
-        }
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'text-indigo-600');
+        btn.classList.add('border-transparent', 'text-gray-500');
+    });
 
-        // সব ডাটা এক সাথে লোড এবং পরিসংখ্যান আপডেট করা
-        function loadDashboardData() {
-            // লোকাল স্টোরেজ থেকে ডাটা রিড করা
-            const institutions = JSON.parse(localStorage.getItem('institutions')) || [];
-            const ads = JSON.parse(localStorage.getItem('advertisements')) || [];
-            const feedbacks = JSON.parse(localStorage.getItem('userFeedbacks')) || [];
+    const activeBtn = document.getElementById('btn-' + tabId);
+    if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-gray-500');
+        activeBtn.classList.add('border-indigo-600', 'text-indigo-600');
+    }
+}
 
-            // পেন্ডিং কাউন্ট ফিল্টার করা
-            const pendingInstitutions = institutions.filter(item => item.status === 'pending');
-            const pendingAds = ads.filter(item => item.status === 'pending');
+// মূল ড্যাশবোর্ড ডাটা লোড ও গ্লোবাল কাউন্টার ম্যানেজমেন্ট
+function loadDashboardData() {
+    let rawPending = JSON.parse(localStorage.getItem('pending_institutions')) || [];
+    let rawLive = JSON.parse(localStorage.getItem('institutions')) || [];
+    let ads = JSON.parse(localStorage.getItem('advertisements')) || [];
+    let feedbacks = JSON.parse(localStorage.getItem('userFeedbacks')) || [];
 
-            // ১. ওপরে কার্ডের সংখ্যাগুলো রিয়েলটাইম আপডেট করা
-            document.getElementById('count-institutions').innerText = pendingInstitutions.length;
-            document.getElementById('count-ads').innerText = pendingAds.length;
-            document.getElementById('count-feedbacks').innerText = feedbacks.length;
+    const pendingInstitutions = rawPending;
+    const approvedInstitutions = rawLive;
+    const pendingAds = ads.filter(item => item.status === 'pending');
 
-            // ২. টেবিল রেন্ডারিং ফাংশনগুলো কল করা
-            renderInstitutionsTable(pendingInstitutions);
-            renderAdsTable(pendingAds);
-            renderFeedbacksTable(feedbacks);
-        }
+    // ওপরের কাউন্টার কার্ড ভ্যালু লাইভ আপডেট
+    if(document.getElementById('count-institutions')) {
+        document.getElementById('count-institutions').innerText = rawLive.length;
+    }
+    if(document.getElementById('count-ads')) {
+        document.getElementById('count-ads').innerText = pendingAds.length;
+    }
+    if(document.getElementById('count-feedbacks')) {
+        document.getElementById('count-feedbacks').innerText = feedbacks.length;
+    }
 
-        // --- প্রতিষ্ঠান টেবিল জেনারেটর ---
-        function renderInstitutionsTable(data) {
-            const container = document.getElementById('table-institutions');
-            if(data.length === 0) {
-                container.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400 text-xs">কোনো নতুন প্রতিষ্ঠানের পেন্ডিং আবেদন নেই।</td></tr>`;
-                return;
-            }
-            container.innerHTML = data.map(item => `
+    // টেবিল জেনারেটর রান করা
+    renderInstitutionTable(pendingInstitutions, approvedInstitutions);
+    if (typeof renderAdsTable === "function") renderAdsTable(pendingAds);
+    if (typeof renderFeedbackTable === "function") renderFeedbackTable(feedbacks);
+}
+
+// ১. প্রতিষ্ঠান টেবিল জেনারেটর
+function renderInstitutionTable(pendingData, approvedData) {
+    const container = document.getElementById('table-institutions');
+    const liveContainer = document.getElementById('table-live-institutions');
+
+    if (container) {
+        if (pendingData.length === 0) {
+            container.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-500">কোনো পেন্ডিং আবেদন নেই</td></tr>`;
+        } else {
+            container.innerHTML = pendingData.map(item => `
                 <tr class="hover:bg-gray-50/80 transition">
                     <td class="p-4">
                         <div class="font-bold text-gray-900">${item.name}</div>
-                        <div class="text-[11px] text-gray-500 bg-gray-100 inline-block px-1.5 py-0.5 rounded mt-1">${item.type}</div>
+                        <div class="text-[11px] text-gray-500 bg-gray-100 inline-block px-1.5 py-0.5 rounded font-mono">ID: ${item.id}</div>
                     </td>
                     <td class="p-4 text-gray-700">${item.leader || 'N/A'}</td>
                     <td class="p-4 text-gray-600 font-mono">${item.phone}</td>
-                    <td class="p-4"><span class="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">Pending</span></td>
+                    <td class="p-4"><span class="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">পেন্ডিং</span></td>
                     <td class="p-4 text-right space-x-1 whitespace-nowrap">
-                        <button onclick="approveInstitution(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-xs cursor-pointer"><i class="fa-solid fa-check"></i> Approve</button>
-                        <button onclick="deleteInstitution(${item.id})" class="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold px-3 py-1.5 rounded-lg transition cursor-pointer"><i class="fa-solid fa-trash"></i> Delete</button>
+                        <button onclick="approveInstitution('${item.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs transition">Approve</button>
+                        <button onclick="deleteInstitution('${item.id}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-xs transition">Delete</button>
                     </td>
                 </tr>
             `).join('');
         }
-
-        // --- বিজ্ঞাপন টেবিল জেনারেটর ---
-        function renderAdsTable(data) {
-            const container = document.getElementById('table-ads');
-            if(data.length === 0) {
-                container.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400 text-xs">কোনো বিজ্ঞাপনের পেন্ডিং রিকোয়েস্ট নেই।</td></tr>`;
-                return;
-            }
-            container.innerHTML = data.map(item => `
-                <tr class="hover:bg-gray-50/80 transition">
-                    <td class="p-4 font-bold text-gray-900">${item.clientName || 'নামহীন ইউজার'}</td>
-                    <td class="p-4 text-gray-700">${item.title || item.adTopic || 'সাধারণ বিজ্ঞাপন'}</td>
-                    <td class="p-4 text-gray-600 font-mono">${item.phone || 'N/A'}</td>
-                    <td class="p-4"><span class="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">Pending</span></td>
-                    <td class="p-4 text-right space-x-1 whitespace-nowrap">
-                        <button onclick="approveAd(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-xs cursor-pointer"><i class="fa-solid fa-check"></i> Approve</button>
-                        <button onclick="deleteAd(${item.id})" class="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold px-3 py-1.5 rounded-lg transition cursor-pointer"><i class="fa-solid fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // --- ইউজার মতামত টেবিল জেনারেটর ---
-        function renderFeedbacksTable(data) {
-            const container = document.getElementById('table-feedbacks');
-            if(data.length === 0) {
-                container.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400 text-xs">ইউজারদের কোনো মতামত বা পরামর্শ এখনো জমা হয়নি।</td></tr>`;
-                return;
-            }
-            container.innerHTML = data.map(item => `
-                <tr class="hover:bg-gray-50/80 transition">
-                    <td class="p-4">
-                        <div class="font-bold text-gray-900">${item.name}</div>
-                        <div class="text-[11px] text-gray-500">${item.area}</div>
-                    </td>
-                    <td class="p-4">
-                        <span class="px-2 py-1 rounded-md text-[11px] font-bold bg-teal-50 text-teal-800 border border-teal-100">${item.importance}</span>
-                    </td>
-                    <td class="p-4 text-gray-700 max-w-md break-words">${item.comment}</td>
-                    <td class="p-4 text-gray-500 font-mono whitespace-nowrap">${item.date}</td>
-                    <td class="p-4 text-right">
-                        <button onclick="deleteFeedback(${item.id})" class="text-rose-600 hover:bg-rose-50 p-2 rounded-lg transition cursor-pointer" title="মতামত ডিলিট করুন">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // ================= ৫. ডাটা অ্যাকশন হ্যান্ডলার মেকানিজম =================
-
-        // প্রতিষ্ঠান অনুমোদন
-        function approveInstitution(id) {
-            let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
-            institutions = institutions.map(item => {
-                if(item.id === id) item.status = 'approved';
-                return item;
-            });
-            localStorage.setItem('institutions', JSON.stringify(institutions));
-            alert('✅ প্রতিষ্ঠানটি সফলভাবে লাইভ পোর্টালে অনুমোদন দেওয়া হয়েছে!');
-            loadDashboardData();
-        }
-
-        // প্রতিষ্ঠান রিজেক্ট/ডিলিট
-        function deleteInstitution(id) {
-            if(confirm('আপনি কি নিশ্চিত যে এই আবেদনটি স্থায়ীভাবে ডিলিট করতে চান?')) {
-                let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
-                institutions = institutions.filter(item => item.id !== id);
-                localStorage.setItem('institutions', JSON.stringify(institutions));
-                loadDashboardData();
-            }
-        }
-
-        // বিজ্ঞাপন অনুমোদন
-        function approveAd(id) {
-            let ads = JSON.parse(localStorage.getItem('advertisements')) || [];
-            ads = ads.map(item => {
-                if(item.id === id) item.status = 'approved';
-                return item;
-            });
-            localStorage.setItem('advertisements', JSON.stringify(ads));
-            alert('✅ বিজ্ঞাপনটি সফলভাবে ডিজিটাল ওয়ালে লাইভ করা হয়েছে!');
-            loadDashboardData();
-        }
-
-        // বিজ্ঞাপন রিজেক্ট/ডিলিট
-        function deleteAd(id) {
-            if(confirm('আপনি কি নিশ্চিত যে এই বিজ্ঞাপনের রিকোয়েস্টটি ডিলিট করতে চান?')) {
-                let ads = JSON.parse(localStorage.getItem('advertisements')) || [];
-                ads = ads.filter(item => item.id !== id);
-                localStorage.setItem('advertisements', JSON.stringify(ads));
-                loadDashboardData();
-            }
-        }
-
-        // ইউজার মতামত ডিলিট করা
-        function deleteFeedback(id) {
-            if(confirm('আপনি কি নিশ্চিত যে ইউজারের এই মতামতটি তালিকা থেকে মুছে ফেলতে চান?')) {
-                let feedbacks = JSON.parse(localStorage.getItem('userFeedbacks')) || [];
-                feedbacks = feedbacks.filter(item => item.id !== id);
-                localStorage.setItem('userFeedbacks', JSON.stringify(feedbacks));
-                loadDashboardData();
-            }
-        }
-        // --- নাগরিক যাচাইকরণ ও লাইভ পরিসংখ্যান আপডেট সিস্টেম ---
-
-// ১. পেজ লোড হওয়ার সময় এবং ডেটা আপডেট হলে কাউন্টার ও তালিকা রিফ্রেশ করা
-function loadCitizenDashboardData() {
-    const pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
-    
-    // ড্যাশবোর্ডের "পেন্ডিং নাগরিক" কার্ডের সংখ্যা আপডেট
-    const countElement = document.getElementById('pendingCitizensCount');
-    if (countElement) {
-        countElement.innerText = pendingList.length;
     }
 
-    // তালিকা দেখানোর কন্টেইনার
-    const container = document.getElementById('citizenPendingContainer');
-    if (!container) return;
-
-    if (pendingList.length === 0) {
-        container.innerHTML = `<p class="text-gray-500 text-center py-6 text-sm">কোনো নতুন নাগরিক আবেদন পেন্ডিং নেই।</p>`;
-        return;
-    }
-
-    // পেন্ডিং নাগরিকদের তালিকা তৈরি
-    container.innerHTML = pendingList.map((person, index) => `
-        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center gap-4">
-            <div>
-                <h4 class="font-bold text-gray-800 text-sm md:text-base">গ্রাম: ${person.village || 'অজানা'} | ওয়ার্ড নং: ${person.ward || '০'}</h4>
-                <p class="text-xs text-gray-500 mt-1">বয়স: ${person.age || '০'} বছর | লিঙ্গ: ${person.gender === 'male' ? 'পুরুষ' : 'নারী'} | পেশা: ${person.profession || 'নেই'}</p>
-            </div>
-            <div class="flex gap-2 shrink-0">
-                <button onclick="approveCitizen('${person.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition">
-                    Verify
-                </button>
-                <button onclick="rejectCitizen('${person.id}')" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition">
-                    বাতিল
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-// ২. Verify বাটন ক্লিক করলে পরিসংখ্যান লাইভ আপডেট করার লজিক
-function approveCitizen(citizenId) {
-    let pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
-    let verifiedList = JSON.parse(localStorage.getItem('unionCitizens')) || [];
-    
-    const personIndex = pendingList.findIndex(p => p.id === citizenId);
-    if (personIndex === -1) return;
-    
-    const citizen = pendingList[personIndex];
-
-    // মেইন তালিকায় নাগরিককে যুক্ত করা
-    verifiedList.push(citizen);
-    
-    // পেন্ডিং তালিকা থেকে তাকে বাদ দেওয়া
-    pendingList.splice(personIndex, 1);
-
-    // লোকাল স্টোরেজে আপডেট ডেটা সেভ করা
-    localStorage.setItem('unionCitizens', JSON.stringify(verifiedList));
-    localStorage.setItem('pendingRegistrations', JSON.stringify(pendingList));
-
-    alert("✅ নাগরিকের তথ্য সফলভাবে ভেরিফাই করা হয়েছে এবং মূল পরিসংখ্যানে যুক্ত হয়েছে!");
-    
-    // ড্যাশবোর্ড ও কাউন্টার রিফ্রেশ করা
-    loadCitizenDashboardData();
-    if (typeof loadDashboardData === 'function') {
-        loadDashboardData(); // আপনার মেইন ড্যাশবোর্ড লোড করার ফাংশন থাকলে তা রান হবে
-    }
-}
-
-// ৩. কোনো আবেদন ভুয়া মনে হলে বাতিল করার ফাংশন
-function rejectCitizen(citizenId) {
-    if (confirm("আপনি কি নিশ্চিত যে এই আবেদনটি বাতিল করতে চান?")) {
-        let pendingList = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
-        pendingList = pendingList.filter(p => p.id !== citizenId);
-        localStorage.setItem('pendingRegistrations', JSON.stringify(pendingList));
-        loadCitizenDashboardData();
-    }
-}
-
-// ৪. পেজ ওপেন হওয়ার সাথে সাথে যেন এই সিস্টেম চালু হয়ে যায়
-document.addEventListener("DOMContentLoaded", function() {
-    loadCitizenDashboardData();
-    renderAdminNotices();
-});
-// ================= 📢 ইউজার নোটিশ ম্যানেজমেন্ট ফাংশনসমূহ =================
-
-function renderAdminNotices() {
-    const tableBody = document.getElementById('admin-notice-table-body');
-    const badge = document.getElementById('pending-notice-count');
-    
-    if (!tableBody) return; // টেবিলটি অন্য ট্যাবে থাকলে বা না থাকলে এরর এড়াতে
-    
-    // লোকাল স্টোরেজ থেকে পাঠানো নোটিশ রিড করা
-    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
-    
-    // শুধুমাত্র পেন্ডিং নোটিশগুলোর কাউন্ট বের করা
-    const pendingNotices = userNotices.filter(n => n.status === 'pending');
-    
-    // ব্যাজ আপডেট করা (ট্যাব বাটনের লাল বা নীল কাউন্টার)
-    if (badge) {
-        if (pendingNotices.length > 0) {
-            badge.textContent = pendingNotices.length;
-            badge.classList.remove('hidden');
+    if (liveContainer) {
+        if (approvedData.length === 0) {
+            liveContainer.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-500">কোনো লাইভ প্রতিষ্ঠান নেই</td></tr>`;
         } else {
-            badge.classList.add('hidden');
+            liveContainer.innerHTML = approvedData.map(item => `
+                <tr class="hover:bg-slate-50 transition bg-emerald-50/5 text-xs">
+                    <td class="p-4 font-bold text-slate-900">${item.name}</td>
+                    <td class="p-4 text-slate-700">${item.leader || 'N/A'}</td>
+                    <td class="p-4 text-slate-600 font-mono">${item.phone}</td>
+                    <td class="p-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">লাইভ</span></td>
+                    <td class="p-4 text-right">
+                        <button onclick="deleteInstitution('${item.id}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-xs transition">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
         }
     }
-
-    tableBody.innerHTML = '';
-
-    if (pendingNotices.length === 0) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="4" class="text-center py-8 text-gray-400 text-xs">
-                    <i class="fa-solid fa-folder-open text-2xl mb-2 block"></i>
-                    কোনো নতুন নোটিশের অনুরোধ নেই।
-                </td>
-            </tr>`;
-        return;
-    }
-
-    pendingNotices.forEach(notice => {
-        tableBody.innerHTML += `
-            <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition text-xs">
-                <td class="px-4 py-4.5 font-medium text-gray-800">
-                    <div class="font-bold">${notice.senderName}</div>
-                    <div class="text-[10px] text-gray-400 mt-0.5"><i class="fa-solid fa-phone"></i> ${notice.phone}</div>
-                    <div class="text-[10px] text-gray-400 mt-0.5"><i class="fa-solid fa-calendar"></i> ${notice.date}</div>
-                </td>
-                <td class="px-4 py-4.5 font-semibold text-blue-900">${notice.title}</td>
-                <td class="px-4 py-4.5 text-gray-600 max-w-xs truncate" title="${notice.content}">${notice.content}</td>
-                <td class="px-4 py-4.5 text-right space-x-1 whitespace-nowrap">
-                    <button onclick="approveNotice(${notice.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded-lg transition shadow-xs cursor-pointer">
-                        <i class="fa-solid fa-check"></i> অনুমোদন
-                    </button>
-                    <button onclick="deleteNotice(${notice.id})" class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold py-1.5 px-3 rounded-lg transition cursor-pointer">
-                        <i class="fa-solid fa-trash-can"></i> মুছুন
-                    </button>
-                </td>
-            </tr>
-        `;
-    });
 }
 
-// নোটিশ অনুমোদন (Approve) করার ফাংশন
-function approveNotice(id) {
-    if (!confirm('আপনি কি এই নোটিশটি লাইভ পোর্টালে প্রকাশ করতে চান?')) return;
+// অনুমোদন ফাংশন
+function approveInstitution(id) {
+    let pendingList = JSON.parse(localStorage.getItem('pending_institutions')) || [];
+    let liveList = JSON.parse(localStorage.getItem('institutions')) || [];
 
-    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
-    let noticeIndex = userNotices.findIndex(n => n.id === id);
-
-    if (noticeIndex !== -1) {
-        userNotices[noticeIndex].status = 'approved';
-        localStorage.setItem('userNotices', JSON.stringify(userNotices));
+    let index = pendingList.findIndex(item => item.id.toString() === id.toString());
+    
+    if (index !== -1) {
+        let approvedItem = pendingList[index];
+        approvedItem.status = "approved";
         
-        alert('✅ নোটিশটি সফলভাবে অনুমোদিত হয়েছে এবং লাইভ বোর্ডে যুক্ত হয়েছে!');
-        renderAdminNotices();
+        pendingList.splice(index, 1);
+        liveList.push(approvedItem);
+
+        localStorage.setItem('pending_institutions', JSON.stringify(pendingList));
+        localStorage.setItem('institutions', JSON.stringify(liveList));
+
+        alert('✅ প্রতিষ্ঠানটি সফলভাবে অনুমোদন দেওয়া হয়েছে এবং এটি এখন লাইভ পোর্টাল ভিউতে যুক্ত!');
+        loadDashboardData();
     }
 }
 
-// নোটিশ মুছে ফেলার ফাংশন
-function deleteNotice(id) {
-    if (!confirm('আপনি কি এই নোটিশের অনুরোধটি চিরতরে মুছে ফেলতে চান?')) return;
+// ডিলিট ফাংশন
+function deleteInstitution(id) {
+    if (confirm('আপনি কি নিশ্চিত যে এই আবেদনটি স্থায়ীভাবে ডিলিট করতে চান?')) {
+        let pendingList = JSON.parse(localStorage.getItem('pending_institutions')) || [];
+        pendingList = pendingList.filter(item => item.id.toString() !== id.toString());
+        localStorage.setItem('pending_institutions', JSON.stringify(pendingList));
+        
+        let liveList = JSON.parse(localStorage.getItem('institutions')) || [];
+        liveList = liveList.filter(item => item.id.toString() !== id.toString());
+        localStorage.setItem('institutions', JSON.stringify(liveList));
 
-    let userNotices = JSON.parse(localStorage.getItem('userNotices')) || [];
-    userNotices = userNotices.filter(n => n.id !== id);
-    localStorage.setItem('userNotices', JSON.stringify(userNotices));
-
-    alert('🗑️ নোটিশের অনুরোধটি ডিলিট করা হয়েছে।');
-    renderAdminNotices();
+        alert('🗑️ আবেদনটি সফলভাবে মুছে ফেলা হয়েছে।');
+        loadDashboardData();
+    }
 }
-    </script>
+</script>
 </body>
 </html>
