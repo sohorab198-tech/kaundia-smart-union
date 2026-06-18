@@ -343,6 +343,61 @@ function deleteInstitution(id) {
         loadDashboardData();
     }
 }
+// ২. বিজ্ঞাপন টেবিল জেনারেটর (পেন্ডিং ও লাইভ আলাদা করা হলো)
+function renderAdsTable(pendingAds) {
+    const container = document.getElementById('table-ads');
+    if (!container) return;
+
+    if (pendingAds.length === 0) {
+        container.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-500">কোনো বিজ্ঞাপনের অনুরোধ নেই</td></tr>`;
+        return;
+    }
+
+    container.innerHTML = pendingAds.map(item => `
+        <tr class="hover:bg-gray-50 transition">
+            <td class="p-4 font-bold text-gray-900">${item.title || item.name || 'বিজ্ঞাপন'}</td>
+            <td class="p-4 text-gray-600">${item.type === 'market' ? '🏬 মার্কেট ভেন্ডর' : '🌐 সাধারণ স্পন্সর'}</td>
+            <td class="p-4 text-sm text-gray-500">${item.durationDays || 'N/A'} দিন</td>
+            <td class="p-4"><span class="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">পেন্ডিং</span></td>
+            <td class="p-4 text-right space-x-1 whitespace-nowrap">
+                <button onclick="approveAd('${item.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs transition">Approve</button>
+                <button onclick="deleteAd('${item.id}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded text-xs transition">Reject</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// বিজ্ঞাপন অনুমোদন করার ফাংশন
+function approveAd(id) {
+    let ads = JSON.parse(localStorage.getItem('advertisements')) || [];
+    let index = ads.findIndex(item => item.id.toString() === id.toString());
+
+    if (index !== -1) {
+        ads[index].status = 'approved'; 
+        
+        // ১. অ্যাডমিন ড্যাশবোর্ডের জন্য 'advertisements' আপডেট
+        localStorage.setItem('advertisements', JSON.stringify(ads));
+        
+        // ২. লাইভ advertisements.html পেজের জন্য 'approvedAds' বক্সে ডাটা পাঠানো
+        let approvedAdsList = JSON.parse(localStorage.getItem('approvedAds')) || [];
+        approvedAdsList = approvedAdsList.filter(item => item.id.toString() !== id.toString());
+        approvedAdsList.push(ads[index]);
+        localStorage.setItem('approvedAds', JSON.stringify(approvedAdsList));
+
+        alert('✅ বিজ্ঞাপনটি সফলভাবে অনুমোদন করা হয়েছে এবং এটি এখন লাইভ!');
+        loadDashboardData(); 
+    }
+}
+// বিজ্ঞাপন ডিলিট বা রিজেক্ট করার ফাংশন
+function deleteAd(id) {
+    if (confirm('আপনি কি নিশ্চিত যে এই বিজ্ঞাপনের অনুরোধটি বাতিল করতে চান?')) {
+        let ads = JSON.parse(localStorage.getItem('advertisements')) || [];
+        ads = ads.filter(item => item.id.toString() !== id.toString());
+        localStorage.setItem('advertisements', JSON.stringify(ads));
+        alert('🗑️ বিজ্ঞাপনটি মুছে ফেলা হয়েছে।');
+        loadDashboardData();
+    }
+}
 </script>
 </body>
 </html>

@@ -154,12 +154,13 @@
                 text: document.getElementById("noticeText").value,
                 price: document.getElementById("itemPrice").value || null,
                 date: new Date().toLocaleDateString('bn-BD'),
-                expireAt: expireDate
+                expireAt: expireDate,
+                status: 'pending'
             };
 
             let pendingAds = JSON.parse(localStorage.getItem("pendingAds")) || [];
             pendingAds.push(newAd);
-            localStorage.setItem("pendingAds", JSON.stringify(pendingAds));
+            localStorage.setItem("advertisements", JSON.stringify(pendingAds));
 
             alert("আপনার বিজ্ঞাপনটি জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করলেই এটি ওয়ালে দেখা যাবে।");
             document.getElementById("noticeForm").reset();
@@ -172,7 +173,8 @@
             let wall = document.getElementById("notice-wall");
             let now = Date.now();
 
-            let validAds = approvedAds.filter(ad => !ad.expireAt || ad.expireAt > now);
+            // ১৭৪ নম্বর লাইনে এটি প্রতিস্থাপন করুন
+let validAds = approvedAds.filter(ad => ad.status === 'approved' && (!ad.expireAt || ad.expireAt > now));
             if(approvedAds.length !== validAds.length) {
                 localStorage.setItem("approvedAds", JSON.stringify(validAds));
             }
