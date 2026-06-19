@@ -96,7 +96,7 @@
                 <h2 class="text-2xl font-bold text-pink-600"><i class="fas fa-heart"></i> ছোট সোনামণিদের কিউট শপ <i class="fas fa-heart"></i></h2>
                 <p class="text-sm text-slate-500 mt-1">বাচ্চাদের রেডিমেড প্রিমিয়াম জামা-কাপড় এবং জুতো কালেকশন</p>
             </div>
-            
+           <div id="kids-products-wall" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8"></div> 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- প্রোডাক্ট ১: শার্ট প্যান্ট ১ -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
@@ -218,7 +218,7 @@
                     <i class="fas fa-box-open"></i> ১০০% সিক্রেট প্যাকিং (ভেতরে কী আছে বাইরে থেকে বোঝার উপায় নেই)
                 </div>
             </div>
-
+<div id="girls-products-wall" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- শাড়ি ১ -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition">
@@ -294,16 +294,65 @@
         </div>
 
         <!-- ==================== ট্যাব ৩: ইউনিয়ন ফ্যাশন গ্যালারি (বিজ্ঞাপন) ==================== -->
-        <div id="local-ads" class="tab-content">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+      <div id="local-ads" class="tab-content">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-center border-b pb-3 border-gray-200 mb-6 mt-4">
                 <div>
-                    <h2 class="text-2xl font-bold text-blue-600"><i class="fas fa-bullhorn"></i> ইউনিয়ন ফ্যাশন গ্যালারি (পোশাকের বিজ্ঞাপন)</h2>
-                    <p class="text-sm text-slate-500 mt-1">কাউন্দিয়া ইউনিয়নের স্থানীয় ব্যবসায়ী ও উদ্যোক্তাদের কাপড়ের কালেকশন</p>
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center space-x-2">
+                        <span>🛍️ ইউনিয়ন ফ্যাশন গ্যালারি (পোশাকের বিজ্ঞাপন)</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">কাউন্দিয়া ইউনিয়নের স্থানীয় ব্যবসায়ী ও উদ্যোক্তাদের কাপড়ের কালেকশন</p>
                 </div>
-                <a href="add-ad.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-1">
-                    <i class="fas fa-plus-circle"></i> আপনার কাপড়ের বিজ্ঞাপন দিন
-                </a>
+                <button onclick="toggleSellerModal(true)" class="mt-3 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-full shadow-md hover:shadow-xl transition transform hover:-translate-y-0.5 text-sm">
+                    ➕ আপনার কাপড়ের বিজ্ঞাপন দিন
+                </button>
             </div>
+
+            <div id="regular-products-wall" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                </div>
+
+    <div id="sellerModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleSellerModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            
+            <h3 class="text-xl font-black text-slate-800 mb-4 border-b pb-2">🏪 আপনার কাপড়ের বিজ্ঞাপন দিন</h3>
+            
+            <form id="sellerProductForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">আপনার নাম / দোকানের নাম *</label>
+                    <input type="text" id="sellerName" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: মেসার্স ফাতেমা বুটিকস">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">পোশাকের নাম *</label>
+                    <input type="text" id="sellerProdName" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: হাতে বোনা কুশিকাটার ওয়ান পিস">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">পোশাকের মেটেরিয়াল / কাপড় *</label>
+                    <input type="text" id="sellerProdMaterial" class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: ১০০% সুতি সুতা / সফট জর্জেট">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">দাম (টাকায়) *</label>
+                    <input type="number" id="sellerProdPrice" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: ৮৫০">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">ছবির লিংক (URL) *</label>
+                    <input type="url" id="sellerProdImage" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">মোবাইল নম্বর (যোগাযোগের জন্য) *</label>
+                    <input type="tel" id="sellerProdPhone" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: 017XXXXXXXX">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">পোশাক সম্পর্কে বিশেষ কিছু কথা (ঐচ্ছিক)</label>
+                    <textarea id="sellerProdDesc" rows="2" class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-blue-500" placeholder="উদা: চমৎকার কালার কম্বিনেশন এবং গর্জিয়াস এম্ব্রয়ডারি ওয়ার্ক..."></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
+                    🚀 বিজ্ঞাপনটি জমা দিন
+                </button>
+            </form>
+        </div>
+    </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- বিজ্ঞাপন কার্ড ১ -->
@@ -410,6 +459,38 @@
                     </div>
                 </div>
             </div>
+            <hr class="border-gray-200 my-8">
+
+        <div id="sellerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">👔 আপনার কাপড়ের বিজ্ঞাপন দিন</h3>
+                <form id="sellerProductForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">আপনার নাম / দোকানের নাম</label>
+                        <input type="text" id="sellerName" required class="w-full p-2.5 border rounded-lg text-gray-900" placeholder="উদা: রহমান ফ্যাশন">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">পোশাকের নাম</label>
+                        <input type="text" id="sellerProdName" required class="w-full p-2.5 border rounded-lg text-gray-900" placeholder="উদা: জর্জেট শাড়ি">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">দাম (টাকা)</label>
+                        <input type="number" id="sellerProdPrice" required class="w-full p-2.5 border rounded-lg text-gray-900" placeholder="উদা: ১৫০০">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ছবির অনলাইন লিংক (Image URL)</label>
+                        <input type="url" id="sellerProdImage" required class="w-full p-2.5 border rounded-lg text-gray-900" placeholder="https://i.ibb.co/example.jpg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
+                        <input type="text" id="sellerProdPhone" required class="w-full p-2.5 border rounded-lg text-gray-900" placeholder="01XXXXXXXXX">
+                    </div>
+                    <div class="flex justify-end space-x-2 pt-2">
+                        <button type="button" onclick="toggleSellerModal(false)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">বন্ধ করুন</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">জমা দিন</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </main>
@@ -421,23 +502,146 @@
 
     <!-- কাস্টম জাভাস্ক্রিপ্ট ট্যাব সিস্টেম হ্যান্ডেল করার জন্য -->
     <script>
-        function openTab(evt, tabName) {
-            // সমস্ত ট্যাব কন্টেন্ট হাইড করা
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
+    // ================= ডিজিটাল বাজার (ফ্যাশন) লজিক =================
 
-            // সমস্ত বাটনের একটিভ কালার রিমুভ করা
-            const tabButtons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove("active-tab");
-            }
-
-            // নির্দিষ্ট ট্যাবটি ওপেন করা এবং বাটনে একটিভ ক্লাস দেওয়া
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active-tab");
+    // মোডাল ওপেন/ক্লোজ
+    function toggleSellerModal(show) {
+        const modal = document.getElementById('sellerModal');
+        if(modal) {
+            if(show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
         }
-    </script>
+    }
+
+    // সাধারণ বিক্রেতাদের ফর্ম সাবমিট হ্যান্ডলার
+    setTimeout(() => {
+        const sellerForm = document.getElementById('sellerProductForm');
+        if(sellerForm) {
+            sellerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let newProduct = {
+                    id: Date.now(),
+                    sellerName: document.getElementById('sellerName').value,
+                    name: document.getElementById('sellerProdName').value,
+                    price: document.getElementById('sellerProdPrice').value,
+                    image: document.getElementById('sellerProdImage').value,
+                    phone: document.getElementById('sellerProdPhone').value,
+                    material: document.getElementById('sellerProdMaterial').value || 'প্রিমিয়াম কোয়ালিটি',
+                    desc: document.getElementById('sellerProdDesc').value || 'কাউন্দিয়া ইউনিয়নের স্থানীয় ব্যবসায়ী ও উদ্যোক্তা।',
+                    isExclusive: false,   
+                    status: 'pending',    
+                    date: new Date().toLocaleDateString('bn-BD')
+                };
+
+                let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+                marketProducts.push(newProduct);
+                localStorage.setItem('marketProducts', JSON.stringify(marketProducts));
+
+                alert('✅ আপনার পণ্যটি সফলভাবে জমা হয়েছে! অ্যাডমিন অনুমোদন করলেই এটি ইউনিয়ন ফ্যাশন গ্যালারিতে লাইভ হবে।');
+                sellerForm.reset();
+                toggleSellerModal(false);
+                displayMarketProducts();
+            });
+        }
+    }, 500);
+
+    // প্রোডাক্ট রেন্ডার করার মূল ফাংশন
+    function displayMarketProducts() {
+        let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+        
+        let kidsWall = document.getElementById('kids-products-wall');
+        let girlsWall = document.getElementById('girls-products-wall');
+        let regWall = document.getElementById('regular-products-wall');
+        
+        if(kidsWall) kidsWall.innerHTML = '';
+        if(girlsWall) girlsWall.innerHTML = '';
+        if(regWall) regWall.innerHTML = '';
+
+        let kidsList = marketProducts.filter(item => item.isExclusive && item.category === 'kids' && item.status === 'approved');
+        let girlsList = marketProducts.filter(item => item.isExclusive && item.category === 'girls' && item.status === 'approved');
+        let regularList = marketProducts.filter(item => !item.isExclusive && item.status === 'approved');
+
+        kidsList.reverse(); girlsList.reverse(); regularList.reverse();
+
+        if(kidsWall && kidsList.length > 0) {
+            kidsList.forEach(product => { kidsWall.innerHTML += createProductCard(product, 'kids'); });
+        }
+        if(girlsWall && girlsList.length > 0) {
+            girlsList.forEach(product => { girlsWall.innerHTML += createProductCard(product, 'girls'); });
+        }
+   // ৩. ইউনিয়ন ফ্যাশন গ্যালারি রেন্ডার
+        if (regWall) {
+            regWall.innerHTML = ''; // কমেন্টের এক্সট্রা লাইন ডিলিট করার জন্য প্রথমে কন্টেইনার ফাঁকা করা হলো
+            if (regularList.length > 0) {
+                regularList.forEach(product => { 
+                    regWall.innerHTML += createProductCard(product, 'regular'); 
+                });
+            }
+        }
+    } // <-- এই ব্র্যাকেটটি ফাংশন শেষ করার জন্য অত্যন্ত জরুরি, যা ছবিতে মিসিং ছিল!
+
+    // প্রোডাক্ট কার্ড এইচটিএমএল (ডেমোর সাথে ১০০% সাইজ ও লুক মিলানো)
+    function createProductCard(product, type) {
+        let phoneNo = product.phone || '017XXXXXXXX';
+        let material = product.material || (type === 'girls' ? 'প্রিমিয়াম সফট জর্জেট/সিল্ক' : 'প্রিমিয়াম কটন সুতি');
+        let specialNote = product.desc || (type === 'girls' ? 'আকর্ষণীয় ডিজাইনের থ্রি-পিস কালেকশন।' : 'বাচ্চাদের রেডিমেড প্রিমিয়াম জামা-কাপড়।');
+        
+        let badgeText = '🛍️ লোকাল বিজ্ঞাপন';
+        let badgeColor = 'bg-blue-50 text-blue-600';
+        let callText = '📞 সরাসরি কল';
+        let whatsappText = '💬 WhatsApp';
+
+        if (type === 'kids') {
+            badgeText = '👶 রেডিমেড সেট';
+            badgeColor = 'bg-pink-50 text-pink-600';
+        } else if (type === 'girls') {
+            badgeText = '💃 ওমেন্স ফ্যাশন';
+            badgeColor = 'bg-purple-50 text-purple-600';
+            callText = '📞 আপুকে কল দিন';
+            whatsappText = '💬 আপুর WhatsApp';
+        }
+
+        if (product.sellerName) {
+            badgeText = `🏪 দোকান: ${product.sellerName}`;
+        }
+
+        return `
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition duration-300 flex flex-col justify-between" style="border-width: 1px;">
+                <div>
+                    <div class="relative">
+                        <img class="w-full h-48 object-cover" src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/300x200?text=No+Image'">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-[11px] font-bold ${badgeColor} px-2 py-0.5 rounded mb-2 inline-block">${badgeText}</span>
+                        <h3 class="font-bold text-slate-800 text-lg line-clamp-1 mb-1">${product.name}</h3>
+                        <p class="text-xs text-slate-600 font-medium mb-1"><span class="text-slate-400">মেটেরিয়াল:</span> ${material}</p>
+                        <p class="text-[11px] text-slate-400 line-clamp-2 leading-tight mt-1">${specialNote}</p>
+                    </div>
+                </div>
+                <div class="p-4 pt-0">
+                    <div class="flex items-center justify-between mt-1 border-t pt-3 border-slate-50">
+                        <span class="text-lg font-black text-emerald-600">${product.price} ৳</span>
+                        <div class="flex items-center space-x-1">
+                            <a href="tel:${phoneNo}" class="bg-slate-800 hover:bg-slate-700 text-white text-[10px] font-bold py-1.5 px-2.5 rounded-lg transition flex items-center space-x-1"><span>${callText}</span></a>
+                            <a href="https://wa.me/${phoneNo}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold py-1.5 px-2.5 rounded-lg transition flex items-center space-x-1"><span>${whatsappText}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    setTimeout(displayMarketProducts, 300);
+
+    function openTab(evt, tabName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) { tabContents[i].classList.remove("active"); }
+        const tabButtons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabButtons.length; i++) { tabButtons[i].classList.remove("active-tab"); }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active-tab");
+    }
+</script>
 </body>
 </html>

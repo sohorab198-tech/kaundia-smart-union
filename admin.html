@@ -82,6 +82,10 @@
                 <span>ইউজার নোটিশ</span>
                 <span id="pending-notice-count" class="ml-1 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
             </button>
+            <button onclick="switchTab('market-tab')" id="btn-tab-market" class="tab-btn px-5 py-3 for flex items-center space-x-2 w-full text-left rounded-lg hover:bg-gray-700 transition">
+    <span>👕</span>
+    <span>ডিজিটাল বাজার (ফ্যাশন)</span>
+</button>
         </div>
 
         <div id="tab-institutions" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -203,7 +207,73 @@
                 </table>
             </div>
         </div>
+<div id="market-tab" class="tab-content hidden space-y-8">
+        
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
+                <span>⭐</span>
+                <span>আমার এক্সক্লুসিভ জোন (নতুন পণ্য যোগ করুন)</span>
+            </h2>
+            <form id="exclusiveProductForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">পোশাকের নাম</label>
+                    <input type="text" id="exProductName" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900" placeholder="উদা: প্রিমিয়াম লিনেন পাঞ্জাবি">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">দাম (টাকা)</label>
+                    <input type="number" id="exProductPrice" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900" placeholder="উদা: ১২৫০">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ছবির অনলাইন লিংক (Image URL)</label>
+                    <input type="url" id="exProductImage" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900" placeholder="https://i.ibb.co/example.jpg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">যোগাযোগের মোবাইল নম্বর</label>
+                    <input type="text" id="exProductPhone" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900" placeholder="উদা: 017XXXXXXXX">
+                </div>
+                <!-- কোন সেকশনে লাইভ হবে তার ড্রপডাউন -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">কোন সেকশনে লাইভ হবে?</label>
+                    <select id="exProductCategory" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900">
+                        <option value="kids">👶 কিডস স্পেশাল (Kids Special)</option>
+                        <option value="girls">💃 গার্লস স্পেশাল (Female Corner)</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">পণ্যের বিবরণ/সাইজ (ঐচ্ছিক)</label>
+                    <textarea id="exProductDesc" rows="2" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900" placeholder="সাইজ: M, L, XL এবং কাপড়ের কোয়ালিটি..."></textarea>
+                </div>
+                <div class="md:col-span-2 text-right">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-6 rounded-lg transition duration-200 shadow-sm">
+                        🚀 সরাসরি লাইভ করুন
+                    </button>
+                </div>
+            </form>
+        </div>
 
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
+                <span>👥</span>
+                <span>বিক্রেতাদের কাপড়ের বিজ্ঞাপন (অনুমোদনের অপেক্ষায়)</span>
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="p-3 text-sm font-semibold text-gray-600">ছবি</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">বিক্রেতা/দোকান</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">পণ্যের নাম ও দাম</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">মোবাইল</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sellerMarketTableBody" class="divide-y divide-gray-100">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
     </main>
 
 <script>
@@ -398,6 +468,203 @@ function deleteAd(id) {
         loadDashboardData();
     }
 }
+// ================= ডিজিটাল বাজার (ফ্যাশন) লজিক =================
+
+// ১. আপনার নিজের এক্সক্লুসিভ জোনের ফর্ম সাবমিট হ্যান্ডলার
+setTimeout(() => {
+    const exForm = document.getElementById('exclusiveProductForm');
+    if(exForm) {
+        exForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let newProduct = {
+                id: Date.now(),
+                name: document.getElementById('exProductName').value,
+                price: document.getElementById('exProductPrice').value,
+                image: document.getElementById('exProductImage').value,
+                phone: document.getElementById('exProductPhone').value,
+                desc: document.getElementById('exProductDesc').value,
+                category: document.getElementById('exProductCategory').value,
+                isExclusive: true,      
+                status: 'approved',    
+                date: new Date().toLocaleDateString('bn-BD')
+            };
+
+            let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+            marketProducts.push(newProduct);
+            localStorage.setItem('marketProducts', JSON.stringify(marketProducts));
+
+           const catName = newProduct.category === 'kids' ? '👶 কিডস স্পেশাল' : '💃 গার্লস স্পেশাল';
+        alert(`👑 আপনার এক্সক্লুসিভ পণ্যটি সরাসরি "${catName}" সেকশনে লাইভ করা হয়েছে!`);
+            exForm.reset();
+        });
+    }
+}, 500);
+
+// ২. সাধারণ বিক্রেতাদের পেন্ডিং প্রোডাক্ট টেবিলে দেখানোর ফাংশন
+function loadMarketDashboard() {
+    let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+    let tableBody = document.getElementById('sellerMarketTableBody');
+    if(!tableBody) return;
+    tableBody.innerHTML = '';
+
+    let pendingSellerProducts = marketProducts.filter(item => !item.isExclusive && item.status === 'pending');
+
+    if(pendingSellerProducts.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400">কোনো নতুন বিজ্ঞপ্তির অনুরোধ নেই।</td></tr>`;
+        return;
+    }
+
+    pendingSellerProducts.forEach(product => {
+        tableBody.innerHTML += `
+            <tr class="hover:bg-gray-50 transition">
+                <td class="p-3">
+                    <img src="${product.image}" alt="cloth" class="w-12 h-12 rounded object-cover border border-gray-200" onerror="this.src='https://placehold.co/100x100?text=No+Image'">
+                </td>
+                <td class="p-3 font-medium text-gray-800">${product.sellerName || 'সাধারণ বিক্রেতা'}</td>
+                <td class="p-3">
+                    <div class="text-gray-900 font-medium">${product.name}</div>
+                    <div class="text-sm text-green-600 font-bold">${product.price} ৳</div>
+                </td>
+                <td class="p-3 text-gray-600">${product.phone}</td>
+                <td class="p-3 text-center space-x-2">
+                    <button onclick="approveMarketProduct('${product.id}')" class="bg-green-500 hover:bg-green-600 text-white text-xs py-1.5 px-3 rounded transition">অনুমোদন</button>
+                    <button onclick="rejectMarketProduct('${product.id}')" class="bg-red-500 hover:bg-red-600 text-white text-xs py-1.5 px-3 rounded transition">বাতিল</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// ৩. সাধারণ বিক্রেতাদের বিজ্ঞাপন অনুমোদন (Approve) করার ফাংশন
+function approveMarketProduct(id) {
+    let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+    let index = marketProducts.findIndex(item => item.id.toString() === id.toString());
+
+    if (index !== -1) {
+        marketProducts[index].status = 'approved'; 
+        localStorage.setItem('marketProducts', JSON.stringify(marketProducts));
+       let currentProduct = marketProducts[index];
+        if (currentProduct.isExclusive) {
+            let catName = currentProduct.category === 'kids' ? '👶 কিডস স্পেশাল' : '💃 গার্লস স্পেশাল';
+            alert(`👑 আপনার এক্সক্লুসিভ পণ্যটি সফলভাবে "${catName}" সেকশনে লাইভ হয়েছে!`);
+        } else {
+            alert('🛍️ সাধারণ বিক্রেতার বিজ্ঞাপনটি সফলভাবে "ইউনিয়ন ফ্যাশন গ্যালারি"-তে লাইভ হয়েছে!');
+        }
+        loadMarketDashboard(); 
+    }
+}
+
+// ৪. সাধারণ বিক্রেতাদের বিজ্ঞাপন রিজেক্ট/ডিলিট করার ফাংশন
+function rejectMarketProduct(id) {
+    if(confirm('আপনি কি নিশ্চিত যে এই কাপড়ের বিজ্ঞাপনটি বাতিল করতে চান?')) {
+        let marketProducts = JSON.parse(localStorage.getItem('marketProducts')) || [];
+        marketProducts = marketProducts.filter(item => item.id.toString() !== id.toString());
+        localStorage.setItem('marketProducts', JSON.stringify(marketProducts));
+        alert('🗑️ বিজ্ঞাপনটি মুছে ফেলা হয়েছে।');
+        loadMarketDashboard(); 
+    }
+}
+
+// ড্যাশবোর্ড লোড হওয়ার সময় কল করা
+setTimeout(loadMarketDashboard, 300);
+// ================= ইউজার ও প্রতিষ্ঠান নোটিশ অনুমোদন সিস্টেম =================
+
+// অ্যাডমিন প্যানেলে নোটিশগুলো রেন্ডার করার মূল ফাংশন
+function displayAdminNotices() {
+   let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    let userNoticeTable = document.getElementById('admin-notice-table-body'); 
+    let instNoticeTable = document.getElementById('admin-live-institution-notices'); 
+    
+    if(userNoticeTable) userNoticeTable.innerHTML = '';
+    if(instNoticeTable) instNoticeTable.innerHTML = '';
+
+    // ১. সাধারণ নাগরিকদের শুধু পেন্ডিং নোটিশ ফিল্টার
+    let pendingUsers = unionNotices.filter(item => item.status === 'pending' && item.type === 'general');
+    
+    // ২. শিক্ষা ও সরকারি প্রতিষ্ঠানের সরাসরি লাইভ (approved) নোটিশ ফিল্টার
+    let liveInstitutions = unionNotices.filter(item => item.status === 'approved' && item.type === 'institution');
+
+    // সাধারণ নাগরিকদের পেন্ডিং নোটিশ রেন্ডার
+    if(userNoticeTable) {
+        if(pendingUsers.length === 0) {
+            userNoticeTable.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-sm text-slate-400">কোনো পেন্ডিং নাগরিক নোটিশ নেই।</td></tr>`;
+        } else {
+            pendingUsers.forEach(notice => {
+                userNoticeTable.innerHTML += createAdminNoticeRow(notice, true); // true = অনুমোদন বাটন দেখাবে
+            });
+        }
+    }
+
+    // শিক্ষা ও সরকারি প্রতিষ্ঠানের লাইভ নোটিশ রেন্ডার
+    if(instNoticeTable) {
+        if(liveInstitutions.length === 0) {
+            instNoticeTable.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-sm text-slate-400">কোনো লাইভ প্রাতিষ্ঠানিক নোটিশ নেই।</td></tr>`;
+        } else {
+            liveInstitutions.forEach(notice => {
+                instNoticeTable.innerHTML += createAdminNoticeRow(notice, false); // false = অনুমোদন বাটন দেখাবে না
+            });
+        }
+    }
+}
+
+// টেবিলের প্রতিটি লাইনের (Row) এইচটিএমএল স্ট্রাকচার
+function createAdminNoticeRow(notice, showApproveButton) {
+    return `
+        <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+            <td class="p-3 text-xs text-slate-600">
+                <div class="font-bold">${notice.date}</div>
+                <div class="text-[11px] text-slate-400">${notice.sender}</div>
+                <div class="text-[10px] text-blue-500">${notice.phone}</div>
+            </td>
+            <td class="p-3 text-sm font-bold text-slate-800">${notice.title}</td>
+            <td class="p-3 text-xs text-slate-500 max-w-xs truncate">${notice.details}</td>
+            <td class="p-3">
+                <div class="flex items-center space-x-2 justify-end">
+                    ${showApproveButton ? 
+                    `<button onclick="approveNotice(${notice.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold py-1 px-2.5 rounded-lg transition shadow-sm">✅ অনুমোদন</button>` 
+                    : '<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md mr-2">🟢 লাইভ</span>'}
+                    <button onclick="deleteNotice(${notice.id})" class="bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold py-1 px-2.5 rounded-lg transition shadow-sm">
+                        ❌ ডিলিট
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `;
+}
+
+// নোটিশ অনুমোদন (Approve) করার ফাংশন
+function approveNotice(id) {
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    unionNotices = unionNotices.map(item => {
+        if(item.id === id) {
+            item.status = 'approved';
+        }
+        return item;
+    });
+    
+    localStorage.setItem('unionNotices', JSON.stringify(unionNotices));
+    alert('✅ নোটিশটি সফলভাবে অনুমোদন করা হয়েছে! এটি এখন লাইভ দেখা যাবে।');
+    displayAdminNotices(); // টেবিল রিফ্রেশ
+}
+
+// নোটিশ ডিলিট করার ফাংশন
+function deleteNotice(id) {
+    if(confirm('আপনি কি নিশ্চিত যে এই নোটিশটি ডিলিট করতে চান?')) {
+        let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+        unionNotices = unionNotices.filter(item => item.id !== id);
+        localStorage.setItem('unionNotices', JSON.stringify(unionNotices));
+        alert('🗑️ নোটিশটি ডিলিট করা হয়েছে।');
+        displayAdminNotices(); // টেবিল রিফ্রেশ
+    }
+}
+
+// পেজ লোড হলে ফাংশনটি রান করা
+document.addEventListener('DOMContentLoaded', () => {
+    displayAdminNotices();
+});
 </script>
 </body>
 </html>

@@ -226,7 +226,7 @@
                 </a>
 
                 <a href="admin.html" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2 transition shadow-sm">
-                    <i class="fas fa-paper-plane"></i> <span>জরুরি নোটিশ পাঠান</span>
+                    <i class="fas fa-paper-plane"></i> <span>Admin Panel</span>
                 </a>
             </div>
 
@@ -239,7 +239,7 @@
         </h3>
         <a href="notice.html" class="text-xs text-blue-600 hover:underline">সব দেখুন</a>
     </div>
-    <ul class="space-y-4 text-sm">
+    <ul id="home-latest-notices" class="space-y-4 text-sm">
         <!-- নোটিশ ১ -->
         <li class="flex justify-between items-start gap-2 group cursor-pointer">
             <a href="notice.html#notice-1" class="flex items-start gap-2">
@@ -548,6 +548,36 @@ function submitUserFeedback(event) {
     document.getElementById('feedback-form').reset();
     closeFeedbackModal(); // সফলভাবে সাবমিট হলে পপআপ বন্ধ হয়ে যাবে
 }
+// হোমপেজের সর্বশেষ নোটিশ বক্সে ডাইনামিক শিরোনাম দেখানোর ফাংশন
+function displayHomeLatestNotices() {
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    // ২৪২ নম্বর লাইনের কন্টেইনার আইডি
+    let homeNoticeBox = document.getElementById('home-latest-notices');
+    if (!homeNoticeBox) return;
+
+    // শুধু অনুমোদিত (approved) নোটিশগুলো ফিল্টার করা হলো
+    let approvedNotices = unionNotices.filter(item => item.status === 'approved');
+
+    // নতুন নোটিশগুলো যেন সবার ওপরে দেখায়, তাই রিভার্স লুপ
+    approvedNotices.reverse().forEach(notice => {
+        // insertAdjacentHTML ব্যবহার করে <ul> এর ঠিক ভেতরে সবার ওপরে <li> হিসেবে পুশ করা হলো
+        homeNoticeBox.insertAdjacentHTML('afterbegin', `
+            <li class="flex justify-between items-start gap-2 group cursor-pointer dynamic-home-notice">
+                <a href="notice.html#notice-card-${notice.id}" class="flex items-start gap-2 max-w-[75%]">
+                    <span class="group-hover:text-emerald-600 transition w-3 h-3 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse"></span>
+                    <span class="text-gray-700 group-hover:text-blue-600 transition font-medium">${notice.title}</span>
+                </a>
+                <span class="text-gray-400 text-xs shrink-0 pt-0.5">${notice.date}</span>
+            </li>
+        `);
+    });
+}
+
+// পেজ লোড হলে ফাংশনটি রান করানোর লজিক
+document.addEventListener('DOMContentLoaded', () => {
+    displayHomeLatestNotices();
+});
 </script>
 <!-- ================= মতামত ও পরামর্শ পপআপ মডাল শেষ ================= -->
     <footer id="contact-section" class="bg-blue-950 text-gray-300 pt-12 pb-6 px-4 md:px-12 text-sm">

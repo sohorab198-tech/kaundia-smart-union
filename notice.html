@@ -42,8 +42,64 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow max-w-4xl">
+        <div class="flex justify-between items-center bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 shadow-sm">
+    <div class="flex items-center space-x-3">
+        <span class="text-2xl">📢</span>
+        <div>
+            <h4 class="font-bold text-slate-800 text-sm md:text-base">আপনার এলাকায় কোনো জরুরি ঘোষণা বা নোটিশ আছে?</h4>
+            <p class="text-xs text-slate-500">সাধারণ নাগরিক বা প্রতিষ্ঠান হিসেবে আপনার নোটিশটি ডিজিটাল বোর্ডে প্রকাশ করুন।</p>
+        </div>
+    </div>
+    <button onclick="toggleNoticeModal(true)" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-xl shadow transition transform hover:-translate-y-0.5 text-xs md:text-sm whitespace-nowrap">
+        ➕ জরুরি নোটিশ পাঠান
+    </button>
+</div>
+
+<div id="noticeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button onclick="toggleNoticeModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
         
-        <div class="space-y-6">
+        <h3 class="text-xl font-black text-slate-800 mb-2 border-b pb-2 flex items-center space-x-2">
+            <span>📢 জরুরি নোটিশ আবেদন ফর্ম</span>
+        </h3>
+        <p class="text-[11px] text-amber-600 bg-amber-50 p-2 rounded-lg mb-4 font-medium">নোট: আপনার পাঠানো নোটিশটি অ্যাডমিন যাচাই করে অনুমোদন দিলেই কেবল পোর্টালে লাইভ হবে।</p>
+        
+        <form id="userNoticeForm" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">নোটিশদাতার ধরন *</label>
+                <select id="noticeType" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-amber-500 bg-white">
+                    <option value="general">👤 সাধারণ ইউজার (রক্তদান/হারানো/সামাজিক)</option>
+                    <option value="institution">🏢 প্রতিষ্ঠান (স্কুল/মাদ্রাসা/ইউপি/ক্লাব)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">আপনার নাম / প্রতিষ্ঠানের নাম *</label>
+                <input type="text" id="noticeSender" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-amber-500" placeholder="উদা: কাউন্দিয়া উচ্চ বিদ্যালয় / মোঃ রহিম মিয়া">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">নোটিশের শিরোনাম (Title) *</label>
+                <input type="text" id="noticeTitle" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-amber-500" placeholder="উদা: আগামীকালের অর্ধবার্ষিক পরীক্ষা স্থগিত প্রসঙ্গে">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">যোগাযোগের মোবাইল নম্বর *</label>
+                <input type="tel" id="noticePhone" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-amber-500" placeholder="উদা: 017XXXXXXXX">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">নোটিশের বিস্তারিত বিবরণ *</label>
+                <textarea id="noticeDetails" rows="4" required class="w-full border border-slate-200 p-2.5 rounded-xl text-sm focus:outline-none focus:border-amber-500" placeholder="এখানে আপনার নোটিশের পুরো তথ্যটি বিস্তারিতভাবে লিখুন..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
+                🚀 নোটিশটি অনুমোদনের জন্য পাঠান
+            </button>
+        </form>
+    </div>
+</div>
+        <div id="notice-cards-container" class="space-y-6">
             
             <div id="notice-1" class="target-highlight bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 transition-all duration-300 hover:shadow-md">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
@@ -145,6 +201,154 @@
     <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs mt-12 border-t border-slate-800">
         <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল বাজার ডিরেক্টরি। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
+<script>
+// ================= জরুরি নোটিশ সিস্টেম লজিক =================
 
+// নোটিশ মোডাল ওপেন ও ক্লোজ করার ফাংশন
+function toggleNoticeModal(show) {
+    const modal = document.getElementById('noticeModal');
+    if (modal) {
+        if (show) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+}
+
+// নোটিশ ফর্ম সাবমিট হ্যান্ডলার (অ্যাডমিন অনুমোদনের জন্য ডাটা সেভ করা)
+document.addEventListener('DOMContentLoaded', () => {
+    const noticeForm = document.getElementById('userNoticeForm');
+    if (noticeForm) {
+        noticeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // ফর্ম থেকে ডাটা সংগ্রহ (ভ্যারিয়েবলসহ)
+            const type = document.getElementById('noticeType').value;
+
+            let newNotice = {
+                id: Date.now(),
+                type: type,
+                sender: document.getElementById('noticeSender').value,
+                title: document.getElementById('noticeTitle').value,
+                phone: document.getElementById('noticePhone').value,
+                details: document.getElementById('noticeDetails').value,
+                status: type === 'institution' ? 'approved' : 'pending',
+                date: new Date().toLocaleDateString('bn-BD')
+            };
+
+    // লোকাল স্টোরেজ থেকে আগের নোটিশের লিস্ট নেওয়া
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    // নতুন নোটিশটি লিস্টে যোগ করা
+    unionNotices.push(newNotice);
+    
+    // আপডেট হওয়া লিস্টটি আবার লোকাল স্টোরেজে সেভ করা
+    localStorage.setItem('unionNotices', JSON.stringify(unionNotices));
+    
+    // টাইপ অনুযায়ী ভিন্ন মেসেজ দেখানো
+    if (type === 'institution') {
+        alert('🏢 প্রতিষ্ঠানের নোটিশটি সরাসরি সফলভাবে নোটিশ বোর্ডে লাইভ করা হয়েছে!');
+        // যদি নোটিশ পেজে displayApprovedNotices ফাংশনটি থাকে, তবে তা রান করে পেজ রিফ্রেশ করা
+        if (typeof displayApprovedNotices === 'function') displayApprovedNotices();
+        window.location.reload();
+    } else {
+        alert('👤 আপনার নাগরিক নোটিশের আবেদনটি সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে অনুমোদন দিলেই এটি নোটিশ বোর্ডে প্রকাশ পাবে।');
+    }
+            noticeForm.reset();
+            toggleNoticeModal(false);
+        });
+    }
+});
+// অনুমোদিত নোটিশগুলো পেজে কার্ড আকারে দেখানোর ফাংশন
+function displayApprovedNotices() {
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    // আপনার notice.html-এ যেখানে সব নোটিশ কার্ড দেখায়, সেই মেইন কন্টেইনারের আইডি (ধরি 'notice-cards-container')
+    // আপনি চাইলে আপনার ফাইলের মেইন নোটিশ হলের আইডি অনুযায়ী এটি পরিবর্তন করতে পারেন
+    let noticeWall = document.getElementById('notice-cards-container');
+    if (!noticeWall) return;
+
+    noticeWall.innerHTML = '';
+
+    // শুধু অনুমোদিত (approved) নোটিশগুলো ফিল্টার করা হলো
+    let approvedNotices = unionNotices.filter(item => item.status === 'approved');
+
+    if (approvedNotices.length === 0) {
+        // কোনো নোটিশ না থাকলে ডিফল্ট মেসেজ (আপনার আগের ডিজাইন থাকলে এটা স্কিপ করবে)
+        return; 
+    }
+
+    // নতুন নোটিশগুলো ওপরে দেখানোর জন্য রিভার্স করা হলো
+    approvedNotices.reverse().forEach(notice => {
+        let badgeColor = notice.type === 'institution' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800';
+        let badgeText = notice.type === 'institution' ? '🏢 প্রতিষ্ঠান' : '👤 নাগরিক নোটিশ';
+
+        noticeWall.innerHTML += `
+            <div id="notice-card-${notice.id}" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition card-item">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${badgeColor}">${badgeText}</span>
+                    <span class="text-xs text-slate-400 font-medium">${notice.date}</span>
+                </div>
+                <h3 class="text-base font-black text-slate-800 mb-2">${notice.title}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.details}</p>
+                <div class="border-t pt-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                    <div>প্রেরক: <span class="text-slate-700 font-bold">${notice.sender}</span></div>
+                    ${notice.type === 'general' ? `<div>যোগাযোগ: <span class="text-blue-600 font-bold">${notice.phone}</span></div>` : ''}
+                </div>
+            </div>
+        `;
+    });
+}
+
+// পেজ লোড হলে যেন নোটিশগুলো চলে আসে
+document.addEventListener('DOMContentLoaded', () => {
+    displayApprovedNotices();
+});
+// অনুমোদিত নোটিশগুলো পেজে কার্ড আকারে দেখানোর ফাংশন
+function displayApprovedNotices() {
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    
+    // ১০২ নম্বর লাইনের কন্টেইনার আইডিটি এখানে ধরা হয়েছে
+    let noticeWall = document.getElementById('notice-cards-container');
+    if (!noticeWall) return;
+
+    // আগের ডাইনামিক কোড ক্লিয়ার করার জন্য (ম্যানুয়াল কার্ডগুলো অক্ষত থাকবে)
+    // আমরা কেবল ডাইনামিক অংশটুকু পুশ করার আগে কন্টেইনারের আগের জেনারেটেড ডাটা মুছবো, 
+    // তবে আপনার ১০৩ লাইনের ম্যানুয়াল নোটিশ যেন হারিয়ে না যায়, তাই আমরা আগের ডাইনামিক ক্লাসগুলো রিমুভ করে নতুন করে ইনসার্ট করব।
+    let dynamicItems = noticeWall.querySelectorAll('.dynamic-notice-item');
+    dynamicItems.forEach(item => item.remove());
+
+    // শুধু অনুমোদিত (approved) নোটিশগুলো ফিল্টার করা হলো
+    let approvedNotices = unionNotices.filter(item => item.status === 'approved');
+
+    // নতুন নোটিশগুলো ওপরে দেখানোর জন্য রিভার্স করে লুপ চালানো হলো
+    approvedNotices.reverse().forEach(notice => {
+        let badgeColor = notice.type === 'institution' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800';
+        let badgeText = notice.type === 'institution' ? '🏢 প্রতিষ্ঠান' : '👤 নাগরিক নোটিশ';
+
+        // insertAdjacentHTML ব্যবহার করা হলো যেন ১০২ নম্বর লাইনের ঠিক ভেতরেই (সবার ওপরে) নোটিশটি বসে
+        noticeWall.insertAdjacentHTML('afterbegin', `
+            <div id="notice-card-${notice.id}" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition dynamic-notice-item mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${badgeColor}">${badgeText}</span>
+                    <span class="text-xs text-slate-400 font-medium">${notice.date}</span>
+                </div>
+                <h3 class="text-base font-black text-slate-800 mb-2">${notice.title}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.details}</p>
+                <div class="border-t pt-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                    <div>প্রেরক: <span class="text-slate-700 font-bold">${notice.sender}</span></div>
+                    ${notice.type === 'general' ? `<div>যোগাযোগ: <span class="text-blue-600 font-bold">${notice.phone}</span></div>` : ''}
+                </div>
+            </div>
+        `);
+    });
+}
+
+// পেজ লোড হলে ফাংশনটি রান করানোর লজিক
+document.addEventListener('DOMContentLoaded', () => {
+    displayApprovedNotices();
+});
+</script>
 </body>
 </html>
