@@ -63,7 +63,7 @@
             <div>
                 <a href="registration.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-medium transition flex items-center space-x-2">
                     <i class="fas fa-user-alt text-sm"></i>
-                    <span>লগইন / নিবন্ধন</span>
+                    <span>নাগরিক নিবন্ধন</span>
                 </a>
             </div>
         </div>
@@ -216,19 +216,63 @@
                 <p class="text-gray-600 max-w-xl text-base leading-relaxed">
                     কাউন্দিয়া ইউনিয়নের সকল নাগরিকের জন্য এক ডিজিটাল সেবা প্ল্যাটফর্ম। তথ্য, সেবা ও সুযোগ সুবিধা এখন এক ক্লিকেই।
                 </p>
-                <div class="flex flex-wrap gap-4">
-                <a href="#services-section" class="bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2 transition">
-                    <i class="fas fa-th-large"></i> <span>সকল সেবা দেখুন</span>
-                </a>
-                
-                <a href="#notice-section" class="border-2 border-blue-900 text-blue-900 hover:bg-blue-50 font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2 transition">
-                    <i class="fas fa-bullhorn"></i> <span>নোটিশ বোর্ড</span>
-                </a>
+               <!-- শুরু: আকর্ষণীয় ফিডব্যাক ও শেয়ারিং ব্যানার সেকশন -->
+<div class="mt-4 w-full">
+    <div class="bg-gradient-to-br from-amber-50 via-orange-50 to-blue-50 border border-orange-200 rounded-2xl p-5 md:p-6 shadow-sm relative overflow-hidden">
+        
+        <!-- ডানদিকের কোণায় ছোট বেটা ভার্সন ব্যাজ -->
+        <span class="absolute top-2 right-2 bg-orange-500 text-white font-bold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full animate-pulse">
+            Beta Version
+        </span>
 
-                <a href="admin.html" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2 transition shadow-sm">
-                    <i class="fas fa-paper-plane"></i> <span>Admin Panel</span>
-                </a>
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <!-- বামে আইকন -->
+            <div class="w-11 h-11 bg-gradient-to-tr from-orange-500 to-amber-400 text-white rounded-xl flex items-center justify-center text-xl shadow-sm shrink-0 transform rotate-3">
+                <i class="fa-solid fa-lightbulb"></i>
             </div>
+
+            <!-- মাঝে আপনার চূড়ান্ত টেক্সট মেসেজ -->
+            <div class="space-y-1 text-center sm:text-left">
+                <h4 class="text-gray-900 font-bold text-sm md:text-base leading-snug">
+                    এই ওয়েবসাইটটি পরীক্ষামূলক পর্যায়ে আছে। পুরো সাইটটি একবার ঘুরে দেখুন।
+                </h4>
+                <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
+                    সাইটটি গুরুত্বপূর্ণ মনে হলে আপনার মতামত জানাতে পারেন ও আপনার বন্ধুদের সাথে শেয়ার করতে পারেন।
+                </p>
+            </div>
+        </div>
+
+        <!-- নিচে আপনার নতুন ৩টি বাটন -->
+        <div class="mt-4 pt-4 border-t border-gray-200/60 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <!-- WhatsApp বাটন -->
+            <a href="https://wa.me/8801778581617?text=আসসালামু%20আলাইকুম%2C%20কাউন্দিয়া%20ইউনিয়ন%20ডিজিটাল%20পোর্টাল%20সাইটটি%20আমি%20ঘুরে%20দেখেছি।%20আমার%20মতামত%3A%20" 
+               target="_blank" 
+               class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-sm hover:shadow transform hover:-translate-y-0.5 cursor-pointer">
+                <i class="fab fa-whatsapp text-sm"></i> হোয়াটসঅ্যাপে মতামত দিন
+            </a>
+
+            <!-- Messenger বাটন -->
+            <a href="https://m.me/sohorab.hossain.9421" 
+               target="_blank" 
+               class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-sm hover:shadow transform hover:-translate-y-0.5 cursor-pointer">
+                <i class="fab fa-facebook-messenger text-sm"></i> মেসেঞ্জারে মতামত দিন
+            </a>
+
+            <!-- সাইটটি শেয়ার করুন বাটন -->
+            <button onclick="shareTargetSite()" 
+                    class="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-sm hover:shadow transform hover:-translate-y-0.5 cursor-pointer">
+                <i class="fa-solid fa-share-nodes text-xs"></i> সাইটটি শেয়ার করুন
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- আপনার পছন্দ অনুযায়ী ব্যানারের একদম নিচে ছোট করে রাখা আলাদা এডমিন বাটন -->
+<div class="mt-3 text-right w-full">
+    <a href="admin.html" class="inline-flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 text-gray-500 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg transition border border-gray-200/70">
+        <i class="fa-solid fa-lock text-[9px]"></i> Admin Panel
+    </a>
+</div>
 
             </div>
 
@@ -616,6 +660,23 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>&copy; 2026 কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
         </div>
     </footer>
-
+<script>
+    function shareTargetSite() {
+        // ব্রাউজার অফিশিয়াল শেয়ারিং সিস্টেম (Web Share API) সাপোর্ট করে কিনা তা চেক করা
+        if (navigator.share) {
+            navigator.share({
+                title: 'কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল',
+                text: 'আমাদের কাউন্দিয়া ইউনিয়নের সব তথ্য ও সেবা এক ক্লিকেই! সাইটটি একবার ঘুরে দেখুন এবং মতামত দিন:',
+                url: window.location.href // বর্তমান সাইটের লাইভ লিংকটি নিজে থেকেই নিয়ে নেবে
+            })
+            .then(() => console.log('সফলভাবে শেয়ার হয়েছে'))
+            .catch((error) => console.log('শেয়ার করা যায়নি:', error));
+        } else {
+            // যদি ব্রাউজার ডিরেক্ট শেয়ার সাপোর্ট না করে (যেমন পুরোনো ডেস্কটপ), তবে অটো লিংক কপি হয়ে যাবে
+            navigator.clipboard.writeText(window.location.href);
+            alert('আপনার ব্রাউজারে সরাসরি শেয়ার অপশনটি কাজ করছে না। তবে ওয়েবসাইটের লিংকটি সফলভাবে কপি হয়েছে! এখন যেকোনো জায়গায় পেস্ট করে বন্ধুদের পাঠিয়ে দিতে পারেন।');
+        }
+    }
+</script>
 </body>
 </html>
