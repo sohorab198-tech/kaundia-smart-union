@@ -684,7 +684,7 @@
                 }
             });
 
-            // যদি কোনো ফলাফল না পাওয়া যায় তবে মেসেজ দেখাবে
+            // যদি কোনো ফলাফল না পাওয়া যায় তবে মেসেজ দেখাবে
             if (visibleCardsCount === 0) {
                 noDataMessage.style.display = 'block';
             } else {
@@ -697,7 +697,7 @@
         areaFilter.addEventListener('change', filterInstitutions);
         typeFilter.addEventListener('change', filterInstitutions);
 
-        // 🔘 পপআপ ওপেন করার ফাংশন
+        // 🔘 পপআপ ওপেন করার ফাংশন (পুরাতন ও নতুন দুই নামই সাপোর্ট করবে)
         function openModal(type, instName) {
             currentActiveType = type;
             currentInstName = instName;
@@ -708,12 +708,12 @@
                 modalTitle.innerHTML = `<i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
                 formFields.innerHTML = `
                     <div class="modal-form-group">
-                        <label>শিক্ষার্থীর ইউনিক আইডি (Student ID):</label>
-                        <input type="text" placeholder="যেমন: KHS-26-105" required>
+                        <label>শিক্ষার্থীবৃন্দের আইডি (Student ID):</label>
+                        <input type="text" id="modalUserId" placeholder="যেমন: KHS-26-105" required>
                     </div>
                     <div class="modal-form-group">
-                        <label>রোল নাম্বার / পাসওয়ার্ড:</label>
-                        <input type="password" placeholder="••••••" required>
+                        <label>পাসওয়ার্ড / পিন নম্বর:</label>
+                        <input type="password" id="modalPassword" placeholder="••••••" required>
                     </div>
                 `;
             } else if (type === 'admin') {
@@ -721,44 +721,87 @@
                 formFields.innerHTML = `
                     <div class="modal-form-group">
                         <label>ইউজারনেম / EIIN নাম্বার:</label>
-                        <input type="text" placeholder="Username বা EIIN দিন" required>
+                        <input type="text" id="modalUserId" placeholder="Username বা EIIN দিন" required>
                     </div>
                     <div class="modal-form-group">
-                        <label>পাসওয়ার্ড:</label>
-                        <input type="password" placeholder="••••••" required>
+                        <label>পাসওয়ার্ড:</label>
+                        <input type="password" id="modalPassword" placeholder="••••••" required>
                     </div>
                 `;
             } else if (type === 'mosque') {
-                modalTitle.innerHTML = `<i class="fa-solid fa-key"></i> ইমাম/মুয়াজ্জিন পিন প্যানেল <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
+                modalTitle.innerHTML = `<i class="fa-solid fa-key"></i> ইমাম/মুয়াজ্জিন পিন প্যানেল <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
                 formFields.innerHTML = `
                     <div class="modal-form-group">
                         <label>৪ ডিজিটের গোপন পিন কোড (Pin Code):</label>
-                        <input type="password" maxlength="4" placeholder="যেমন: ১২৩৪" style="text-align:center; font-size:1.2rem; letter-spacing: 5px;" required>
+                        <input type="password" id="modalPassword" maxlength="4" placeholder="जैसे: 1234" style="text-align:center; font-size:1.2rem; letter-spacing: 5px;" required>
                     </div>
                 `;
             }
         }
 
+        // বাটনের কোডের সাথে ম্যাচ করার জন্য ব্যাকআপ ব্রিজ
+        function openLoginModal(instName, type) {
+            openModal(type, instName);
+        }
+
         function openNoticeModal(instName) {
-            document.getElementById('noticeModalTitle').innerText = `${instName} - নোটিশ বোর্ড`;
+            document.getElementById('noticeModalTitle').innerText = `${instName} - நோட்டீஸ் போர்டு`;
             noticeModal.classList.add('active');
         }
 
         function closeModal() {
             loginModal.classList.remove('active');
             noticeModal.classList.remove('active');
+            const genericForm = document.getElementById('genericForm');
+            if (genericForm) genericForm.reset();
         }
 
+        // ─── 🚀 আপডেট করা ডাইনামিক লগইন লজিক ───
         function handleLoginSubmit(event) {
             event.preventDefault();
-            closeModal();
 
-            if (currentActiveType === 'student') {
-                alert(`${currentInstName}-এর স্টুডেন্ট ড্যাশবোর্ডে আপনাকে স্বাগতম! (ডাটাবেজ কানেক্ট হলে এখানে আপনার রেজাল্ট ও বেতন শিট শো করবে)`);
-            } else if (currentActiveType === 'admin') {
-                alert(`${currentInstName}-এর প্রধান অ্যাডমিন ড্যাশবোর্ডে আপনাকে স্বাগতম!`);
-            } else if (currentActiveType === 'mosque') {
-                alert(`পিন কোড সফল হয়েছে! নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
+            // ইনপুট ফিল্ড থেকে ভ্যালুগুলো সংগ্রহ করা
+            const userIdOpt = document.getElementById('modalUserId');
+            const userId = userIdOpt ? userIdOpt.value : 'N/A';
+            
+            const passwordOpt = document.getElementById('modalPassword');
+            const password = passwordOpt ? passwordOpt.value : '';
+
+            // পিন বা পাসওয়ার্ড চেক করা
+            if (currentActiveType === 'mosque') {
+                if (password === '1234') {
+                    alert(`🎉 পিন কোড সফল হয়েছে! ${currentInstName}-এর নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
+                    closeModal();
+                } else {
+                    alert("❌ ভুল পিন কোড! (টেস্ট পিন: 1234)");
+                }
+                return;
+            }
+
+            // স্কুল অ্যাডমিন এবং স্টুডেন্টদের টেস্ট পাসওয়ার্ড: 123456
+            if (password === '123456') {
+                // সেশনের জন্য ডাটা অবজেক্ট তৈরি
+                const sessionData = {
+                    role: currentActiveType, 
+                    schoolName: currentInstName,
+                    id: userId,
+                    studentName: currentActiveType === 'admin' ? 'সম্মানিত শিক্ষক / অ্যাডমিন' : 'মোঃ রাফсан আহমেদ',
+                    className: currentActiveType === 'admin' ? 'ম্যানেজমেন্ট প্যানেল' : '৯ম শ্রেণি (বিজ্ঞান)'
+                };
+                
+                // ব্রাউজারের LocalStorage-এ সেশন ডাটা সেভ করা
+                localStorage.setItem('user_dashboard_session', JSON.stringify(sessionData));
+                closeModal();
+
+                if (currentActiveType === 'admin') {
+                    alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে: ${currentInstName}`);
+                    window.location.href = 'teacher-dashboard.html';
+                } else if (currentActiveType === 'student') {
+                    alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে স্টুডেন্ট ড্যাশবোর্ডে।`);
+                    window.location.href = 'student-dashboard.html';
+                }
+            } else {
+                alert("❌ ভুল পাসওয়ার্ড বা আইডি! (টেস্ট পাসওয়ার্ড: 123456)");
             }
         }
     </script>

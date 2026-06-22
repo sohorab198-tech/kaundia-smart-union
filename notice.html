@@ -261,84 +261,125 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 // অনুমোদিত নোটিশগুলো পেজে কার্ড আকারে দেখানোর ফাংশন
+// ================= জরুরি নোটিশ সিস্টেম লজিক =================
+
+// নোটিশ মোডাল ওপেন ও ক্লোজ করার ফাংশন
+function toggleNoticeModal(show) {
+    const modal = document.getElementById('noticeModal');
+    if (modal) {
+        if (show) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+}
+
+// নোটিশ ফর্ম সাবমিট হ্যান্ডলার (অ্যাডমিন অনুমোদনের জন্য ডাটা সেভ করা)
+document.addEventListener('DOMContentLoaded', () => {
+    const noticeForm = document.getElementById('userNoticeForm');
+    if (noticeForm) {
+        noticeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const type = document.getElementById('noticeType').value;
+
+            let newNotice = {
+                id: Date.now(),
+                type: type,
+                sender: document.getElementById('noticeSender').value,
+                title: document.getElementById('noticeTitle').value,
+                phone: document.getElementById('noticePhone').value,
+                details: document.getElementById('noticeDetails').value,
+                status: type === 'institution' ? 'approved' : 'pending',
+                date: new Date().toLocaleDateString('bn-BD')
+            };
+
+            let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+            unionNotices.push(newNotice);
+            localStorage.setItem('unionNotices', JSON.stringify(unionNotices));
+            
+            if (type === 'institution') {
+                alert('🏢 প্রতিষ্ঠানের নোটিশটি সরাসরি সফলভাবে নোটিশ বোর্ডে লাইভ করা হয়েছে!');
+                if (typeof displayApprovedNotices === 'function') displayApprovedNotices();
+                window.location.reload();
+            } else {
+                alert('👤 আপনার নাগরিক নোটিশের আবেদনটি সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে অনুমোদন দিলেই এটি নোটিশ বোর্ডে প্রকাশ পাবে।');
+            }
+            noticeForm.reset();
+            toggleNoticeModal(false);
+        });
+    }
+});
+
+// 📢 শিক্ষক প্যানেল ও সাধারণ ইউজারদের অনুমোদিত নোটিশ একসাথে দেখানোর মূল ফাংশন
 function displayApprovedNotices() {
-    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
-    
-    // আপনার notice.html-এ যেখানে সব নোটিশ কার্ড দেখায়, সেই মেইন কন্টেইনারের আইডি (ধরি 'notice-cards-container')
-    // আপনি চাইলে আপনার ফাইলের মেইন নোটিশ হলের আইডি অনুযায়ী এটি পরিবর্তন করতে পারেন
     let noticeWall = document.getElementById('notice-cards-container');
     if (!noticeWall) return;
 
-    noticeWall.innerHTML = '';
+    // আগের তৈরি করা ডাইনামিক নোটিশ কার্ডগুলো রিমুভ করা (স্ট্যাটিক ১-৬ অক্ষত থাকবে)
+    let dynamicItems = noticeWall.querySelectorAll('.dynamic-notice-item');
+    dynamicItems.forEach(item => item.remove());
 
-    // শুধু অনুমোদিত (approved) নোটিশগুলো ফিল্টার করা হলো
-    let approvedNotices = unionNotices.filter(item => item.status === 'approved');
+    // ১. সাধারণ ইউজার/অন্যান্য প্রতিষ্ঠানের অনুমোদিত নোটিশ লোড করা
+    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
+    let approvedUserNotices = unionNotices.filter(item => item.status === 'approved');
 
-    if (approvedNotices.length === 0) {
-        // কোনো নোটিশ না থাকলে ডিফল্ট মেসেজ (আপনার আগের ডিজাইন থাকলে এটা স্কিপ করবে)
-        return; 
-    }
+    // ২. শিক্ষক ড্যাশবোর্ড থেকে আসা নোটিশগুলো লোড করা 🎓
+    let teacherNotices = JSON.parse(localStorage.getItem('portal_global_notices')) || [];
 
-    // নতুন নোটিশগুলো ওপরে দেখানোর জন্য রিভার্স করা হলো
-    approvedNotices.reverse().forEach(notice => {
+    // ৩. দুই জায়গার নোটিশকে একটি অ্যারেতে এনে তারিখ বা আইডি অনুযায়ী সর্ট বা পুশ করার জন্য মেকানিজম
+    // শিক্ষক ড্যাশবোর্ডের নোটিশগুলোকে আপনার পেজের ডিজাইনের সাথে ম্যাচ করিয়ে সবার আগে (সবার ওপরে) ইনসার্ট করব
+
+    // প্রথমে সাধারণ ইউজারদের নোটিশ ওপরে পুশ করি
+    approvedUserNotices.reverse().forEach(notice => {
         let badgeColor = notice.type === 'institution' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800';
         let badgeText = notice.type === 'institution' ? '🏢 প্রতিষ্ঠান' : '👤 নাগরিক নোটিশ';
 
-        noticeWall.innerHTML += `
-            <div id="notice-card-${notice.id}" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition card-item">
-                <div class="flex items-center justify-between mb-3">
+        noticeWall.insertAdjacentHTML('afterbegin', `
+            <div id="notice-card-${notice.id}" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition dynamic-notice-item mb-6 target-highlight">
+                <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
                     <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${badgeColor}">${badgeText}</span>
-                    <span class="text-xs text-slate-400 font-medium">${notice.date}</span>
+                    <span class="text-xs text-slate-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ${notice.date}</span>
                 </div>
-                <h3 class="text-base font-black text-slate-800 mb-2">${notice.title}</h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.details}</p>
-                <div class="border-t pt-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                <h3 class="text-base md:text-lg font-bold text-slate-800 mb-2">${notice.title}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.details}</p>
+                <div class="border-t pt-3 flex items-center justify-between text-xs text-slate-400 font-medium">
                     <div>প্রেরক: <span class="text-slate-700 font-bold">${notice.sender}</span></div>
                     ${notice.type === 'general' ? `<div>যোগাযোগ: <span class="text-blue-600 font-bold">${notice.phone}</span></div>` : ''}
                 </div>
             </div>
-        `;
+        `);
     });
-}
 
-// পেজ লোড হলে যেন নোটিশগুলো চলে আসে
-document.addEventListener('DOMContentLoaded', () => {
-    displayApprovedNotices();
-});
-// অনুমোদিত নোটিশগুলো পেজে কার্ড আকারে দেখানোর ফাংশন
-function displayApprovedNotices() {
-    let unionNotices = JSON.parse(localStorage.getItem('unionNotices')) || [];
-    
-    // ১০২ নম্বর লাইনের কন্টেইনার আইডিটি এখানে ধরা হয়েছে
-    let noticeWall = document.getElementById('notice-cards-container');
-    if (!noticeWall) return;
+    // ৪. এবার শিক্ষকদের নোটিশগুলো সবার ওপরে (সবচেয়ে লেটেস্ট হিসেবে) ইনসার্ট করা 🎓
+    // reverse করে লুপ চালানো হচ্ছে যেন একদম নতুন শিক্ষক নোটিশটি সবার উপরে র‍্যাংক করে
+    teacherNotices.reverse().forEach(notice => {
+        
+        // ইংরেজি তারিখ ফরম্যাট সুন্দর করা (YYYY-MM-DD -> DD MMM YYYY)
+        let formattedDate = notice.date;
+        try {
+            const dateObj = new Date(notice.date);
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            formattedDate = dateObj.toLocaleDateString('en-GB', options);
+        } catch(e) { }
 
-    // আগের ডাইনামিক কোড ক্লিয়ার করার জন্য (ম্যানুয়াল কার্ডগুলো অক্ষত থাকবে)
-    // আমরা কেবল ডাইনামিক অংশটুকু পুশ করার আগে কন্টেইনারের আগের জেনারেটেড ডাটা মুছবো, 
-    // তবে আপনার ১০৩ লাইনের ম্যানুয়াল নোটিশ যেন হারিয়ে না যায়, তাই আমরা আগের ডাইনামিক ক্লাসগুলো রিমুভ করে নতুন করে ইনসার্ট করব।
-    let dynamicItems = noticeWall.querySelectorAll('.dynamic-notice-item');
-    dynamicItems.forEach(item => item.remove());
-
-    // শুধু অনুমোদিত (approved) নোটিশগুলো ফিল্টার করা হলো
-    let approvedNotices = unionNotices.filter(item => item.status === 'approved');
-
-    // নতুন নোটিশগুলো ওপরে দেখানোর জন্য রিভার্স করে লুপ চালানো হলো
-    approvedNotices.reverse().forEach(notice => {
-        let badgeColor = notice.type === 'institution' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800';
-        let badgeText = notice.type === 'institution' ? '🏢 প্রতিষ্ঠান' : '👤 নাগরিক নোটিশ';
-
-        // insertAdjacentHTML ব্যবহার করা হলো যেন ১০২ নম্বর লাইনের ঠিক ভেতরেই (সবার ওপরে) নোটিশটি বসে
         noticeWall.insertAdjacentHTML('afterbegin', `
-            <div id="notice-card-${notice.id}" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition dynamic-notice-item mb-6">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${badgeColor}">${badgeText}</span>
-                    <span class="text-xs text-slate-400 font-medium">${notice.date}</span>
+            <div id="${notice.id}" class="bg-white border-2 border-emerald-500/30 rounded-2xl p-6 shadow-sm hover:shadow-md transition dynamic-notice-item mb-6 target-highlight">
+                <div class="flex items-center justify-between mb-3 border-b border-emerald-50 pb-2">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                        <i class="fas fa-graduation-cap"></i> শিক্ষা প্রতিষ্ঠান নোটিশ
+                    </span>
+                    <span class="text-xs text-slate-400 font-semibold"><i class="far fa-calendar-alt mr-1"></i> ${formattedDate}</span>
                 </div>
-                <h3 class="text-base font-black text-slate-800 mb-2">${notice.title}</h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.details}</p>
-                <div class="border-t pt-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-                    <div>প্রেরক: <span class="text-slate-700 font-bold">${notice.sender}</span></div>
-                    ${notice.type === 'general' ? `<div>যোগাযোগ: <span class="text-blue-600 font-bold">${notice.phone}</span></div>` : ''}
+                <h3 class="text-base md:text-lg font-black text-slate-800 mb-2 flex items-start gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 animate-pulse"></span>
+                    ${notice.title}
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${notice.description}</p>
+                <div class="border-t border-slate-100 pt-3 flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <div>প্রেরক: <span class="text-emerald-700 font-bold">লেসন প্ল্যান ড্যাশবোর্ড (শিক্ষক)</span></div>
+                    <div class="text-emerald-600 font-semibold"><i class="fas fa-check-circle"></i> ভেরিফাইড অফিসিয়াল</div>
                 </div>
             </div>
         `);
