@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শিক্ষার্থী ড্যাশবোর্ড (Student Dashboard)</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Optional but beautiful for UI) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 🎨 ডার্ক ব্লু থিম ও গ্লোবাল স্টাইল */
+        :root {
+            --bg-dark-blue: #0f172a;
+            --sidebar-blue: #1e293b;
+            --active-blue: #38bdf8;
+            --card-blue: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark-blue);
+            color: var(--text-light);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 📁 সাইডবার নেভিগেশন প্যানেল স্টাইল */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-blue);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-brand {
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--active-blue);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 15px 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu li:hover, .sidebar-menu li.active {
+            color: var(--text-light);
+            background-color: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--active-blue);
+        }
+
+        .sidebar-menu li i {
+            width: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* 🖥️ মেইন কন্টেন্ট উইন্ডো লেআউট */
+        .main-wrapper {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-header {
+            background-color: var(--sidebar-blue);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-toggle-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .dashboard-body {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        /* 📦 সেকশন কন্ট্রোল */
+        .dashboard-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🗂️ কার্ড এবং জেনারেল ডাটা টেবিল স্টাইল */
+        .info-card {
+            background-color: var(--card-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-card h3 {
+            color: var(--active-blue);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .data-item {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .data-item span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .data-item strong {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        /* 📊 রেসপনসিভ টেবিল ডিজাইন */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .custom-table th, .custom-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .custom-table th {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--active-blue);
+            font-weight: 600;
+        }
+
+        .custom-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* 🪪 ডিজিটাল আইডি কার্ড লেআউট */
+        .id-card-box {
+            max-width: 380px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid var(--active-blue);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .id-card-header h4 {
+            color: var(--active-blue);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .id-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--active-blue);
+            margin: 15px auto;
+            background-color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #94a3b8;
+        }
+
+        .qr-code {
+            width: 90px;
+            height: 90px;
+            background-color: white;
+            margin: 15px auto;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .id-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 10px;
+        }
+
+        .signature img {
+            width: 80px;
+            height: auto;
+            display: block;
+        }
+
+        .btn-action {
+            background-color: var(--active-blue);
+            color: #0f172a;
+            border: none;
+            padding: 10px 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #7dd3fc;
+        }
+
+        /* 📱 মোবাইল রেসপনসিভনেস */
+        @media (max-width: 992px) {
+            .sidebar { left: -280px; }
+            .sidebar.open { left: 0; }
+            .main-wrapper { margin-left: 0; width: 100%; }
+            .menu-toggle-btn { display: block; }
+        }
+        
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+        }
+        .sidebar-overlay.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- 📱 মোবাইল স্ক্রিন ব্যাকড্রপ ওভারলে -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- 📁 সাইডবার নেভিগেশন প্যানেল -->
+    <div class="sidebar" id="sidebarPanel">
+        <div class="sidebar-brand">
+            <span><i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট পোর্টাল</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="active" onclick="switchStudentSection('student-profile', this)">
+                <i class="fa-solid fa-id-card"></i> ১. স্টুডেন্ট প্রোফাইল
+            </li>
+            <li onclick="switchStudentSection('result-sheet', this)">
+                <i class="fa-solid fa-file-invoice"></i> ২. রেজাল্ট শিট
+            </li>
+            <li onclick="switchStudentSection('daily-progress', this)">
+                <i class="fa-solid fa-chart-line"></i> ৩. Daily Progress Report
+            </li>
+            <li onclick="switchStudentSection('fees-account', this)">
+                <i class="fa-solid fa-money-check-dollar"></i> ৪. বেতন ও অন্যান্য ফিস
+            </li>
+            <li onclick="switchStudentSection('class-routine', this)">
+                <i class="fa-solid fa-calendar-days"></i> ৫. ক্লাস রুটিন
+            </li>
+            <li onclick="switchStudentSection('lesson-plan', this)">
+                <i class="fa-solid fa-book-open"></i> ৬. Daily Lesson Plan
+            </li>
+            <li onclick="switchStudentSection('teachers-list', this)">
+                <i class="fa-solid fa-user-tie"></i> ৭. শিক্ষকদের তালিকা
+            </li>
+            <li onclick="switchStudentSection('classmates-list', this)">
+                <i class="fa-solid fa-users"></i> ৮. সহপাঠীদের তালিকা
+            </li>
+            <li onclick="switchStudentSection('achievements', this)">
+                <i class="fa-solid fa-trophy"></i> ৯. নিজের Achievements
+            </li>
+            <li onclick="switchStudentSection('digital-id', this)">
+                <i class="fa-solid fa-address-card"></i> ১০. ডিজিটাল ID CARD
+            </li>
+            <li onclick="switchStudentSection('school-contacts', this)">
+                <i class="fa-solid fa-phone-volume"></i> ১১. স্কুলের যোগাযোগ নম্বর
+            </li>
+        </ul>
+    </div>
+
+    <!-- 🖥️ মেইন কন্টেন্ট উইন্ডো -->
+    <div class="main-wrapper">
+        
+        <!-- 🔝 টপ হেডার বার -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <h2 id="studentWelcomeName">স্বাগতম, শিক্ষার্থী প্যানেল</h2>
+            </div>
+            <div class="header-right">
+                <span style="background-color: rgba(56, 189, 248, 0.2); padding: 6px 12px; border-radius: 20px; font-weight: 600; color: var(--active-blue);">শিক্ষার্থী ভিউ</span>
+            </div>
+        </header>
+
+        <!-- 📊 ড্যাশবোর্ড কন্টেন্ট বডি -->
+        <main class="dashboard-body">
+
+            <!-- ==========================================
+                 🪪 সেকশন ১: স্টুডেন্ট প্রোফাইল (১০ মৌলিক তথ্য)
+                 ========================================== -->
+            <div id="section-student-profile" class="dashboard-section active-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-address-book"></i> শিক্ষার্থীর মৌলিক ১০টি তথ্য প্রোফাইল</h3>
+                    <div class="data-grid">
+                        <div class="data-item"><span>১. শিক্ষার্থীর নাম:</span><strong>মোঃ রাইয়ান রহমান</strong></div>
+                        <div class="data-item"><span>২. রোল নম্বর:</span><strong>০৫</strong></div>
+                        <div class="data-item"><span>৩. শ্রেণি ও শাখা:</span><strong>৯ম শ্রেণি (ক শাখা)</strong></div>
+                        <div class="data-item"><span>৪. স্টুডেন্ট আইডি (UID):</span><strong>STD-2026-9055</strong></div>
+                        <div class="data-item"><span>৫. জন্ম তারিখ:</span><strong>১২/১০/২০১১</strong></div>
+                        <div class="data-item"><span>৬. রক্তের গ্রুপ:</span><strong>B+ (পজিটিভ)</strong></div>
+                        <div class="data-item"><span>৭. পিতার নাম ও মোবাইল:</span><strong>মোঃ আবদুর রহমান (01711-XXXXXX)</strong></div>
+                        <div class="data-item"><span>৮. মাতার নাম:</span><strong> মোসাম্মৎ রহিমা বেগম</strong></div>
+                        <div class="data-item"><span>৯. বর্তমান ও স্থায়ী ঠিকানা:</span><strong>কাউন্দিয়া, সাভার, ঢাকা</strong></div>
+                        <div class="data-item"><span>১০. জরুরি যোগাযোগের নাম্বার:</span><strong>01911-XXXXXX (অভিভাবক)</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 📄 সেকশন ২: রেজাল্ট শিট
+                 ========================================== -->
+            <div id="section-result-sheet" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-file-invoice"></i> অর্ধবার্ষিক পরীক্ষা ২০২৬ এর একাডেমিক মার্কশিট</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>বিষয়ের নাম</th>
+                                    <th>প্রাপ্ত নম্বর</th>
+                                    <th>লেটার গ্রেড</th>
+                                    <th>গ্রেড পয়েন্ট (GP)</th>
+                                    <th>মন্তব্য</th>
+                                end
+                            </thead>
+                            <tbody>
+                                <tr><td>বাংলা</td><td>৮৫</td><td>A+</td><td>৫.০০</td><td>চমৎকার</td></tr>
+                                <tr><td>ইংরেজি</td><td>৭৮</td><td>A</td><td>৪.০০</td><td>ভালো</td></tr>
+                                <tr><td>গণিত</td><td>৯২</td><td>A+</td><td>৫.০০</td><td>অসাধারণ</td></tr>
+                                <tr><td>রসায়ন</td><td>৮৮</td><td>A+</td><td>৫.০০</td><td>খুব ভালো</td></tr>
+                                <tr><td>পদার্থবিজ্ঞান</td><td>৮২</td><td>A+</td><td>৫.০০</td><td>উন্নত প্রয়োজন</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 15px; font-weight: bold; color: var(--active-blue);">
+                        সর্বমোট জিপিএ (Total GPA): ৪.৮০ (উত্তীর্ণ)
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 📈 সেকশন ৩: Daily Progress Report
+                 ========================================== -->
+            <div id="section-daily-progress" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-calendar-check"></i> আজকের ক্লাসের অগ্রগতি এবং ডায়েরি ট্র্যাকার</h3>
+                    <div class="data-grid" style="margin-bottom: 20px;">
+                        <div class="data-item"><span>আজকের উপস্থিতি:</span><strong style="color: var(--success-green);"><i class="fa-solid fa-circle-check"></i> উপস্থিত (Present)</strong></div>
+                        <div class="data-item"><span>আজকের আচরণ রেটিং:</span><strong style="color: #fbbf24;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> (4.5/5)</strong></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>তারিখ</th>
+                                    <th>শ্রেণি পারফরম্যান্স</th>
+                                    <th>শিক্ষকের বিশেষ মন্তব্য ও ডায়েরি নির্দেশনা</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>২৪/০৬/২০২৬</td>
+                                    <td>খুব মনোযোগী</td>
+                                    <td>গণিত ক্লাসের বাড়ির কাজ চমৎকারভাবে সম্পন্ন করেছে। এভাবে পড়াশোনা চালিয়ে যাও।</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 💰 সেকশন ৪: বেতন ও অন্যান্য ফিস এর হিসাব
+                 ========================================== -->
+            <div id="section-fees-account" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-receipt"></i> চলতি শিক্ষাবর্ষের ফিস ও বকেয়া লেজার</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>ফিস এর বিবরণ</th>
+                                    <th>মোট ধার্যকৃত টাকা</th>
+                                    <th>পরিশোধিত (Paid)</th>
+                                    <th>বকেয়া (Due)</th>
+                                    <th>অবস্থা (Status)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>জানুয়ারি - জুন মাসিক বেতন</td><td>৬,০০০ ৳</td><td>৬,০০০ ৳</td><td>০ ৳</td><td><span style="color:var(--success-green);">পরিশোধিত</span></td></tr>
+                                <tr><td>অর্ধবার্ষিক পরীক্ষার ফি</td><td>৮০০ ৳</td><td>৮০০ ৳</td><td>০ ৳</td><td><span style="color:var(--success-green);">পরিশোধিত</span></td></tr>
+                                <tr><td>জুলাই মাসের অগ্রিম বেতন</td><td>১,০০০ ৳</td><td>০ ৳</td><td>১,০০০ ৳</td><td><span style="color:var(--danger-red);">বকেয়া</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 15px; text-align: right;">
+                        <button class="btn-action"><i class="fa-solid fa-download"></i> মানি রসিদ ডাউনলোড করুন</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 📅 সেকশন ৫: ক্লাস রুটিন (রিড-অনলি)
+                 ========================================== -->
+            <div id="section-class-routine" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-calendar-days"></i> আপনার শ্রেণির সাপ্তাহিক ক্লাস রুটিন</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>বার</th>
+                                    <th>১ম পিরিয়ড (09:00 AM)</th>
+                                    <th>২য় পিরিয়ড (10:00 AM)</th>
+                                    <th>৩য় পিরিয়ড (11:00 AM)</th>
+                                    <th>৪র্থ পিরিয়ড (12:00 PM)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>শনিবার</b></td><td>গণিত</td><td>বাংলা</td><td>ইংরেজি</td><td>রসায়ন</td></tr>
+                                <tr><td><b>রবিবার</b></td><td>ইংরেজি</td><td>গণিত</td><td>পদার্থবিজ্ঞান</td><td>বাংলা</td></tr>
+                                <tr><td><b>সোমবার</b></td><td>বিজ্ঞান</td><td>ইংরেজি</td><td>গণিত</td><td>রসায়ন</td></tr>
+                                <tr><td><b>মঙ্গলবার</b></td><td>বাংলা</td><td>বিজ্ঞান</td><td>ইংরেজি</td><td>ইতিহাস</td></tr>
+                                <tr><td><b>বুধবার</b></td><td>গণিত</td><td>পদার্থবিজ্ঞান</td><td>বাংলা</td><td>বিজ্ঞান</td></tr>
+                                <tr><td><b>বৃহস্পতিবার</b></td><td>রসায়ন</td><td>ইংরেজি</td><td>গণিত</td><td>PT / ক্লাব অ্যাক্টিভিটি</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 📖 সেকশন ৬: Daily Lesson Plan এর শিট
+                 ========================================== -->
+            <div id="section-lesson-plan" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-book-bookmark"></i> শিক্ষকদের দেওয়া লাইভ ডেইলি লেসন প্ল্যান ও হোমওয়ার্ক</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>বিষয়</th>
+                                    <th>আজকের ক্লাসের পড়া (Classwork)</th>
+                                    <th>বাড়ির কাজ ও টাস্ক (Homework)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>গণিত</b></td><td>অধ্যায় ৩: বীজগণিতীয় রাশি, অনুচ্ছেদ ৩.২ এর উদাহরণ অনুশীলন।</td><td>অনুশীলনী ৩.২ এর ১ থেকে ৫ নম্বর অংক খাতায় করবে।</td></tr>
+                                <tr><td><b>রসায়ন</b></td><td>অধ্যায় ৪: পর্যায় সারণি, ১ থেকে ২০ পর্যন্ত মৌল মুখস্থকরণ।</td><td>পর্যায় সারণির গ্রুপ ১ এর মৌলগুলোর বৈশিষ্ট্য লিখে আনবে।</td></tr>
+                                <tr><td><b>ইংরেজি</b></td><td>Unit 5: Lesson 2 Reading and analysis.</td><td>Write a paragraph about "Your School Library".</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 👔 সেকশন ৭: স্কুলের শিক্ষকদের নামের তালিকা ও নাম্বার
+                 ========================================== -->
+            <div id="section-teachers-list" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-chalkboard-user"></i> আপনার শ্রেণির দায়িত্বপ্রাপ্ত বিষয়ভিত্তিক শিক্ষক মণ্ডলী</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>শিক্ষকের নাম</th>
+                                    <th>পদবি ও দায়িত্ব</th>
+                                    <th>নির্ধারিত বিষয়</th>
+                                    <th>যোগাযোগ নম্বর</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>জনাব রফিকুল ইসলাম</td><td>সহকারী শিক্ষক</td><td>গণিত</td><td>01712-000000</td></tr>
+                                <tr><td>মিসেস নাসরিন সুলতানা</td><td>সিনিয়র শিক্ষিকা</td><td>ইংরেজি</td><td>01813-000000</td></tr>
+                                <tr><td>ড. মাহফুজুর রহমান</td><td>প্রভাষক</td><td>রসায়ন ও পদার্থ</td><td>01914-000000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 👥 সেকশন ৮: সহপাঠীদের তালিকা ও ফোন নম্বর
+                 ========================================== -->
+            <div id="section-classmates-list" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-users-rectangle"></i> সহপাঠী ডিরেক্টরি (৯ম শ্রেণি - ক শাখা)</h3>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>রোল</th>
+                                    <th>সহপাঠীর নাম</th>
+                                    <th>অভিভাবকের ফোন নম্বর</th>
+                                    <th>এলাকা / ঠিকানা</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>০১</td><td>আহসান হাবিব</td><td>01511-XXXXXX</td><td>উত্তর কাউন্দিয়া</td></tr>
+                                <tr><td>০২</td><td>তাসমিয়া আক্তার</td><td>01715-XXXXXX</td><td>বাগসাত্রা</td></tr>
+                                <tr><td>০৩</td><td>সাকিব আল হাসান</td><td>01819-XXXXXX</td><td>পশ্চিম পাড়া</td></tr>
+                                <tr><td>০৪</td><td>ফারিহা মোস্তফা</td><td>01912-XXXXXX</td><td>মধ্য কাউন্দিয়া</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 🏆 সেকশন ৯: শিক্ষার্থীর নিজের Achievements
+                 ========================================== -->
+            <div id="section-achievements" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-award"></i> আমার গৌরব ও অর্জনসমূহ (My Achievements)</h3>
+                    <div class="data-grid">
+                        <div class="data-item" style="border-left: 4px solid #fbbf24;">
+                            <span style="color: #fbbf24;"><i class="fa-solid fa-medal"></i> ১ম স্থান</span>
+                            <strong>বার্ষিক কুইজ প্রতিযোগিতা ২০২৫</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:5px;">সাধারণ জ্ঞান ও বিজ্ঞান ক্যাটাগরি।</p>
+                        </div>
+                        <div class="data-item" style="border-left: 4px solid var(--active-blue);">
+                            <span style="color: var(--active-blue);"><i class="fa-solid fa-certificate"></i> শ্রেষ্ঠ পাঠক ব্যাজ</span>
+                            <strong>স্কুল লাইব্রেরি রিডিং ক্লাব ২০২৫</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:5px;">বছরে সর্বোচ্চ বই পড়ার স্বীকৃতি সার্টিফিকেট।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 🪪 সেকশন ১০: ডিজিটাল ID CARD (QR ও স্বাক্ষরসহ)
+                 ========================================== -->
+            <div id="section-digital-id" class="dashboard-section">
+                <div class="info-card" style="text-align: center;">
+                    <h3><i class="fa-solid fa-address-card"></i> ডিজিটাল আইডেন্টিটি কার্ড জেনারেটর</h3>
+                    
+                    <!-- আইডি কার্ড ভিজ্যুয়াল বক্স -->
+                    <div class="id-card-box" id="studentIdCardPrintable">
+                        <div class="id-card-header">
+                            <h4>কাউন্দিয়া মডেল হাই স্কুল</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">স্থাপিত: ১৯৯৫ | সাভার, ঢাকা</p>
+                        </div>
+                        
+                        <div class="id-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        
+                        <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 5px;">মোঃ রাইয়ান রহমান</h3>
+                        <p style="color: var(--active-blue); font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">শ্রেণি: ৯ম (ক শাখা) | রোল: ০৫</p>
+                        
+                        <!-- কিউআর কোড প্লেসহোল্ডার -->
+                        <div class="qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=STD-2026-9055" alt="QR Code" style="width:100%; height:100%;">
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">ID: STD-2026-9055</p>
+                        
+                        <div class="id-footer">
+                            <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted);">
+                                রক্তের গ্রুপ: <strong style="color:red;">B+</strong>
+                            </div>
+                            <div class="signature">
+                                <!-- ডেমো স্বাক্ষর ইমেজ প্লেসহোল্ডার -->
+                                <div style="border-bottom: 1px solid var(--text-muted); width: 70px; color: var(--text-muted); font-size: 0.7rem; font-style: italic;">Principal</div>
+                                <span style="font-size: 0.65rem; color: var(--text-muted);">প্রধান শিক্ষকের স্বাক্ষর</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn-action" onclick="window.print()"><i class="fa-solid fa-print"></i> আইডি কার্ড ডাউনলোড / প্রিন্ট করুন</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 📞 সেকশন ১১: স্কুলের বিভিন্ন যোগাযোগের নাম্বার
+                 ========================================== -->
+            <div id="section-school-contacts" class="dashboard-section">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-headset"></i> স্কুল অফিসিয়াল হেল্পডেস্ক ও জরুরী নাম্বার</h3>
+                    <div class="data-grid">
+                        <div class="data-item"><span>প্রধান শিক্ষকের কার্যালয়:</span><strong>01700-000011</strong></div>
+                        <div class="data-item"><span>সহকারী প্রধান শিক্ষক:</span><strong>01700-000022</strong></div>
+                        <div class="data-item"><span>স্কুল ক্যাশ ও একাউন্টস শাখা:</span><strong>01700-000033</strong></div>
+                        <div class="data-item"><span>লাইব্রেরি ভবন কন্ট্রোল রুম:</span><strong>01700-000044</strong></div>
+                        <div class="data-item"><span>আইটি ও অনলাইন পোর্টাল সাপোর্ট:</span><strong>support@kaundiaschool.edu.bd</strong></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- External JavaScript Link -->
+    <script src="student-dashboard.js"></script>
+</body>
+</html>
