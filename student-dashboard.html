@@ -390,34 +390,140 @@
             <!-- ==========================================
                  📄 সেকশন ২: রেজাল্ট শিট
                  ========================================== -->
-            <div id="section-result-sheet" class="dashboard-section">
-                <div class="info-card">
-                    <h3><i class="fa-solid fa-file-invoice"></i> অর্ধবার্ষিক পরীক্ষা ২০২৬ এর একাডেমিক মার্কশিট</h3>
-                    <div class="table-responsive">
-                        <table class="custom-table">
-                            <thead>
-                                <tr>
-                                    <th>বিষয়ের নাম</th>
-                                    <th>প্রাপ্ত নম্বর</th>
-                                    <th>লেটার গ্রেড</th>
-                                    <th>গ্রেড পয়েন্ট (GP)</th>
-                                    <th>মন্তব্য</th>
-                                end
-                            </thead>
-                            <tbody>
-                                <tr><td>বাংলা</td><td>৮৫</td><td>A+</td><td>৫.০০</td><td>চমৎকার</td></tr>
-                                <tr><td>ইংরেজি</td><td>৭৮</td><td>A</td><td>৪.০০</td><td>ভালো</td></tr>
-                                <tr><td>গণিত</td><td>৯২</td><td>A+</td><td>৫.০০</td><td>অসাধারণ</td></tr>
-                                <tr><td>রসায়ন</td><td>৮৮</td><td>A+</td><td>৫.০০</td><td>খুব ভালো</td></tr>
-                                <tr><td>পদার্থবিজ্ঞান</td><td>৮২</td><td>A+</td><td>৫.০০</td><td>উন্নত প্রয়োজন</td></tr>
-                            </tbody>
-                        </table>
+           <div id="section-result-sheet" class="dashboard-section">
+    <div class="info-card" style="position: relative;">
+        
+        <div class="no-print" style="position: absolute; top: 20px; right: 20px;">
+            <button class="btn-action" onclick="window.print()" style="background-color: var(--success-green); border-color: var(--success-green);">
+                <i class="fa-solid fa-print"></i> প্রিন্ট / PDF ডাউনলোড
+            </button>
+        </div>
+
+        <h3><i class="fa-solid fa-graduation-cap"></i> একাডেমিক রেজাল্ট পোর্টাল</h3>
+        <p class="text-muted no-print">আপনার পরীক্ষার নাম ও নম্বর টাইপ সিলেক্ট করে একক রেজাল্ট বা পুরো ক্লাসের সামারি মেধা তালিকা দেখুন।</p>
+        <hr class="no-print" style="border-color: var(--border-color); margin-bottom: 25px;">
+
+        <div class="search-panel no-print" style="background-color: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                
+                <div style="flex: 2; min-width: 220px;">
+                    <label for="examSelect" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted);">১. পরীক্ষার নাম নির্বাচন করুন:</label>
+                    <select id="examSelect" onchange="toggleMarkSelectors()" style="width: 100%; background-color: var(--bg-dark-blue); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; outline: none;">
+                        <option value="">-- পরীক্ষা সিলেক্ট করুন --</option>
+                        <option value="tutorial">ক. প্রথম/দ্বিতীয়/তৃতীয় টিউটোরিয়াল বা মাসিক পরীক্ষা</option>
+                        <option value="semester">খ. প্রথম/দ্বিতীয়/তৃতীয় সেমিস্টার বা সাময়িক পরীক্ষা</option>
+                        <option value="combined">গ. অর্ধ-বার্ষিক / বার্ষিক পরীক্ষা (সম্মিলিত)</option>
+                    </select>
+                </div>
+
+                <div id="markSelectorGroup" style="flex: 1; min-width: 140px;">
+                    <label for="markSelect" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted);">২. পূর্ণমান:</label>
+                    <select id="markSelect" style="width: 100%; background-color: var(--bg-dark-blue); color: var(--text-light); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; outline: none;">
+                        <option value="">-- সিলেক্ট --</option>
+                    </select>
+                </div>
+              <div style="flex: 2; min-width: 250px;">
+            <button class="btn-action" style="width: 100%;" onclick="generateSingleResultCard()">
+                <i class="fa-solid fa-id-card"></i> রেজাল্ট কার্ড দেখুন
+            </button>
+        </div>
+    </div>
+</div>
+
+        <div id="singleResultCardView" style="display: none; background: var(--bg-card); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color);">
+            
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 id="cardSchoolName" style="color: var(--text-light); margin: 0 0 5px 0; font-size: 1.8rem; font-weight: 700;">কাউন্দিয়া মডেল হাই স্কুল</h2>
+                <h4 id="cardExamTitle" style="color: var(--active-blue); margin: 0 0 20px 0; font-weight: 500;"></h4>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); text-align: left;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.95rem;">
+                        <div><strong>শিক্ষার্থীর নাম:</strong> <span id="cardStudentName" style="color: var(--text-muted);"></span></div>
+                        <div><strong>শ্রেণি:</strong> <span id="cardClassName" style="color: var(--text-muted);"></span></div>
+                        <div><strong>রোল নম্বর:</strong> <span id="cardRollNo" style="color: var(--text-muted);"></span></div>
+                        <div><strong>সেশন:</strong> <span id="cardSession" style="color: var(--text-muted);"></span></div>
                     </div>
-                    <div style="margin-top: 15px; font-weight: bold; color: var(--active-blue);">
-                        সর্বমোট জিপিএ (Total GPA): ৪.৮০ (উত্তীর্ণ)
+                    <div id="meritBadgeContainer" style="background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; padding: 10px 20px; border-radius: 6px; text-align: center; font-weight: bold; min-width: 110px;">
+                        <span style="font-size: 0.8rem; display: block; text-transform: uppercase;">মেধা স্থান</span>
+                        <span id="cardMeritPosition" style="font-size: 1.4rem;"></span>
                     </div>
                 </div>
             </div>
+
+            <div class="table-responsive">
+                <table class="custom-table" style="width: 100%; border-collapse: collapse;">
+                    <thead id="resultTableHeader">
+                        </thead>
+                    <tbody id="resultTableBody">
+                        </tbody>
+                </table>
+            </div>
+
+            <div id="attendanceRow" style="margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: rgba(255,255,255,0.01); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 0.9rem;">
+                <div><strong>মোট কার্যদিবস:</strong> <span id="cardTotalDays" style="color: var(--active-blue);"></span> দিন</div>
+                <div><strong>উপস্থিতি:</strong> <span id="cardPresentDays" style="color: var(--success-green);"></span> দিন</div>
+                <div><strong>অনুপস্থিতি:</strong> <span id="cardAbsentDays" style="color: var(--danger-red);"></span> দিন</div>
+            </div>
+
+            <div id="commentBoxContainer" style="margin-top: 20px;">
+                <label style="font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 5px;">শ্রেণি শিক্ষকের মন্তব্য:</label>
+                <div id="cardTeacherComment" style="width: 100%; min-height: 60px; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-muted); font-style: italic;"></div>
+            </div>
+
+            <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;">
+                <div style="text-align: center; width: 180px; border-top: 1px dashed var(--text-muted); padding-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                    শ্রেণি শিক্ষকের স্বাক্ষর
+                </div>
+                <div style="text-align: center; width: 180px; border-top: 1px dashed var(--text-muted); padding-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                    প্রধান শিক্ষকের স্বাক্ষর
+                </div>
+            </div>
+
+        </div>
+
+        <div id="classSummaryListView" style="display: none; background: var(--bg-card); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 20px;">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="color: var(--text-light); margin: 0 0 5px 0; font-size: 1.8rem; font-weight: 700;">কাউন্দিয়া মডেল হাই স্কুল</h2>
+                <h4 id="summaryExamTitle" style="color: var(--active-blue); margin: 0 0 5px 0; font-weight: 500;"></h4>
+                <p id="summaryClassTitle" style="font-weight: bold; font-size: 1.1rem; color: var(--text-muted); margin: 0;"></p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="custom-table" style="width: 100%; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">রোল নম্বর</th>
+                            <th style="text-align: left;">শিক্ষার্থীর নাম</th>
+                            <th style="text-align: center;">প্রাপ্ত মোট নম্বর</th>
+                            <th style="text-align: center;">মেরিট পজিশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="resultInitialMessage" style="text-align: center; padding: 50px 20px; color: var(--text-muted);">
+            <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 15px; display: block; color: var(--border-color);"></i>
+            পরীক্ষার নাম এবং মান সিলেক্ট করে অনুসন্ধান করুন।
+        </div>
+
+    </div>
+</div>
+
+<style>
+@media print {
+    body { background: #fff !important; color: #000 !important; }
+    .no-print, .sidebar, .top-header, .search-panel { display: none !important; }
+    .dashboard-content, .main-panel { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    #singleResultCardView, #classSummaryListView { display: block !important; border: none !important; background: #fff !important; padding: 0 !important; width: 100% !important; color: #000 !important; }
+    .custom-table th { background-color: #f1f5f9 !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+    .custom-table td { border: 1px solid #cbd5e1 !important; color: #000 !important; }
+    strong, span, h2, h4, div { color: #000 !important; }
+    #meritBadgeContainer { background: #e2e8f0 !important; border: 1px solid #000 !important; color: #000 !important; }
+}
+</style>
 
             <!-- ==========================================
                  📈 সেকশন ৩: Daily Progress Report
