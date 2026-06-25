@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শিক্ষার্থীর ক্লাস রুটিন</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark-blue: #0b132b;
+            --bg-card: #1c2541;
+            --neon-cyan: #00b4d8;
+            --text-light: #f8f9fa;
+            --text-muted: #6c757d;
+            --border-color: #2a3447;
+            --warning-amber: #f4a261;
+            --accent-blue: #3a86ff;
+            --success-green: #2a9d8f;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: transparent; color: var(--text-light); padding: 10px; }
+        .panel { background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; }
+        
+        .header-area { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; }
+        .header-area h1 { color: var(--neon-cyan); font-size: 1.8rem; margin-bottom: 5px; }
+        .header-area p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ফিল্টার সেকশন */
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-weight: 600; font-size: 0.85rem; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+        select { padding: 10px 12px; background: var(--bg-dark-blue); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-light); outline: none; font-size: 0.95rem; cursor: pointer; transition: 0.3s; }
+        select:focus { border-color: var(--neon-cyan); }
+
+        /* ক্লাস ইনফো নোটিশ বার */
+        .class-info-bar { display: none; background: #111a36; padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent-blue); margin-bottom: 25px; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .class-info-bar h3 { color: var(--text-light); font-size: 1.2rem; }
+        .class-info-bar span { color: var(--warning-amber); font-weight: bold; }
+
+        /* রুটিন কার্ড গ্রিড লেআউট */
+        .routine-container { display: none; }
+        .day-section { margin-bottom: 30px; }
+        .day-title { background: #16223f; padding: 8px 15px; border-radius: 6px; color: var(--neon-cyan); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; display: inline-block; border: 1px solid var(--border-color); }
+        
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
+        .period-card { background: var(--bg-dark-blue); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: 0.3s; }
+        .period-card:hover { transform: translateY(-3px); border-color: var(--neon-cyan); }
+        .period-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--warning-amber); }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #111a36; padding-bottom: 6px; }
+        .period-num { font-weight: bold; color: var(--neon-cyan); font-size: 0.9rem; }
+        .period-time { color: var(--text-muted); font-size: 0.8rem; background: #111a36; padding: 2px 6px; border-radius: 4px; }
+        
+        .subject-name { font-size: 1.3rem; font-weight: bold; color: var(--warning-amber); margin-top: 5px; }
+        .teacher-name { font-size: 0.95rem; color: #00f5d4; display: flex; align-items: center; gap: 6px; }
+
+        .no-data-alert { text-align: center; padding: 4px; color: var(--text-muted); font-style: italic; background: #111a36; border-radius: 6px; font-size: 0.9rem; }
+
+        .btn { padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 6px; transition: 0.3s; font-size: 0.9rem; }
+        .btn-print { background: #e63946; color: white; margin-bottom: 20px; display: none; }
+
+        /* 🖨️ প্রিন্ট লেআউট (নোটিশ বোর্ড স্টাইল) */
+        @media print {
+            body { background: white !important; color: black !important; padding: 0; }
+            .no-print, .btn-print, select, label { display: none !important; }
+            .panel { background: white !important; border: none !important; padding: 0 !important; }
+            .header-area h1 { color: black !important; font-size: 24px; }
+            .class-info-bar { display: flex !important; background: #f2f2f2 !important; border: 1px solid #000 !important; color: black !important; padding: 10px !important; margin-bottom: 20px; }
+            .class-info-bar h3, .class-info-bar span { color: black !important; }
+            .day-title { background: #e6e6e6 !important; color: black !important; border: 1px solid #000 !important; margin-top: 15px; }
+            .cards-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+            .period-card { background: white !important; border: 1px solid #000 !important; color: black !important; page-break-inside: avoid; }
+            .period-card::before { display: none; }
+            .period-num { color: black !important; }
+            .period-time { background: #e6e6e6 !important; color: black !important; }
+            .subject-name { color: black !important; font-size: 1.1rem; }
+            .teacher-name { color: #333 !important; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <!-- 🏛️ স্কুলের নাম ও হেডার -->
+        <div class="header-area">
+            <h1 id="schoolNameDisplay">কাউন্দিয়া মডেল হাই স্কুল</h1>
+            <p>শিক্ষার্থীর ব্যক্তিগত ডিজিটাল ক্লাস রুটিন প্যানেল</p>
+        </div>
+
+        <!-- 🔍 রুটিন ফিল্টার কন্ট্রোল (no-print) -->
+        <div class="filter-grid no-print">
+            <div class="form-group">
+                <label><i class="fa-solid fa-layer-group"></i> বিভাগ নির্বাচন করুন:</label>
+                <select id="partSelect" onchange="populateClasses()">
+                    <option value="">-- বিভাগ বেছে নিন --</option>
+                    <option value="part1">প্লে - দ্বিতীয় শ্রেণি</option>
+                    <option value="part2">তৃতীয় - পঞ্চম শ্রেণি</option>
+                    <option value="part3">ষষ্ঠ - দশম শ্রেণি</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-graduation-cap"></i> শ্রেণি / শাখা নির্বাচন করুন:</label>
+                <select id="classSelect" onchange="showStudentRoutine()" disabled>
+                    <option value="">-- আগে বিভাগ বেছে নিন --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 🖨️ প্রিন্ট বাটন -->
+        <button class="btn btn-print" id="printBtn" onclick="window.print()"><i class="fa-solid fa-print"></i> এই রুটিনটি প্রিন্ট করুন</button>
+
+        <!-- ℹ️ ক্লাস ও ক্লাস টিচারের তথ্য বার -->
+        <div class="class-info-bar" id="classInfoBar">
+            <h3 id="infoClassName">শ্রেণি: প্লে গ্রুপ (শাপলা)</h3>
+            <h3>ক্লাস টিচার: <span id="infoClassTeacher">নির্ধারিত নাই</span></h3>
+        </div>
+
+        <!-- 📅 কার্ড-বেসড সাপ্তাহিক রুটিন কন্টেইনার -->
+        <div class="routine-container" id="routineContainer">
+            <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে ৬ দিনের কার্ড গ্রিড জেনারেট হবে -->
+        </div>
+
+    </div>
+
+<script>
+    // ক্লাস ম্যাপিং স্ট্রাকচার (মাস্টার রুটিনের সাথে হুবহু মিল)
+    const classesMapping = {
+        part1: [
+            { key: "play_shapla", name: "প্লে গ্রুপ (শাপলা)" },
+            { key: "play_golap", name: "প্লে গ্রুপ (গোলাপ)" },
+            { key: "nursery_joba", name: "নার্সারি (জবা)" },
+            { key: "nursery_bokul", name: "নার্সারি (বকুল)" },
+            { key: "class_1", name: "প্রথম শ্রেণি (শিউলি)" },
+            { key: "class_2", name: "দ্বিতীয় শ্রেণি" }
+        ],
+        part2: [
+            { key: "class_3", name: "তৃতীয় শ্রেণি" },
+            { key: "class_4", name: "চতুর্থ শ্রেণি" },
+            { key: "class_5", name: "পঞ্চম শ্রেণি" }
+        ],
+        part3: [
+            { key: "class_6", name: "ষষ্ঠ শ্রেণি" },
+            { key: "class_7", name: "সপ্তম শ্রেণি" },
+            { key: "class_8", name: "অষ্টম শ্রেণি" },
+            { key: "class_9_sci", name: "নবম শ্রেণি (বিজ্ঞান)" },
+            { key: "class_9_com", name: "নবম শ্রেণি (ব্যবসায় শিক্ষা)" },
+            { key: "class_9_arts", name: "নবম শ্রেণি (মানবিক)" },
+            { key: "class_10_sci", name: "দশম শ্রেণি (বিজ্ঞান)" },
+            { key: "class_10_com", name: "দশম শ্রেণি (ব্যবসায় শিক্ষা)" },
+            { key: "class_10_arts", name: "দশম শ্রেণি (মানবিক)" }
+        ]
+    };
+
+    const daysArray = ["শনিবার", "রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার"];
+    const periodLabels = ["১ম ঘণ্টা", "২য় ঘণ্টা", "৩য় ঘণ্টা", "৪র্থ ঘণ্টা", "৫ম ঘণ্টা", "৬ষ্ঠ ঘণ্টা"];
+
+    // পেজ লোড হলেই স্কুলের নাম ডাইনামিক করা
+    window.onload = function() {
+        let savedSchoolName = localStorage.getItem('school_name');
+        if(savedSchoolName) {
+            document.getElementById('schoolNameDisplay').innerText = savedSchoolName;
+        }
+    };
+
+    // বিভাগ পরিবর্তনের সাথে সাথে ক্লাসের ড্রপডাউন পরিবর্তন
+    function populateClasses() {
+        let part = document.getElementById('partSelect').value;
+        let classSelect = document.getElementById('classSelect');
+        
+        if(!part) {
+            classSelect.innerHTML = `<option value="">-- আগে বিভাগ বেছে নিন --</option>`;
+            classSelect.disabled = true;
+            resetView();
+            return;
+        }
+
+        classSelect.disabled = false;
+        classSelect.innerHTML = `<option value="">-- শ্রেণি বেছে নিন --</option>`;
+        
+        classesMapping[part].forEach(cls => {
+            classSelect.innerHTML += `<option value="${cls.key}">${cls.name}</option>`;
+        });
+
+        resetView();
+    }
+
+    function resetView() {
+        document.getElementById('classInfoBar').style.display = 'none';
+        document.getElementById('routineContainer').style.display = 'none';
+        document.getElementById('printBtn').style.display = 'none';
+    }
+
+    // মূল রুটিন ফিল্টারিং ও কার্ড জেনারেশন ইঞ্জিন
+    function showStudentRoutine() {
+        let part = document.getElementById('partSelect').value;
+        let classKey = document.getElementById('classSelect').value;
+        
+        if(!part || !classKey) {
+            resetView();
+            return;
+        }
+
+        // ১. ক্লাস টিচার ও স্কুলের নাম লাইভ আপডেট
+        let savedCT = localStorage.getItem(`class_teachers_mapping_${part}`);
+        let classTeachersMapping = savedCT ? JSON.parse(savedCT) : {};
+        let selectedClassObj = classesMapping[part].find(c => c.key === classKey);
+        
+        document.getElementById('infoClassName').innerText = `শ্রেণি: ${selectedClassObj.name}`;
+        document.getElementById('infoClassTeacher').innerText = classTeachersMapping[classKey] || "নির্ধারিত নাই";
+        document.getElementById('classInfoBar').style.display = 'flex';
+
+        // ২. সময়সূচী বা স্লট লোড করা
+        let savedTime = localStorage.getItem(`routine_time_slots_${part}`);
+        let defaultTimes = (part === 'part1') 
+            ? {p1:"০৮:০০ - ০৮:৪০", p2:"০৮:৪০ - ০৯:২০", p3:"০৯:২০ - ০৯:৫০", p4:"০৯:৫০ - ১০:২০"}
+            : {p1:"১০:৩০ - ১১:১০", p2:"১১:১০ - ১১:৫০", p3:"১১:৫০ - ১২:চোখ", p4:"১২:৩০ - ০১:১০", p5:"০১:১০ - ০১:৫০", p6:"০১:৫০ - ০২:৩০"};
+        let timeSlots = savedTime ? JSON.parse(savedTime) : defaultTimes;
+
+        // ৩. মাস্টার রুটিনের মূল ডাটা রিড করা
+        let savedRoutine = localStorage.getItem(`master_routine_${part}`);
+        let masterRoutineData = savedRoutine ? JSON.parse(savedRoutine) : {};
+
+        let totalPeriods = (part === 'part1') ? 4 : 6;
+        let routineContainer = document.getElementById('routineContainer');
+        routineContainer.innerHTML = "";
+
+        // ৪. সাপ্তাহিক ৬ দিনের জন্য লুপ চালিয়ে কার্ড জেনারেট করা
+        daysArray.forEach(day => {
+            let dayHtml = `
+                <div class="day-section">
+                    <div class="day-title">${day}</div>
+                    <div class="cards-grid">`;
+            
+            let hasPeriodsData = false;
+            let dayData = masterRoutineData[day] || {};
+
+            for(let period = 1; period <= totalPeriods; period++) {
+                let subVal = dayData[`${classKey}_p${period}_sub`] || "";
+                let teaVal = dayData[`${classKey}_p${period}_tea`] || "";
+
+                if(subVal || teaVal) {
+                    hasPeriodsData = true;
+                    dayHtml += `
+                        <div class="period-card">
+                            <div class="card-header">
+                                <span class="period-num">${periodLabels[period-1]}</span>
+                                <span class="period-time"><i class="fa-regular fa-clock"></i> ${timeSlots['p'+period] || ''}</span>
+                            </div>
+                            <div class="subject-name">${subVal || 'ব্রেক/ফাঁকা'}</div>
+                            <div class="teacher-name">
+                                ${teaVal ? `<i class="fa-solid fa-user-tie"></i> ${teaVal}` : ''}
+                            </div>
+                        </div>`;
+                }
+            }
+
+            if(!hasPeriodsData) {
+                dayHtml += `<div class="no-data-alert" style="grid-column: 1/-1;"><i class="fa-solid fa-mug-hot"></i> এই দিনে কোনো ক্লাস নির্ধারিত নেই।</div>`;
+            }
+
+            dayHtml += `</div></div>`;
+            routineContainer.innerHTML += dayHtml;
+        });
+
+        // কন্টেইনার ও প্রিন্ট বাটন ভিজিবল করা
+        routineContainer.style.display = 'block';
+        document.getElementById('printBtn').style.display = 'inline-flex';
+    }
+</script>
+</body>
+</html>

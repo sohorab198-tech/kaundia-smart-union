@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বেতন ও ফিস ম্যানেজমেন্ট পোর্টাল</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark-blue: #0b132b;
+            --bg-card: #1c2541;
+            --active-blue: #3a506b;
+            --neon-cyan: #00b4d8;
+            --text-light: #f8f9fa;
+            --text-muted: #6c757d;
+            --border-color: #2a3447;
+            --danger-red: #e63946;
+            --success-green: #2a9d8f;
+            --warning-amber: #f4a261;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark-blue);
+            color: var(--text-light);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .toggle-btn.active {
+            background: var(--neon-cyan);
+            color: var(--bg-dark-blue);
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            color: var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Forms & Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 10px;
+            background: var(--bg-dark-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        /* Sector Checkbox List */
+        .sector-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .sector-item {
+            background: var(--bg-dark-blue);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sector-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sector-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .amount-input {
+            width: 100px;
+            text-align: right;
+        }
+
+        /* Action Buttons */
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-primary { background: var(--neon-cyan); color: var(--bg-dark-blue); }
+        .btn-danger { background: var(--danger-red); color: var(--text-light); }
+        .btn-success { background: var(--success-green); color: var(--text-light); }
+
+        .btn:hover { opacity: 0.9; }
+
+        /* Tables & Badges */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th { background: var(--bg-dark-blue); color: var(--neon-cyan); }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .badge-unpaid { background: var(--danger-red); color: white; }
+        .badge-paid { background: var(--success-green); color: white; }
+
+        /* Alert/Notice Box */
+        .notice-box {
+            background: rgba(0, 180, 216, 0.1);
+            border-left: 4px solid var(--neon-cyan);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .number-highlight {
+            color: var(--warning-amber);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 🎛️ ড্যাশবোর্ড সুইচিং কন্ট্রোল -->
+    <div class="dashboard-toggle">
+        <button class="toggle-btn active" onclick="switchView('admin-view', this)"><i class="fa-solid fa-user-gear"></i> হিসাবরক্ষক / অ্যাডমিন প্যানেল</button>
+        <button class="toggle-btn" onclick="switchView('student-view', this)"><i class="fa-solid fa-graduation-cap"></i> শিক্ষার্থী / অভিভাবক ড্যাশবোর্ড</button>
+    </div>
+
+    <!-- ==========================================
+         👨‍💻 ১. হিসাবরক্ষক / অ্যাডমিন প্যানেল ভিউ
+         ========================================== -->
+    <div id="admin-view" class="panel active">
+        <h2><i class="fa-solid fa-calculator"></i> নতুন মাসিক বিল ও বকেয়া জেনারেটর</h2>
+        
+        <div class="grid-3">
+            <div class="form-group">
+                <label>১. মাস সিলেক্ট করুন:</label>
+                <select id="billMonth">
+                    <option value="জানুয়ারি ২০২৬">জানুয়ারি ২০২৬</option>
+                    <option value="ফেব্রুয়ারি ২০২৬">ফেব্রুয়ারি ২০২৬</option>
+                    <option value="মার্চ ২০২৬">মার্চ ২০২৬</option>
+                    <option value="এপ্রিল ২০২৬">এপ্রিল ২০২৬</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>২. শ্রেণি নির্বাচন করুন:</label>
+                <select id="billClass">
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>৩. পরীক্ষার ধরন (যদি প্রযোজ্য হয়):</label>
+                <select id="billExamType" onchange="toggleExamField(this.value)">
+                    <option value="">-- কোনো পরীক্ষা নেই --</option>
+                    <option value="১ম টিউটোরিয়াল">১ম টিউটোরিয়াল</option>
+                    <option value="২য় টিউটোরিয়াল">২য় টিউটোরিয়াল</option>
+                    <option value="অর্ধ-বার্ষিক পরীক্ষা">অর্ধ-বার্ষিক পরীক্ষা</option>
+                    <option value="বার্ষিক পরীক্ষা">বার্ষিক পরীক্ষা</option>
+                </select>
+            </div>
+        </div>
+
+        <h3><i class="fa-solid fa-list-check"></i> সম্ভাব্য খাতসমূহ নির্বাচন করুন (টিক দিন ও টাকা লিখুন):</h3>
+        
+        <div class="sector-list">
+            <!-- ১০টি ডাইনামিক খাত এবং পরীক্ষার ফি অটো ম্যাপিং লজিকসহ -->
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-1" checked> <label for="chk-1">মাসিক বেতন</label></div>
+                <input type="number" class="amount-input" id="amt-1" value="৫০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-2"> <label for="chk-2">বিদ্যুৎ বিল</label></div>
+                <input type="number" class="amount-input" id="amt-2" value="৫০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-3" checked> <label for="chk-3">উন্নয়ন ফি</label></div>
+                <input type="number" class="amount-input" id="amt-3" value="১০০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-4" checked> <label for="chk-4">শিট / সাজেশন ফি</label></div>
+                <input type="number" class="amount-input" id="amt-4" value="২০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-5"> <label for="chk-5">কোচিং ফি</label></div>
+                <input type="number" class="amount-input" id="amt-5" value="৮০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-6"> <label id="lblExamType" for="chk-6">পরীক্ষার ফি</label></div>
+                <input type="number" class="amount-input" id="amt-6" value="৪০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-7"> <label for="chk-7">রেজিস্ট্রেশন ও সেশন ফি</label></div>
+                <input type="number" class="amount-input" id="amt-7" value="১৫০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-8"> <label for="chk-8">আইসিটি / কম্পিউটার ল্যাব ফি</label></div>
+                <input type="number" class="amount-input" id="amt-8" value="৩০০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-9"> <label for="chk-9">সাংস্কৃতিক ও ক্রীড়া ফি</label></div>
+                <input type="number" class="amount-input" id="amt-9" value="১৫০" oninput="calculateAdminTotal()">
+            </div>
+            <div class="sector-item">
+                <div class="sector-left"><input type="checkbox" id="chk-10"> <label for="chk-10">বিবিধ / জরিমানা ফি</label></div>
+                <input type="number" class="amount-input" id="amt-10" value="১০০" oninput="calculateAdminTotal()">
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <h3>মোট সম্ভাব্য নির্ধারিত বিল: <span id="adminTotalBill" style="color: var(--neon-cyan);">১৭০০</span> টাকা</h3>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-danger" onclick="sendLateAlert()"><i class="fa-solid fa-bell"></i> ১৫ তারিখ বকেয়া অ্যালার্ট পাঠান</button>
+                <button class="btn btn-primary" onclick="generateAndSendBill()"><i class="fa-solid fa-paper-plane"></i> এক ক্লিকে বিল পাঠান</button>
+            </div>
+        </div>
+
+        <!-- কালেকশন ও ট্র্যাকিং পার্ট -->
+        <h3 style="margin-top: 40px; margin-bottom: 15px;"><i class="fa-solid fa-money-check-dollar"></i> অফলাইন/অনলাইন ফি কালেকশন রেজিস্টার</h3>
+        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+            <input type="text" id="searchStudentId" placeholder="শিক্ষার্থীর আইডি লিখুন (উদা: STU-2026-010)" style="flex: 1;">
+            <button class="btn btn-success" onclick="markAsPaid()"><i class="fa-solid fa-circle-check"></i> বিল Paid নিশ্চিত করুন</button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         🎒 ২. শিক্ষার্থী / অভিভাবক ড্যাশবোর্ড ভিউ
+         ========================================== -->
+    <div id="student-view" class="panel">
+        <h2><i class="fa-solid fa-wallet"></i> আমার ফিস ও পেমেন্ট হিস্ট্রি</h2>
+        
+        <!-- কারেন্ট বিল ডিসপ্লে -->
+        <div style="background: #111a36; padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: var(--text-light);">চলতি মাসের বকেয়া বিল: <span id="studentBillMonth" style="color: var(--warning-amber);">জানুয়ারি ২০২৬</span></h3>
+                <span id="paymentStatusBadge" class="badge badge-unpaid">Unpaid</span>
+            </div>
+
+            <!-- ব্রেকডাউন টেবিল -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>খাতের নাম</th>
+                        <th style="text-align: right;">টাকার পরিমাণ (টাকা)</th>
+                    </tr>
+                </thead>
+                <tbody id="studentBillTableBody">
+                    <!-- ডাইনামিকালি জাভাস্ক্রিপ্ট দিয়ে রো তৈরি হবে -->
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight: bold; background: rgba(255,255,255,0.05);">
+                        <td style="color: var(--neon-cyan);">সর্বমোট প্রদেয় বকেয়া:</td>
+                        <td style="text-align: right; color: var(--neon-cyan);"><span id="studentGrandTotal">0</span>/-</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- অনলাইন পেমেন্ট গেটওয়ে ও হোয়াটসঅ্যাপ ইন্টিগ্রেশন প্রম্পট -->
+            <div id="paymentPrompt" class="notice-box">
+                <p style="margin-bottom: 10px; font-size: 1.05rem; line-height: 1.6;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--neon-cyan);"></i> <strong>আপনি কি এখন বকেয়া টাকা পরিশোধ করতে চান?</strong> টাকা পাঠাতে আমাদের অফিশিয়াল বিকাশ/নগদ নম্বর: <span class="number-highlight">01778581617</span> ব্যবহার করুন।
+                </p>
+                <button class="btn btn-success" style="background: #25D366; color: white;" onclick="sendWhatsAppConfirmation()">
+                    <i class="fa-brands fa-whatsapp"></i> হোয়াটসঅ্যাপে পেমেন্ট নিশ্চিত করুন
+                </button>
+            </div>
+        </div>
+
+        <!-- পরিশোধিত বিলের ইতিহাস (Payment Archive) -->
+        <h3><i class="fa-solid fa-history"></i> পরিশোধিত বিলের ইতিহাস (Payment Archive)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>মাসের নাম</th>
+                    <th>পরিশোধিত খাতের বিবরণ</th>
+                    <th style="text-align: right;">মোট পরিশোধ (টাকা)</th>
+                    <th style="text-align: center;">স্ট্যাটাস</th>
+                </tr>
+            </thead>
+            <tbody id="paymentHistoryBody">
+                <!-- পেইড হিস্ট্রি এখানে জমা হবে মাসের বিপরীতে ক্রমানুসারে -->
+                <tr id="emptyHistoryRow">
+                    <td colspan="4" style="text-align: center; color: var(--text-muted);">এখনো কোনো পরিশোধিত বিলের ইতিহাস নেই।</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // 🧠 মক ডাটাবেজ স্টেট (লজিক কন্ট্রোলের জন্য)
+    let currentStudent = {
+        name: "সাকিব",
+        id: "STU-2026-010",
+        class: "Class 6",
+        roll: "১০"
+    };
+
+    let globalActiveBill = {
+        month: "জানুয়ারি ২০২৬",
+        status: "Unpaid",
+        previousDue: 0, // অটো কিউমুলেটিভ বকেয়া লজিকের জন্য
+        sectors: [
+            { name: "মাসিক বেতন", amount: 500 },
+            { name: "উন্নয়ন ফি", amount: 1000 },
+            { name: "শিট / সাজেশন ফি", amount: 200 }
+        ]
+    };
+
+    let paymentHistory = [];
+
+    // ড্যাশবোর্ড ভিউ পরিবর্তন
+    function switchView(viewId, btn) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        btn.classList.add('active');
+        if(viewId === 'student-view') {
+            renderStudentDashboard();
+        }
+    }
+
+    // পরীক্ষার ড্রপডাউন পরিবর্তন লজিক
+    function toggleExamField(val) {
+        let lbl = document.getElementById('lblExamType');
+        if(val) {
+            lbl.innerText = "পরীক্ষার ফি (" + val + ")";
+            document.getElementById('chk-6').checked = true;
+        } else {
+            lbl.innerText = "পরীক্ষার ফি";
+            document.getElementById('chk-6').checked = false;
+        }
+        calculateAdminTotal();
+    }
+
+    // অ্যাডমিন প্যানেলে লাইভ মোট হিসাব গণনা
+    function calculateAdminTotal() {
+        let total = 0;
+        for(let i=1; i<=10; i++) {
+            if(document.getElementById(`chk-${i}`).checked) {
+                total += parseInt(document.getElementById(`amt-${i}`).value) || 0;
+            }
+        }
+        document.getElementById('adminTotalBill').innerText = total;
+    }
+
+    // এক ক্লিকে বিল পাঠানো এবং কিউমুলেটিভ বকেয়া চেক করা
+    function generateAndSendBill() {
+        let month = document.getElementById('billMonth').value;
+        let selectedSectors = [];
+        
+        // কিউমুলেটিভ লজিক: আগের বিল যদি Unpaid থাকে, তবে বকেয়া ক্যারি ফরোয়ার্ড হবে
+        let previousDueAmount = 0;
+        if(globalActiveBill.status === "Unpaid") {
+            previousDueAmount = globalActiveBill.sectors.reduce((sum, s) => sum + s.amount, 0) + globalActiveBill.previousDue;
+        }
+
+        for(let i=1; i<=10; i++) {
+            if(document.getElementById(`chk-${i}`).checked) {
+                let name = document.getElementById(`chk-${i}`).nextElementSibling.innerText;
+                let amt = parseInt(document.getElementById(`amt-${i}`).value) || 0;
+                selectedSectors.push({ name: name, amount: amt });
+            }
+        }
+
+        globalActiveBill = {
+            month: month,
+            status: "Unpaid",
+            previousDue: previousDueAmount,
+            sectors: selectedSectors
+        };
+
+        alert(`${month} মাসের জন্য নতুন বিল সফলভাবে সব শিক্ষার্থীর আইডিতে পাঠানো হয়েছে!`);
+        calculateAdminTotal();
+    }
+
+    // ১৫ তারিখ পার হয়ে গেলে অ্যালার্ট মেসেজ পাঠানো
+    function sendLateAlert() {
+        let activeMonth = globalActiveBill.month;
+        alert(`🚨 অ্যালার্ট অ্যালার্ম প্রেরিত!\n\n"জরুরি নোটিশ: প্রিয় অভিভাবক, আপনার সন্তানের চলতি মাসের (${activeMonth}) বকেয়া বিল পরিশোধের নির্ধারিত সময় (১৫ তারিখ) অতিবাহিত হয়েছে। জরিমানা এড়াতে দ্রুত স্কুলের অফিশিয়াল বিকাশ/নগদ নম্বর: ০১৭৭৮৫৮১৬১৭-এ বকেয়া টাকা পরিশোধ করার জন্য অনুরোধ করা হলো।"`);
+    }
+
+    // হিসাবরক্ষক কর্তৃক বিল Paid করা
+    function markAsPaid() {
+        let idInput = document.getElementById('searchStudentId').value.trim();
+        if(idInput === currentStudent.id) {
+            if(globalActiveBill.status === "Paid") {
+                alert("এই বিলটি ইতিমধ্যেই পরিশোধিত করা আছে!");
+                return;
+            }
+            globalActiveBill.status = "Paid";
+            
+            // আর্কাইভের জন্য হিস্ট্রি অবজেক্ট তৈরি
+            let totalPaid = globalActiveBill.sectors.reduce((sum, s) => sum + s.amount, 0) + globalActiveBill.previousDue;
+            let sectorDetails = globalActiveBill.sectors.map(s => s.name).join(', ');
+            if(globalActiveBill.previousDue > 0) { sectorDetails += ` (পূর্বের বকেয়াসহ)`; }
+
+            paymentHistory.unshift({
+                month: globalActiveBill.month,
+                details: sectorDetails,
+                amount: totalPaid
+            });
+
+            alert(`শিক্ষার্থী ${currentStudent.name}-এর বিল সফলভাবে PAID স্ট্যাটাসে আপডেট করা হয়েছে এবং রিসিট আর্কাইভে যুক্ত হয়েছে।`);
+            document.getElementById('searchStudentId').value = "";
+        } else {
+            alert("সঠিক শিক্ষার্থী আইডি প্রদান করুন!");
+        }
+    }
+
+    // স্টুডেন্ট ড্যাশবোর্ড রেন্ডার ইঞ্জিন
+    function renderStudentDashboard() {
+        document.getElementById('studentBillMonth').innerText = globalActiveBill.month;
+        let badge = document.getElementById('paymentStatusBadge');
+        let prompt = document.getElementById('paymentPrompt');
+        
+        badge.className = "badge " + (globalActiveBill.status === "Unpaid" ? "badge-unpaid" : "badge-paid");
+        badge.innerText = globalActiveBill.status;
+        
+        if(globalActiveBill.status === "Paid") {
+            prompt.style.display = "none";
+        } else {
+            prompt.style.display = "block";
+        }
+
+        let tbody = document.getElementById('studentBillTableBody');
+        tbody.innerHTML = "";
+
+        let grandTotal = 0;
+
+        // যদি পূর্বের কোনো বকেয়া অ্যামাউন্ট থাকে তবে তা রো হিসেবে প্রথমে বসবে
+        if(globalActiveBill.previousDue > 0) {
+            let row = `<tr>
+                <td style="color: var(--danger-red); font-weight: bold;"><i class="fa-solid fa-triangle-exclamation"></i> পূর্ববর্তী বকেয়া বিল (Accumulated Due)</td>
+                <td style="text-align: right; color: var(--danger-red); font-weight: bold;">${globalActiveBill.previousDue}/-</td>
+            </tr>`;
+            tbody.innerHTML += row;
+            grandTotal += globalActiveBill.previousDue;
+        }
+
+        globalActiveBill.sectors.forEach(s => {
+            let row = `<tr>
+                <td>${s.name}</td>
+                <td style="text-align: right;">${s.amount}/-</td>
+            </tr>`;
+            tbody.innerHTML += row;
+            grandTotal += s.amount;
+        });
+
+        document.getElementById('studentGrandTotal').innerText = grandTotal;
+
+        // আর্কাইভ হিস্ট্রি রেন্ডার
+        let historyTbody = document.getElementById('paymentHistoryBody');
+        if(paymentHistory.length === 0) {
+            document.getElementById('emptyHistoryRow').style.display = "table-row";
+        } else {
+            let emptyRow = document.getElementById('emptyHistoryRow');
+            if(emptyRow) emptyRow.style.display = "none";
+            historyTbody.innerHTML = "";
+            paymentHistory.forEach(h => {
+                let row = `<tr>
+                    <td style="font-weight: bold; color: var(--success-green);">${h.month}</td>
+                    <td style="font-size: 0.95rem;">${h.details}</td>
+                    <td style="text-align: right; font-weight: bold;">${h.amount}/-</td>
+                    <td style="text-align: center;"><span class="badge badge-paid">Paid</span></td>
+                </tr>`;
+                historyTbody.innerHTML += row;
+            });
+        }
+    }
+
+    // 📱 স্মার্ট হোয়াটসঅ্যাপ মেসেজ ইঞ্জিন ইন্টিগ্রেশন লজিক
+    function sendWhatsAppConfirmation() {
+        let total = document.getElementById('studentGrandTotal').innerText;
+        let month = globalActiveBill.month.split(" ")[0]; // শুধু মাসের নামটুকু নেওয়ার জন্য
+        
+        // আপনার দেওয়া নিখুঁত মেসেজ স্ট্রাকচার উইথ আইডি নম্বর
+        let message = `আমি "${currentStudent.name}", আইডি নম্বর: ${currentStudent.id}, ক্লাস: ${currentStudent.class}, রোল: ${currentStudent.roll}। আমার ${month} মাসের বকেয়া ${total} টাকা বিকাশ/নগদ এ পরিশোধ করেছি।`;
+        
+        let encodedMessage = encodeURIComponent(message);
+        // স্কুলের অফিশিয়াল নম্বরের হোয়াটসঅ্যাপ এপিআই লিঙ্ক জেনারেশন
+        let whatsappUrl = `https://api.whatsapp.com/send?phone=8801778581617&text=${encodedMessage}`;
+        
+        // নতুন ট্যাবে হোয়াটসঅ্যাপ ওপেন করা
+        window.open(whatsappUrl, '_blank');
+    }
+
+    // শুরুতে লোড ক্যালকুলেশন
+    calculateAdminTotal();
+</script>
+
+</body>
+</html>
