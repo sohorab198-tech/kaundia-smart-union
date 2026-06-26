@@ -1,327 +1,348 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পরীক্ষার রেজাল্ট ও মেধা তালিকা জেনারেটর</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark-blue: #0b132b;
-            --bg-card: #1c2541;
-            --neon-cyan: #00b4d8;
-            --text-light: #f8f9fa;
-            --text-muted: #6c757d;
-            --border-color: #2a3447;
-            --danger-red: #e63946;
-            --success-green: #2a9d8f;
-            --warning-amber: #f4a261;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: transparent; color: var(--text-light); padding: 10px; }
-        .panel { background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; }
-        h2, h3 { margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; color: var(--neon-cyan); display: flex; align-items: center; gap: 10px; }
-        .grid-forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; align-items: flex-end; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        label { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
-        select, input { padding: 10px; background: var(--bg-dark-blue); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-light); outline: none; font-size: 0.95rem; }
-        .btn { padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 6px; transition: 0.3s; }
-        .btn-primary { background: var(--neon-cyan); color: var(--bg-dark-blue); }
-        .btn-success { background: var(--success-green); color: white; }
-        .btn-warning { background: var(--warning-amber); color: var(--bg-dark-blue); }
-        .btn-danger { background: var(--danger-red); color: white; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: center; border-bottom: 1px solid var(--border-color); }
-        th { background: var(--bg-dark-blue); color: var(--neon-cyan); }
-        .badge { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
-        .badge-pos { background: rgba(0, 180, 216, 0.2); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); }
-    </style>
-</head>
-<body>
-
-    <div class="panel">
-        <h2><i class="fa-solid fa-file-invoice"></i> রেজাল্ট শিট ও নম্বর এন্ট্রি ফর্ম</h2>
+<div id="section-result-sheet" class="dashboard-section">
+    <div class="info-card" style="position: relative;">
         
-        <div class="grid-forms" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 25px;">
-            <div class="form-group">
-                <label><i class="fa-solid fa-graduation-cap"></i> শ্রেণি নির্বাচন করুন:</label>
-                <select id="resClass" onchange="loadStudentsByClass(this.value)">
-                    <option value="Class 6">Class 6</option>
-                    <option value="Class 7">Class 7</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label><i class="fa-solid fa-pen-to-square"></i> পরীক্ষার ধরন:</label>
-                <select id="resExamType">
-                    <option value="অর্ধ-বার্ষিক পরীক্ষা">অর্ধ-বার্ষিক পরীক্ষা</option>
-                    <option value="বার্ষিক পরীক্ষা">বার্ষিক পরীক্ষা</option>
-                </select>
-            </div>
+        <div class="no-print" style="position: absolute; top: 20px; right: 20px;">
+            <button class="btn-action" onclick="window.print()" style="background-color: var(--success); border-color: var(--success); color: white; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; border: 1px solid transparent;">
+                <i class="fa-solid fa-print"></i> প্রিন্ট / PDF ডাউনলোড
+            </button>
         </div>
 
-        <div class="grid-forms">
-            <div class="form-group" style="grid-column: span 2;">
-                <label>শিক্ষার্থী নির্বাচন (প্রোফাইল ডাটাবেজ):</label>
-                <select id="studentSelect" onchange="autoFillStudentProfile(this.value)">
+        <h3><i class="fa-solid fa-graduation-cap"></i> একাডেমিক রেজাল্ট পোর্টাল (শিক্ষক ড্যাশবোর্ড)</h3>
+        <p class="text-muted no-print">পরীক্ষার নাম ও নম্বর টাইপ সিলেক্ট করে একক ফলাফল কার্ড অথবা পুরো ক্লাসের সামারি মেধা তালিকা দেখুন।</p>
+        <hr class="no-print" style="border-color: var(--border-color); margin-bottom: 25px; margin-top: 15px;">
+
+        <div class="search-panel no-print" style="background-color: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                
+                <div style="flex: 2; min-width: 220px;">
+                    <label for="examSelect" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); font-size: 0.9rem;">১. পরীক্ষার নাম নির্বাচন করুন:</label>
+                    <select id="examSelect" onchange="toggleMarkSelectors()" style="width: 100%; background-color: #fff; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; outline: none;">
+                        <option value="">-- পরীক্ষা সিলেক্ট করুন --</option>
+                        <option value="tutorial">ক. প্রথম/দ্বিতীয়/তৃতীয় টিউটোরিয়াল বা মাসিক পরীক্ষা</option>
+                        <option value="semester">খ. প্রথম/দ্বিতীয়/তৃতীয় সেমিস্টার বা সাময়িক পরীক্ষা</option>
+                        <option value="combined">গ. অর্ধ-বার্ষিক / বার্ষিক পরীক্ষা (সম্মিলিত)</option>
                     </select>
-            </div>
-            <div class="form-group">
-                <label>রোল নম্বর:</label>
-                <input type="text" id="stuRoll" readonly style="background: rgba(255,255,255,0.05); color: var(--warning-amber); font-weight: bold;">
-            </div>
-            <div class="form-group">
-                <label>বাংলা:</label>
-                <input type="number" id="marksBan" placeholder="০-১০০" min="0" max="100">
-            </div>
-            <div class="form-group">
-                <label>ইংরেজি:</label>
-                <input type="number" id="marksEng" placeholder="০-১০০" min="0" max="100">
-            </div>
-            <div class="form-group">
-                <label>গণিত:</label>
-                <input type="number" id="marksMath" placeholder="০-১০০" min="0" max="100">
-            </div>
-            <div class="form-group">
-                <label>বিজ্ঞান:</label>
-                <input type="number" id="marksSci" placeholder="০-১০০" min="0" max="100">
-            </div>
-            <div class="form-group" id="submitBtnContainer">
-                <button class="btn btn-primary" onclick="addStudentMark()"><i class="fa-solid fa-plus"></i> নম্বর যুক্ত করুন</button>
+                </div>
+
+                <div id="markSelectorGroup" style="flex: 1; min-width: 140px;">
+                    <label for="markSelect" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); font-size: 0.9rem;">২. পূর্ণমান:</label>
+                    <select id="markSelect" style="width: 100%; background-color: #fff; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; outline: none;">
+                        <option value="">-- সিলেক্ট --</option>
+                    </select>
+                </div>
+
+                <div style="flex: 2; min-width: 250px; display: flex; gap: 10px;">
+                    <button class="btn-action" style="flex: 1; background-color: var(--primary-color); color: white; padding: 10px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer;" onclick="generateSingleResultCard()">
+                        <i class="fa-solid fa-id-card"></i> রেজাল্ট কার্ড
+                    </button>
+                    <button class="btn-action" style="flex: 1; background-color: #0ea5e9; color: white; padding: 10px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer;" onclick="generateClassSummaryList()">
+                        <i class="fa-solid fa-list-ol"></i> মেধা তালিকা
+                    </button>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <div class="panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h3><i class="fa-solid fa-list-ol"></i> স্বয়ংক্রিয় মেধা তালিকা প্রিভিউ (লাইভ সর্টিং)</h3>
-            <button class="btn btn-success" onclick="publishResults()"><i class="fa-solid fa-cloud-arrow-up"></i> চূড়ান্ত মেধা তালিকা পাবলিশ করুন</button>
+        <div id="singleResultCardView" style="display: none; background: white; padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 id="cardSchoolName" style="color: var(--text-main); margin: 0 0 5px 0; font-size: 1.8rem; font-weight: 700;">কাউন্দিয়া মডেল হাই স্কুল</h2>
+                <h4 id="cardExamTitle" style="color: var(--primary-color); margin: 0 0 20px 0; font-weight: 600;"></h4>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: left;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.95rem;">
+                        <div><strong>शिक्षার্থীর নাম:</strong> <span id="cardStudentName" style="color: var(--text-main);"></span></div>
+                        <div><strong>শ্রেণি:</strong> <span id="cardClassName" style="color: var(--text-main);"></span></div>
+                        <div><strong>রোল নম্বর:</strong> <span id="cardRollNo" style="color: var(--text-main);"></span></div>
+                        <div><strong>সেশন:</strong> <span id="cardSession" style="color: var(--text-main);"></span></div>
+                    </div>
+                    <div id="meritBadgeContainer" style="background: linear-gradient(135deg, #eab308, #ca8a04); color: #000; padding: 10px 20px; border-radius: 6px; text-align: center; font-weight: bold; min-width: 110px;">
+                        <span style="font-size: 0.8rem; display: block; text-transform: uppercase;">মেধা স্থান</span>
+                        <span id="cardMeritPosition" style="font-size: 1.4rem;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px;">
+                <table class="lesson-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                    <thead id="resultTableHeader"></thead>
+                    <tbody id="resultTableBody"></tbody>
+                </table>
+            </div>
+
+            <div id="attendanceRow" style="margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 0.9rem;">
+                <div><strong>মোট কার্যদিবস:</strong> <span id="cardTotalDays" style="color: var(--primary-color); font-weight: 600;"></span> দিন</div>
+                <div><strong>উপস্থিতি:</strong> <span id="cardPresentDays" style="color: var(--success); font-weight: 600;"></span> দিন</div>
+                <div><strong>অনুপস্থিতি:</strong> <span id="cardAbsentDays" style="color: var(--danger); font-weight: 600;"></span> দিন</div>
+            </div>
+
+            <div id="commentBoxContainer" style="margin-top: 20px;">
+                <label style="font-weight: 600; color: var(--text-main); display: block; margin-bottom: 5px; font-size: 0.9rem;">শ্রেণি শিক্ষকের মন্তব্য:</label>
+                <div id="cardTeacherComment" style="width: 100%; min-height: 60px; padding: 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-style: italic;"></div>
+            </div>
+
+            <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;">
+                <div style="text-align: center; width: 180px; border-top: 1px dashed var(--text-muted); padding-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                    শ্রেণি শিক্ষকের স্বাক্ষর
+                </div>
+                <div style="text-align: center; width: 180px; border-top: 1px dashed var(--text-muted); padding-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                    প্রধান শিক্ষকের স্বাক্ষর
+                </div>
+            </div>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>মেধাক্রম (Rank)</th>
-                    <th>আইডি (ID)</th>
-                    <th>রোল</th>
-                    <th style="text-align: left;">শিক্ষার্থীর নাম</th>
-                    <th>বাংলা</th>
-                    <th>ইংরেজি</th>
-                    <th>গণিত</th>
-                    <th>বিজ্ঞান</th>
-                    <th>মোট নম্বর</th>
-                    <th>গড় গ্রেড</th>
-                    <th>অ্যাকশন</th>
-                </tr>
-            </thead>
-            <tbody id="previewTableBody">
-                <tr id="emptyRow"><td colspan="11" style="color: var(--text-muted);">এখনো কোনো শিক্ষার্থীর নম্বর এন্ট্রি করা হয়নি।</td></tr>
-            </tbody>
-        </table>
+        <div id="classSummaryListView" style="display: none; background: white; padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="color: var(--text-main); margin: 0 0 5px 0; font-size: 1.8rem; font-weight: 700;">কাউন্দিয়া মডেল হাই স্কুল</h2>
+                <h4 id="summaryExamTitle" style="color: var(--primary-color); margin: 0 0 5px 0; font-weight: 600;"></h4>
+                <p id="summaryClassTitle" style="font-weight: bold; font-size: 1.1rem; color: var(--text-muted); margin: 0;"></p>
+            </div>
+
+            <div class="table-responsive" style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px;">
+                <table class="lesson-table" style="width: 100%; border-collapse: collapse; text-align: center; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9;">
+                            <th style="padding: 12px; font-weight: 600; text-align: center; border-bottom: 1px solid var(--border-color);">রোল নম্বর</th>
+                            <th style="padding: 12px; font-weight: 600; text-align: left; border-bottom: 1px solid var(--border-color);">শিক্ষার্থীর নাম</th>
+                            <th style="padding: 12px; font-weight: 600; text-align: center; border-bottom: 1px solid var(--border-color);">প্রাপ্ত মোট নম্বর</th>
+                            <th style="padding: 12px; font-weight: 600; text-align: center; border-bottom: 1px solid var(--border-color);">মেরิต পজিশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="resultInitialMessage" style="text-align: center; padding: 50px 20px; color: var(--text-muted);">
+            <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 15px; display: block; color: var(--border-color);"></i>
+            পরীক্ষার নাম এবং মান সিলেক্ট করে অনুসন্ধান করুন।
+        </div>
+
     </div>
+</div>
+
+<style>
+@media print {
+    body { background: #fff !important; color: #000 !important; }
+    .no-print, .sidebar, .top-header, .search-panel { display: none !important; }
+    .main-wrapper { margin-left: 0 !important; }
+    .dashboard-body { padding: 0 !important; }
+    #singleResultCardView, #classSummaryListView { display: block !important; border: none !important; background: #fff !important; padding: 0 !important; width: 100% !important; color: #000 !important; box-shadow: none !important; }
+    .lesson-table th { background-color: #f1f5f9 !important; color: #000 !important; border: 1px solid #cbd5e1 !important; padding: 10px !important; }
+    .lesson-table td { border: 1px solid #cbd5e1 !important; color: #000 !important; padding: 10px !important; }
+    strong, span, h2, h4, div, p, label { color: #000 !important; }
+    #meritBadgeContainer { background: #e2e8f0 !important; border: 1px solid #000 !important; color: #000 !important; }
+}
+</style>
 
 <script>
-    // 🗃️ শিক্ষার্থীর মক প্রোফাইল ডাটাবেজ (সেশন এবং আইডি সহ)
-    const schoolStudentProfiles = {
-        "Class 6": [
-            { id: "STU-2026-010", name: "সাকিব", roll: "১০" },
-            { id: "STU-2026-011", name: "রাফি", roll: "১১" },
-            { id: "STU-2026-012", name: "নাহিদ", roll: "১২" }
-        ],
-        "Class 7": [
-            { id: "STU-2026-020", name: "আরিফ", roll: "০১" },
-            { id: "STU-2026-021", name: "সুমন", roll: "০২" }
-        ]
-    };
+// ১. ডেমো ডাটাবেজ
+const mockStudentProfile = {
+    name: "রাহিম ইসলাম",
+    class: "ষষ্ঠ",
+    roll: "১",
+    session: "২০২৬"
+};
 
-    let studentList = []; 
-    let editTargetId = null; 
+const mockClassStudents = [
+    { roll: "১", name: "রাহিম ইসলাম", tutorialTotal: 25, semesterTotal: 67, finalTotal: 585 },
+    { roll: "২", name: "করিম হোসেন", tutorialTotal: 22, semesterTotal: 63, finalTotal: 572 },
+    { roll: "৩", name: "সুমাইয়া আক্তার", tutorialTotal: 27, semesterTotal: 56, finalTotal: 565 },
+    { roll: "৪", name: "তানিয়া সুলতানা", tutorialTotal: 18, semesterTotal: 67, finalTotal: 551 },
+    { roll: "৫", name: "মাহিম হাসান", tutorialTotal: 16, semesterTotal: 59, finalTotal: 544 },
+    { roll: "৬", name: "নুসরাত জাহান", tutorialTotal: 26, semesterTotal: 70, finalTotal: 536 },
+    { roll: "৭", name: "ফারহান আহমেদ", tutorialTotal: 20, semesterTotal: 50, finalTotal: 528 },
+    { roll: "৮", name: "মীম আক্তার", tutorialTotal: 19, semesterTotal: 55, finalTotal: 519 },
+    { roll: "৯", name: "সাব্বির রহমান", tutorialTotal: 21, semesterTotal: 48, finalTotal: 507 }
+];
 
-    // ক্লাস সিলেক্ট করলে স্টুডেন্ট ড্রপডাউন লোড হবে
-    function loadStudentsByClass(className) {
-        let select = document.getElementById('studentSelect');
-        select.innerHTML = '<option value="">-- শিক্ষার্থী বেছে নিন --</option>';
+const mockSubjectDetails = [
+    { subject: "বাংলা", tutorial: 25, semester: 67 },
+    { subject: "ইংরেজি", tutorial: 22, semester: 46 },
+    { subject: "গণিত", tutorial: 27, semester: 76 },
+    { subject: "বাওবি", tutorial: 18, semester: 65 },
+    { subject: "বিজ্ঞান", tutorial: 16, semester: 56 },
+    { subject: "ধর্ম", tutorial: 26, semester: 75 }
+];
+
+// ২. ডাইনামিক ড্রপডাউন লোড করা
+function toggleMarkSelectors() {
+    const examType = document.getElementById('examSelect').value;
+    const markSelect = document.getElementById('markSelect');
+    
+    markSelect.innerHTML = '<option value="">-- সিলেক্ট --</option>';
+    
+    if (examType === 'tutorial') {
+        markSelect.innerHTML += '<option value="20">২০ নম্বরের পরীক্ষা</option>';
+        markSelect.innerHTML += '<option value="30">৩০ নম্বরের পরীক্ষা</option>';
+    } else if (examType === 'semester') {
+        markSelect.innerHTML += '<option value="70">৭০ নম্বরের পরীক্ষা</option>';
+        markSelect.innerHTML += '<option value="80">৮০ নম্বরের পরীক্ষা</option>';
+    } else if (examType === 'combined') {
+        markSelect.innerHTML += '<option value="100_20_80">২০ + ৮০ = ১০০ মান</option>';
+        markSelect.innerHTML += '<option value="100_30_70">৩০ + ৭০ = ১০০ মান</option>';
+    }
+}
+
+// ৩. একক রেজাল্ট কার্ড জেনারেটর
+function generateSingleResultCard() {
+    const examSelect = document.getElementById('examSelect');
+    const markSelect = document.getElementById('markSelect');
+    
+    if (!examSelect.value || !markSelect.value) {
+        alert('দয়া করে পরীক্ষার নাম এবং পূর্ণমান সঠিকভাবে সিলেক্ট করুন!');
+        return;
+    }
+
+    document.getElementById('resultInitialMessage').style.display = 'none';
+    document.getElementById('classSummaryListView').style.display = 'none';
+    document.getElementById('singleResultCardView').style.display = 'block';
+
+    const examText = examSelect.options[examSelect.selectedIndex].text;
+    document.getElementById('cardExamTitle').innerText = `${examText} এর ফলাফল`;
+    document.getElementById('cardStudentName').innerText = mockStudentProfile.name;
+    document.getElementById('cardClassName').innerText = mockStudentProfile.class;
+    document.getElementById('cardRollNo').innerText = mockStudentProfile.roll;
+    document.getElementById('cardSession').innerText = mockStudentProfile.session;
+
+    const thContainer = document.getElementById('resultTableHeader');
+    const tbContainer = document.getElementById('resultTableBody');
+    
+    thContainer.innerHTML = '';
+    tbContainer.innerHTML = '';
+
+    if (examSelect.value === 'tutorial') {
+        document.getElementById('meritBadgeContainer').style.display = 'none';
+        document.getElementById('attendanceRow').style.display = 'none';
+        document.getElementById('commentBoxContainer').style.display = 'none';
+
+        thContainer.innerHTML = `<tr style="background-color: #f1f5f9;"><th style="padding: 12px; border-bottom: 1px solid var(--border-color);">বিষয়</th><th style="padding: 12px; border-bottom: 1px solid var(--border-color);">নাম্বার (${markSelect.value})</th></tr>`;
         
-        if(schoolStudentProfiles[className]) {
-            schoolStudentProfiles[className].forEach(stu => {
-                select.innerHTML += `<option value="${stu.id}">${stu.name} (${stu.id})</option>`;
-            });
-        }
-        document.getElementById('stuRoll').value = "";
-    }
-
-    // ড্রপডাউন থেকে সিলেক্ট করলে রোল অটো-ফিল হবে
-    function autoFillStudentProfile(studentId) {
-        let className = document.getElementById('resClass').value;
-        if(!studentId || !className) return;
-
-        let student = schoolStudentProfiles[className].find(s => s.id === studentId);
-        if(student) {
-            document.getElementById('stuRoll').value = student.roll;
-        }
-    }
-
-    function calculateGrade(marks) {
-        if (marks >= 80) return { gp: 5.00, grade: "A+" };
-        if (marks >= 70) return { gp: 4.00, grade: "A" };
-        if (marks >= 60) return { gp: 3.50, grade: "A-" };
-        if (marks >= 50) return { gp: 3.00, grade: "B" };
-        if (marks >= 40) return { gp: 2.00, grade: "C" };
-        if (marks >= 33) return { gp: 1.00, grade: "D" };
-        return { gp: 0.00, grade: "F" };
-    }
-
-    function getFinalGrade(avgGpa) {
-        if (avgGpa >= 5.0) return "A+";
-        if (avgGpa >= 4.0) return "A";
-        if (avgGpa >= 3.5) return "A-";
-        if (avgGpa >= 3.0) return "B";
-        if (avgGpa >= 2.0) return "C";
-        if (avgGpa >= 1.0) return "D";
-        return "F";
-    }
-
-    function addStudentMark() {
-        let studentSelect = document.getElementById('studentSelect');
-        let studentId = studentSelect.value;
-        let className = document.getElementById('resClass').value;
-        
-        if (!studentId) {
-            alert("অনুগ্রহ করে প্রোফাইল থেকে শিক্ষার্থী নির্বাচন করুন!");
-            return;
-        }
-
-        let profile = schoolStudentProfiles[className].find(s => s.id === studentId);
-        let ban = parseInt(document.getElementById('marksBan').value) || 0;
-        let eng = parseInt(document.getElementById('marksEng').value) || 0;
-        let math = parseInt(document.getElementById('marksMath').value) || 0;
-        let sci = parseInt(document.getElementById('marksSci').value) || 0;
-
-        let total = ban + eng + math + sci;
-        
-        let gBan = calculateGrade(ban);
-        let gEng = calculateGrade(eng);
-        let gMath = calculateGrade(math);
-        let gSci = calculateGrade(sci);
-        
-        let finalGrade = "F";
-        if(gBan.gp>0 && gEng.gp>0 && gMath.gp>0 && gSci.gp>0) {
-            let avgGpa = (gBan.gp + gEng.gp + gMath.gp + gSci.gp) / 4;
-            finalGrade = getFinalGrade(avgGpa);
-        }
-
-        if (editTargetId !== null) {
-            // এডিট মুড সেভ
-            let index = studentList.findIndex(s => s.id === editTargetId);
-            if(index !== -1) {
-                studentList[index] = { id: editTargetId, name: profile.name, roll: profile.roll, ban, eng, math, sci, total, grade: finalGrade };
-            }
-            editTargetId = null;
-            document.getElementById('submitBtnContainer').innerHTML = `<button class="btn btn-primary" onclick="addStudentMark()"><i class="fa-solid fa-plus"></i> নম্বর যুক্ত করুন</button>`;
-            studentSelect.disabled = false;
-            document.getElementById('resClass').disabled = false;
-        } else {
-            // নতুন রেকর্ড যোগ (ডুপ্লিকেট চেক সহ)
-            if(studentList.some(s => s.id === studentId)) {
-                alert("এই শিক্ষার্থীর নম্বর ইতিমধ্যেই তালিকায় যুক্ত করা হয়েছে! প্রয়োজনে এডিট করুন।");
-                return;
-            }
-            studentList.push({ id: studentId, name: profile.name, roll: profile.roll, ban, eng, math, sci, total, grade: finalGrade });
-        }
-
-        clearInputs();
-        renderPreviewTable();
-    }
-
-    function clearInputs() {
-        document.getElementById('studentSelect').value = "";
-        document.getElementById('stuRoll').value = "";
-        document.getElementById('marksBan').value = "";
-        document.getElementById('marksEng').value = "";
-        document.getElementById('marksMath').value = "";
-        document.getElementById('marksSci').value = "";
-    }
-
-    function renderPreviewTable() {
-        let tbody = document.getElementById('previewTableBody');
-        if (studentList.length === 0) {
-            tbody.innerHTML = `<tr id="emptyRow"><td colspan="11" style="color: var(--text-muted);">এখনো কোনো শিক্ষার্থীর নম্বর এন্ট্রি করা হয়নি।</td></tr>`;
-            return;
-        }
-
-        // 🧠 স্বয়ংক্রিয় লাইভ সর্টিং (টোটাল মার্কস এর ওপর ভিত্তি করে)
-        studentList.sort((a, b) => b.total - a.total);
-
-        tbody.innerHTML = "";
-        studentList.forEach((stu, index) => {
-            let rank = index + 1;
-            tbody.innerHTML += `
-                <tr>
-                    <td><span class="badge badge-pos"># ${rank}</span></td>
-                    <td><small>${stu.id}</small></td>
-                    <td><b>${stu.roll}</b></td>
-                    <td style="text-align: left;">${stu.name}</td>
-                    <td>${stu.ban}</td>
-                    <td>${stu.eng}</td>
-                    <td>${stu.math}</td>
-                    <td>${stu.sci}</td>
-                    <td style="color: var(--neon-cyan); font-weight: bold;">${stu.total}</td>
-                    <td><span class="badge" style="background: ${stu.grade === 'F' ? 'var(--danger-red)' : 'var(--success-green)'}; color:white;">${stu.grade}</span></td>
-                    <td>
-                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 0.85rem;" onclick="editStudent('${stu.id}')"><i class="fa-solid fa-edit"></i> এডিট</button>
-                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.85rem;" onclick="deleteStudent('${stu.id}')"><i class="fa-solid fa-trash"></i> বাদ দিন</button>
-                    </td>
-                </tr>
-            `;
+        let total = 0;
+        mockSubjectDetails.forEach(item => {
+            total += item.tutorial;
+            tbContainer.innerHTML += `<tr><td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><b>${item.subject}</b></td><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${item.tutorial}</td></tr>`;
         });
-    }
+        tbContainer.innerHTML += `<tr style="font-weight: bold; background: #f8fafc;"><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">মোট নম্বর</td><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${total}</td></tr>`;
 
-    function editStudent(id) {
-        let stu = studentList.find(s => s.id === id);
-        if(!stu) return;
+    } else if (examSelect.value === 'semester') {
+        document.getElementById('meritBadgeContainer').style.display = 'none';
+        document.getElementById('attendanceRow').style.display = 'none';
+        document.getElementById('commentBoxContainer').style.display = 'none';
 
-        // এডিট করার সময় ক্লাস এবং ড্রপডাউন লক করা হচ্ছে সুরক্ষার জন্য
-        document.getElementById('studentSelect').value = id;
-        autoFillStudentProfile(id);
+        thContainer.innerHTML = `<tr style="background-color: #f1f5f9;"><th style="padding: 12px; border-bottom: 1px solid var(--border-color);">বিষয়</th><th style="padding: 12px; border-bottom: 1px solid var(--border-color);">নাম্বার (${markSelect.value})</th></tr>`;
         
-        document.getElementById('marksBan').value = stu.ban;
-        document.getElementById('marksEng').value = stu.eng;
-        document.getElementById('marksMath').value = stu.math;
-        document.getElementById('marksSci').value = stu.sci;
+        let total = 0;
+        mockSubjectDetails.forEach(item => {
+            total += item.semester;
+            tbContainer.innerHTML += `<tr><td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><b>${item.subject}</b></td><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${item.semester}</td></tr>`;
+        });
+        tbContainer.innerHTML += `<tr style="font-weight: bold; background: #f8fafc;"><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">মোট নম্বর</td><td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${total}</td></tr>`;
 
-        editTargetId = id;
-        document.getElementById('studentSelect').disabled = true;
-        document.getElementById('resClass').disabled = true;
-        document.getElementById('submitBtnContainer').innerHTML = `<button class="btn btn-warning" onclick="addStudentMark()"><i class="fa-solid fa-circle-check"></i> পরিবর্তন সেভ করুন</button>`;
-    }
-
-    function deleteStudent(id) {
-        if(confirm("আপনি কি নিশ্চিতভাবে এই শিক্ষার্থীর রেকর্ডটি মুছে ফেলতে চান?")) {
-            studentList = studentList.filter(s => s.id !== id);
-            renderPreviewTable();
-        }
-    }
-
-    function publishResults() {
-        if(studentList.length === 0) {
-            alert("পাবলিশ করার মতো কোনো ডেটা নেই!");
-            return;
-        }
+    } else if (examSelect.value === 'combined') {
+        document.getElementById('meritBadgeContainer').style.display = 'block';
+        document.getElementById('attendanceRow').style.display = 'grid';
+        document.getElementById('commentBoxContainer').style.display = 'block';
         
-        let examMetaData = {
-            class: document.getElementById('resClass').value,
-            examType: document.getElementById('resExamType').value,
-            publishedDate: new Date().toLocaleDateString('bn-BD'),
-            meritData: studentList
-        };
+        document.getElementById('cardMeritPosition').innerText = "১ম";
+        document.getElementById('cardTotalDays').innerText = "১১০";
+        document.getElementById('cardPresentDays').innerText = "১০২";
+        document.getElementById('cardAbsentDays').innerText = "৮";
+        document.getElementById('cardTeacherComment').innerText = "নিয়মিত ক্লাসে উপস্থিত থাকে এবং পড়াশোনায় অত্যন্ত মনোযোগী। ফলাফল অত্যন্ত সন্তোষজনক।";
 
-        localStorage.setItem('school_published_results', JSON.stringify(examMetaData));
-        alert(`🎉 অভিনন্দন! ${examMetaData.class}-এর "${examMetaData.examType}"-এর চূড়ান্ত মেধা তালিকা সফলভাবে পাবলিশ করা হয়েছে।`);
+        const labelText = markSelect.value === '100_20_80' ? 'টিউটোরিয়াল (২০)' : 'টিউটোরিয়াল (৩০)';
+        const semesterLabel = markSelect.value === '100_20_80' ? 'সেমিস্টার (৮০)' : 'সেমিস্টার (৭০)';
+
+        thContainer.innerHTML = `
+            <tr style="background-color: #f1f5f9;">
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">বিষয়</th>
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">${labelText}</th>
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">${semesterLabel}</th>
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">মোট নম্বর</th>
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">GPA</th>
+                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">LG</th>
+            </tr>`;
+        
+        let tutTotal = 0, semTotal = 0, grandTotal = 0;
+
+        mockSubjectDetails.forEach(item => {
+            const subjectSum = item.tutorial + item.semester;
+            tutTotal += item.tutorial;
+            semTotal += item.semester;
+            grandTotal += subjectSum;
+
+            let lg = "A+", gp = "৫.০০";
+            if (subjectSum < 80) { lg = "A"; gp = "৪.০০"; }
+            if (subjectSum < 70) { lg = "A-"; gp = "৩.৫০"; }
+
+            tbContainer.innerHTML += `
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><b>${item.subject}</b></td>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${item.tutorial}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${item.semester}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${subjectSum}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${gp}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${lg}</td>
+                </tr>`;
+        });
+
+        tbContainer.innerHTML += `
+            <tr style="font-weight: bold; background: #f8fafc;">
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">মোট নম্বর</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${tutTotal}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${semTotal}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${grandTotal}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">৪.৮৫</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">A</td>
+            </tr>`;
+    }
+}
+
+// ৪. পুরো ক্লাসের রেজাল্ট সামারি তালিকা (মেধা তালিকা বাটন)
+function generateClassSummaryList() {
+    const examSelect = document.getElementById('examSelect');
+    const markSelect = document.getElementById('markSelect');
+    
+    if (!examSelect.value || !markSelect.value) {
+        alert('দয়া করে পরীক্ষার নাম এবং পূর্ণমান সিলেক্ট করুন!');
+        return;
     }
 
-    // ফার্স্ট টাইম পেজ লোডে ডিফল্ট ক্লাস লোড করা
-    window.onload = function() {
-        loadStudentsByClass(document.getElementById('resClass').value);
-    };
+    document.getElementById('resultInitialMessage').style.display = 'none';
+    document.getElementById('singleResultCardView').style.display = 'none';
+    document.getElementById('classSummaryListView').style.display = 'block';
+
+    const examText = examSelect.options[examSelect.selectedIndex].text;
+    document.getElementById('summaryExamTitle').innerText = examText;
+    document.getElementById('summaryClassTitle').innerText = `শ্রেণি: ${mockStudentProfile.class}`;
+
+    const summaryBody = document.getElementById('summaryTableBody');
+    summaryBody.innerHTML = '';
+
+    let sortedList = [...mockClassStudents];
+    
+    if (examSelect.value === 'tutorial') {
+        sortedList.sort((a, b) => b.tutorialTotal - a.tutorialTotal);
+    } else if (examSelect.value === 'semester') {
+        sortedList.sort((a, b) => b.semesterTotal - a.semesterTotal);
+    } else {
+        sortedList.sort((a, b) => b.finalTotal - a.finalTotal);
+    }
+
+    sortedList.forEach((student, index) => {
+        let displayScore = student.finalTotal;
+        if (examSelect.value === 'tutorial') displayScore = student.tutorialTotal;
+        if (examSelect.value === 'semester') displayScore = student.semesterTotal;
+
+        summaryBody.innerHTML += `
+            <tr>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><b>${student.roll}</b></td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color); text-align: left;">${student.name}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><span style="background: #f1f5f9; padding: 4px 12px; border-radius: 4px;">${displayScore}</span></td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color); font-weight: bold; color: ${index === 0 ? '#eab308' : 'var(--text-main)'};">
+                    ${index + 1}
+                </td>
+            </tr>`;
+    });
+}
 </script>
-</body>
-</html>

@@ -738,5 +738,16 @@
 
     <!-- External JavaScript Link -->
     <script src="student-dashboard.js"></script>
+    
+    <script>
+        window.addEventListener('storage', function(event) {
+            if (event.key && (event.key.startsWith('master_routine_') || event.key === 'school_name')) {
+                const iframe = document.querySelector('#section-class-routine iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.location.reload();
+                }
+            }
+        });
+    </script>
 </body>
 </html>

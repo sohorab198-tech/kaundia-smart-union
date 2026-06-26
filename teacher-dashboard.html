@@ -114,26 +114,307 @@
                 </div>
             </div>
 
-            <div id="section-student-list" class="dashboard-section">
-                <div class="section-placeholder-box">
-                    <h2><i class="fa-solid fa-users" style="font-size: 2.5rem; color: #0ea5e9;"></i></h2>
-                    <h3>শিক্ষার্থী তালিকা ম্যানেজমেন্ট</h3>
-                    <p>এখানে সকল শ্রেণির ছাত্র-ছাত্রীদের রোল, আইডি ও তথ্য ডাটাবেজ আকারে সংরক্ষিত থাকবে।</p>
-                </div>
-            </div>
-
+           <div id="section-student-list" class="dashboard-section">
+    <iframe src="students-list.html" style="width: 100%; height: 850px; border: none; background: transparent;"></iframe>
+</div>
             <div id="section-result-sheet" class="dashboard-section">
                 <iframe src="teacher-results.html" style="width: 100%; height: 750px; border: none; background: transparent;"></iframe>
             </div>
 
-            <div id="section-teacher-profile" class="dashboard-section">
-                <div class="section-placeholder-box">
-                    <h2><i class="fa-solid fa-user-tie" style="font-size: 2.5rem; color: #6366f1;"></i></h2>
-                    <h3>শিক্ষক প্রোফাইল ডিরেক্টরি</h3>
-                    <p>প্রতিষ্ঠানের শিক্ষকদের ব্যক্তিগত তথ্য, পদবি এবং ক্লাসের দায়িত্ব বিবরণী অংশ।</p>
+          <!-- ==========================================
+     👥 সেকশন ৩: শিক্ষক প্রোফাইল ও ডিরেক্টরি
+     ========================================== -->
+<div id="section-teacher-profile" class="dashboard-section">
+    
+    <!-- ⚙️ অ্যাডমিন ইনপুট ফর্ম প্যানেল -->
+    <div class="notice-form-card" style="width: 100%; margin-bottom: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h3><i class="fa-solid fa-user-plus"></i> নতুন শিক্ষক যুক্ত করুন (অ্যাডমিন প্যানেল)</h3>
+        
+        <form id="addTeacherForm" onsubmit="addNewTeacher(event)">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>শিক্ষকের নাম:</label>
+                    <input type="text" id="tName" placeholder="যেমন: মো: আবদুর রহমান" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>পদবী ও বিষয়:</label>
+                    <input type="text" id="tDesignation" placeholder="যেমন: সহকারী শিক্ষক (গণিত)" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>শিক্ষাগত যোগ্যতা:</label>
+                    <input type="text" id="tQualification" placeholder="যেমন: বি.এস.সি (অনার্স), এম.এস.সি" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>আইডি নম্বর:</label>
+                    <input type="text" id="tId" placeholder="যেমন: T-202601" required>
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>যোগদানের তারিখ:</label>
+                    <input type="date" id="tJoinDate" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; outline: none;">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>মোবাইল নম্বর:</label>
+                    <input type="tel" id="tPhone" placeholder="যেমন: 017XXXXXXXX" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>শিক্ষকের ঠিকানা:</label>
+                    <input type="text" id="tAddress" placeholder="যেমন: মিরপুর, ঢাকা-১২১৬" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>ছবি (অনলাইন লিংক/ইউআরএল):</label>
+                    <input type="url" id="tPhoto" placeholder="https://example.com/photo.jpg" value="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-publish" style="width: auto; padding: 10px 24px; margin-left: auto;">
+                <i class="fa-solid fa-plus"></i> শিক্ষক তালিকায় যুক্ত করুন
+            </button>
+        </form>
+    </div>
+
+    <!-- 🗂️ শিক্ষক কার্ড প্রদর্শনী এরিয়া (গ্রিড লেআউট) -->
+    <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.2rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <i class="fa-solid fa-users-gear" style="color: var(--primary-color);"></i> কাউন্দিয়া মডেল হাই স্কুল - শিক্ষক ডিরেক্টরি
+        </h3>
+    </div>
+
+    <div id="teachersGridContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
+        <!-- ডাইনামিক ডিজিটাল আইডি কার্ডগুলো জাভাস্ক্রিপ্ট দিয়ে এখানে লোড হবে -->
+    </div>
+
+</div>
+
+<!-- 🎴 আইডি কার্ড হোভার ও ডিজাইন ফিক্স সিএসএস -->
+<style>
+.digital-id-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.digital-id-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border-color: var(--primary-color);
+}
+.id-card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    padding: 20px 10px; /* প্যাডিং একটু বাড়ানো হয়েছে যেহেতু ভেতরের টেক্সট কম */
+    text-align: center;
+}
+.id-card-header h5 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.id-avatar-box {
+    text-align: center;
+    margin-top: -38px;
+    margin-bottom: 10px;
+}
+.id-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 3px solid white;
+    background: #f8fafc;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.id-card-body {
+    padding: 0 20px 15px 20px;
+    flex-grow: 1;
+}
+.id-card-body h4 {
+    text-align: center;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+.id-card-body .designation {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.id-details-list {
+    font-size: 0.82rem;
+    color: var(--text-main);
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.id-details-item {
+    display: flex;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+.id-details-item:last-child {
+    margin-bottom: 0;
+}
+.id-details-item strong {
+    width: 85px; /* যোগদানের তারিখ লেখার জন্য চওড়া করা হলো */
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+.id-card-footer {
+    padding: 10px 20px;
+    border-top: 1px dashed var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+}
+.btn-delete-teacher {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.btn-delete-teacher:hover {
+    background: #fee2e2;
+}
+</style>
+
+<!-- 🧠 জাভাস্ক্রিপ্ট ইঞ্জিন -->
+<script>
+// ১. শিক্ষকদের ডেমো ডেটাবেজ
+let teachersDatabase = [
+    {
+        id: "T-202601",
+        name: "মো: আশরাফুল ইসলাম",
+        designation: "প্রধান শিক্ষক",
+        qualification: "এম.এ (ইংরেজি), বি.এড",
+        joinDate: "২০১০-০১-১৫",
+        phone: "01711223344",
+        address: "কাউন্দিয়া, সাভার, ঢাকা",
+        photo: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+    },
+    {
+        id: "T-202602",
+        name: "মোछাম্মৎ রেহানা পারভীন",
+        designation: "সহকারী প্রধান শিক্ষক",
+        qualification: "এম.এস.সি (রসায়ন), এম.এড",
+        joinDate: "২০১৫-০৩-১০",
+        phone: "01911556677",
+        address: "মিরপুর-১, ঢাকা",
+        photo: "https://cdn-icons-png.flaticon.com/512/219/219969.png"
+    }
+];
+
+// ২. পেজ লোড হলে শিক্ষক তালিকা রেন্ডার করা
+document.addEventListener("DOMContentLoaded", function() {
+    renderTeachersGrid();
+});
+
+function renderTeachersGrid() {
+    const gridContainer = document.getElementById("teachersGridContainer");
+    if(!gridContainer) return;
+    
+    gridContainer.innerHTML = "";
+
+    if (teachersDatabase.length === 0) {
+        gridContainer.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px 0; color: var(--text-muted);">
+                <p><i class="fa-solid fa-folder-open" style="font-size: 2rem; display:block; margin-bottom:10px;"></i>তালিকায় কোনো শিক্ষক নেই। নতুন শিক্ষক যুক্ত করুন।</p>
+            </div>`;
+        return;
+    }
+
+    teachersDatabase.forEach(teacher => {
+        gridContainer.innerHTML += `
+            <div class="digital-id-card" id="card-${teacher.id}">
+                <div class="id-card-header">
+                    <h5>কাউন্দিয়া মডেল হাই স্কুল</h5>
+                </div>
+                <div class="id-avatar-box">
+                    <img src="${teacher.photo}" class="id-avatar" alt="Teacher Photo">
+                </div>
+                <div class="id-card-body">
+                    <h4>${teacher.name}</h4>
+                    <div class="designation">${teacher.designation}</div>
+                    
+                    <div class="id-details-list">
+                        <div class="id-details-item"><strong>আইডি নং:</strong> <span>${teacher.id}</span></div>
+                        <div class="id-details-item"><strong>যোগদান:</strong> <span>${teacher.joinDate}</span></div>
+                        <div class="id-details-item"><strong>যোগ্যতা:</strong> <span>${teacher.qualification}</span></div>
+                        <div class="id-details-item"><strong>মোবাইল:</strong> <span>${teacher.phone}</span></div>
+                        <div class="id-details-item"><strong>ঠিকানা:</strong> <span>${teacher.address}</span></div>
+                    </div>
+                </div>
+                <div class="id-card-footer">
+                    <span style="font-size: 0.7rem; color: var(--text-muted); font-style: italic;">ID ভেরিফাইড</span>
+                    <button class="btn-delete-teacher" onclick="deleteTeacher('${teacher.id}')">
+                        <i class="fa-solid fa-trash"></i> বাদ দিন
+                    </button>
+                </div>
+            </div>`;
+    });
+}
+
+// ৩. নতুন শিক্ষক যুক্ত করার ফাংশন
+function addNewTeacher(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("tId").value.trim();
+    
+    if (teachersDatabase.some(t => t.id === id)) {
+        alert("এই আইডি নম্বরটি ইতিমধ্যে ডেটাবেজে রয়েছে! দয়া করে ইউনিক আইডি দিন।");
+        return;
+    }
+
+    // ইংরেজি বা বাংলা ফরম্যাটে তারিখটি সুন্দর করে দেখানোর জন্য সাধারণ মেথড
+    const rawDate = document.getElementById("tJoinDate").value; 
+    
+    const newTeacher = {
+        id: id,
+        name: document.getElementById("tName").value.trim(),
+        designation: document.getElementById("tDesignation").value.trim(),
+        qualification: document.getElementById("tQualification").value.trim(),
+        joinDate: rawDate,
+        phone: document.getElementById("tPhone").value.trim(),
+        address: document.getElementById("tAddress").value.trim(),
+        photo: document.getElementById("tPhoto").value.trim() || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+    };
+
+    teachersDatabase.push(newTeacher);
+    renderTeachersGrid();
+    
+    document.getElementById("addTeacherForm").reset();
+    document.getElementById("tPhoto").value = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+}
+
+// ৪. শিক্ষক তালিকা থেকে বাদ দেওয়ার ফাংশন
+function deleteTeacher(id) {
+    const confirmDelete = confirm("আপনি কি নিশ্চিতভাবে এই শিক্ষককে তালিকা থেকে বাদ দিতে চান?");
+    if (confirmDelete) {
+        teachersDatabase = teachersDatabase.filter(teacher => teacher.id !== id);
+        renderTeachersGrid();
+    }
+}
+</script>
             <div id="section-student-fees" class="dashboard-section">
                 <iframe src="teacher-fees.html" style="width: 100%; height: 750px; border: none; background: transparent;"></iframe>
             </div>
