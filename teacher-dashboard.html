@@ -79,41 +79,179 @@
 
         <main class="dashboard-body">
 
-            <div id="section-dashboard" class="dashboard-section active-section">
-                <div style="margin-bottom: 20px;">
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">আপনার প্রতিষ্ঠানের আজকের সংক্ষিপ্ত রূপরেখা</p>
+           <!-- ==========================================
+             🏛️ প্রধান শিক্ষকের সেন্ট্রাল কন্ট্রোল ড্যাশবোর্ড
+             ========================================== -->
+        <div id="section-dashboard" class="dashboard-section active-section">
+            
+            <!-- 🚨 ১. হেডটিচার স্পেশাল অ্যালার্ট ও কুইক অ্যাকশন হাব -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <!-- লাইভ অ্যালার্ট সিস্টেম -->
+                <div style="background: #fff5f5; border-left: 5px solid #ef4444; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <h4 style="margin: 0 0 8px 0; color: #c53030;"><i class="fa-solid fa-triangle-exclamation"></i> আজকের গুরুত্বপূর্ণ নোটিফিকেশন</h4>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: #742a2a; line-height: 1.5;">
+                        <li>৩ জন শিক্ষক এখনও স্কুলে প্রবেশ করেননি (১০:০০ AM অতিক্রান্ত)।</li>
+                        <li>৮ম শ্রেণির আজকের উপস্থিতি স্বাভাবিকের চেয়ে কম (মাত্র ৫৮%)।</li>
+                        <li>২ জন শিক্ষক ছুটির আবেদন (Leave Request) জমা দিয়েছেন।</li>
+                    </ul>
                 </div>
-                <div class="status-cards-grid">
-                    <div class="status-card">
-                        <div class="card-info">
-                            <h3>১২৫০</h3>
-                            <p>মোট শিক্ষার্থী</p>
-                        </div>
-                        <div class="card-icon" style="background-color: #d1fae5; color: #059669;"><i class="fa-solid fa-user-graduate"></i></div>
+                
+                <!-- দ্রুত অ্যাকশন বাটন প্যানেল -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+                    <h4 style="margin: 0; color: #1e3a8a;"><i class="fa-solid fa-bolt"></i> প্রধান শিক্ষকের কুইক অ্যাকশন</h4>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    
+                        <button style="width: 100%; padding: 10px; background: #10b981; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fa-solid fa-user-check"></i> ছুটি মঞ্জুর করুন</button>
                     </div>
-                    <div class="status-card">
-                        <div class="card-info">
-                            <h3>৪৫ জন</h3>
-                            <p>মোট শিক্ষক</p>
-                        </div>
-                        <div class="card-icon" style="background-color: #e0e7ff; color: #4f46e5;"><i class="fa-solid fa-user-tie"></i></div>
-                    </div>
-                    <div class="status-card">
-                        <div class="card-info">
-                            <h3>১২ টি</h3>
-                            <p>চলতি মাসের নোটিশ</p>
-                        </div>
-                        <div class="card-icon" style="background-color: #fef3c7; color: #d97706;"><i class="fa-solid fa-bell"></i></div>
-                    </div>
-                </div>
-
-                <div class="section-placeholder-box">
-                    <h2><i class="fa-solid fa-circle-info" style="font-size: 2.5rem; margin-bottom: 10px; color: var(--primary-color);"></i></h2>
-                    <h3>ড্যাশবোর্ড প্যানেল</h3>
-                    <p>উপরের সাইডবার থেকে যেকোনো অপশনে ক্লিক করে সেই সেকশনের কাজ সম্পাদন করুন।</p>
                 </div>
             </div>
 
+            <!-- 📊 ২. মূল সামারি কার্ড (ইনституশন ভলিউম ও দৈনিক ফাইন্যান্স কাউন্টার) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <!-- মোট শিক্ষার্থী -->
+                <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #3b82f6; text-align: center;">
+                    <div style="font-size: 2rem; color: #3b82f6; margin-bottom: 5px;"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">মোট নিবন্ধিত শিক্ষার্থী</span>
+                    <h2 style="margin: 5px 0 0 0; color: #1e293b;">৭৫০ জন</h2>
+                </div>
+                <!-- আজকের উপস্থিতি -->
+                <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #10b981; text-align: center;">
+                    <div style="font-size: 2rem; color: #10b981; margin-bottom: 5px;"><i class="fa-solid fa-calendar-check"></i></div>
+                    <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">আজকের মোট উপস্থিতি</span>
+                    <h2 style="margin: 5px 0 0 0; color: #1e293b;">৯২% <span style="font-size: 0.8rem; color: #64748b;">(৬ ৯০ জন)</span></h2>
+                </div>
+                <!-- দৈনিক ক্যাশ-ইন (আজকের আয়) -->
+                <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #059669; text-align: center;">
+                    <div style="font-size: 2rem; color: #059669; margin-bottom: 5px;"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                    <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">আজকের মোট সংগ্রহ (In)</span>
+                    <h2 style="margin: 5px 0 0 0; color: #059669;">১২,৫০০ ৳</h2>
+                </div>
+                <!-- দৈনিক ক্যাশ-আউট (আজকের ব্যয়) -->
+                <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #ef4444; text-align: center;">
+                    <div style="font-size: 2rem; color: #ef4444; margin-bottom: 5px;"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">আজকের মোট খরচ (Out)</span>
+                    <h2 style="margin: 5px 0 0 0; color: #ef4444;">১,৮০০ ৳</h2>
+                </div>
+            </div>
+
+            <!-- 🗓️ ৩. লাইভ ট্র্যাকিং ডাটা টেবিল গ্রিড -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
+                
+                <!-- ক) শিক্ষকদের প্রবেশ ও হাজিরা সময় -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #1e3a8a;"><i class="fa-solid fa-user-clock"></i> শিক্ষক উপস্থিতি ও প্রবেশের সময়</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">শিক্ষকের নাম</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">পদবি</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">প্রবেশের সময়</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">স্ট্যাটাস</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">মো: আশরাফুল ইসলাম</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">প্রধান শিক্ষক</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">০৮:৪৫ AM</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><span style="background:#d1fae5; color:#065f46; padding:3px 8px; border-radius:12px; font-size:0.8rem;">সময়মতো</span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">мухаммад হেলালউদ্দিন</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">সিনিয়র শিক্ষক</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">০৯:১৫ AM</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><span style="background:#fee2e2; color:#991b1b; padding:3px 8px; border-radius:12px; font-size:0.8rem;">বিলম্ব (Late)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- খ) ক্লাস-ভিত্তিক শিক্ষার্থী হাজিরা পালস -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #1e3a8a;"><i class="fa-solid fa-users-viewfinder"></i> ক্লাস-ভিত্তিক ছাত্র-ছাত্রী হাজিরা</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: center;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1; text-align: left;">শ্রেণি</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">মোট ছাত্র</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1; color: #10b981;">উপস্থিত</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1; color: #ef4444;">অনুপস্থিত</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left;"><b>৬ষ্ঠ শ্রেণি</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">৬০</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #10b981; font-weight:600; color:#10b981;">৫৬</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #ef4444; font-weight:600; color:#ef4444;">৪</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left;"><b>৭ম শ্রেণি</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">৫৫</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #10b981; font-weight:600; color:#10b981;">৫০</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #ef4444; font-weight:600; color:#ef4444;">৫</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- গ) আজকের লাইভ ক্লাস রুটিন সিঙ্ক -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #1e3a8a;"><i class="fa-solid fa-clock-rotate-left"></i> রিয়েল-টাইম ক্লাস রুটিন ট্র্যাকার</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">পিরিয়ড ও সময়</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">শ্রেণি</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">বিষয়</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">দায়িত্বপ্রাপ্ত শিক্ষক</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #eff6ff;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><b>১ম (১০:০০ - ১০:৪৫)</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">১০ম শ্রেণি</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">রসায়ন</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color:#1e3a8a; font-weight:600;"><i class="fa-solid fa-user-tie"></i> মুহাম্মদ হেলালউদ্দিন</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><b>২য় (১০:৪৫ - ১১:৩০)</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">৯ম শ্রেণি</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">গণিত</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color:#1e3a8a; font-weight:600;"><i class="fa-solid fa-user-tie"></i> মোছাঃ রেহানা পারভীন</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ঘ) আজকের একাডেমিক লেসন প্ল্যান প্রোগ্রেস -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: #1e3a8a;"><i class="fa-solid fa-book-open-reader"></i> দৈনিক লেসন প্ল্যান মনিটরিং</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">শ্রেণি ও বিষয়</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">আজকের নির্ধারিত টপিক</th>
+                                <th style="padding: 10px; border-bottom: 2px solid #cbd5e1;">অগ্রগতি স্ট্যাটাস</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><b>১০ম - রসায়ন</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">অধ্যায় ৪: পর্যায় সারণি (আইসোটোপ ও ইলেকট্রন বিন্যাস)</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><span style="background:#d1fae5; color:#065f46; padding:3px 8px; border-radius:12px; font-size:0.8rem;">সম্পন্ন (Done)</span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><b>৯ম - গণিত</b></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">অধ্যায় ৬: জ্যামিতি উপপাদ্য-১৫ প্রমাণ ও আলোচনা</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;"><span style="background:#fef3c7; color:#92400e; padding:3px 8px; border-radius:12px; font-size:0.8rem;">চলমান (In Progress)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div> <!-- ৩ নম্বর গ্রিডের শেষ এন্ডিং ট্যাগ -->
+        </div> <!-- 👈 এই সেই কাঙ্ক্ষিত ড্যাশবোর্ড সেকশনের শেষ ক্লোজিং ট্যাগ যা মিসিং ছিল! -->
            <div id="section-student-list" class="dashboard-section">
     <iframe src="students-list.html" style="width: 100%; height: 850px; border: none; background: transparent;"></iframe>
 </div>
@@ -418,19 +556,18 @@ function deleteTeacher(id) {
             <div id="section-student-fees" class="dashboard-section">
                 <iframe src="teacher-fees.html" style="width: 100%; height: 750px; border: none; background: transparent;"></iframe>
             </div>
-
-            <div id="section-school-expenses" class="dashboard-section">
-                <div class="section-placeholder-box">
-                    <h2><i class="fa-solid fa-wallet" style="font-size: 2.5rem; color: #f43f5e;"></i></h2>
-                    <h3>শিক্ষকদের বেতন ও স্কুলের খরচ (হিসাব খাতা)</h3>
-                    <p>স্টাফদের সেলারি শীট এবং স্কুল ফান্ডের যাবতীয় ক্যাশ-আউট ও খরচের খতিয়ান।</p>
-                </div>
-            </div>
+            <!-- ==========================================
+     💸 আইফ্রেমের মাধ্যমে হিসাব খাতা যুক্তকরণ 
+     ========================================== -->
+<div id="section-school-expenses" class="dashboard-section">
+    <iframe src="school-accounting.html" style="width: 100%; height: 850px; border: none; background: transparent;"></iframe>
+</div>
 
             <div id="section-notice-board" class="dashboard-section">
                 <div class="notice-flex-layout">
                     <div class="notice-form-card">
-                        <h3><i class="fa-solid fa-pen-to-square"></i> নতুন নোটিশ তৈরি করুন</h3>
+
+                   <h3><i class="fa-solid fa-pen-to-square"></i> নতুন নোটিশ তৈরি করুন</h3>
                         <div class="form-group">
                             <label>নোটিশের শিরোনাম:</label>
                             <input type="text" id="noticeTitle" placeholder="উদা: অর্ধবার্ষিক পরীক্ষার রুটিন প্রকাশ">

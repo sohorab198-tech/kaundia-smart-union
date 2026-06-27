@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্কুলের হিসাব খাতা ও বেতন শিট</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: transparent;
+            margin: 0;
+            padding: 10px;
+        }
+        .accounting-container { width: 100%; box-sizing: border-box; }
+        .summary-card {
+            background: #fff; padding: 15px 20px; border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center; flex: 1; min-width: 150px;
+        }
+        .tab-btn {
+            padding: 10px 20px; border: none; background: #e2e8f0; color: #334155;
+            font-weight: 600; cursor: pointer; border-radius: 6px 6px 0 0; transition: all 0.2s;
+        }
+        .tab-btn.active { background: #1e3a8a; color: #fff; }
+        .ledger-table { width: 100%; border-collapse: collapse; text-align: center; margin-top: 15px; }
+        .ledger-table th { background: #f1f5f9; padding: 12px; font-weight: 600; border-bottom: 2px solid #cbd5e1; }
+        .ledger-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        
+        @media print {
+            .no-print, th.no-print, td.no-print { display: none !important; }
+            body { background: #fff !important; }
+            .print-header { display: block !important; }
+            .ledger-table th { background-color: #f1f5f9 !important; color: #000 !important; border: 1px solid #000 !important; }
+            .ledger-table td { border: 1px solid #000 !important; color: #000 !important; }
+            .sig-space { display: inline-block !important; width: 120px; border-bottom: 1px dashed #000; height: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="accounting-container">
+
+    <div class="no-print" style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+        <div class="summary-card" style="border-left: 5px solid #10b981;">
+            <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">মোট আয় (Cash-In)</span>
+            <h2 style="margin: 5px 0 0 0; color: #10b981;" id="totalCashIn">০ ৳</h2>
+        </div>
+        <div class="summary-card" style="border-left: 5px solid #ef4444;">
+            <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">মোট ব্যয় (Cash-Out)</span>
+            <h2 style="margin: 5px 0 0 0; color: #ef4444;" id="totalCashOut">০ ৳</h2>
+        </div>
+        <div class="summary-card" style="border-left: 5px solid #1e3a8a;">
+            <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">বর্তমান তহবিল (Balance)</span>
+            <h2 style="margin: 5px 0 0 0; color: #1e3a8a;" id="currentBalance">০ ৳</h2>
+        </div>
+    </div>
+
+    <div class="no-print" style="display: flex; border-bottom: 2px solid #1e3a8a; margin-bottom: 20px;">
+        <button class="tab-btn active" id="btnTabExpense" onclick="switchTab('expense')"><i class="fa-solid fa-wallet"></i> স্কুলের সাধারণ খরচ</button>
+        <button class="tab-btn" id="btnTabSalary" onclick="switchTab('salary')"><i class="fa-solid fa-money-check-dollar"></i> শিক্ষকদের বেতন শিট</button>
+    </div>
+
+    <div id="section-expense-view">
+        <div class="notice-form-card no-print" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <h3 style="margin-top:0;"><i class="fa-solid fa-plus"></i> নতুন আয়/ব্যয় এন্ট্রি করুন</h3>
+            <form id="expenseForm" onsubmit="addExpenseRow(event)">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                    <div>
+                        <label>লেনদেনের ধরন:</label>
+                        <select id="expType" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <option value="In">আয় (Cash-In)</option>
+                            <option value="Out">ব্যয় (Cash-Out)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>খাত/বিবরণ:</label>
+                        <input type="text" id="expPurpose" placeholder="যেমন: বিদ্যুৎ বিল, সেশন ফি আদায়" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label>টাকার পরিমাণ:</label>
+                        <input type="number" id="expAmount" placeholder="৳" required min="1" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label>তারিখ:</label>
+                        <input type="date" id="expDate" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button type="submit" class="btn-publish" style="width:100%; padding:11px; cursor:pointer;"><i class="fa-solid fa-check"></i> খতিয়ানে তুলুন</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div style="background:#fff; padding:15px; border-radius:8px;">
+            <div class="print-header" style="text-align: center; margin-bottom: 20px; display: none;">
+                <h2 style="margin: 0;">কাউন্দিয়া মডেল হাই স্কুল</h2>
+                <h4>সাধারণ আয়-ব্যয় খরচের খতিয়ান</h4>
+            </div>
+            <div style="display:flex; justify-content:flex-end; margin-bottom:10px;" class="no-print">
+                <button class="lesson-btn btn-print-plan" onclick="window.print()"><i class="fa-solid fa-print"></i> খতিয়ান প্রিন্ট</button>
+            </div>
+            <table class="ledger-table">
+                <thead>
+                    <tr>
+                        <th>তারিখ</th>
+                        <th>খাত/বিবরণ</th>
+                        <th style="color:#10b981;">আয় (Cash-In)</th>
+                        <th style="color:#ef4444;">ব্যয় (Cash-Out)</th>
+                        <th class="no-print">অ্যাকশন</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="section-salary-view" style="display: none;">
+        <div class="notice-form-card no-print" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <h3 style="margin-top:0;"><i class="fa-solid fa-hand-holding-dollar"></i> শিক্ষকের মাসিক বেতন ইস্যু করুন</h3>
+            <form id="salaryForm" onsubmit="addSalaryRow(event)">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px;">
+                    <div>
+                        <label>মাসের নাম:</label>
+                        <select id="salMonth" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <option value="জানুয়ারি">জানুয়ারি</option><option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+                            <option value="মার্চ">মার্চ</option><option value="এপ্রিল">এপ্রিল</option>
+                            <option value="মে">মে</option><option value="জুন">জুন</option>
+                            <option value="জুলাই">জুলাই</option><option value="আগস্ট">আগস্ট</option>
+                            <option value="সেপ্টেম্বর">সেপ্টেম্বর</option><option value="অক্টোবর">অক্টোবর</option>
+                            <option value="নভেম্বর">নভেম্বর</option><option value="ডিসেম্বর">ডিসেম্বর</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>শিক্ষকের নাম:</label>
+                        <select id="salName" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <option value="মো: আশরাফুল ইসলাম (প্রধান শিক্ষক)">মো: আশরাফুল ইসলাম (প্রধান শিক্ষক)</option>
+                            <option value="মোছাঃ রেহানা পারভীন (সহকারী প্রধান শিক্ষক)">মোছাঃ রেহানা পারভীন (সহকারী প্রধান শিক্ষক)</option>
+                            <option value="মুহাম্মদ হেলালউদ্দিন (সিনিয়র শিক্ষক)">মুহাম্মদ হেলালউদ্দিন (সিনিয়র শিক্ষক)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>বেতন/টাকা:</label>
+                        <input type="number" id="salAmount" placeholder="টাকার পরিমাণ" required min="1" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label>প্রদানের তারিখ:</label>
+                        <input type="date" id="salDate" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button type="submit" class="btn-publish" style="width:100%; padding:11px; cursor:pointer; background:#1e3a8a;"><i class="fa-solid fa-check"></i> বেতন যুক্ত করুন</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div style="background:#fff; padding:15px; border-radius:8px;">
+            <div class="print-header" style="text-align: center; margin-bottom: 20px; display: none;">
+                <h2 style="margin: 0;">কাуন্দিয়া মডেল হাই স্কুল</h2>
+                <h4>শিক্ষকদের অফিশিয়াল মাসিক বেতন বিতরণ শিট</h4>
+            </div>
+            <div style="display:flex; justify-content:flex-end; margin-bottom:10px;" class="no-print">
+                <button class="lesson-btn btn-print-plan" onclick="window.print()"><i class="fa-solid fa-print"></i> বেতন শিট প্রিন্ট</button>
+            </div>
+            <table class="ledger-table">
+                <thead>
+                    <tr>
+                        <th>মাসের নাম</th>
+                        <th style="text-align: left;">শিক্ষকের নাম</th>
+                        <th>টাকার পরিমাণ</th>
+                        <th>প্রদানের তারিখ</th>
+                        <th>Signature (স্বাক্ষর)</th>
+                        <th class="no-print">অ্যাকশন</th>
+                    </tr>
+                </thead>
+                <tbody id="salaryTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ডাটাবেজ মেমোরি স্টেট
+let expenseDatabase = [
+    { id: 1, type: "In", purpose: "শিক্ষার্থী সেশন ফি আদায় (৬ষ্ঠ শ্রেণি)", amount: 45000, date: "2026-06-10" },
+    { id: 2, type: "Out", purpose: "স্কুলের বিদ্যুৎ বিল জুন মাস", amount: 3500, date: "2026-06-15" }
+];
+
+let salaryDatabase = [
+    { id: 1, month: "জুন", name: "মো: আশরাফুল ইসলাম (প্রধান শিক্ষক)", amount: 35000, date: "2026-06-01" }
+];
+
+// পেজ লোড স্টেট
+document.addEventListener("DOMContentLoaded", function() {
+    calculateSummary();
+    renderExpenseTable();
+    renderSalaryTable();
+});
+
+// ট্যাব পরিবর্তন ইঞ্জিন
+function switchTab(tab) {
+    if(tab === 'expense') {
+        document.getElementById("section-expense-view").style.display = "block";
+        document.getElementById("section-salary-view").style.display = "none";
+        document.getElementById("btnTabExpense").classList.add("active");
+        document.getElementById("btnTabSalary").classList.remove("active");
+    } else {
+        document.getElementById("section-expense-view").style.display = "none";
+        document.getElementById("section-salary-view").style.display = "block";
+        document.getElementById("btnTabExpense").classList.remove("active");
+        document.getElementById("btnTabSalary").classList.add("active");
+    }
+}
+
+// হিসাব কিতাব কাউন্টার ক্যালকুলেটর
+function calculateSummary() {
+    let totalIn = 0;
+    let totalOut = 0;
+
+    expenseDatabase.forEach(item => {
+        if(item.type === "In") totalIn += item.amount;
+        else totalOut += item.amount;
+    });
+
+    // টিচারদের বেতনও স্কুলের খরচ (Out) হিসেবে যুক্ত হবে অটোমেটিক
+    salaryDatabase.forEach(item => {
+        totalOut += item.amount;
+    });
+
+    let balance = totalIn - totalOut;
+
+    document.getElementById("totalCashIn").innerText = totalIn.toLocaleString('bn-BD') + " ৳";
+    document.getElementById("totalCashOut").innerText = totalOut.toLocaleString('bn-BD') + " ৳";
+    document.getElementById("currentBalance").innerText = balance.toLocaleString('bn-BD') + " ৳";
+}
+
+// ১. সাধারণ খরচ টেবিল রেন্ডার
+function renderExpenseTable() {
+    const tbody = document.getElementById("expenseTableBody");
+    tbody.innerHTML = "";
+    expenseDatabase.forEach(item => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${item.date}</td>
+                <td style="text-align:left;">${item.purpose}</td>
+                <td style="color:#10b981; font-weight:600;">${item.type === 'In' ? item.amount + ' ৳' : '-'}</td>
+                <td style="color:#ef4444; font-weight:600;">${item.type === 'Out' ? item.amount + ' ৳' : '-'}</td>
+                <td class="no-print"><button style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="deleteExpense(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>`;
+    });
+}
+
+// ২. টিচার স্যালারি টেবিল রেন্ডার (স্বাক্ষরের ফাঁকা স্থানসহ)
+function renderSalaryTable() {
+    const tbody = document.getElementById("salaryTableBody");
+    tbody.innerHTML = "";
+    salaryDatabase.forEach(item => {
+        tbody.innerHTML += `
+            <tr>
+                <td><b>${item.month}</b></td>
+                <td style="text-align:left;"><i class="fa-solid fa-user-tie" style="color:#1e3a8a;"></i> ${item.name}</td>
+                <td style="font-weight:600; color:#ef4444;">${item.amount} ৳</td>
+                <td>${item.date}</td>
+                <td><span class="sig-space" style="display:none;"></span><span class="no-print" style="color:#64748b; font-style:italic; font-size:0.8rem;">প্রিন্ট করে সই নিন</span></td>
+                <td class="no-print"><button style="padding:4px 8px; background:#ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="deleteSalary(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>`;
+    });
+}
+
+// ৩. নতুন খরচ যোগ করা
+function addExpenseRow(event) {
+    event.preventDefault();
+    expenseDatabase.push({
+        id: Date.now(),
+        type: document.getElementById("expType").value,
+        purpose: document.getElementById("expPurpose").value.trim(),
+        amount: parseInt(document.getElementById("expAmount").value),
+        date: document.getElementById("expDate").value
+    });
+    calculateSummary();
+    renderExpenseTable();
+    document.getElementById("expenseForm").reset();
+}
+
+// ৪. নতুন শিক্ষক বেতন যোগ করা
+function addSalaryRow(event) {
+    event.preventDefault();
+    salaryDatabase.push({
+        id: Date.now(),
+        month: document.getElementById("salMonth").value,
+        name: document.getElementById("salName").value,
+        amount: parseInt(document.getElementById("salAmount").value),
+        date: document.getElementById("salDate").value
+    });
+    calculateSummary();
+    renderSalaryTable();
+    document.getElementById("salaryForm").reset();
+}
+
+function deleteExpense(id) {
+    if(confirm("লেনদেনটি মুছে ফেলতে চান?")) {
+        expenseDatabase = expenseDatabase.filter(item => item.id !== id);
+        calculateSummary(); renderExpenseTable();
+    }
+}
+
+function deleteSalary(id) {
+    if(confirm("বেতনের এই রেকর্ডটি মুছে ফেলতে চান?")) {
+        salaryDatabase = salaryDatabase.filter(item => item.id !== id);
+        calculateSummary(); renderSalaryTable();
+    }
+}
+</script>
+</body>
+</html>
