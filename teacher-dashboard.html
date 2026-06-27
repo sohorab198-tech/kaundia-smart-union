@@ -41,7 +41,7 @@
             <li onclick="switchSection('school-expenses', this)">
                 <i class="fa-solid fa-wallet"></i> শিক্ষকদের বেতন ও স্কুলের খরচ
             </li>
-            <li onclick="switchSection('notice-board', this)">
+           <li onclick="switchSection('notice-board', this)">
                 <i class="fa-solid fa-bullhorn"></i> নোটিশ বোর্ড
             </li>
             <li onclick="switchSection('class-routine', this)">
@@ -100,7 +100,10 @@
                 <div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; gap: 10px;">
                     <h4 style="margin: 0; color: #1e3a8a;"><i class="fa-solid fa-bolt"></i> প্রধান শিক্ষকের কুইক অ্যাকশন</h4>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    
+                   <div style="margin-bottom: 12px; width: 100%;">
+    <textarea id="input-teacher-notice" placeholder="শিক্ষকদের জন্য জরুরি নোটিশ লিখুন..." style="width: 100%; height: 55px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.95rem; resize: none; box-sizing: border-box; display: block; line-height: 1.4;"></textarea>
+</div>
+<button onclick="publishNoticeToTeachers()" style="width: 100%; padding: 10px; background: #ea580c; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 8px; box-sizing: border-box;"><i class="fa-solid fa-bullhorn"></i> শিক্ষকদের নোটিশ দিন</button>
                         <button style="width: 100%; padding: 10px; background: #10b981; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fa-solid fa-user-check"></i> ছুটি মঞ্জুর করুন</button>
                     </div>
                 </div>
@@ -563,46 +566,56 @@ function deleteTeacher(id) {
     <iframe src="school-accounting.html" style="width: 100%; height: 850px; border: none; background: transparent;"></iframe>
 </div>
 
-            <div id="section-notice-board" class="dashboard-section">
-                <div class="notice-flex-layout">
-                    <div class="notice-form-card">
-
-                   <h3><i class="fa-solid fa-pen-to-square"></i> নতুন নোটিশ তৈরি করুন</h3>
-                        <div class="form-group">
-                            <label>নোটিশের শিরোনাম:</label>
-                            <input type="text" id="noticeTitle" placeholder="উদা: অর্ধবার্ষিক পরীক্ষার রুটিন প্রকাশ">
-                        </div>
-                        <div class="form-group">
-                            <label>প্রকাশের তারিখ:</label>
-                            <input type="date" id="noticeDate">
-                        </div>
-                        <div class="form-group">
-                            <label>বিস্তারিত বিবরণ:</label>
-                            <textarea id="noticeDescription" rows="5" placeholder="নোটিশের বিস্তারিত তথ্য এখানে লিখুন..."></textarea>
-                        </div>
-                        <button class="btn-publish" onclick="publishNewNotice()">
-                            <i class="fa-solid fa-paper-plane"></i> নোটিশ লাইভ পাবলিশ করুন
-                        </button>
-                    </div>
-
-                    <div class="notice-list-card">
-                        <h3><i class="fa-solid fa-list-check"></i> এই প্রতিষ্ঠানের লাইভ নোটিশসমূহ</h3>
-                        <div style="overflow-x: auto;">
-                            <table class="saved-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 120px;">তারিখ</th>
-                                        <th>নোটিশের বিবরণ</th>
-                                        <th style="width: 100px; text-align: center;">অ্যাকশন</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="teacherNoticeLog"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<div id="section-notice-board" class="dashboard-section" style="display: none; padding: 20px;">
+    
+    <div style="margin-bottom: 30px;">
+        <h3 style="color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 0;">
+            <i class="fa-solid fa-shield-halved" style="color: #ea580c;"></i> প্রধান শিক্ষকের নোটিশ বোর্ড
+        </h3>
+        
+        <div id="teacher-live-box" style="background: #fff7ed; border-left: 5px solid #ea580c; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 15px;">
             </div>
 
+        <div id="teacher-archive-zone" style="display: none; background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px;">
+            <h5 style="margin: 0 0 10px 0; color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-clock-rotate-left"></i> বিগত ৩ দিনের পুরনো নোটিশ (আর্কাইভ)</h5>
+            <div id="teacher-archive-list">
+                </div>
+        </div>
+    </div>
+
+    <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #2563eb;">
+        <h3 style="margin-top: 0; color: #1e3a8a;"><i class="fa-solid fa-pen-to-square"></i> শিক্ষার্থীদের জন্য নতুন নোটিশ প্রকাশ করুন</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label for="select-notice-class" style="font-weight: 600; color: #334155; font-size: 0.9rem;">কোন ক্লাসের জন্য নোটিশ?</label>
+                <select id="select-notice-class" style="width: 100%; max-width: 300px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.9rem; background-color: #f8fafc; cursor: pointer;">
+                    <option value="all">সকল ক্লাসের জন্য নোটিশ</option>
+                    <option value="play">প্লে (Play)</option>
+                    <option value="nursery">নাসার্সারি (Nursery)</option>
+                    <option value="kg">কেজি (KG)</option>
+                    <option value="1">প্রথম শ্রেণি</option>
+                    <option value="2">দ্বিতীয় শ্রেণি</option>
+                    <option value="3">তৃতীয় শ্রেণি</option>
+                    <option value="4">চতুর্থ শ্রেণি</option>
+                    <option value="5">পঞ্চম শ্রেণি</option>
+                    <option value="6">ষষ্ঠ শ্রেণি</option>
+                    <option value="7">সপ্তম শ্রেণি</option>
+                    <option value="8">অষ্টম শ্রেণি</option>
+                    <option value="9">নবম শ্রেণি</option>
+                    <option value="10">দশম শ্রেণি</option>
+                </select>
+            </div>
+
+            <textarea id="input-student-notice" rows="3" placeholder="এখানে নোটিশটি লিখুন যা নির্দিষ্ট ক্লাসের শিক্ষার্থীরা তাদের ড্যাশবোর্ডে দেখতে পাবে..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+            
+            <button onclick="publishNoticeToStudents()" style="padding: 10px 20px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; align-self: flex-end;">
+                <i class="fa-solid fa-paper-plane"></i> নোটিশ প্রকাশ করুন
+            </button>
+        </div>
+    </div>
+
+</div>
             <div id="section-class-routine" class="dashboard-section">
                 <div class="lesson-plan-container" style="padding: 10px; background: transparent;">
     <iframe src="teacher-routine.html" style="width: 100%; height: 82vh; border: none; border-radius: 8px;"></iframe>
@@ -744,5 +757,12 @@ function deleteTeacher(id) {
     </div>
 
     <script src="dashboard.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof renderTeacherNotices === 'function') {
+            renderTeacherNotices();
+        }
+    });
+</script>
 </body>
 </html>

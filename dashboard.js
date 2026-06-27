@@ -355,3 +355,115 @@ function deleteNotice(noticeId) {
         renderTeacherNoticeList();
     }
 }
+// =========================================================================
+// 🔄 নতুন নোটিশ বোর্ড মেকানিজম (প্রধান শিক্ষক -> শিক্ষক এবং শিক্ষক -> ক্লাস ভিত্তিক শিক্ষার্থী)
+// =========================================================================
+
+// ১. প্রধান শিক্ষক কর্তৃক শিক্ষকদের জন্য নোটিশ প্রকাশ
+function publishNoticeToTeachers() {
+    const text = document.getElementById('input-teacher-notice').value.trim();
+    if (!text) return alert("দয়া করে নোটিশের বিষয়বস্তু লিখুন!");
+
+    const noticeData = {
+        text: text,
+        timestamp: Date.now(),
+        dateString: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    };
+
+    localStorage.setItem('headmaster_to_teachers_notice', JSON.stringify(noticeData));
+    alert("শিক্ষকদের জন্য নোটিশটি সফলভাবে প্রকাশিত হয়েছে!");
+    document.getElementById('input-teacher-notice').value = "";
+    renderTeacherNotices();
+}
+
+// ২. সাধারণ শিক্ষক কর্তৃক নির্দিষ্ট বা সকল ক্লাসের শিক্ষার্থীদের জন্য নোটিশ প্রকাশ
+function publishNoticeToStudents() {
+    const classSelect = document.getElementById('select-notice-class');
+    const textInput = document.getElementById('input-student-notice');
+    
+    if (!classSelect || !textInput) return;
+
+    const selectedClass = classSelect.value;
+    const text = textInput.value.trim();
+    const classNameBengali = classSelect.options[classSelect.selectedIndex].text;
+
+    if (!text) return alert("দয়া করে শিক্ষার্থীদের জন্য নোটিশের বিষয়বস্তু লিখুন!");
+
+    const noticeData = {
+        targetClass: selectedClass, 
+        className: classNameBengali, 
+        text: text,
+        timestamp: Date.now(),
+        dateString: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    };
+
+    localStorage.setItem('teachers_to_students_notice', JSON.stringify(noticeData));
+    alert(`${classNameBengali}-এর জন্য নোটিশটি সফলভাবে প্রকাশিত হয়েছে!`);
+    textInput.value = "";
+}
+
+// ৩. শিক্ষকদের সেকশনে প্রধান শিক্ষকের নোটিশ (লাইভ ও আর্কাইভ) প্রদর্শন করা
+function renderTeacherNotices() {
+    const liveBox = document.getElementById('teacher-live-box');
+    const archiveZone = document.getElementById('teacher-archive-zone');
+    const archiveList = document.getElementById('teacher-archive-list');
+    
+    // সেফটি চেক: যদি এলিমেন্টগুলো পেজে না থাকে তবে ক্র্যাশ এড়াতে রিটার্ন করবে
+    if (!liveBox) return;
+
+    const rawData = localStorage.getItem('headmaster_to_teachers_notice');
+    
+    if (!rawData) {
+        liveBox.innerHTML = `<p style="margin:0; text-align:center; color:#64748b; font-weight:500; padding: 10px;">📭 আজ শিক্ষকদের জন্য কোনো জরুরি নোটিশ নেই!</p>`;
+        if(archiveZone) archiveZone.style.display = 'none';
+        return;
+    }
+
+    try {
+        const notice = JSON.parse(rawData);
+        const now = Date.now();
+        const ageInHours = (now - notice.timestamp) / (1000 * 60 * 60);
+
+        if (ageInHours <= 24) {
+            liveBox.innerHTML = `
+                <h4 style="margin: 0 0 5px 0; color: #7c2d12;"><i class="fa-solid fa-bullhorn"></i> প্রধান শিক্ষকের জরুরি নির্দেশিকা</h4>
+                <p style="margin: 0; font-size: 0.95rem; color: #431407; line-height: 1.5; font-weight: 500;">${notice.text}</p>
+                <small style="color: #b45309; display: block; margin-top: 5px;"><i class="fa-regular fa-clock"></i> প্রকাশ: ${notice.dateString}</small>
+            `;
+            if(archiveZone) archiveZone.style.display = 'none';
+        } 
+        else if (ageInHours > 24 && ageInHours <= 96) {
+            liveBox.innerHTML = `<p style="margin:0; text-align:center; color:#64748b; font-weight:500; padding: 10px;">📭 আজ শিক্ষকদের জন্য কোনো নতুন নোটিশ নেই!</p>`;
+            
+            if(archiveZone && archiveList) {
+                archiveZone.style.display = 'block';
+                archiveList.innerHTML = `
+                    <div style="background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 5px;">
+                        <p style="margin: 0 0 5px 0; color: #334155; font-size: 0.9rem;">${notice.text}</p>
+                        <small style="color: #94a3b8;"><i class="fa-regular fa-clock"></i> আর্কাইভকৃত (মূল প্রকাশ: ${notice.dateString})</small>
+                    </div>
+                `;
+            }
+        } 
+        else {
+            localStorage.removeItem('headmaster_to_teachers_notice');
+            liveBox.innerHTML = `<p style="margin:0; text-align:center; color:#64748b; font-weight:500; padding: 10px;">📭 আজ শিক্ষকদের জন্য কোনো জরুরি নোটিশ নেই!</p>`;
+            if(archiveZone) archiveZone.style.display = 'none';
+        }
+    } catch (e) {
+        console.error("Notice parsing error:", e);
+    }
+}
+
+// ৪. পেজ লোড ও মেনু পরিবর্তনের সাথে সব নোটিশ একযোগে রেন্ডার করা
+function globalNoticeRunner() {
+    renderTeacherNotices();
+    // আপনার আগের পুরনো গ্লোবাল নোটিশ লিস্ট রেন্ডারারও চালু করে দেওয়া হলো
+    if (typeof renderTeacherNoticeList === 'function') {
+        renderTeacherNoticeList();
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    globalNoticeRunner();
+});

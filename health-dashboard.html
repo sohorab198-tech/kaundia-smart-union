@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বাস্থ্যকর্মী ড্যাশবোর্ড - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+        /* ==========================================
+           🔒 লগইন এরিয়া স্টাইল
+           ========================================== */
+        .login-box {
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin: 100px auto;
+            border-top: 5px solid #0d9488;
+        }
+        .login-box h2 {
+            color: #0f766e;
+            text-align: center;
+            margin-top: 0;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #334155;
+        }
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #0d9488;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-login:hover {
+            background: #0f766e;
+        }
+
+        /* ==========================================
+           📊 ড্যাশবোর্ড এরিয়া স্টাইল (প্রথমে হাইড থাকবে)
+           ========================================== */
+        #main-dashboard {
+            display: none;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        .btn-logout {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+        
+        /* স্ট্যাটাস কার্ডসমূহ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid #cbd5e1;
+        }
+        .stat-card.pregnant { border-left-color: #db2777; }
+        .stat-card.baby { border-left-color: #2563eb; }
+        .stat-card.worker { border-left-color: #10b981; }
+        
+        .stat-card i { font-size: 2rem; opacity: 0.8; }
+        .stat-card h3 { margin: 0; font-size: 1.5rem; color: #1e293b; }
+        .stat-card p { margin: 2px 0 0 0; color: #64748b; font-size: 0.95rem; }
+
+        /* ফিল্টার ও টেবিল এরিয়া */
+        .data-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .filter-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-wrapper select {
+            padding: 8px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        /* টেবিল রেসপনসিভনেস */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+        }
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge-pregnant { background: #fce7f3; color: #9d174d; }
+        .badge-baby { background: #dbeafe; color: #1e40af; }
+        
+        .btn-call {
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-call:hover { background: #059669; }
+        
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==========================================
+       🔒 সেকশন ১: সুরক্ষিত লগইন গেটওয়ে
+       ========================================== -->
+    <div id="login-section" class="login-box">
+        <h2><i class="fa-solid fa-user-shield"></i> কর্মী লগইন</h2>
+        <p style="text-align:center; color:#64748b; font-size:0.9rem; margin-top:-5px;">ডেমো আইডি: HA-101 | পাসওয়ার্ড: 12345</p>
+        
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="worker-id">স্বাস্থ্যকর্মী আইডি:</label>
+                <input type="text" id="worker-id" required placeholder="যেমন: HA-101">
+            </div>
+            <div class="form-group">
+                <label for="worker-pass">সিকিউরিটি পাসওয়ার্ড:</label>
+                <input type="password" id="worker-pass" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-login"><i class="fa-solid fa-lock-open"></i> ড্যাশবোর্ড অ্যাক্সেস করুন</button>
+        </form>
+    </div>
+
+    <!-- ==========================================
+       📊 সেকশন ২: মূল ড্যাশবোর্ড প্যানেল
+       ========================================== -->
+    <div id="main-dashboard">
+        
+        <!-- ড্যাশবোর্ড হেডার -->
+        <div class="dashboard-header">
+            <div>
+                <h2 style="margin:0; font-size:1.6rem;"><i class="fa-solid fa-chart-line"></i> কাউন্দিয়া ইউনিয়ন ডিজিটাল হেলথ প্যানেল</h2>
+                <p style="margin:5px 0 0 0; opacity:0.9;">স্বাগতম, <span id="worker-profile-name" style="font-weight:700;">জনাব রফিকুল ইসলাম (Health Assistant)</span></p>
+            </div>
+            <button onclick="handleLogout()" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> লগআউট</button>
+        </div>
+
+        <!-- টপ স্ট্যাটাস কার্ডস -->
+        <div class="stats-grid">
+            <div class="stat-card pregnant">
+                <i class="fa-solid fa-person-pregnant" style="color: #db2777;"></i>
+                <div>
+                    <h3 id="count-pregnant">০</h3>
+                    <p>মোট গর্ভবতী মা</p>
+                </div>
+            </div>
+            <div class="stat-card baby">
+                <i class="fa-solid fa-baby" style="color: #2563eb;"></i>
+                <div>
+                    <h3 id="count-baby">০</h3>
+                    <p>মোট শিশু (টিকা)</p>
+                </div>
+            </div>
+            <div class="stat-card worker">
+                <i class="fa-solid fa-house-user" style="color: #10b981;"></i>
+                <div>
+                    <h3 id="current-viewing-ward">সব</h3>
+                    <p>প্রদর্শিত ওয়ার্ড নম্বর</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ডেটা টেবিল ও ফিল্টার এরিয়া -->
+        <div class="data-section">
+            <div class="filter-wrapper">
+                <h3 style="margin:0; color:#1e293b;"><i class="fa-solid fa-users-viewfinder"></i> সেবাগ্রহীতাদের ডাটাবেস</h3>
+                
+                <!-- জাদুকরী ফিল্টার ড্রপডাউন -->
+                <div>
+                    <label style="font-weight:600; margin-right:8px; color:#475569;">ওয়ার্ড ফিল্টার:</label>
+                    <select id="filter-ward" onchange="renderDataTable()">
+                        <option value="all">সকল ওয়ার্ড একসাথে দেখুন</option>
+                        <option value="1">১ নম্বর ওয়ার্ড</option>
+                        <option value="2">২ নম্বর ওয়ার্ড</option>
+                        <option value="3">৩ নম্বর ওয়ার্ড</option>
+                        <option value="4">৪ নম্বর ওয়ার্ড</option>
+                        <option value="5">৫ নম্বর ওয়ার্ড</option>
+                        <option value="6">৬ নম্বর ওয়ার্ড</option>
+                        <option value="7">৭ নম্বর ওয়ার্ড</option>
+                        <option value="8">৮ নম্বর ওয়ার্ড</option>
+                        <option value="9">৯ নম্বর ওয়ার্ড</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- মূল টেবিল -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ধরণ</th>
+                            <th>নাম</th>
+                            <th>অভিভাবকের নাম</th>
+                            <th>মোবাইল নম্বর</th>
+                            <th>ওয়ার্ড</th>
+                            <th>বর্তমান অবস্থা (মাস/বয়স)</th>
+                            <th>নিবন্ধনের সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-rows">
+                        <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে ডেটা রো জেনারেট হবে -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ==========================================
+   ⚙️ জাভাস্ক্রিপ্ট লজিক ও লোকালস্টোরেজ কানেকশন
+   ========================================== -->
+<script>
+    // ১. লগইন হ্যান্ডলার ফাংশন
+    function handleLogin(event) {
+        event.preventDefault();
+        const id = document.getElementById('worker-id').value.trim();
+        const pass = document.getElementById('worker-pass').value;
+
+        // ডেমো অ্যাকাউন্ট দিয়ে চেক করা
+        if(id === "HA-101" && pass === "12345") {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('main-dashboard').style.display = 'block';
+            
+            // ডেটাবেস লোড করা
+            loadDashboardData();
+        } else {
+            alert('ভুল আইডি অথবা পাসওয়ার্ড দিয়েছেন! অনুগ্রহ করে সঠিক তথ্য দিন।');
+        }
+    }
+
+    // ২. লগআউট হ্যান্ডলার ফাংশن
+    function handleLogout() {
+        document.getElementById('login-section').style.display = 'block';
+        document.getElementById('main-dashboard').style.display = 'none';
+        document.getElementById('worker-id').value = '';
+        document.getElementById('worker-pass').value = '';
+    }
+
+    // ৩. লোকালস্টোরেজ থেকে ডেটা নিয়ে এসে স্ট্যাটাস আপডেট এবং টেবিল তৈরি করা
+    function loadDashboardData() {
+        renderDataTable();
+    }
+
+    function renderDataTable() {
+        const selectedWard = document.getElementById('filter-ward').value;
+        const tbody = document.getElementById('data-rows');
+        tbody.innerHTML = ''; // আগের জমানো রো মুছে ফেলা
+
+        // health.html এ ব্যবহৃত চাবিকাঠি 'kaudiaHealthData' দিয়ে ডাটা রিড করা
+        let allData = JSON.parse(localStorage.getItem('kaudiaHealthData')) || [];
+
+        // স্বাস্থ্যকর্মী বাদে শুধুমাত্র 'pregnant' এবং 'baby' দের ফিল্টার করা
+        let citizenData = allData.filter(item => item.type === 'pregnant' || item.type === 'baby');
+
+        // স্ট্যাটাস কার্ডের কাউন্টার আপডেট (ফিল্টারিং এর আগেই মোট হিসাব রাখার জন্য)
+        const totalPregnant = citizenData.filter(item => item.type === 'pregnant').length;
+        const totalBaby = citizenData.filter(item => item.type === 'baby').length;
+        document.getElementById('count-pregnant').innerText = totalPregnant;
+        document.getElementById('count-baby').innerText = totalBaby;
+
+        // ওয়ার্ড ফিল্টার অ্যাপ্লাই করা
+        if (selectedWard !== 'all') {
+            citizenData = citizenData.filter(item => item.ward === selectedWard);
+            document.getElementById('current-viewing-ward').innerText = selectedWard + " নং";
+        } else {
+            document.getElementById('current-viewing-ward').innerText = "সব";
+        }
+
+        // যদি কোনো ডাটা না থাকে
+        if(citizenData.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" class="no-data">এই ওয়ার্ডে কোনো মা বা শিশুর তথ্য এখনো নিবন্ধন করা হয়নি।</td></tr>`;
+            return;
+        }
+
+        // ডাটা লুপ চালিয়ে টেবিল তৈরি করা
+        citizenData.forEach(item => {
+            const row = document.createElement('tr');
+
+            // ব্যাজ ডিজাইন নির্ধারণ
+            const typeBadge = item.type === 'pregnant' 
+                ? `<span class="badge badge-pregnant">🤰 গর্ভবতী মা</span>` 
+                : `<span class="badge badge-baby">👶 শিশু</span>`;
+
+            // অতিরিক্ত তথ্যের লেবেল
+            const extraLabel = item.type === 'pregnant' ? ' মাস' : ' মাস (বয়স)';
+
+            row.innerHTML = `
+                <td>${typeBadge}</td>
+                <td style="font-weight:600; color:#1e293b;">${item.name}</td>
+                <td>${item.guardian}</td>
+                <td>
+                    <a href="tel:${item.phone}" class="btn-call">
+                        <i class="fa-solid fa-phone"></i> ${item.phone}
+                    </a>
+                </td>
+                <td style="font-weight:600;">${item.ward} নং</td>
+                <td><strong>${item.extraInfo}</strong>${extraLabel}</td>
+                <td style="font-size:0.85rem; color:#64748b;">${item.date}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+</script>
+
+</body>
+</html>
