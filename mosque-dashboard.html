@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মসজিদ ড্যাশবোর্ড - নামাজের সময়সূচি পরিবর্তন</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f0fdfa; /* হালকা ব্যাকগ্রাউন্ড */
+            color: #1e293b;
+            padding: 40px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .dashboard-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 600px;
+            border-top: 5px solid #0284c7; /* মসজিদের জন্য থিম নীল */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+        .header h2 { font-size: 24px; color: #0284c7; margin-bottom: 5px; }
+        .header p { color: #64748b; font-size: 15px; }
+        
+        .info-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        .info-box div { margin-bottom: 5px; }
+        .info-box i { color: #0284c7; width: 20px; }
+
+        .time-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .time-row label { font-weight: 600; font-size: 16px; color: #334155; }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 15px;
+            text-align: center;
+            font-weight: bold;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-control:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        
+        .btn-update {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Hind Siliguri', sans-serif;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-update:hover { background-color: #0369a1; }
+        
+        .btn-cancel {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-cancel:hover { color: #1e293b; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="header">
+        <h2 id="mosqueName"><i class="fa-solid fa-mosque"></i> মসজিদ লোড হচ্ছে...</h2>
+        <p>নামাজের সময়সূচি পরিবর্তন মোড</p>
+    </div>
+
+    <div class="info-box">
+        <div><i class="fa-solid fa-user"></i> <strong>ইমাম:</strong> <span id="imamInfo">লোড হচ্ছে...</span></div>
+        <div><i class="fa-solid fa-bullhorn"></i> <strong>মুয়াজ্জিন:</strong> <span id="muazzinInfo">লোড হচ্ছে...</span></div>
+        <div><i class="fa-solid fa-location-dot"></i> <strong>এলাকা:</strong> <span id="areaInfo">লোড হচ্ছে...</span></div>
+    </div>
+
+    <form id="timeUpdateForm" onsubmit="updateNamazTimes(event)">
+        <div class="time-table">
+            <div class="time-row">
+                <label>ফজর:</label>
+                <input type="text" id="fajr" class="form-control" required>
+            </div>
+            <div class="time-row">
+                <label>যোহর:</label>
+                <input type="text" id="zuhr" class="form-control" required>
+            </div>
+            <div class="time-row">
+                <label>আসর:</label>
+                <input type="text" id="asr" class="form-control" required>
+            </div>
+            <div class="time-row">
+                <label>মাগরিব:</label>
+                <input type="text" id="maghrib" class="form-control" required>
+            </div>
+            <div class="time-row">
+                <label>এশা:</label>
+                <input type="text" id="isha" class="form-control" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-update">
+            <i class="fa-solid fa-floppy-disk"></i> সময়সূচি আপডেট করুন
+        </button>
+        <a href="institutions.html" class="btn-cancel">কোনো পরিবর্তন ছাড়া ফিরে যান</a>
+    </form>
+</div>
+
+<script>
+    let currentMosqueId = '';
+    let institutionsList = [];
+
+    // পেজ লোড হওয়ার সাথে সাথে ইউআরএল থেকে আইডি রিড করা এবং ডেটা বসানো
+    document.addEventListener('DOMContentLoaded', () => {
+        // URL থেকে ?id=MQ-XXXX অংশটি বের করা
+        const urlParams = new URLSearchParams(window.location.search);
+        currentMosqueId = urlParams.get('id');
+
+        if (!currentMosqueId) {
+            alert('❌ কোনো বৈধ মসজিদ আইডি পাওয়া যায়নি!');
+            window.location.href = 'institutions.html';
+            return;
+        }
+
+        // লোকালস্টোরেজ থেকে লাইভ তালিকা নিয়ে আসা
+        institutionsList = JSON.parse(localStorage.getItem('institutions')) || [];
+        
+        // নির্দিষ্ট মসজিদটি খুঁজে বের করা
+        const mosque = institutionsList.find(item => item.id === currentMosqueId);
+
+        if (!mosque) {
+            alert('❌ মসজিদের তথ্য ডাটাবেজে পাওয়া যায়নি!');
+            window.location.href = 'institutions.html';
+            return;
+        }
+
+        // স্ক্রিনে মসজিদের তথ্য শো করানো
+        document.getElementById('mosqueName').innerHTML = `<i class="fa-solid fa-mosque"></i> ${mosque.name}`;
+        document.getElementById('imamInfo').innerText = `${mosque.leader || 'N/A'} (${mosque.phone || 'N/A'})`;
+        document.getElementById('muazzinInfo').innerText = `${mosque.muazzin || 'N/A'} (${mosque.muazzinPhone || 'N/A'})`;
+        document.getElementById('areaInfo').innerText = mosque.area;
+
+        // ইনপুট বক্সে বর্তমান নামাজের সময়গুলো বসানো
+        if (mosque.namazTimes) {
+            document.getElementById('fajr').value = mosque.namazTimes.fajr;
+            document.getElementById('zuhr').value = mosque.namazTimes.zuhr;
+            document.getElementById('asr').value = mosque.namazTimes.asr;
+            document.getElementById('maghrib').value = mosque.namazTimes.maghrib;
+            document.getElementById('isha').value = mosque.namazTimes.isha;
+        }
+    });
+
+    // নতুন সময়সূচি লোকালস্টোরেজে আপডেট করার ফাংশন
+    function updateNamazTimes(e) {
+        e.preventDefault();
+
+        // লুপ চালিয়ে সঠিক মসজিদটি খুঁজে তার সময় পরিবর্তন করা
+        institutionsList = institutionsList.map(item => {
+            if (item.id === currentMosqueId) {
+                item.namazTimes = {
+                    fajr: document.getElementById('fajr').value,
+                    zuhr: document.getElementById('zuhr').value,
+                    asr: document.getElementById('asr').value,
+                    maghrib: document.getElementById('maghrib').value,
+                    isha: document.getElementById('isha').value
+                };
+            }
+            return item;
+        });
+
+        // লোকালস্টোরেজে নতুন ডেটা সেভ করা
+        localStorage.setItem('institutions', JSON.stringify(institutionsList));
+
+        alert('🕌 আলহামদুলিল্লাহ, আপনার মসজিদের নামাজের সময়সূচি সফলভাবে আপডেট হয়েছে!');
+        window.location.href = 'institutions.html'; // মূল পোর্টালে রিডাইরেক্ট
+    }
+</script>
+
+</body>
+</html>

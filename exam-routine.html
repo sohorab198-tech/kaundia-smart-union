@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পরীক্ষার রুটিন - শিক্ষার্থী ভিউ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 15px;
+        }
+        .student-print-area {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header-area {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 15px;
+        }
+        .header-area h2 { margin: 0; color: #1e293b; font-size: 22px; }
+        .header-area h4 { margin: 5px 0; color: #475569; font-size: 16px; }
+        .class-badge {
+            display: inline-block;
+            background: #0d9488;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            text-align: center;
+        }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        td { font-size: 0.95rem; }
+        .time-text { color: #64748b; font-size: 0.8rem; display: block; margin-top: 3px; }
+        .btn-container { margin-top: 20px; text-align: right; }
+        .btn-print {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Hind Siliguri', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn-print:hover { background: #2563eb; }
+        .error-message { text-align: center; color: #ef4444; font-weight: 600; padding: 20px; }
+
+        /* 🖨️ প্রিন্ট ফরম্যাট */
+        @media print {
+            body { background: white; padding: 0; }
+            .student-print-area { box-shadow: none; padding: 0; max-width: 100%; }
+            .btn-container { display: none !important; }
+            th { background: #e2e8f0 !important; color: black !important; -webkit-print-color-adjust: exact; }
+            table, th, td { border: 1px solid #000 !important; }
+            .header-area { border-bottom: 2px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="student-print-area">
+    <!-- অটোমেটিক প্রিন্ট হেডার -->
+    <div class="header-area">
+        <h2 id="stu-school">স্কুলের নাম লোড হচ্ছে...</h2>
+        <h4 id="stu-exam">পরীক্ষার নাম লোড হচ্ছে...</h4>
+        <div class="class-badge">শ্রেণী: <span id="stu-class-label">-</span></div>
+    </div>
+
+    <!-- রুটিন টেবিল -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">তারিখ ও বার</th>
+                <th style="width: 65%;">পরীক্ষার সময় ও বিষয়</th>
+            </tr>
+        </thead>
+        <tbody id="student-routine-tbody">
+            <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক ডেটা বসবে -->
+        </tbody>
+    </table>
+    
+    <!-- প্রিন্ট বাটন -->
+    <div class="btn-container">
+        <button class="btn-print" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> রুটিন প্রিন্ট / PDF ডাউনলোড
+        </button>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        // ১. ব্রাউজারের URL থেকে 'class' প্যারামিটারটি খুঁজে বের করা (যেমন: exam-routine.html?class=৮ম)
+        const urlParams = new URLSearchParams(window.location.search);
+        let studentClass = urlParams.get('class');
+
+        // যদি URL-এ ক্লাস না পাওয়া যায়, তবে লোকালস্টোরেজে লগইন থাকা শিক্ষার্থীর ক্লাস চেক করবে
+        if(!studentClass) {
+            // আপনার সিস্টেমে লগইন করা শিক্ষার্থীর ডেটা যেভাবে সেভ থাকে, সেখান থেকে নিতে পারেন
+            // ডেমো হিসেবে আমরা ধরি নিলাম '৮ম'
+            studentClass = localStorage.getItem('currentStudentClass') || '৮ম'; 
+        }
+
+        generateStudentRoutine(studentClass);
+    }
+
+    function generateStudentRoutine(studentClass) {
+        document.getElementById('stu-class-label').innerText = studentClass;
+
+        // লোকালস্টোরেজ থেকে শিক্ষকের তৈরি মাস্টার রুটিন তুলে আনা
+        const savedRoutine = localStorage.getItem('kaundiaMasterRoutine');
+        if(!savedRoutine) {
+            document.getElementById('student-routine-tbody').innerHTML = `
+                <tr><td colspan="2" class="error-message"><i class="fa-solid fa-triangle-exclamation"></i> কোনো রুটিন এখনো প্রকাশ করা হয়নি।</td></tr>`;
+            return;
+        }
+
+        const parsed = JSON.parse(savedRoutine);
+        document.getElementById('stu-school').innerText = parsed.schoolName;
+        document.getElementById('stu-exam').innerText = `${parsed.examName} - ${parsed.examYear}`;
+
+        // এই শিক্ষার্থীর ক্লাস কোন শিফটে আছে এবং কলাম ইনডেক্স কত তা বের করা
+        let classIndex = parsed.shift1Classes.indexOf(studentClass);
+        let isShift1 = true;
+        let timeLabel = "সকাল ০৮:০০ টা - ১০:০০ টা";
+
+        if(classIndex === -1) {
+            classIndex = parsed.shift2Classes.indexOf(studentClass);
+            isShift1 = false;
+            timeLabel = "সকাল ১০:৩০ টা - ০১:০০ টা";
+        }
+
+        // যদি এই ক্লাসের কোনো কলামই মাস্টার রুটিনে না থাকে
+        if(classIndex === -1) {
+            document.getElementById('student-routine-tbody').innerHTML = `
+                <tr><td colspan="2" class="error-message">আপনার শ্রেণীর (${studentClass}) জন্য কোনো রুটিন পাওয়া যায়নি।</td></tr>`;
+            return;
+        }
+
+        // ফাইনাল ইনডেক্স নির্ধারণ
+        const finalSubjectIndex = isShift1 ? classIndex : parsed.shift1Classes.length + classIndex;
+        const tbody = document.getElementById('student-routine-tbody');
+        tbody.innerHTML = '';
+
+        let totalExams = 0;
+
+        // প্রতিটি তারিখের সারি থেকে শুধু এই নির্দিষ্ট ক্লাসের সাবজেক্ট বের করা
+        parsed.rows.forEach(row => {
+            const subjectName = row.subjects[finalSubjectIndex];
+            
+            // যদি ওইদিন পরীক্ষা না থাকে (খালি, 'x', বা '❌' থাকে) তবে রুটিনে দেখাবে না
+            if(!subjectName || subjectName.trim() === '' || subjectName.trim().toLowerCase() === 'x' || subjectName.trim() === '❌') {
+                return; 
+            }
+
+            totalExams++;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="font-weight: 600; color: #1e293b;">${row.dateDay}</td>
+                <td>
+                    <strong style="color: #0f766e; font-size: 1.05rem;">${subjectName}</strong> 
+                    <span class="time-text"><i class="fa-regular fa-clock"></i> ${timeLabel}</span>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        if(totalExams === 0) {
+            document.getElementById('student-routine-tbody').innerHTML = `
+                <tr><td colspan="2" class="error-message">আপনার শ্রেণীর জন্য এই মুহূর্তে কোনো পরীক্ষা নেই।</td></tr>`;
+        }
+    }
+</script>
+</body>
+</html>

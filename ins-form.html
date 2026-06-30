@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নতুন প্রতিষ্ঠান রেজিস্ট্রেশন - কাউন্দিয়া ইউনিয়ন পোর্টাল</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 650px;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+        .form-header h2 { font-size: 24px; color: #0d9488; }
+        .form-header p { color: #64748b; font-size: 14px; margin-top: 5px; }
+        
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 15px; }
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-control:focus { border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15); }
+        
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        
+        /* 🕌 মসজিদের বিশেষ নামাজের টেবিল স্টাইল */
+        .namaz-section {
+            background: #f0fdfa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #99f6e4;
+            margin-top: 15px;
+        }
+        .namaz-section h4 { margin-bottom: 10px; color: #0d9488; border-bottom: 1px solid #ccfbf1; padding-bottom: 5px; }
+        .namaz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        
+        .btn-submit {
+            background-color: #0d9488;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Hind Siliguri', sans-serif;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+        .btn-submit:hover { background-color: #0f766e; }
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-back:hover { color: #1e293b; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fa-solid fa-hotel"></i> নতুন প্রতিষ্ঠান রেজিস্ট্রেশন</h2>
+        <p>কাউন্দিয়া ইউনিয়ন শিক্ষা ও ধর্মীয় পোর্টাল ডেটাবেজ</p>
+    </div>
+
+    <form id="insRegForm" onsubmit="handleRegistration(event)">
+        <div class="form-group">
+            <label>প্রতিষ্ঠানের নাম:</label>
+            <input type="text" id="insName" class="form-control" placeholder="যেমন: কাউন্দিয়া মডেল হাই স্কুল" required>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label>এলাকা/গ্রাম:</label>
+                <select id="insArea" class="form-control" required>
+                    <option value="" disabled selected>বাছাই করুন</option>
+                    <option value="মধ্য কাউন্দিয়া">মধ্য কাউন্দিয়া</option>
+                    <option value="উত্তর কাউন্দিয়া">উত্তর কাউন্দিয়া</option>
+                    <option value="দক্ষিণ কাউন্দিয়া">দক্ষিণ কাউন্দিয়া</option>
+                    <option value="পশ্চিম পাড়া">পশ্চিম পাড়া</option>
+                    <option value="বাঘসাত্রা">বাঘসাত্রা</option>
+                    <option value="সিংড়াসার">সিংড়াসার</option>
+                    <option value="নয়াবাজার">নয়াবাজার</option>
+                    <option value="পাচকানী">পাচকানী</option>
+                    <option value="ঘাসিদিয়া">ঘাসিদিয়া</option>
+                    <option value="গোয়ালবাড়ী">গোয়ালবাড়ী</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>প্রতিষ্ঠানের ধরণ:</label>
+                <select id="insType" class="form-control" onchange="toggleFormFields()" required>
+                    <option value="" disabled selected>বাছাই করুন</option>
+                    <option value="কিন্ডারগার্টেন">কিন্ডারগার্টেন</option>
+                    <option value="সরকারি প্রাথমিক বিদ্যালয়">সরকারি প্রাথমিক বিদ্যালয়</option>
+                    <option value="হাই স্কুল">হাই স্কুল</option>
+                    <option value="কিন্ডারগার্টেন অ্যান্ড হাই স্কুল">কিন্ডারগার্টেন অ্যান্ড হাই স্কুল</option>
+                    <option value="মাদ্রাসা">মাদ্রাসা</option>
+                    <option value="মসজিদ">মসজিদ</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label id="leaderNameLabel">প্রধান শিক্ষকের নাম:</label>
+                <input type="text" id="insLeader" class="form-control" placeholder="পূর্ণ নাম লিখুন" required>
+            </div>
+            <div class="form-group">
+                <label id="leaderPhoneLabel">মোবাইল নম্বর:</label>
+                <input type="text" id="insPhone" class="form-control" placeholder="যেমন: 017XXXXXXXX" required>
+            </div>
+        </div>
+
+        <div class="form-group" id="eiinGroup">
+            <label>ইআইআইএন (EIIN) নম্বর:</label>
+            <input type="number" id="insEiin" class="form-control" placeholder="যেমন: ১০৪৫৫৬">
+        </div>
+
+        <div id="mosqueFields" style="display: none;">
+            <div class="form-group">
+                <label>মুয়াজ্জিনের নাম ও মোবাইল (ঐচ্ছিক):</label>
+                <input type="text" id="muazzinInfo" class="form-control" placeholder="যেমন: মোঃ বিলাল হোসেন (01800-00000)">
+            </div>
+            <div class="namaz-section">
+                <h4><i class="fa-solid fa-clock"></i> পাঁচ ওয়াক্ত নামাজের প্রাথমিক সময়সূচি:</h4>
+                <div class="namaz-grid">
+                    <div class="form-group"><label style="font-size:13px;">ফজর:</label><input type="text" id="fajr" class="form-control" value="৪:১৫"></div>
+                    <div class="form-group"><label style="font-size:13px;">যোহর:</label><input type="text" id="zuhr" class="form-control" value="১:১৫"></div>
+                    <div class="form-group"><label style="font-size:13px;">আসর:</label><input type="text" id="asr" class="form-control" value="৪:৪৫"></div>
+                    <div class="form-group"><label style="font-size:13px;">মাগরিব:</label><input type="text" id="maghrib" class="form-control" value="৬:৫৫"></div>
+                    <div class="form-group"><label style="font-size:13px;">এশা:</label><input type="text" id="isha" class="form-control" value="৮:৩০"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+            <label id="passLabel">লগইন পাসওয়ার্ড সেট করুন:</label>
+            <input type="password" id="insPassword" class="form-control" placeholder="গোপন পিন বা পাসওয়ার্ড দিন" required>
+        </div>
+
+        <button type="submit" class="btn-submit">আবেদন জমা দিন</button>
+        <a href="institutions.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> পোর্টালে ফিরে যান</a>
+    </form>
+</div>
+
+<script>
+    function toggleFormFields() {
+        const type = document.getElementById('insType').value;
+        const eiinGroup = document.getElementById('eiinGroup');
+        const mosqueFields = document.getElementById('mosqueFields');
+        const insEiin = document.getElementById('insEiin');
+        
+        const leaderNameLabel = document.getElementById('leaderNameLabel');
+        const leaderPhoneLabel = document.getElementById('leaderPhoneLabel');
+        const passLabel = document.getElementById('passLabel');
+
+        if(type === 'মসজিদ') {
+            eiinGroup.style.display = 'none';
+            insEiin.removeAttribute('required');
+            mosqueFields.style.display = 'block';
+            
+            leaderNameLabel.innerText = "ইমামের নাম:";
+            leaderPhoneLabel.innerText = "ইমামের মোবাইল নম্বর:";
+            passLabel.innerText = "লগইন পিন কোড সেট করুন (৪ ডিজিট):";
+        } else {
+            eiinGroup.style.display = 'block';
+            insEiin.setAttribute('required', 'required');
+            mosqueFields.style.display = 'none';
+            
+            leaderNameLabel.innerText = type === 'মাদ্রাসা' ? "মুহতামিম / সুপারের নাম:" : "প্রধান শিক্ষকের নাম:";
+            leaderPhoneLabel.innerText = "মোবাইল নম্বর:";
+            passLabel.innerText = "লগইন পাসওয়ার্ড সেট করুন:";
+        }
+    }
+    
+   function handleRegistration(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('insName').value;
+        const area = document.getElementById('insArea').value;
+        const type = document.getElementById('insType').value;
+        const leader = document.getElementById('insLeader').value;
+        const phone = document.getElementById('insPhone').value;
+        const password = document.getElementById('insPassword').value;
+        
+        let id = '';
+        let institutionData = { name, area, type, leader, phone, password, status: 'pending' };
+
+        if(type === 'মসজিদ') {
+            const lastDigits = phone.replace(/[^0-9]/g, '').slice(-4);
+            id = 'MQ-' + (lastDigits || Math.floor(1000 + Math.random() * 9000));
+            
+            institutionData.muazzinInfo = document.getElementById('muazzinInfo').value || 'N/A';
+            institutionData.namazTimes = {
+                fajr: document.getElementById('fajr').value,
+                zuhr: document.getElementById('zuhr').value,
+                asr: document.getElementById('asr').value,
+                maghrib: document.getElementById('maghrib').value,
+                isha: document.getElementById('isha').value
+            };
+        } else {
+            id = document.getElementById('insEiin').value;
+            institutionData.eiin = id;
+        }
+        
+        institutionData.id = id;
+
+        // আপনার অ্যাডমিন প্যানেলের 'pending_institutions' localStorage কী (Key) ম্যাপিং
+        let pendingList = JSON.parse(localStorage.getItem('pending_institutions')) || [];
+        let liveList = JSON.parse(localStorage.getItem('institutions')) || [];
+        
+        // আইডি ডুপ্লিকেট চেক (পেন্ডিং এবং লাইভ দুই জায়গাতেই চেক করা হচ্ছে)
+        if(pendingList.some(item => item.id === id) || liveList.some(item => item.id === id)) {
+            alert('❌ এই EIIN নম্বর বা মোবাইল আইডি দিয়ে ইতিমধ্যে আবেদন করা হয়েছে!');
+            return;
+        }
+
+        pendingList.push(institutionData);
+        localStorage.setItem('pending_institutions', JSON.stringify(pendingList));
+
+        alert('🎉 আপনার আবেদনটি সফলভাবে জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করার পর এটি লাইভ পোর্টালে দেখা যাবে।');
+        window.location.href = 'institutions.html';
+    }
+</script>
+</body>
+</html>

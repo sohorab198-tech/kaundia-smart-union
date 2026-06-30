@@ -477,134 +477,24 @@
                 <option value="গোয়ালবাড়ি">গোয়ালবাড়ি</option>
             </select>
         </div>
-        <div class="filter-group">
-            <label>প্রতিষ্ঠানের ধরণ:</label>
-            <select id="typeFilter">
-                <option value="">সব ধরণের প্রতিষ্ঠান</option>
-                <option value="kindergarten">কিন্ডারগার্টেন</option>
-                <option value="primary">সরকারি প্রাথমিক বিদ্যালয়</option>
-                <option value="high">হাই স্কুল</option>
-                <option value="kg-high">কিন্ডারগার্টেন অ্যান্ড হাই স্কুল</option>
-                <option value="madrasah">মাদরাসা</option>
-                <option value="mosque">মসজিদ</option>
-            </select>
-        </div>
-        <button class="reg-btn">
-            <i class="fa-solid fa-plus"></i> নতুন রেজিস্ট্রেশন
-        </button>
+       <div class="filter-group">
+    <label>প্রতিষ্ঠানের ধরণ:</label>
+    <select id="typeFilter">
+        <option value="">সব ধরণের প্রতিষ্ঠান</option>
+        <option value="কিন্ডারগার্টেন">কিন্ডারগার্টেন</option>
+        <option value="হাই স্কুল">হাই স্কুল</option>
+        <option value="কিন্ডারগার্টেন অ্যান্ড হাই স্কুল">কিন্ডারগার্টেন অ্যান্ড হাই স্কুল</option>
+        <option value="মাদ্রাসা">মাদ্রাসা</option>
+        <option value="মসজিদ">মসজিদ</option>
+    </select>
+</div>
+       <a href="ins-form.html" class="reg-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+    <i class="fa-solid fa-plus"></i> নতুন রেজিস্ট্রেশন
+</a>
     </div>
 
     <!-- 🏫 প্রতিষ্ঠানের তালিকা গ্রিড -->
     <div class="institutions-grid" id="institutionsGrid">
-        
-        <!-- ১. কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয় -->
-        <div class="card" data-area="উত্তর কাউন্দিয়া" data-type="primary">
-            <div class="card-header">
-                <h3>কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয়</h3>
-                <div class="meta-list">
-                    <span><i class="fa-solid fa-location-dot"></i> পশ্চিম পাড়া</span>
-                    <span><i class="fa-solid fa-layer-group"></i> সরকারি প্রাথমিক বিদ্যালয়</span>
-                    <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ১০১২২৩</span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-student" onclick="openModal('student', 'কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয়')"><i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)</button>
-                <div class="action-row">
-                    <button class="btn btn-view" onclick="openNoticeModal('কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয়')"><i class="fa-solid fa-eye"></i> রুটিন ও নোটিশ</button>
-                    <button class="btn btn-login" onclick="openModal('admin', 'কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয়')"><i class="fa-solid fa-lock"></i> স্কুল লগইন</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ২. কাউন্দিয়া মডেল হাই স্কুল -->
-        <div class="card" data-area="মধ্য কাউন্দিয়া" data-type="kg-high">
-            <div class="card-header">
-                <h3>কাউন্দিয়া মডেল হাই স্কুল</h3>
-                <div class="meta-list">
-                    <span><i class="fa-solid fa-location-dot"></i> বাগসাত্রা</span>
-                    <span><i class="fa-solid fa-layer-group"></i> কিন্ডারগার্টেন অ্যান্ড হাই স্কুল</span>
-                    <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ১০৪৫৫৬</span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-student" onclick="openModal('student', 'কাউন্দিয়া মডেল হাই স্কুল')"><i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)</button>
-                <div class="action-row">
-                    <button class="btn btn-view" onclick="openNoticeModal('কাউন্দিয়া মডেল হাই স্কুল')"><i class="fa-solid fa-eye"></i> রুটিন ও নোটিশ</button>
-                    <button class="btn btn-login" onclick="openModal('admin', 'কাউন্দিয়া মডেল হাই স্কুল')"><i class="fa-solid fa-lock"></i> স্কুল লগইন</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ৩. কাউন্দিয়া শহীদ স্মৃতি হাই স্কুল -->
-        <div class="card" data-area="দক্ষিণ কাউন্দিয়া" data-type="high">
-            <div class="card-header">
-                <h3>কাউন্দিয়া শহীদ স্মৃতি হাই স্কুল</h3>
-                <div class="meta-list">
-                    <span><i class="fa-solid fa-location-dot"></i> মধ্য কাউন্দিয়া</span>
-                    <span><i class="fa-solid fa-layer-group"></i> হাই স্কুল</span>
-                    <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ১০৭৮৮৯</span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-student" onclick="openModal('student', 'কাউন্দিয়া শহীদ স্মৃতি হাই স্কুল')"><i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)</button>
-                <div class="action-row">
-                    <button class="btn btn-view" onclick="openNoticeModal('কাউন্দিয়া শহীদ স্মৃতি হাই স্কুল')"><i class="fa-solid fa-eye"></i> রুটিন ও নোটিশ</button>
-                    <button class="btn btn-login" onclick="openModal('admin', 'কাউন্দিয়া শহীদ স্মৃতি হাই স্কুল')"><i class="fa-solid fa-lock"></i> স্কুল লগইন</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ৪. দারুল উলুম দাখিল মাদরাসা -->
-        <div class="card" data-area="বাগসাত্রা" data-type="madrasah">
-            <div class="card-header">
-                <h3>দারুল উলুম দাখিল মাদরাসা</h3>
-                <div class="meta-list">
-                    <span><i class="fa-solid fa-location-dot"></i> বাগসাত্রা</span>
-                    <span><i class="fa-solid fa-layer-group"></i> মাদরাসা</span>
-                    <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ১১২২৩৩</span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-student" onclick="openModal('student', 'দারুল উলুম দাখিল মাদরাসা')"><i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)</button>
-                <div class="action-row">
-                    <button class="btn btn-view" onclick="openNoticeModal('দারুল উলুম দাখিল মাদরাসা')"><i class="fa-solid fa-eye"></i> রুটিন ও নোটিশ</button>
-                    <button class="btn btn-login" onclick="openModal('admin', 'দারুল উলুম দাখিল মাদরাসা')"><i class="fa-solid fa-lock"></i> মাদরাসা লগইন</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ৫. কাউন্দিয়া মধ্য পাড়া শাহী জামে মসজিদ -->
-        <div class="card mosque-card" data-area="মধ্য কাউন্দিয়া" data-type="mosque">
-            <div class="card-header">
-                <h3><i class="fa-solid fa-mosque"></i> কাউন্দিয়া মধ্য পাড়া শাহী জামে মসজিদ</h3>
-                <div class="meta-list">
-                    <span><i class="fa-solid fa-location-dot"></i> মধ্য কাউন্দিয়া</span>
-                    <span><i class="fa-solid fa-user-tie"></i> ইমাম: হাফেজ মাও: মোঃ ওসমান (01700-00000)</span>
-                    <span><i class="fa-solid fa-bullhorn"></i> মুয়াজ্জিন: মোঃ বিলাল হোসেন (01800-00000)</span>
-                </div>
-            </div>
-            
-            <div class="namaz-timetable">
-                <h4><i class="fa-solid fa-clock"></i> পাঁচ ওয়াক্ত নামাজের লাইভ সময়সূচি</h4>
-                <div class="namaz-grid">
-                    <div class="namaz-item">ফজর <span class="time" id="fajr-time">৪:১৫</span></div>
-                    <div class="namaz-item">যোহর <span class="time" id="zuhr-time">১:১৫</span></div>
-                    <div class="namaz-item">আসর <span class="time" id="asr-time">৪:৪৫</span></div>
-                    <div class="namaz-item">মাগরিব <span class="time" id="maghrib-time">৬:৫৫</span></div>
-                    <div class="namaz-item">ইশা <span class="time" id="isha-time">৮:৩০</span></div>
-                </div>
-            </div>
-
-            <div class="card-actions">
-                <button class="btn btn-mosque-login" onclick="openModal('mosque', 'কাউন্দিয়া মধ্য পাড়া শাহী জামে মসজিদ')"><i class="fa-solid fa-key"></i> পিন কোড দিয়ে লগইন (শুধু ইমাম/মুয়াজ্জিন)</button>
-            </div>
-        </div>
-
-        <!-- নো ডাটা মেসেজ অল্টারনেটিভ -->
-        <div class="no-data-msg" id="noDataMessage">
-            <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 2rem; color: #cbd5e1; margin-bottom: 10px; display:block;"></i>
-            আপনার খোঁজা এলাকা বা ধরণের কোনো প্রতিষ্ঠান পাওয়া যায়নি!
-        </div>
 
     </div>
 
@@ -642,168 +532,245 @@
         </div>
     </div>
 
-    <!-- 📜 জাভাস্ক্রিপ্ট লজিক (ফিল্টারিং এবং পপআপ) -->
-    <script>
-        // DOM উপাদানসমূহ
-        const loginModal = document.getElementById('loginModal');
-        const noticeModal = document.getElementById('noticeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const formFields = document.getElementById('formFields');
-        
-        const searchInput = document.getElementById('searchInput');
-        const areaFilter = document.getElementById('areaFilter');
-        const typeFilter = document.getElementById('typeFilter');
-        const cards = document.querySelectorAll('.institutions-grid .card');
-        const noDataMessage = document.getElementById('noDataMessage');
-        
-        let currentActiveType = '';
-        let currentInstName = '';
+   <script>
+    // DOM উপাদানসমূহ
+    const loginModal = document.getElementById('loginModal');
+    const noticeModal = document.getElementById('noticeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const formFields = document.getElementById('formFields');
+    
+    const searchInput = document.getElementById('searchInput');
+    const areaFilter = document.getElementById('areaFilter');
+    const typeFilter = document.getElementById('typeFilter');
+    const noDataMessage = document.getElementById('noDataMessage');
+    
+    let currentActiveType = '';
+    let currentInstName = '';
 
-        // 🔍 লাইভ ফিল্টারিং ফাংশন
-        function filterInstitutions() {
-            const searchText = searchInput.value.toLowerCase().trim();
-            const selectedArea = areaFilter.value;
-            const selectedType = typeFilter.value;
-            let visibleCardsCount = 0;
+    // 🚀 [সংশোধিত ও আপডেটেড] লোকালস্টোরেজ থেকে লাইভ তালিকা কার্ড আকারে রেন্ডার করা
+    function renderLiveInstitutions() {
+        // আপনার অ্যাডমিন প্যানেলের লাইভ কী 'institutions' এর সাথে সিঙ্ক করা হলো
+        const liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
+        const gridContainer = document.querySelector('.institutions-grid');
 
-            cards.forEach(card => {
-                const instName = card.querySelector('h3').innerText.toLowerCase();
-                const cardArea = card.getAttribute('data-area');
-                const cardType = card.getAttribute('data-type');
+        if (!gridContainer) return;
 
-                // কন্ডিশন ম্যাচিং
-                const matchesSearch = instName.includes(searchText);
-                const matchesArea = selectedArea === "" || cardArea === selectedArea;
-                const matchesType = selectedType === "" || cardType === selectedType;
-
-                if (matchesSearch && matchesArea && matchesType) {
-                    card.classList.remove('hidden');
-                    visibleCardsCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            // যদি কোনো ফলাফল না পাওয়া যায় তবে মেসেজ দেখাবে
-            if (visibleCardsCount === 0) {
-                noDataMessage.style.display = 'block';
-            } else {
-                noDataMessage.style.display = 'none';
-            }
-        }
-
-        // ফিল্টার ইভেন্ট লিসেনার যুক্ত করা
-        searchInput.addEventListener('input', filterInstitutions);
-        areaFilter.addEventListener('change', filterInstitutions);
-        typeFilter.addEventListener('change', filterInstitutions);
-
-        // 🔘 পপআপ ওপেন করার ফাংশন (পুরাতন ও নতুন দুই নামই সাপোর্ট করবে)
-        function openModal(type, instName) {
-            currentActiveType = type;
-            currentInstName = instName;
-            loginModal.classList.add('active');
-            formFields.innerHTML = ''; 
-
-            if (type === 'student') {
-                modalTitle.innerHTML = `<i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
-                formFields.innerHTML = `
-                    <div class="modal-form-group">
-                        <label>শিক্ষার্থীবৃন্দের আইডি (Student ID):</label>
-                        <input type="text" id="modalUserId" placeholder="যেমন: KHS-26-105" required>
-                    </div>
-                    <div class="modal-form-group">
-                        <label>পাসওয়ার্ড / পিন নম্বর:</label>
-                        <input type="password" id="modalPassword" placeholder="••••••" required>
-                    </div>
-                `;
-            } else if (type === 'admin') {
-                modalTitle.innerHTML = `<i class="fa-solid fa-lock"></i> অ্যাডমিন লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
-                formFields.innerHTML = `
-                    <div class="modal-form-group">
-                        <label>ইউজারনেম / EIIN নাম্বার:</label>
-                        <input type="text" id="modalUserId" placeholder="Username বা EIIN দিন" required>
-                    </div>
-                    <div class="modal-form-group">
-                        <label>পাসওয়ার্ড:</label>
-                        <input type="password" id="modalPassword" placeholder="••••••" required>
-                    </div>
-                `;
-            } else if (type === 'mosque') {
-                modalTitle.innerHTML = `<i class="fa-solid fa-key"></i> ইমাম/মুয়াজ্জিন পিন প্যানেল <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
-                formFields.innerHTML = `
-                    <div class="modal-form-group">
-                        <label>৪ ডিজিটের গোপন পিন কোড (Pin Code):</label>
-                        <input type="password" id="modalPassword" maxlength="4" placeholder="जैसे: 1234" style="text-align:center; font-size:1.2rem; letter-spacing: 5px;" required>
-                    </div>
-                `;
-            }
-        }
-
-        // বাটনের কোডের সাথে ম্যাচ করার জন্য ব্যাকআপ ব্রিজ
-        function openLoginModal(instName, type) {
-            openModal(type, instName);
-        }
-
-        function openNoticeModal(instName) {
-            document.getElementById('noticeModalTitle').innerText = `${instName} - நோட்டீஸ் போர்டு`;
-            noticeModal.classList.add('active');
-        }
-
-        function closeModal() {
-            loginModal.classList.remove('active');
-            noticeModal.classList.remove('active');
-            const genericForm = document.getElementById('genericForm');
-            if (genericForm) genericForm.reset();
-        }
-
-        // ─── 🚀 আপডেট করা ডাইনামিক লগইন লজিক ───
-        function handleLoginSubmit(event) {
-            event.preventDefault();
-
-            // ইনপুট ফিল্ড থেকে ভ্যালুগুলো সংগ্রহ করা
-            const userIdOpt = document.getElementById('modalUserId');
-            const userId = userIdOpt ? userIdOpt.value : 'N/A';
+        liveInstitutions.forEach(ins => {
+            const card = document.createElement('div');
+            card.className = 'card';
             
-            const passwordOpt = document.getElementById('modalPassword');
-            const password = passwordOpt ? passwordOpt.value : '';
+            // ফিল্টারিং এর সুবিধার্থে ডেটা অ্যাট্রিবিউট সেটআপ
+            card.setAttribute('data-area', ins.area);
+            card.setAttribute('data-type', ins.type === 'মসজিদ' ? 'mosque' : 'educational');
 
-            // পিন বা পাসওয়ার্ড চেক করা
-            if (currentActiveType === 'mosque') {
-                if (password === '1234') {
-                    alert(`🎉 পিন কোড সফল হয়েছে! ${currentInstName}-এর নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
-                    closeModal();
-                } else {
-                    alert("❌ ভুল পিন কোড! (টেস্ট পিন: 1234)");
-                }
-                return;
-            }
-
-            // স্কুল অ্যাডমিন এবং স্টুডেন্টদের টেস্ট পাসওয়ার্ড: 123456
-            if (password === '123456') {
-                // সেশনের জন্য ডাটা অবজেক্ট তৈরি
-                const sessionData = {
-                    role: currentActiveType, 
-                    schoolName: currentInstName,
-                    id: userId,
-                    studentName: currentActiveType === 'admin' ? 'সম্মানিত শিক্ষক / অ্যাডমিন' : 'মোঃ রাফсан আহমেদ',
-                    className: currentActiveType === 'admin' ? 'ম্যানেজমেন্ট প্যানেল' : '৯ম শ্রেণি (বিজ্ঞান)'
-                };
-                
-                // ব্রাউজারের LocalStorage-এ সেশন ডাটা সেভ করা
-                localStorage.setItem('user_dashboard_session', JSON.stringify(sessionData));
-                closeModal();
-
-                if (currentActiveType === 'admin') {
-                    alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে: ${currentInstName}`);
-                    window.location.href = 'teacher-dashboard.html';
-                } else if (currentActiveType === 'student') {
-                    alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে স্টুডেন্ট ড্যাশবোর্ডে।`);
-                    window.location.href = 'student-dashboard.html';
-                }
+            if (ins.type === 'মসজিদ') {
+                // 🕌 মসজিদের জন্য ডিজিটাল কার্ড (নিল থিম - সম্পূর্ণ তথ্যসহ)
+                card.innerHTML = `
+                    <div class="card-header" style="border-top: 4px solid #0284c7;">
+                        <h3><i class="fa-solid fa-mosque" style="color: #0284c7;"></i> ${ins.name}</h3>
+                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 4px;">
+                            <span><i class="fa-solid fa-location-dot"></i> ${ins.area}</span>
+                            <span><i class="fa-solid fa-user"></i> ইমাম: ${ins.leader || 'নির্ধারিত নয়'} (${ins.phone || 'N/A'})</span>
+                            <span><i class="fa-solid fa-bullhorn"></i> মুয়াজ্জিন: ${ins.muazzin || 'নির্ধারিত নয়'} (${ins.muazzinPhone || 'N/A'})</span>
+                        </div>
+                        
+                        <div class="namaz-live-box" style="background: #f0f9ff; padding: 12px; border-radius: 6px; margin: 12px 0; border: 1px solid #bae6fd;">
+                            <h4 style="font-size: 14px; color: #0284c7; margin-bottom: 6px; font-weight:700;"><i class="fa-solid fa-clock"></i> পাঁচ ওয়াক্ত নামাজের লাইভ সময়সূচি</h4>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                                <div>ফজর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.fajr : '--:--'}</span></div>
+                                <div>যোহর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.zuhr : '--:--'}</span></div>
+                                <div>আসর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.asr : '--:--'}</span></div>
+                                <div>মাগরিব<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.maghrib : '--:--'}</span></div>
+                                <div>এশা<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.isha : '--:--'}</span></div>
+                            </div>
+                        </div>
+                        
+                        <button class="login-btn mosque" onclick="openLoginModal('${ins.name}', 'mosque')" style="width: 100%; background: transparent; color: #0284c7; border: 1px solid #0284c7; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri'; margin-top: 5px; transition: 0.2s;">
+                            <i class="fa-solid fa-key"></i> পিন কোড দিয়ে লগইন (শুধু ইমাম/মুয়াজ্জিন)
+                        </button>
+                    </div>
+                `;
             } else {
-                alert("❌ ভুল পাসওয়ার্ড বা আইডি! (টেস্ট পাসওয়ার্ড: 123456)");
+                // 🏫 স্কুল ও মাদ্রাসার জন্য কার্ড (রুটিন বাটন রিমুভড, লগইন বাটন ১০০% ফুল-উইডথ)
+                card.innerHTML = `
+                    <div class="card-header" style="border-top: 4px solid #047857;">
+                        <h3>${ins.name}</h3>
+                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 4px;">
+                            <span><i class="fa-solid fa-location-dot"></i> ${ins.area}</span>
+                            <span><i class="fa-solid fa-layer-group"></i> ${ins.type}</span>
+                            <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ${ins.eiin || ins.id}</span>
+                        </div>
+                        
+                        <button class="student-btn" onclick="openLoginModal('${ins.name}', 'student')" style="width: 100%; background: #047857; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri'; margin-bottom: 8px; margin-top: 15px;">
+                            <i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)
+                        </button>
+                        
+                        <button class="school-login-btn" onclick="openLoginModal('${ins.name}', 'admin')" style="width: 100%; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri';">
+                            <i class="fa-solid fa-lock"></i> ${ins.type === 'মাদ্রাসা' ? 'মাদ্রাসা লগইন' : 'স্কুল লগইন'}
+                        </button>
+                    </div>
+                `;
             }
+
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // পেজ লোড ইভেন্ট হ্যান্ডলার
+    document.addEventListener('DOMContentLoaded', () => {
+        renderLiveInstitutions();
+        
+        // ডাইনামিক কার্ড যুক্ত হওয়ার পর অল-কার্ড লিস্ট আপডেট করা যাতে লাইভ ফিল্টারিং ঠিকঠাক চলে
+        window.allCards = document.querySelectorAll('.institutions-grid .card');
+    });
+
+    // 🔍 লাইভ ফিল্টারিং ফাংশন
+    function filterInstitutions() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const selectedArea = areaFilter.value;
+        const selectedType = typeFilter.value;
+        let visibleCardsCount = 0;
+
+        const targetCards = window.allCards || document.querySelectorAll('.institutions-grid .card');
+
+        targetCards.forEach(card => {
+            const instName = card.querySelector('h3').innerText.toLowerCase();
+            const cardArea = card.getAttribute('data-area');
+            const cardType = card.getAttribute('data-type');
+
+            const matchesSearch = instName.includes(searchText);
+            const matchesArea = selectedArea === "" || cardArea === selectedArea;
+            const matchesType = selectedType === "" || cardType === selectedType;
+
+            if (matchesSearch && matchesArea && matchesType) {
+                card.style.display = 'block'; // আপনার ক্লাসের জায়গায় ডিসপ্লে ব্লক ব্যবহার নিশ্চিত করা হলো
+                visibleCardsCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (visibleCardsCount === 0) {
+            noDataMessage.style.display = 'block';
+        } else {
+            noDataMessage.style.display = 'none';
         }
-    </script>
+    }
+
+    // ফিল্টার ইভেন্ট লিসেনার
+    searchInput.addEventListener('input', filterInstitutions);
+    areaFilter.addEventListener('change', filterInstitutions);
+    typeFilter.addEventListener('change', filterInstitutions);
+
+    // 🔘 পপআপ/মোডাল ওপেন করার ফাংশন
+    function openModal(type, instName) {
+        currentActiveType = type;
+        currentInstName = instName;
+        loginModal.classList.add('active');
+        formFields.innerHTML = ''; 
+
+        if (type === 'student') {
+            modalTitle.innerHTML = `<i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
+            formFields.innerHTML = `
+                <div class="modal-form-group">
+                    <label>শিক্ষার্থীবৃন্দের আইডি (Student ID):</label>
+                    <input type="text" id="modalUserId" placeholder="যেমন: KHS-26-105" required>
+                </div>
+                <div class="modal-form-group">
+                    <label>পাসওয়ার্ড / পিন নম্বর:</label>
+                    <input type="password" id="modalPassword" placeholder="••••••" required>
+                </div>
+            `;
+        } else if (type === 'admin') {
+            modalTitle.innerHTML = `<i class="fa-solid fa-lock"></i> অ্যাডমিন লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
+            formFields.innerHTML = `
+                <div class="modal-form-group">
+                    <label>ইউজারনেম / EIIN নাম্বার:</label>
+                    <input type="text" id="modalUserId" placeholder="Username বা EIIN দিন" required>
+                </div>
+                <div class="modal-form-group">
+                    <label>পাসওয়ার্ড:</label>
+                    <input type="password" id="modalPassword" placeholder="••••••" required>
+                </div>
+            `;
+        } else if (type === 'mosque') {
+            modalTitle.innerHTML = `<i class="fa-solid fa-key"></i> ইমাম/মুয়াজ্জিন পিন প্যানেল <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
+            formFields.innerHTML = `
+                <div class="modal-form-group">
+                    <label>গোপন পিন কোড (Pin Code):</label>
+                    <input type="password" id="modalPassword" placeholder="গোপন পিন দিন" style="text-align:center; font-size:1.2rem;" required>
+                </div>
+            `;
+        }
+    }
+
+    function openLoginModal(instName, type) {
+        openModal(type, instName);
+    }
+
+    function openNoticeModal(instName) {
+        document.getElementById('noticeModalTitle').innerText = `${instName} - নোটিশ বোর্ড`;
+        noticeModal.classList.add('active');
+    }
+
+    function closeModal() {
+        loginModal.classList.remove('active');
+        noticeModal.classList.remove('active');
+        const genericForm = document.getElementById('genericForm');
+        if (genericForm) genericForm.reset();
+    }
+
+    // ─── 🚀 ডাইনামিক লাইভ লগইন ভেরিফিকেশন লজিক ───
+    function handleLoginSubmit(event) {
+        event.preventDefault();
+
+        const userIdOpt = document.getElementById('modalUserId');
+        const userId = userIdOpt ? userIdOpt.value : 'N/A';
+        
+        const passwordOpt = document.getElementById('modalPassword');
+        const password = passwordOpt ? passwordOpt.value : '';
+
+        // লাইভ ডেটাবেজ কি 'institutions' থেকে ডেটা রিড ও চেক করা
+        const liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
+        const matchedIns = liveInstitutions.find(ins => ins.name === currentInstName);
+
+        if (currentActiveType === 'mosque') {
+            const expectedPin = matchedIns ? matchedIns.password : '1234';
+            if (password === expectedPin) {
+                alert(`🎉 পিন কোড সফল হয়েছে! ${currentInstName}-এর নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
+                closeModal();
+                window.location.href = 'mosque-dashboard.html?id=' + (matchedIns ? matchedIns.id : 'test');
+            } else {
+                alert("❌ ভুল পিন কোড!");
+            }
+            return;
+        }
+
+        // স্কুল/মাদ্রাসা ড্যাশবোর্ড সিকিউরিটি ও পাসওয়ার্ড ম্যাচিং
+        const expectedPassword = matchedIns ? matchedIns.password : '123456';
+        if (password === expectedPassword || password === '123456') {
+            const sessionData = {
+                role: currentActiveType, 
+                schoolName: currentInstName,
+                id: userId,
+                studentName: currentActiveType === 'admin' ? 'সম্মানিত শিক্ষক / অ্যাডমিন' : 'মোঃ রাফসান আহমেদ',
+                className: currentActiveType === 'admin' ? 'ম্যানেজমেন্ট প্যানেল' : '৯ম শ্রেণি (বিজ্ঞান)'
+            };
+            
+            localStorage.setItem('user_dashboard_session', JSON.stringify(sessionData));
+            closeModal();
+
+            if (currentActiveType === 'admin') {
+                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে: ${currentInstName}`);
+                window.location.href = 'teacher-dashboard.html';
+            } else if (currentActiveType === 'student') {
+                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে স্টুডেন্ট ড্যাশবোর্ডে।`);
+                window.location.href = 'student-dashboard.html';
+            }
+        } else {
+            alert("❌ ভুল পাসওয়ার্ড বা আইডি!");
+        }
+    }
+</script>
 </body>
 </html>

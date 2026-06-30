@@ -328,6 +328,9 @@
             <li onclick="switchStudentSection('class-routine', this)">
                 <i class="fa-solid fa-calendar-days"></i> ৫. ক্লাস রুটিন
             </li>
+            <li onclick="loadStudentRoutine('৯ম', this)">
+    <i class="fa-solid fa-calendar-alt"></i> পরীক্ষার রুটিন
+</li>
             <li onclick="switchStudentSection('lesson-plan', this)">
                 <i class="fa-solid fa-book-open"></i> ৬. Daily Lesson Plan
             </li>
@@ -386,6 +389,11 @@
                     </div>
                 </div>
             </div>
+            <!-- 📆 শিক্ষার্থীর পরীক্ষার রুটিন সেকশন -->
+<div id="section-exam-routine" class="dashboard-section" style="display: none; width: 100%; height: 100vh;">
+    <!-- জাভাস্ক্রিপ্ট দিয়ে এই iframe এর src আমরা ডাইনামিকালি পরিবর্তন করব -->
+    <iframe id="routine-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
+</div>
 
             <!-- ==========================================
                  📄 সেকশন ২: রেজাল্ট শিট
@@ -748,6 +756,16 @@
                 }
             }
         });
+       function loadStudentRoutine(studentClass, element) {
+    // ১. আপনার ড্যাশবোর্ডের নিজস্ব ফাংশন দিয়ে সেকশনটি অন করা এবং মেনু হাইলাইট করা
+    switchStudentSection('section-exam-routine', element);
+    
+    // ২. iframe এর ভেতর ক্লাস প্যারামিটারসহ রুটিন ফাইলটি লোড করা
+    const iframe = document.getElementById('routine-iframe');
+    if(iframe) {
+        iframe.src = `exam-routine.html?class=${encodeURIComponent(studentClass)}`;
+    }
+}
     </script>
 </body>
 </html>
