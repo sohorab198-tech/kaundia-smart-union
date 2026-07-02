@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* আইফ্রেমের ভেতরে ড্যাশবোর্ডের থিম বজায় রাখার জন্য লোকাল সিএসএস */
+        /* আইফ্রেমের ভেতরে ড্যাশবোর্ডের থিম বজায় রাখার জন্য লোকাল সিএসএস */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: transparent; /* ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট রাখা হলো */
@@ -34,9 +34,11 @@
 <div class="student-container">
     
     <div class="notice-form-card no-print" style="width: 100%; margin-bottom: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); background: #fff; padding: 20px; border-radius: 8px;">
-        <h3 style="margin-top:0;"><i class="fa-solid fa-user-plus"></i> নতুন শিক্ষার্থী তালিকাভুক্ত করুন (অ্যাডমিন প্যানেল)</h3>
+        <h3 style="margin-top:0;" id="formTitle"><i class="fa-solid fa-user-plus"></i> নতুন শিক্ষার্থী তালিকাভুক্ত করুন (অ্যাডমিন প্যানেল)</h3>
         
-        <form id="addStudentForm" onsubmit="addNewStudent(event)">
+        <form id="addStudentForm" onsubmit="saveStudentData(event)">
+            <input type="hidden" id="editSessionalId" value="">
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px;">
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>সেশন (Session):</label>
@@ -48,6 +50,14 @@
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>শ্রেণি:</label>
                     <select id="sClass" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; background: #fff;">
+                        <option value="প্লে">প্লে</option>
+                        <option value="নার্সারি">নার্সারি</option>
+                        <option value="কে.জি">কে.জি</option>
+                        <option value="প্রথম">প্রথম</option>
+                        <option value="দ্বিতীয়">দ্বিতীয়</option>
+                        <option value="তৃতীয়">তৃতীয়</option>
+                        <option value="চতুর্থ">চতুর্থ</option>
+                        <option value="পঞ্চম">পঞ্চম</option>
                         <option value="ষষ্ঠ">ষষ্ঠ</option>
                         <option value="সপ্তম">সপ্তম</option>
                         <option value="অষ্টম">অষ্টম</option>
@@ -57,7 +67,7 @@
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>শাখা (Section):</label>
-                    <input type="text" id="sSection" placeholder="যেমন: A" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
+                    <input type="text" id="sSection" placeholder="যেমন: A (ঐচ্ছিক)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>রোল নম্বর:</label>
@@ -71,7 +81,7 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px;">
                 <div class="form-group" style="margin-bottom: 0;">
-                    <label>暗শিক্ষার্থীর নাম:</label>
+                    <label>শিক্ষার্থীর নাম:</label>
                     <input type="text" id="sName" placeholder="যেমন: রাহিম ইসলাম" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
@@ -98,7 +108,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 15px;">
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>পিতার নাম:</label>
                     <input type="text" id="sFather" placeholder="পিতার নাম লিখুন" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
@@ -117,16 +127,30 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-publish" style="width: auto; padding: 10px 24px; margin-left: auto; cursor: pointer;">
-                <i class="fa-solid fa-user-plus"></i> ডাটাবেজে যুক্ত করুন
-            </button>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>বর্তমান ঠিকানা (Current Address):</label>
+                    <input type="text" id="sCurrentAddress" placeholder="গ্রাম/রোড, পোস্ট অফিস, থানা, জেলা" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>স্থায়ী ঠিকানা (Permanent Address):</label>
+                    <input type="text" id="sPermanentAddress" placeholder="গ্রাম/রোড, পোস্ট অফিস, থানা, জেলা" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" id="cancelEditBtn" onclick="resetFormState()" style="display: none; padding: 10px 24px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">📦 বাতিল করুন</button>
+                <button type="submit" id="submitBtn" class="btn-publish" style="width: auto; padding: 10px 24px; cursor: pointer;">
+                    <i class="fa-solid fa-user-plus"></i> ডাটাবেজে যুক্ত করুন
+                </button>
+            </div>
         </form>
     </div>
 
     <div class="lesson-plan-container" style="padding: 20px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); background: #fff; border-radius: 8px;">
         <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
             
-            <div style="flex: 1; min-width: 140px;">
+            <div style="flex: 1; min-width: 120px;">
                 <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; display:block; margin-bottom:5px;">সেশন ফিল্টার:</label>
                 <select id="filterSession" onchange="filterStudentTable()" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
                     <option value="২০২৬">২০২৬</option>
@@ -137,7 +161,15 @@
             <div style="flex: 1; min-width: 140px;">
                 <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; display:block; margin-bottom:5px;">শ্রেণি ফিল্টার:</label>
                 <select id="filterClass" onchange="filterStudentTable()" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
-                    <option value="ষষ্ঠ">ষষ্ঠ শ্রেণি</option>
+                    <option value="প্লে">প্লে</option>
+                    <option value="নার্সারি">নার্সারি</option>
+                    <option value="কে.জি">কে.জি</option>
+                    <option value="প্রথম">প্রথম শ্রেণি</option>
+                    <option value="দ্বিতীয়">দ্বিতীয় শ্রেণি</option>
+                    <option value="তৃতীয়">তৃতীয় শ্রেণি</option>
+                    <option value="চতুর্থ">চতুর্থ শ্রেণি</option>
+                    <option value="পঞ্চম">পঞ্চম শ্রেণি</option>
+                    <option value="ষষ্ঠ" selected>ষষ্ঠ শ্রেণি</option>
                     <option value="সপ্তম">সপ্তম শ্রেণি</option>
                     <option value="অষ্টম">অষ্টম শ্রেণি</option>
                     <option value="নবম">নবম শ্রেণি</option>
@@ -145,12 +177,17 @@
                 </select>
             </div>
 
-            <div style="flex: 1; min-width: 120px;">
+            <div style="flex: 1; min-width: 100px;">
                 <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; display:block; margin-bottom:5px;">শাখা (Section):</label>
-                <input type="text" id="filterSection" value="A" oninput="filterStudentTable()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
+                <input type="text" id="filterSection" value="A" placeholder="যেমন: A" oninput="filterStudentTable()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
             </div>
 
-            <div class="no-print" style="flex: 2; min-width: 280px; display: flex; gap: 10px;">
+            <div style="flex: 2; min-width: 180px;">
+                <label style="font-size: 0.85rem; font-weight: 600; color: #64748b; display:block; margin-bottom:5px;">🔍 নাম/রোল দিয়ে খুঁজুন:</label>
+                <input type="text" id="searchBox" placeholder="শিক্ষার্থীর নাম বা রোল লিখুন..." oninput="filterStudentTable()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
+            </div>
+
+            <div class="no-print" style="flex: 2; min-width: 250px; display: flex; gap: 10px;">
                 <button type="button" class="lesson-btn btn-add-col" onclick="addNewColumnPrompt()" style="padding: 10px; cursor:pointer;">
                     <i class="fa-solid fa-table-columns"></i> কলাম যোগ করুন
                 </button>
@@ -163,7 +200,7 @@
 
     <div class="lesson-table-wrapper" style="background: #fff; padding: 15px; border-radius: 8px;">
         <div class="print-header" style="text-align: center; margin-bottom: 20px; display: none;">
-            <h2 style="margin: 0; color: #000;">কাউন্দিয়ামডেল হাই স্কুল</h2>
+            <h2 style="margin: 0; color: #000;">কাউন্দিয়া মডেল হাই স্কুল</h2>
             <h4 style="margin: 5px 0 0 0; color: #000;" id="printTableTitle">শিক্ষার্থী তালিকা</h4>
         </div>
 
@@ -178,8 +215,7 @@
                     <th style="padding: 12px; font-weight: 600; border-bottom: 2px solid #cbd5e1;" class="no-print">অ্যাকশন</th>
                 </tr>
             </thead>
-            <tbody id="studentTableBody">
-                </tbody>
+            <tbody id="studentTableBody"></tbody>
         </table>
     </div>
 
@@ -205,6 +241,9 @@
                     <div><strong>পিতার NID:</strong> <span id="mFatherNid"></span></div>
                     <div><strong>মাতার নাম:</strong> <span id="mMother"></span></div>
                     <div><strong>মাতার NID:</strong> <span id="mMotherNid"></span></div>
+                    <hr style="border-color: #e2e8f0; margin: 5px 0;">
+                    <div><strong>বর্তমান ঠিকানা:</strong> <span id="mCurrentAddress"></span></div>
+                    <div><strong>স্থায়ী ঠিকানা:</strong> <span id="mPermanentAddress"></span></div>
                 </div>
             </div>
             <div style="background: #f1f5f9; padding: 12px 20px; display: flex; justify-content: flex-end; gap: 10px;">
@@ -217,32 +256,36 @@
 </div>
 
 <script>
-// গ্লোবাল ডাইনামিক ডেটাবেজ 
-let masterStudentDatabase = [
-    { sessionalId: "২০২৬-ষষ্ঠ-A-১", session: "২০২৬", class: "ষষ্ঠ", section: "A", roll: 1, uid: "SID-2026001", name: "রাহিম ইসলাম", brn: "২০০৬৫৬৭৮৯MDE১২৩৪৫", phone: "01711002233", blood: "A+", father: "কামরুল ইসলাম", fatherNid: "১৯৮৫২৬১২২৩", mother: "ফাতেমা বেগম", motherNid: "১৯৮৯২৬১৫৫৪" },
-    { sessionalId: "২০২৬-ষষ্ঠ-A-২", session: "২০২৬", class: "ষষ্ঠ", section: "A", roll: 2, uid: "SID-2026002", name: "করিম হোসেন", brn: "২০০৭৫৬৭৮৯MDE১২৩৪৬", phone: "01911002244", blood: "B+", father: "আনোয়ার হোসেন", fatherNid: "১৯৮২২৬১২২৫", mother: "সালমা আক্তার", motherNid: "১৯৮৬২৬১৫৫৭" }
-];
-
+// লোকালস্টোরেজ থেকে ডাটা লোড করা (কোনো ডেমো ডাটা রাখা হয়নি)
+let masterStudentDatabase = JSON.parse(localStorage.getItem("students_list")) || [];
 let customColumns = [];
 
 document.addEventListener("DOMContentLoaded", function() {
     filterStudentTable();
 });
 
+// স্মার্ট ফিল্টার এবং রিয়েল-টাইম সার্চ ফাংশন
 function filterStudentTable() {
     const fSession = document.getElementById("filterSession").value;
     const fClass = document.getElementById("filterClass").value;
     const fSection = document.getElementById("filterSection").value.trim().toUpperCase();
+    const searchQuery = document.getElementById("searchBox").value.trim().toLowerCase();
     
     document.getElementById("printTableTitle").innerText = `শিক্ষার্থী তালিকা - সেশন: ${fSession} | শ্রেণি: ${fClass} | শাখা: ${fSection}`;
     const tbody = document.getElementById("studentTableBody");
     tbody.innerHTML = "";
 
-    let filteredList = masterStudentDatabase.filter(s => s.session === fSession && s.class === fClass && s.section.toUpperCase() === fSection);
+    // ফিল্টারিং লজিক (সার্চ কুয়েরিসহ)
+    let filteredList = masterStudentDatabase.filter(s => {
+        const matchesFilters = s.session === fSession && s.class === fClass && (s.section || '').toUpperCase() === fSection;
+        const matchesSearch = s.name.toLowerCase().includes(searchQuery) || String(s.roll).includes(searchQuery);
+        return matchesFilters && matchesSearch;
+    });
+
     filteredList.sort((a, b) => a.roll - b.roll);
 
     if (filteredList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${5 + customColumns.length + 1}" style="padding: 20px; color: #64748b;">এই ক্লাসে কোনো শিক্ষার্থীর তথ্য নেই।</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${5 + customColumns.length + 1}" style="padding: 20px; color: #64748b;">কোনো শিক্ষার্থীর তথ্য খুঁজে পাওয়া যায়নি।</td></tr>`;
         return;
     }
 
@@ -262,13 +305,15 @@ function filterStudentTable() {
                 </td>
                 <td style="padding: 12px; border-bottom: 1px solid #e2e8f0; border-right:1px solid #e2e8f0;">${student.phone}</td>
                 ${customCellsHtml}
-                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;" class="no-print">
-                    <button style="padding: 4px 8px; background: #ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="deleteStudent('${student.sessionalId}')"><i class="fa-solid fa-trash"></i></button>
+                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0; display: flex; gap: 5px; justify-content: center;" class="no-print">
+                    <button style="padding: 4px 8px; background: #eab308; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="editStudent('${student.sessionalId}')" title="এডিট করুন"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button style="padding: 4px 8px; background: #ef4444; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="deleteStudent('${student.sessionalId}')" title="মুছে ফেলুন"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>`;
     });
 }
 
+// নতুন কলাম তৈরি
 function addNewColumnPrompt() {
     const columnName = prompt("যে কলামটি যোগ করতে চান তার নাম লিখুন:");
     if (!columnName || columnName.trim() === "") return;
@@ -287,21 +332,29 @@ function addNewColumnPrompt() {
     filterStudentTable();
 }
 
-function addNewStudent(event) {
+// ডাটা সেভ এবং এডিট আপডেট লজিক
+function saveStudentData(event) {
     event.preventDefault();
     const session = document.getElementById("sSession").value;
     const sclass = document.getElementById("sClass").value;
     const section = document.getElementById("sSection").value.trim().toUpperCase();
     const roll = parseInt(document.getElementById("sRoll").value);
     const sessionalId = `${session}-${sclass}-${section}-${roll}`;
+    
+    const editId = document.getElementById("editSessionalId").value;
 
-    if (masterStudentDatabase.some(s => s.sessionalId === sessionalId)) {
+    // নতুন এন্ট্রি হলে ডুপ্লিকেট চেক
+    if (editId === "" && masterStudentDatabase.some(s => s.sessionalId === sessionalId)) {
         alert(`রোল নম্বর ${roll} ইতিমধ্যে নিবন্ধিত আছে।`);
         return;
     }
 
-    masterStudentDatabase.push({
-        sessionalId: sessionalId, session: session, class: sclass, section: section, roll: roll,
+    const studentObj = {
+        sessionalId: sessionalId, 
+        session: session, 
+        class: sclass, 
+        section: section, 
+        roll: roll,
         uid: document.getElementById("sUid").value.trim(),
         name: document.getElementById("sName").value.trim(),
         brn: document.getElementById("sBrn").value.trim(),
@@ -310,25 +363,82 @@ function addNewStudent(event) {
         father: document.getElementById("sFather").value.trim(),
         fatherNid: document.getElementById("sFatherNid").value.trim(),
         mother: document.getElementById("sMother").value.trim(),
-        motherNid: document.getElementById("sMotherNid").value.trim()
-    });
+        motherNid: document.getElementById("sMotherNid").value.trim(),
+        currentAddress: document.getElementById("sCurrentAddress").value.trim(),
+        permanentAddress: document.getElementById("sPermanentAddress").value.trim()
+    };
 
+    if (editId !== "") {
+        // এডিট মোড: আগের ইনডেক্স খুঁজে রিপ্লেস করা
+        const index = masterStudentDatabase.findIndex(s => s.sessionalId === editId);
+        if (index !== -1) masterStudentDatabase[index] = studentObj;
+    } else {
+        // নতুন ডাটা মোড
+        masterStudentDatabase.push(studentObj);
+    }
+
+    // লোকালস্টোরেজে সিঙ্ক করা
+    localStorage.setItem("students_list", JSON.stringify(masterStudentDatabase));
+
+    resetFormState();
     filterStudentTable();
-    document.getElementById("addStudentForm").reset();
 }
 
+// এডিট করার জন্য ফর্ম ফিল্ডে ডাটা পুশ করা
+function editStudent(sessId) {
+    const student = masterStudentDatabase.find(s => s.sessionalId === sessId);
+    if (!student) return;
+
+    document.getElementById("editSessionalId").value = student.sessionalId;
+    document.getElementById("sSession").value = student.session;
+    document.getElementById("sClass").value = student.class;
+    document.getElementById("sSection").value = student.section;
+    document.getElementById("sRoll").value = student.roll;
+    document.getElementById("sUid").value = student.uid;
+    document.getElementById("sName").value = student.name;
+    document.getElementById("sBrn").value = student.brn;
+    document.getElementById("sPhone").value = student.phone;
+    document.getElementById("sBlood").value = student.blood;
+    document.getElementById("sFather").value = student.father;
+    document.getElementById("sFatherNid").value = student.fatherNid;
+    document.getElementById("sMother").value = student.mother;
+    document.getElementById("sMotherNid").value = student.motherNid;
+    document.getElementById("sCurrentAddress").value = student.currentAddress || "";
+    document.getElementById("sPermanentAddress").value = student.permanentAddress || "";
+
+    // ইন্টারফেস পরিবর্তন
+    document.getElementById("formTitle").innerHTML = `<i class="fa-solid fa-user-pen"></i> শিক্ষার্থীর তথ্য সংশোধন করুন (এডিট মোড)`;
+    document.getElementById("submitBtn").innerHTML = `<i class="fa-solid fa-rotate"></i> তথ্য আপডেট করুন`;
+    document.getElementById("cancelEditBtn").style.display = "inline-block";
+    
+    // স্ক্রল করে ফর্মে নিয়ে যাওয়া
+    document.getElementById("addStudentForm").scrollIntoView({ behavior: 'smooth' });
+}
+
+// ফর্ম সাধারণ অবস্থায় ফিরিয়ে আনা
+function resetFormState() {
+    document.getElementById("editSessionalId").value = "";
+    document.getElementById("addStudentForm").reset();
+    document.getElementById("formTitle").innerHTML = `<i class="fa-solid fa-user-plus"></i> নতুন শিক্ষার্থী তালিকাভুক্ত করুন (অ্যাডমিন প্যানেল)`;
+    document.getElementById("submitBtn").innerHTML = `<i class="fa-solid fa-user-plus"></i> ডাটাবেজে যুক্ত করুন`;
+    document.getElementById("cancelEditBtn").style.display = "none";
+}
+
+// ডাটা মুছে ফেলা
 function deleteStudent(sessId) {
-    if (confirm("মুছে ফেলতে চান?")) {
+    if (confirm("আপনি কি নিশ্চিতভাবে এই শিক্ষার্থীর সমস্ত রেকর্ড মুছে ফেলতে চান?")) {
         masterStudentDatabase = masterStudentDatabase.filter(s => s.sessionalId !== sessId);
+        localStorage.setItem("students_list", JSON.stringify(masterStudentDatabase));
         filterStudentTable();
     }
 }
 
+// একক প্রোফাইল পপ-আপ দেখা
 function openProfileModal(sessId) {
     const student = masterStudentDatabase.find(s => s.sessionalId === sessId);
     if (!student) return;
     document.getElementById("mName").innerText = student.name;
-    document.getElementById("mMeta").innerText = `সেশন: ${student.session} | শ্রেণি: ${student.class} | রোল: ${student.roll}`;
+    document.getElementById("mMeta").innerText = `সেশন: ${student.session} | শ্রেণি: ${student.class} | শাখা: ${student.section || 'N/A'} | রোল: ${student.roll}`;
     document.getElementById("mUid").innerText = student.uid;
     document.getElementById("mBrn").innerText = student.brn;
     document.getElementById("mBlood").innerText = student.blood;
@@ -337,6 +447,8 @@ function openProfileModal(sessId) {
     document.getElementById("mFatherNid").innerText = student.fatherNid;
     document.getElementById("mMother").innerText = student.mother;
     document.getElementById("mMotherNid").innerText = student.motherNid;
+    document.getElementById("mCurrentAddress").innerText = student.currentAddress || "দেওয়া হয়নি";
+    document.getElementById("mPermanentAddress").innerText = student.permanentAddress || "দেওয়া হয়নি";
     document.getElementById("studentProfileModal").style.display = "flex";
 }
 
@@ -344,6 +456,7 @@ function closeProfileModal() {
     document.getElementById("studentProfileModal").style.display = "none";
 }
 
+// একক প্রোফাইল প্রিন্ট
 function printSingleProfile() {
     const printContents = document.getElementById("modalPrintArea").innerHTML;
     const originalContents = document.body.innerHTML;

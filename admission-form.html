@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অনলাইন ভর্তি ফরম - কাউন্দিয়া ইউনিয়ন পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800">
+
+    <div class="max-w-4xl mx-auto pt-6 px-4 flex justify-between items-center">
+        <a href="institutions.html" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition">⬅️ মূল পোর্টালে ফিরুন</a>
+        <button onclick="openGuideline()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center gap-2">
+            💡 ভর্তি নির্দেশিকা
+        </button>
+    </div>
+
+    <div class="max-w-4xl mx-auto my-6 px-4">
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white text-center">
+                <h1 class="text-2xl md:text-3xl font-bold">অনলাইন ছাত্র-ছাত্রী ভর্তি ফরম</h1>
+                <p class="text-indigo-100 text-sm mt-2">কাউন্দিয়া ইউনিয়নের সকল অনুমোদিত স্কুল ও মাদ্রাসার সেন্ট্রাল ভর্তি পোর্টাল</p>
+            </div>
+
+            <form id="admissionForm" onsubmit="handleAdmissionSubmit(event)" class="p-6 md:p-8 space-y-8">
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-indigo-600 border-b pb-2 flex items-center gap-2">🏫 শিক্ষা প্রতিষ্ঠানের বিবরণ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">শিক্ষা প্রতিষ্ঠানটি নির্বাচন করুন *</label>
+                            <select id="targetInstitution" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm font-semibold text-slate-700">
+                                <option value="" disabled selected>প্রতিষ্ঠানের তালিকা লোড হচ্ছে...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">কাঙ্ক্ষিত শ্রেণী / ক্লাস *</label>
+                            <select id="studentClass" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                                <option value="" disabled selected>শ্রেণী নির্বাচন করুন</option>
+                                <option value="Play">প্লে (Play)</option>
+                                <option value="Nursery">নার্সারি (Nursery)</option>
+                                <option value="Class 1">প্রথম শ্রেণী</option>
+                                <option value="Class 2">দ্বিতীয় শ্রেণী</option>
+                                <option value="Class 3">তৃতীয় শ্রেণী</option>
+                                <option value="Class 4">চতুর্থ শ্রেণী</option>
+                                <option value="Class 5">পঞ্চম শ্রেণী</option>
+                                <option value="Class 6">ষষ্ঠ শ্রেণী</option>
+                                <option value="Class 7">সপ্তম শ্রেণী</option>
+                                <option value="Class 8">অষ্টম শ্রেণী</option>
+                                <option value="Class 9">নবম শ্রেণী</option>
+                                <option value="Class 10">দশম শ্রেণী</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-indigo-600 border-b pb-2 flex items-center gap-2">👤 শিক্ষার্থীর ব্যক্তিগত তথ্য</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">শিক্ষার্থীর নাম (বাংলায়) *</label>
+                            <input type="text" id="studentNameBn" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">শিক্ষার্থীর নাম (ENGLISH - বড় হাতের অক্ষরে) *</label>
+                            <input type="text" id="studentNameEn" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">ডিজিটাল জন্ম নিবন্ধন নম্বর (১৭ ডিজিট) *</label>
+                            <input type="text" id="birthRegNo" maxlength="17" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1">জন্ম তারিখ *</label>
+                                <input type="date" id="birthDate" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1">লিঙ্গ *</label>
+                                <select id="gender" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                                    <option value="" disabled selected>বাছাই করুন</option>
+                                    <option value="ছাত্র">ছাত্র</option>
+                                    <option value="ছাত্রী">ছাত্রী</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-indigo-600 border-b pb-2 flex items-center gap-2">👨‍👩‍👦 অভিভাবকের তথ্য</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">পিতার নাম *</label>
+                            <input type="text" id="fatherName" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">মাতার নাম *</label>
+                            <input type="text" id="motherName" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">অভিভাবকের মোবাইল নম্বর *</label>
+                            <input type="tel" id="parentPhone" required class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">বর্তমান ঠিকানা ও ওয়ার্ড নং *</label>
+                            <input type="text" id="currentAddress" required placeholder="গ্রাম, ওয়ার্ড নম্বর..." class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-600 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md hover:shadow-xl transition text-base">
+                        🚀 ভর্তির আবেদন জমা দিন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="guidelineModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">💡 অনলাইন ভর্তি নির্দেশিকা</h3>
+                <button onclick="closeGuideline()" class="text-gray-400 hover:text-gray-600 font-bold text-xl">&times;</button>
+            </div>
+            <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+                <div>
+                    <strong class="text-slate-800 text-base">⚙️ আবেদন করার নিয়ম:</strong>
+                    <p>১. শুরুতে তালিকার ড্রপডাউন মেনু থেকে আপনার কাঙ্ক্ষিত স্কুল বা মাদ্রাসাটি সিলেক্ট করুন।<br>
+                    ২. এরপর শিক্ষার্থীর ক্লাস এবং ডিজিটাল ১৭ ডিজিটের জন্ম নিবন্ধন নম্বরসহ সকল তথ্য নির্ভুল বাংলায় ও ইংরেজিতে পূরণ করুন।<br>
+                    ৩. সাবমিট করার সাথে সাথে আপনার আবেদনটি ওই প্রতিষ্ঠানের ড্যাশবোর্ডে চলে যাবে।</p>
+                </div>
+                <div>
+                    <strong class="text-slate-800 text-base">💎 সুবিধা ও উপকারিতা:</strong>
+                    <p>শিক্ষার্থীদের এখন আর রোদ-বৃষ্টির মধ্যে কষ্ট করে ফর্মেট কিনতে বা লাইনে দাঁড়িয়ে জমা দিতে হবে না। ঘরে বসেই এক ক্লিকে যেকোনো প্রতিষ্ঠানে আবেদন করা যাবে এবং প্রতিষ্ঠান কর্তৃক আবেদনটির অগ্রগতি পরে সরাসরি জানা যাবে।</p>
+                </div>
+            </div>
+            <div class="pt-3 border-t text-right">
+                <button onclick="closeGuideline()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold rounded-xl transition">ঠিক আছে</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // পেজ লোড হলেই ড্রপডাউন লিস্টে অনুমোদিত প্রতিষ্ঠানগুলোর নাম শো করানোর লজিক
+        document.addEventListener('DOMContentLoaded', () => {
+            loadApprovedInstitutions();
+        });
+
+        function loadApprovedInstitutions() {
+    // আপনার সিস্টেমে লাইভ থাকা বা অনুমোদিত হওয়া সব প্রতিষ্ঠানের ডাটা লোড করা
+    let institutions = JSON.parse(localStorage.getItem('institutions')) || [];
+    let selectDropdown = document.getElementById('targetInstitution');
+
+    if (selectDropdown) {
+        selectDropdown.innerHTML = '<option value="" disabled selected>কাঙ্ক্ষিত প্রতিষ্ঠানটি বেছে নিন *</option>';
+
+        if (institutions.length === 0) {
+            // ব্যাকআপ ডেমো ডাটা (যদি আপনার লোকাল স্টোরেজে কোনো স্কুল অ্যাপ্রুভড না থাকে)
+            // এখানে value হিসেবে আমরা EIIN কোড "104556" এবং "104557" ব্যবহার করছি টেস্টের সুবিধার জন্য
+            selectDropdown.innerHTML += `<option value="104556">কাউন্দিয়া সরকারি প্রাথমিক বিদ্যালয় (EIIN: 104556)</option>`;
+            selectDropdown.innerHTML += `<option value="104557">কাউন্দিয়া দাখিল মাদ্রাসা (EIIN: 104557)</option>`;
+        } else {
+            // ডায়নামিকালি ডাটাবেজ থেকে স্কুল ও মাদ্রাসা ফিল্টার করে ড্রপডাউন তৈরি (মসজিদ বাদ দিয়ে)
+            institutions.forEach(inst => {
+                if (inst.type !== 'মসজিদ') {
+                    selectDropdown.innerHTML += `<option value="${inst.id}">${inst.name}</option>`;
+                }
+            });
+        }
+    }
+}
+
+        // ফর্ম সাবমিট হ্যান্ডেল করার লজিক (যা নির্দিষ্ট প্রতিষ্ঠানের আইডিতে ডাটা লক করবে)
+        function handleAdmissionSubmit(event) {
+            event.preventDefault();
+
+            const selectedInstitution = document.getElementById('targetInstitution').value;
+            
+            // নতুন শিক্ষার্থীর ডাটা অবজেক্ট তৈরি
+            const admissionData = {
+                id: 'adm-' + Date.now(),
+                institutionId: selectedInstitution, // এই আইডি দিয়েই ফিল্টার হবে পরবর্তীতে
+                studentNameBn: document.getElementById('studentNameBn').value,
+                studentNameEn: document.getElementById('studentNameEn').value,
+                studentClass: document.getElementById('studentClass').value,
+                birthRegNo: document.getElementById('birthRegNo').value,
+                birthDate: document.getElementById('birthDate').value,
+                gender: document.getElementById('gender').value,
+                fatherName: document.getElementById('fatherName').value,
+                motherName: document.getElementById('motherName').value,
+                parentPhone: document.getElementById('parentPhone').value,
+                address: document.getElementById('currentAddress').value,
+                status: 'পেন্ডিং', // ডিফল্ট স্ট্যাটাস
+                applyDate: new Date().toLocaleDateString('bn-BD')
+            };
+
+            // লোকাল স্টোরেজ থেকে গ্লোবাল সেন্ট্রাল ভর্তির তালিকা তুলে আনা
+            let totalAdmissions = JSON.parse(localStorage.getItem('centralAdmissions')) || [];
+            totalAdmissions.push(admissionData);
+            
+            // সেন্ট্রাল ডাটাবেজে সেভ করা
+            localStorage.setItem('centralAdmissions', JSON.stringify(totalAdmissions));
+
+            alert("🎉 অভিনন্দন! আপনার ভর্তির আবেদনটি সফলভাবে " + selectedInstitution + " এ জমা হয়েছে।");
+            document.getElementById('admissionForm').reset();
+        }
+
+        // মোডাল কন্ট্রোল ফাংশন
+        function openGuideline() {
+            const modal = document.getElementById('guidelineModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeGuideline() {
+            const modal = document.getElementById('guidelineModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('guidelineModal');
+            if (e.target === modal) closeGuideline();
+        });
+    </script>
+</body>
+</html>
