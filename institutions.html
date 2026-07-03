@@ -561,48 +561,46 @@
    <script>
     // DOM উপাদানসমূহ
     const loginModal = document.getElementById('loginModal');
-    const noticeModal = document.getElementById('noticeModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const formFields = document.getElementById('formFields');
-    
     const searchInput = document.getElementById('searchInput');
     const areaFilter = document.getElementById('areaFilter');
     const typeFilter = document.getElementById('typeFilter');
     const noDataMessage = document.getElementById('noDataMessage');
+    const modalTitle = document.getElementById('modalTitle');
+    const formFields = document.getElementById('formFields');
     
     let currentActiveType = '';
     let currentInstName = '';
 
-    // 🚀 [সংশোধিত ও আপডেটেড] লোকালস্টোরেজ থেকে লাইভ তালিকা কার্ড আকারে রেন্ডার করা
+    // 🚀 লোকালস্টোরেজ থেকে লাইভ তালিকা কার্ড আকারে রেন্ডার করা
     function renderLiveInstitutions() {
-        // আপনার অ্যাডমিন প্যানেলের লাইভ কী 'institutions' এর সাথে সিঙ্ক করা হলো
         const liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
         const gridContainer = document.querySelector('.institutions-grid');
 
         if (!gridContainer) return;
+        gridContainer.innerHTML = ''; // আগের জেনারেট করা ডেটা থাকলে ক্লিন করা হলো
 
         liveInstitutions.forEach(ins => {
             const card = document.createElement('div');
             card.className = 'card';
             
-            // ফিল্টারিং এর সুবিধার্থে ডেটা অ্যাট্রিবিউট সেটআপ
+            // 🔍 [বাগ ফিক্সড]: নিখুঁত আলাদা ফিল্টারিং এর জন্য এক্সাক্ট টাইপ সেট করা হলো
             card.setAttribute('data-area', ins.area);
-            card.setAttribute('data-type', ins.type === 'মসজিদ' ? 'mosque' : 'educational');
+            card.setAttribute('data-type', ins.type);
 
             if (ins.type === 'মসজিদ') {
-                // 🕌 মসজিদের জন্য ডিজিটাল কার্ড (নিল থিম - সম্পূর্ণ তথ্যসহ)
+                // 🕌 মসজিদের জন্য ডিজিটাল কার্ড (নিল থিম)
                 card.innerHTML = `
-                    <div class="card-header" style="border-top: 4px solid #0284c7;">
+                    <div class="card-header" style="border-top: 4px solid #0284c7; padding: 15px;">
                         <h3><i class="fa-solid fa-mosque" style="color: #0284c7;"></i> ${ins.name}</h3>
-                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 4px;">
-                            <span><i class="fa-solid fa-location-dot"></i> ${ins.area}</span>
-                            <span><i class="fa-solid fa-user"></i> ইমাম: ${ins.leader || 'নির্ধারিত নয়'} (${ins.phone || 'N/A'})</span>
-                            <span><i class="fa-solid fa-bullhorn"></i> মুয়াজ্জিন: ${ins.muazzin || 'নির্ধারিত নয়'} (${ins.muazzinPhone || 'N/A'})</span>
+                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 5px;">
+                            <span><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> ${ins.area}</span>
+                            <span><i class="fa-solid fa-user" style="color: #0284c7;"></i> ইমাম: ${ins.leader || 'নির্ধারিত নয়'} (<a href="tel:${ins.phone}" style="color: #0284c7; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-phone"></i> কল করুন</a>)</span>
+                            <span><i class="fa-solid fa-bullhorn" style="color: #0284c7;"></i> মুয়াজ্জিন: ${ins.muazzinInfo || 'নির্ধারিত নয়'}</span>
                         </div>
                         
                         <div class="namaz-live-box" style="background: #f0f9ff; padding: 12px; border-radius: 6px; margin: 12px 0; border: 1px solid #bae6fd;">
                             <h4 style="font-size: 14px; color: #0284c7; margin-bottom: 6px; font-weight:700;"><i class="fa-solid fa-clock"></i> পাঁচ ওয়াক্ত নামাজের লাইভ সময়সূচি</h4>
-                            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; text-align: center;">
                                 <div>ফজর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.fajr : '--:--'}</span></div>
                                 <div>যোহর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.zuhr : '--:--'}</span></div>
                                 <div>আসর<br><span style="color:#0284c7;">${ins.namazTimes ? ins.namazTimes.asr : '--:--'}</span></div>
@@ -612,22 +610,30 @@
                         </div>
                         
                         <button class="login-btn mosque" onclick="openLoginModal('${ins.name}', 'mosque')" style="width: 100%; background: transparent; color: #0284c7; border: 1px solid #0284c7; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri'; margin-top: 5px; transition: 0.2s;">
-                            <i class="fa-solid fa-key"></i> পিন কোড দিয়ে লগইন (শুধু ইমাম/মুয়াজ্জিন)
+                            <i class="fa-solid fa-key"></i> পিন কোড দিয়ে লগইন (শুধু ইমাম)
                         </button>
                     </div>
                 `;
             } else {
-                // 🏫 স্কুল ও মাদ্রাসার জন্য কার্ড (রুটিন বাটন রিমুভড, লগইন বাটন ১০০% ফুল-উইডথ)
+                // 🏫 স্কুল ও মাদ্রাসার নতুন আপডেটেড কার্ড (স্লোগান, ক্লিকেবল নম্বর ও বিস্তারিত মডাল বাটনসহ)
                 card.innerHTML = `
-                    <div class="card-header" style="border-top: 4px solid #047857;">
-                        <h3>${ins.name}</h3>
-                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 4px;">
-                            <span><i class="fa-solid fa-location-dot"></i> ${ins.area}</span>
-                            <span><i class="fa-solid fa-layer-group"></i> ${ins.type}</span>
-                            <span><i class="fa-solid fa-id-badge"></i> ইআইআইএন (EIIN): ${ins.eiin || ins.id}</span>
+                    <div class="card-header" style="border-top: 4px solid #047857; padding: 15px;">
+                        <h3 style="font-size: 1.25rem; color: #0f766e;">${ins.name}</h3>
+                        ${ins.slogan ? `<p style="font-style: italic; color: #0d9488; font-size: 13px; margin-top: 2px; margin-bottom: 8px;"><i class="fa-solid fa-quote-left" style="font-size:10px;"></i> ${ins.slogan} <i class="fa-solid fa-quote-right" style="font-size:10px;"></i></p>` : ''}
+                        
+                        <div class="meta-list" style="margin: 10px 0; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 5px;">
+                            <span><i class="fa-solid fa-location-dot" style="color:#047857;"></i> <b>এলাকা:</b> ${ins.area}</span>
+                            <span><i class="fa-solid fa-layer-group" style="color:#047857;"></i> <b>ধরণ:</b> ${ins.type} (${ins.medium || 'বাংলা মাধ্যম'})</span>
+                            <span><i class="fa-solid fa-graduation-cap" style="color:#047857;"></i> <b>শ্রেণি/শিফট:</b> ${ins.classShift || 'N/A'}</span>
+                            <span><i class="fa-solid fa-user-tie" style="color:#047857;"></i> <b>প্রধান ব্যক্তি:</b> ${ins.leader} (<a href="tel:${ins.phone}" style="color: #047857; text-decoration: none; font-weight: 700;"><i class="fa-solid fa-phone"></i> কল করুন</a>)</span>
+                            <span><i class="fa-solid fa-id-badge" style="color:#047857;"></i> <b>ইআইআইএন (EIIN):</b> ${ins.eiin || ins.id}</span>
                         </div>
                         
-                        <button class="student-btn" onclick="openLoginModal('${ins.name}', 'student')" style="width: 100%; background: #047857; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri'; margin-bottom: 8px; margin-top: 15px;">
+                        <button onclick="openDetailsModal('${ins.id}')" style="width: 100%; background: #f0fdf4; color: #166534; border: 1px dashed #166534; padding: 9px; border-radius: 6px; cursor: pointer; font-weight: 700; font-family: 'Hind Siliguri'; margin-bottom: 8px; margin-top: 10px; transition: 0.2s;">
+                            <i class="fa-solid fa-circle-info"></i> লক্ষ্য, বৈশিষ্ট্য ও ভর্তির আনুমানিক খরচ দেখুন
+                        </button>
+
+                        <button class="student-btn" onclick="openLoginModal('${ins.name}', 'student')" style="width: 100%; background: #047857; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Hind Siliguri'; margin-bottom: 8px;">
                             <i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট আইডি লগইন (রেজাল্ট/বেতন)
                         </button>
                         
@@ -645,12 +651,62 @@
     // পেজ লোড ইভেন্ট হ্যান্ডলার
     document.addEventListener('DOMContentLoaded', () => {
         renderLiveInstitutions();
-        
-        // ডাইনামিক কার্ড যুক্ত হওয়ার পর অল-কার্ড লিস্ট আপডেট করা যাতে লাইভ ফিল্টারিং ঠিকঠাক চলে
+        // ডাইনামিক কার্ড যুক্ত হওয়ার পর অল-কার্ড লিস্ট রিয়েল-টাইমে গ্লোবাল উইন্ডোতে বাইন্ড করা
         window.allCards = document.querySelectorAll('.institutions-grid .card');
+        
+        // 🛠️ ডিটেইলস মডালের জন্য ডাইনামিক HTML বডি ইনজেকশন (যদি পেজে আগে থেকে না থাকে)
+        if(!document.getElementById('detailsModal')) {
+            const dModal = document.createElement('div');
+            dModal.id = 'detailsModal';
+            dModal.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:9999; padding:15px;";
+            dModal.innerHTML = `
+                <div style="background:white; width:100%; max-width:550px; border-radius:12px; padding:25px; box-shadow:0 10px 25px rgba(0,0,0,0.2); max-height:85vh; overflow-y:auto; position:relative;">
+                    <span onclick="closeDetailsModal()" style="position:absolute; top:15px; right:20px; font-size:24px; cursor:pointer; color:#64748b;"><i class="fa-solid fa-xmark"></i></span>
+                    <h2 id="dmName" style="color:#047857; font-size:22px; margin-bottom:5px;">স্কুলের নাম</h2>
+                    <p id="dmSlogan" style="font-style:italic; color:#0d9488; font-size:14px; margin-bottom:15px; border-bottom:2px solid #e2e8f0; padding-bottom:10px;"></p>
+                    
+                    <div style="margin-bottom:15px;">
+                        <h4 style="color:#1e293b; margin-bottom:5px;"><i class="fa-solid fa-star" style="color:#eab308;"></i> আমাদের লক্ষ্য ও অনন্য বৈশিষ্ট্যসমূহ:</h4>
+                        <div id="dmFeatures" style="font-size:14px; color:#475569; white-space:pre-line; background:#f8fafc; padding:12px; border-radius:6px; border-left:4px solid #0d9488;"></div>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="color:#1e293b; margin-bottom:5px;"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> কেন আপনার সন্তানকে এখানে পড়াবেন?:</h4>
+                        <div id="dmWhy" style="font-size:14px; color:#475569; white-space:pre-line; background:#fdf2f8; padding:12px; border-radius:6px; border-left:4px solid #db2777;"></div>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <h4 style="color:#1e293b; margin-bottom:5px;"><i class="fa-solid fa-calculator" style="color:#2563eb;"></i> ভর্তির সাধারণ তথ্য ও আনুমানিক খরচ:</h4>
+                        <div id="dmFees" style="font-size:14px; color:#475569; white-space:pre-line; background:#f0fdf4; padding:12px; border-radius:6px; border-left:4px solid #166534; font-family:inherit;"></div>
+                    </div>
+                    <button onclick="closeDetailsModal()" style="width:100%; background:#1e293b; color:white; border:none; padding:10px; border-radius:6px; font-family:'Hind Siliguri'; font-weight:600; cursor:pointer; margin-top:10px;">বন্ধ করুন</button>
+                </div>
+            `;
+            document.body.appendChild(dModal);
+        }
     });
 
-    // 🔍 লাইভ ফিল্টারিং ফাংশন
+    // 🎯 [ফিচার চালু]: বিস্তারিত মডাল ওপেন করার লজিক
+    function openDetailsModal(insId) {
+        const liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
+        const ins = liveInstitutions.find(item => item.id === insId);
+        
+        if(!ins) return;
+
+        document.getElementById('dmName').innerText = ins.name;
+        document.getElementById('dmSlogan').innerText = ins.slogan ? `"${ins.slogan}"` : 'কোনো স্লোগান নেই';
+        document.getElementById('dmFeatures').innerText = ins.keyFeatures || 'কোনো বিবরণ দেওয়া হয়নি।';
+        document.getElementById('dmWhy').innerText = ins.whyChoose || 'কোনো বিবরণ দেওয়া হয়নি।';
+        document.getElementById('dmFees').innerText = ins.feeStructure || 'খরচের চার্ট এখনও আপলোড করা হয়নি।';
+
+        document.getElementById('detailsModal').style.display = 'flex';
+    }
+
+    function closeDetailsModal() {
+        document.getElementById('detailsModal').style.display = 'none';
+    }
+
+    // 🔍 [১০০% ফিক্সড] ৩টি সার্চ বক্সের কম্বাইন্ড লাইভ ফিল্টারিং ফাংশন
     function filterInstitutions() {
         const searchText = searchInput.value.toLowerCase().trim();
         const selectedArea = areaFilter.value;
@@ -666,10 +722,12 @@
 
             const matchesSearch = instName.includes(searchText);
             const matchesArea = selectedArea === "" || cardArea === selectedArea;
+            
+            // নিখুঁত টাইপ ডাইনামিক ফিল্টারিং
             const matchesType = selectedType === "" || cardType === selectedType;
 
             if (matchesSearch && matchesArea && matchesType) {
-                card.style.display = 'block'; // আপনার ক্লাসের জায়গায় ডিসপ্লে ব্লক ব্যবহার নিশ্চিত করা হলো
+                card.style.display = 'block';
                 visibleCardsCount++;
             } else {
                 card.style.display = 'none';
@@ -683,12 +741,12 @@
         }
     }
 
-    // ফিল্টার ইভেন্ট লিসেনার
+    // ৩টি ড্রপডাউনের রিয়েল-টাইম ইভেন্ট ট্র্যাকিং চালু
     searchInput.addEventListener('input', filterInstitutions);
     areaFilter.addEventListener('change', filterInstitutions);
     typeFilter.addEventListener('change', filterInstitutions);
 
-    // 🔘 পপআপ/মোডাল ওপেন করার ফাংশন
+    // 🔘 লগইন মডাল ওপেন করার ফাংশন
     function openModal(type, instName) {
         currentActiveType = type;
         currentInstName = instName;
@@ -699,7 +757,7 @@
             modalTitle.innerHTML = `<i class="fa-solid fa-user-graduate"></i> স্টুডেন্ট লগইন <br><span style="font-size:0.85rem; color:#64748b;">${instName}</span>`;
             formFields.innerHTML = `
                 <div class="modal-form-group">
-                    <label>শিক্ষার্থীবৃন্দের আইডি (Student ID):</label>
+                    <label>शिक्षার্থীবৃন্দের আইডি (Student ID):</label>
                     <input type="text" id="modalUserId" placeholder="যেমন: KHS-26-105" required>
                 </div>
                 <div class="modal-form-group">
@@ -734,14 +792,8 @@
         openModal(type, instName);
     }
 
-    function openNoticeModal(instName) {
-        document.getElementById('noticeModalTitle').innerText = `${instName} - নোটিশ বোর্ড`;
-        noticeModal.classList.add('active');
-    }
-
     function closeModal() {
         loginModal.classList.remove('active');
-        noticeModal.classList.remove('active');
         const genericForm = document.getElementById('genericForm');
         if (genericForm) genericForm.reset();
     }
@@ -756,14 +808,13 @@
         const passwordOpt = document.getElementById('modalPassword');
         const password = passwordOpt ? passwordOpt.value : '';
 
-        // লাইভ ডেটাবেজ কি 'institutions' থেকে ডেটা রিড ও চেক করা
         const liveInstitutions = JSON.parse(localStorage.getItem('institutions')) || [];
         const matchedIns = liveInstitutions.find(ins => ins.name === currentInstName);
 
         if (currentActiveType === 'mosque') {
             const expectedPin = matchedIns ? matchedIns.password : '1234';
             if (password === expectedPin) {
-                alert(`🎉 পিন কোড সফল হয়েছে! ${currentInstName}-এর নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
+                alert(`🎉 পিন কোড সফল হয়েছে! ${currentInstName}-এর নামাজের সময়সূচি পরিবর্তন মোড চালু করা হচ্ছে...`);
                 closeModal();
                 window.location.href = 'mosque-dashboard.html?id=' + (matchedIns ? matchedIns.id : 'test');
             } else {
@@ -772,7 +823,6 @@
             return;
         }
 
-        // স্কুল/মাদ্রাসা ড্যাশবোর্ড সিকিউরিটি ও পাসওয়ার্ড ম্যাচিং
         const expectedPassword = matchedIns ? matchedIns.password : '123456';
         if (password === expectedPassword || password === '123456') {
             const sessionData = {
@@ -787,10 +837,10 @@
             closeModal();
 
             if (currentActiveType === 'admin') {
-                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে: ${currentInstName}`);
+                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে: ${currentInstName}`);
                 window.location.href = 'teacher-dashboard.html';
             } else if (currentActiveType === 'student') {
-                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে স্টুডেন্ট ড্যাশবোর্ডে।`);
+                alert(`🎉 সফলভাবে লগইন হয়েছে! প্রবেশ করা হচ্ছে স্টুডেন্ট ড্যাжебোর্ডে।`);
                 window.location.href = 'student-dashboard.html';
             }
         } else {
