@@ -51,15 +51,54 @@ function switchStudentSection(sectionId, element) {
  * =========================================================================
  */
 document.addEventListener("DOMContentLoaded", function() {
-    // যদি লগইন সেশন থেকে শিক্ষার্থীর নাম পাওয়া যায় তা হেডারে ডাইনামিকালি সেট করা
+    // লগইন সেশন থেকে শিক্ষার্থীর র ডেটা নেওয়া
     const sessionDataRaw = localStorage.getItem('user_student_session');
+    
     if (sessionDataRaw) {
         const sessionData = JSON.parse(sessionDataRaw);
+        
+        // ১. শিক্ষার্থীর নাম হেডার এবং প্রোফাইলে সেট করা
         if (sessionData.studentName) {
-            document.getElementById('studentWelcomeName').innerText = `স্বাগতম, ${sessionData.studentName}`;
+            const welcomeElem = document.getElementById('studentWelcomeName');
+            if (welcomeElem) {
+                welcomeElem.innerText = `স্বাগতম, ${sessionData.studentName}`;
+            }
+            document.getElementById('prof-name').innerText = sessionData.studentName;
         }
+        
+        // ২. রোল নম্বর
+        document.getElementById('prof-roll').innerText = sessionData.rollNo || 'N/A';
+        
+        // ৩. শ্রেণি ও শাখা একত্রে
+        const className = sessionData.className || "";
+        const sectionName = sessionData.section ? ` (${sessionData.section} শাখা)` : "";
+        document.getElementById('prof-class-section').innerText = `${className}${sectionName}`;
+        
+        // ৪. স্টুডেন্ট আইডি (UID)
+        document.getElementById('prof-uid').innerText = sessionData.id || 'N/A';
+        
+        // ৫. জন্ম নিবন্ধন নম্বর (BRN)
+        document.getElementById('prof-brn').innerText = sessionData.brn || 'N/A';
+        
+        // Ruton ৬. রক্তের গ্রুপ
+        document.getElementById('prof-blood').innerText = sessionData.blood || 'N/A';
+        
+        // ৭. পিতার নাম ও মোবাইল নম্বর একত্রে
+        const fatherName = sessionData.father || "";
+        const fatherPhone = sessionData.phone ? ` (${sessionData.phone})` : "";
+        document.getElementById('prof-father-info').innerText = `${fatherName}${fatherPhone}`;
+        
+        // ৮. মাতার নাম
+        document.getElementById('prof-mother').innerText = sessionData.mother || 'N/A';
+        
+        // ৯. বর্তমান ঠিকানা
+        document.getElementById('prof-address').innerText = sessionData.currentAddress || 'N/A';
+        
+        // ১০. জরুরি যোগাযোগের নম্বর
+        document.getElementById('prof-emergency').innerText = sessionData.phone ? `${sessionData.phone} (অভিভাবক)` : 'N/A';
     }
-    console.log("স্টুডেন্ট ড্যাশবোর্ড প্যানেল সফলভাবে সক্রিয় হয়েছে।");
+    
+    console.log("স্টুডেন্ট ড্যাশবোর্ড প্যানেল সফলভাবে সক্রিয় হয়েছে এবং প্রোফাইল ডেটা লোড হয়েছে।");
 });
 /**
  * =========================================================================

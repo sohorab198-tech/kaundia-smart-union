@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>জনসংখ্যা পরিসংখ্যান - কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</title>
+    <title>লাইভ পরিসংখ্যান ড্যাশবোর্ড - কাউন্দিয়া ইউনিয়ন</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,286 +11,321 @@
         body { font-family: 'Hind Siliguri', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 min-h-screen flex flex-col justify-between">
 
-    <header class="bg-white shadow-sm py-4 px-4 md:px-12 flex justify-between items-center border-b border-gray-100">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white text-xl">
-                <i class="fas fa-landmark"></i>
-            </div>
-            <div>
-                <h1 class="text-lg font-bold text-blue-900">KAUNDIA UNION</h1>
-                <p class="text-xs text-emerald-600 font-bold uppercase tracking-widest">Digital Portal</p>
+    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 text-emerald-600 hover:text-emerald-700 transition">
+                <i class="fas fa-arrow-left text-lg"></i>
+                <span class="font-bold text-lg">হোমপেজে ফিরুন</span>
+            </a>
+            <div class="text-right">
+                <h1 class="font-bold text-gray-800 text-md sm:text-xl">কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল</h1>
+                <p class="text-xs text-emerald-600 font-semibold tracking-wider uppercase">লাইভ ডেটা অ্যানালিটিক্স</p>
             </div>
         </div>
-        <a href="index.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-            <i class="fas fa-home mr-1"></i> হোমে ফিরুন
-        </a>
-    </header>
+    </nav>
 
-    <main class="container mx-auto px-4 md:px-12 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 w-full">
+        <div class="relative bg-gradient-to-br from-emerald-800 via-emerald-900 to-teal-800 text-white p-6 sm:p-10 rounded-3xl shadow-xl overflow-hidden border border-emerald-700/50">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div class="max-w-3xl space-y-3">
+                    <span class="bg-emerald-500/30 text-emerald-300 border border-emerald-500/50 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider inline-flex items-center">
+                        <i class="fas fa-water mr-1.5 text-cyan-400"></i> তুراق ও বুড়িগঙ্গা নদী বেষ্টিত ঐতিহ্যবাহী কাউন্দিয়া ইউনিয়ন
+                    </span>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
+                        🎯 সমৃদ্ধ কাউন্দিয়া গঠনে আপনার তথ্য দিয়ে সাহায্য করুন
+                    </h2>
+                    
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed opacity-95">
+                        আপনার ও আপনার পরিবারের সঠিক তথ্য দিয়ে কাউন্দিয়া Unions-এর একটি নিখুঁত ডিজিটাল জনসংখ্যা ডাটাবেজ তৈরিতে অংশ নিন। এই তথ্য পরবর্তীতে আপনার ও আপনার পরিবারের নাগরিক সেবা আরও সহজ ও দ্রুত করতে সরাসরি ভূমিকা রাখবে।
+                    </p>
+                    
+                    <p class="text-emerald-300 text-xs sm:text-sm font-semibold flex items-center pt-1">
+                        <span class="bg-emerald-950/40 px-3 py-1.5 rounded-lg border border-emerald-700/40">
+                            🔒 আপনার প্রদানকৃত সকল তথ্য সম্পূর্ণ গোপন ও রাষ্ট্রীয় নিয়মে ১০০% নিরাপদ থাকবে।
+                        </span>
+                    </p>
+                </div>
+
+                <div class="flex-shrink-0 pt-2 lg:pt-0">
+                    <a href="citizen-reg-form.html" class="inline-flex items-center space-x-3 bg-white hover:bg-emerald-50 text-emerald-800 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 text-base sm:text-lg group">
+                        <i class="fas fa-clipboard-list text-xl text-emerald-600 group-hover:scale-110 transition-transform"></i>
+                        <span>📋 নাগরিক নিবন্ধন</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
         
-        <div class="text-center mb-10">
-            <span class="text-emerald-600 font-bold tracking-wide uppercase text-sm block mb-1">Live Dashboard</span>
-            <h2 class="text-2xl md:text-4xl font-extrabold text-blue-950">
-                📊 রিয়েল-টাইম জনসংখ্যা পরিসংখ্যান
-            </h2>
-            <p class="text-gray-500 text-sm mt-2 max-w-xl mx-auto">
-                কাউন্দিয়া ইউনিয়নের নিবন্ধিত নাগরিকদের তথ্যের ওপর ভিত্তি করে স্বয়ংক্রিয়ভাবে তৈরি লাইভ ড্যাশবোর্ড।
-            </p>
-            <button onclick="resetData()" class="mt-4 text-xs bg-gray-200 hover:bg-red-100 hover:text-red-600 text-gray-500 font-semibold px-3 py-1 rounded-lg transition">
-                <i class="fas fa-trash-alt mr-1"></i> টেস্ট ডেটা রিসেট করুন
-            </button>
-        </div>
-
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-emerald-600 pl-2">১. মৌলিক জনসংখ্যা</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gradient-to-br from-blue-900 to-blue-950 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
-                    <div class="absolute right-4 bottom-4 text-6xl text-blue-800/40"><i class="fas fa-users"></i></div>
-                    <p class="text-sm font-medium text-blue-200">মোট জনসংখ্যা</p>
-                    <p id="totalPop" class="text-3xl font-extrabold mt-2">৩৫,৪২০ জন</p>
-                    <p class="text-xs text-blue-300 mt-2"><i class="fas fa-sync-alt animate-spin mr-1"></i> লাইভ আপডেট</p>
+        <h3 class="text-xl font-bold text-gray-800 border-l-4 border-emerald-600 pl-3">১. প্রধান জনসংখ্যা ও ভোটার তথ্য</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl text-xl"><i class="fas fa-users"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">মোট জনসংখ্যা (সক্রিয়)</p>
+                    <h3 id="statTotalPopulation" class="text-xl sm:text-2xl font-bold text-gray-800">০</h3>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">পুরুষ</p>
-                        <p id="malePop" class="text-2xl font-bold text-gray-800 mt-1">১৭,৮১০ জন</p>
-                        <span id="malePercentage" class="text-xs bg-blue-50 text-blue-600 font-semibold px-2 py-0.5 rounded mt-2 inline-block">৫০.২৮%</span>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-mars"></i></div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-blue-50 text-blue-600 rounded-xl text-xl"><i class="fas fa-mars"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">পুরুষ</p>
+                    <h3 id="statTotalMales" class="text-xl sm:text-2xl font-bold text-gray-800">০</h3>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">নারী</p>
-                        <p id="femalePop" class="text-2xl font-bold text-gray-800 mt-1">১৭,৬১০ জন</p>
-                        <span id="femalePercentage" class="text-xs bg-pink-50 text-pink-600 font-semibold px-2 py-0.5 rounded mt-2 inline-block">৪৯.৭২%</span>
-                    </div>
-                    <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-venus"></i></div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-rose-50 text-rose-600 rounded-xl text-xl"><i class="fas fa-venus"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">মহিলা</p>
+                    <h3 id="statTotalFemales" class="text-xl sm:text-2xl font-bold text-gray-800">০</h3>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">মোট ভোটার সংখ্যা</p>
-                        <p id="voterPop" class="text-2xl font-bold text-gray-800 mt-1">২২,৪৫০ জন</p>
-                        <span class="text-xs bg-emerald-50 text-emerald-600 font-semibold px-2 py-0.5 rounded mt-2 inline-block">১৮+ বছর বয়সী</span>
-                    </div>
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-id-card"></i></div>
-                </div>
-                <div class="bg-white border-2 border-red-100 rounded-2xl p-6 shadow-sm flex items-center justify-between col-span-1 sm:col-span-2 lg:col-span-2 bg-red-50/30">
-                    <div>
-                        <p class="text-sm font-semibold text-red-900">১৮+ বয়স কিন্তু এখনও ভোটার হননি (তালিকাভুক্ত)</p>
-                        <p id="voterWishCount" class="text-3xl font-extrabold text-red-600 mt-1">০ জন</p>
-                        <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-1 rounded mt-2 inline-block"><i class="fas fa-bullseye mr-1"></i> দ্রুত ভোটার করার পরিকল্পনাধীন</span>
-                    </div>
-                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl shadow-inner"><i class="fas fa-user-clock"></i></div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl text-xl"><i class="fas fa-id-card"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">মোট ভোটার সংখ্যা (১৮+)</p>
+                    <h3 id="statTotalVoters" class="text-xl sm:text-2xl font-bold text-gray-800">০</h3>
                 </div>
             </div>
         </div>
 
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-indigo-600 pl-2">২. শিক্ষা, পরিবার ও আবাসন শুমারি (লাইভ)</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-home"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">মোট পরিবার সংখ্যা</h4>
-                    <p id="totalFamilies" class="text-2xl font-extrabold text-indigo-600 mt-1">৭,৮৫০ টি</p>
-                    <p class="text-xs text-gray-400 mt-1">পরিবার প্রধানের গণনানুযায়ী</p>
+        <h3 class="text-xl font-bold text-gray-800 border-l-4 border-indigo-600 pl-3">২. খানা ও আবাসন স্থিতি</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl text-xl"><i class="fas fa-home"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">মোট খানা/পরিবার প্রধান</p>
+                    <h3 id="statTotalHouseholds" class="text-xl font-bold text-gray-800">০</h3>
                 </div>
-
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-house-user"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">স্থায়ী পরিবার (মালিক)</h4>
-                    <p id="ownerFamilies" class="text-2xl font-extrabold text-emerald-600 mt-1">৭,৮৫০ টি</p>
-                    <span id="ownerPercent" class="text-xs bg-emerald-50 text-emerald-600 font-semibold px-2 py-0.5 rounded mt-1 inline-block">১০০%</span>
-                </div>
-
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-key"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">ভাড়াটিয়া পরিবার সংখ্যা</h4>
-                    <p id="renterFamilies" class="text-2xl font-extrabold text-amber-600 mt-1">০ টি</p>
-                    <span id="renterPercent" class="text-xs bg-amber-50 text-amber-600 font-semibold px-2 py-0.5 rounded mt-1 inline-block">০%</span>
-                </div>
-
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center bg-orange-50/20 border-orange-100">
-                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-book-reader"></i></div>
-                    <h4 class="font-bold text-orange-900 text-sm">স্কুল বহির্ভূত শিশু (৫-১৮ বছর)</h4>
-                    <p id="outOfSchoolCount" class="text-2xl font-extrabold text-orange-600 mt-1">০ জন</p>
-                    <p class="text-xs text-orange-500 mt-1 font-medium">শিক্ষা উপকরণ ও উপবৃত্তি উপযোগী</p>
-                </div>
-
             </div>
-        </div>
-
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-rose-500 pl-2">৩. আগামী ৫ মাসের জনসংখ্যা প্রক্ষেপণ ও স্বাস্থ্য সেবা</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-rose-50 border border-rose-100 rounded-2xl p-6 shadow-sm flex items-center gap-5">
-                    <div class="w-16 h-16 bg-rose-500 text-white rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-md shadow-rose-200">
-                        <i class="fas fa-baby-carriage"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-rose-900">বর্তমানে গর্ভবতী মায়ের সংখ্যা</p>
-                        <p id="pregnantCount" class="text-3xl font-extrabold text-rose-700 mt-1">১৪২ জন</p>
-                        <p class="text-xs text-rose-600 mt-1">💡 ইউনিয়ন স্বাস্থ্য কেন্দ্রের বিশেষ পুষ্টি ও চিকিৎসা সেবার আওতায় আছেন।</p>
-                    </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl text-xl"><i class="fas fa-house-user"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">স্থায়ী পরিবার (মালিক)</p>
+                    <h3 id="statPermanentHouse" class="text-xl font-bold text-gray-800">০</h3>
                 </div>
-                <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 shadow-sm flex items-center gap-5">
-                    <div class="w-16 h-16 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-md shadow-amber-200">
-                        <i class="fas fa-child"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-amber-900">আগামী ৫ মাসে সম্ভাব্য জন্ম নিতে যাওয়া শিশু (প্রাক-হিসাব)</p>
-                        <p id="babyCount" class="text-3xl font-extrabold text-amber-700 mt-1">১৪২ টি</p>
-                        <p class="text-xs text-amber-600 mt-1">📋 আগাম জন্ম নিবন্ধন কার্ড এবং প্রাথমিক টিকাদান কর্মসূচীর পরিকল্পনা প্রস্তুত।</p>
-                    </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-xl text-xl"><i class="fas fa-tenge-sign"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">ভাড়াটিয়া পরিবার সংখ্যা</p>
+                    <h3 id="statRentedHouse" class="text-xl font-bold text-gray-800">০</h3>
                 </div>
             </div>
         </div>
 
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-purple-600 pl-2">৪. বয়স ভিত্তিক শ্রেণীবিভাগ</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-baby"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">শিশু (০ - ৫ বছর)</h4>
-                    <p id="ageGroup1" class="text-2xl font-extrabold text-teal-600 mt-1">১,৮৫০ জন</p>
-                    <p class="text-xs text-gray-400 mt-1">টিকা ও প্রারম্ভিক পুষ্টির আওতায়</p>
+        <h3 class="text-xl font-bold text-gray-800 border-l-4 border-rose-600 pl-3">৩. আগামী ৫ মাসের জনসংখ্যা প্রক্ষেপণ ও স্বাস্থ্য সেবা</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-rose-50/50 p-6 rounded-3xl border border-rose-100 shadow-sm flex items-center space-x-6">
+                <div class="w-14 h-14 bg-rose-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-md shadow-rose-200">
+                    <i class="fas fa-baby-carriage"></i>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-backpack"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">কিশোর ও তরুণ (৬ - ২৪ বছর)</h4>
-                    <p id="ageGroup2" class="text-2xl font-extrabold text-purple-600 mt-1">১১,২০০ জন</p>
-                    <p class="text-xs text-gray-400 mt-1">শিক্ষা ও ক্রীড়া উন্নয়ন পরিকল্পনায়</p>
+                <div>
+                    <p class="text-sm font-semibold text-rose-800">বর্তমানে গর্ভবতী মায়ের সংখ্যা</p>
+                    <h3 class="text-3xl font-bold text-rose-700 mt-1" id="statPregnant">০ জন</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center"><i class="fas fa-lightbulb text-amber-500 mr-1"></i> ইউনিয়ন স্বাস্থ্য কেন্দ্রের বিশেষ পুষ্টি ও চিকিৎসা সেবার আওতায় আছেন।</p>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-briefcase"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">কর্মক্ষম (২৫ - ৫৯ বছর)</h4>
-                    <p id="ageGroup3" class="text-2xl font-extrabold text-indigo-600 mt-1">১৮,১১০ জন</p>
-                    <p class="text-xs text-gray-400 mt-1">অর্থনৈতিক ও কর্মসংস্থান পরিকল্পনায়</p>
+            </div>
+
+            <div class="bg-amber-50/40 p-6 rounded-3xl border border-amber-100 shadow-sm flex items-center space-x-6">
+                <div class="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-md shadow-amber-100">
+                    <i class="fas fa-baby"></i>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm text-center">
-                    <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mx-auto text-xl mb-3"><i class="fas fa-blind"></i></div>
-                    <h4 class="font-bold text-gray-700 text-sm">প্রবীণ নাগরিক (৬০+ বছর)</h4>
-                    <p id="ageGroup4" class="text-2xl font-extrabold text-orange-600 mt-1">৪,২৬০ জন</p>
-                    <p class="text-xs text-gray-400 mt-1">বয়স্ক ভাতা ও বিশেষ চিকিৎসা সেবায়</p>
+                <div>
+                    <p class="text-sm font-semibold text-amber-800">আগামী ৫ মাসে সম্ভাব্য জন্ম নিতে যাওয়া শিশু (প্রাক-হিসাব)</p>
+                    <h3 class="text-3xl font-bold text-amber-600 mt-1" id="statExpectedBirth">০ টি</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center"><i class="fas fa-file-alt text-slate-400 mr-1"></i> আগাম জন্ম নিবন্ধন কার্ড এবং প্রাথমিক টিকাদান কর্মসূচীর পরিকল্পনা প্রস্তুত।</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-800 border-l-4 border-indigo-700 pl-3">৪. বয়স ভিত্তিক শ্রেণীবিভাগ</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center space-y-2">
+                <div class="w-10 h-10 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center text-md">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h4 class="text-sm font-bold text-gray-700">শিশু (০ - ৫ বছর)</h4>
+                <h3 class="text-xl font-bold text-teal-600" id="age_group_1">০ জন</h3>
+                <p class="text-xs text-gray-400">টিকা ও প্রারম্ভিক পুষ্টির আওতায়</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center space-y-2">
+                <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-md">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h4 class="text-sm font-bold text-gray-700">কিশোর ও তরুণ (৬ - ২৪ বছর)</h4>
+                <h3 class="text-xl font-bold text-purple-600" id="age_group_2">০ জন</h3>
+                <p class="text-xs text-gray-400">শিক্ষা ও ক্রীড়া উন্নয়ন পরিকল্পনায়</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center space-y-2">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-md">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h4 class="text-sm font-bold text-gray-700">কর্মক্ষম (২৫ - ৫৯ বছর)</h4>
+                <h3 class="text-xl font-bold text-blue-600" id="age_group_3">০ জন</h3>
+                <p class="text-xs text-gray-400">অর্থনৈতিক ও কর্মসংস্থান পরিকল্পনায়</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center space-y-2">
+                <div class="w-10 h-10 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-md">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <h4 class="text-sm font-bold text-gray-700">প্রবীণ নাগরিক (৬০+ বছর)</h4>
+                <h3 class="text-xl font-bold text-orange-600" id="age_group_4">০ জন</h3>
+                <p class="text-xs text-gray-400">বয়স্ক ভাতা ও বিশেষ চিকিৎসা সেবায়</p>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-800 border-l-4 border-teal-600 pl-3">৫. শিক্ষা ও ঝরে পড়া ট্র্যাকিং</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-teal-50 text-teal-600 rounded-xl text-xl"><i class="fas fa-graduation-cap"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">নিয়মিত স্কুলগামী ছাত্র/ছাত্রী (৫-১৮ বছর)</p>
+                    <h3 id="statStudents" class="text-xl font-bold text-teal-700">০ জন</h3>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center space-x-4">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-xl text-xl"><i class="fas fa-exclamation-triangle"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400 font-bold">স্কুল বহির্ভূত/ঝরে পড়া শিশু সংখ্যা</p>
+                    <h3 id="statDroppedOut" class="text-xl font-bold text-amber-700">০ জন</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm lg:col-span-2">
+                <h3 class="font-bold text-gray-800 text-lg mb-4 flex items-center">
+                    <i class="fas fa-map-marked-alt text-emerald-600 mr-2"></i> ওয়ার্ড ভিত্তিক লাইভ সক্রিয় জনসংখ্যা বিতরণ
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <script>
+                        for(let i=1; i<=9; i++){
+                            document.write(`
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center">
+                                    <span class="font-semibold text-gray-700">${["০","১","২","৩","৪","৫","৬","৭","৮","৯"][i]} নং ওয়ার্ড</span>
+                                    <span id="wardCount${i}" class="font-bold text-emerald-600 text-md">০ জন</span>
+                                </div>
+                            `);
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <h3 class="font-bold text-gray-800 text-lg mb-4 flex items-center">
+                    <i class="fas fa-briefcase text-emerald-600 mr-2"></i> পেশা ভিত্তিক সক্রিয় তালিকা
+                </h3>
+                <div class="space-y-3">
+                    <script>
+                        const professionsListArray = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিণী', 'ছাত্র/ছাত্রী', 'প্রবাসী', 'অন্যান্য'];
+                        professionsListArray.forEach(p => {
+                            document.write(`
+                                <div class="flex justify-between items-center text-sm border-b border-gray-50 pb-2">
+                                    <span class="text-gray-600 font-medium">${p}</span>
+                                    <span id="profCount_${p}" class="font-bold text-slate-700 bg-gray-100 px-2 py-0.5 rounded-md">০</span>
+                                </div>
+                            `);
+                        });
+                    </script>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="bg-blue-950 text-gray-500 py-6 text-center text-xs border-t border-blue-900 mt-12">
-        <p>© 2026 Kaundia Union Digital Portal. All Rights Reserved.</p>
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center text-sm border-t border-gray-700 mt-12">
+        <p>© ২০২৬ কাউন্দিয়া ইউনিয়ন ডিজিটাল পোর্টাল। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
 
     <script>
-        function updateDashboard() {
-            // বেসলাইন ফিক্সড ডাটা
-            let baseTotal = 35420;
-            let baseMale = 17810;
-            let baseFemale = 17610;
-            let baseVoters = 22450;
-            let basePregnant = 142;
-            let baseFamilies = 7850; // বেস পরিবার সংখ্যা
+        function initLiveStatistics() {
+            let citizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
 
-            let baseAge1 = 1850;   
-            let baseAge2 = 11200;  
-            let baseAge3 = 18110;  
-            let baseAge4 = 4260;   
+            // লাইভ অ্যাক্টিভ ফিল্টার
+            let activeCitizens = citizens.filter(c => c.isAlive === true && c.hasLeftUnion === false);
 
-            let newCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
-
-            let addedMale = 0, addedFemale = 0, addedVoters = 0, addedPregnant = 0, addedVoterWish = 0;
-            let addedAge1 = 0, addedAge2 = 0, addedAge3 = 0, addedAge4 = 0;
+            // ১. ডেমোগ্রাফিক তথ্য
+            let totalPopulation = activeCitizens.length;
+            let totalMales = activeCitizens.filter(c => c.gender === 'পুরুষ').length;
+            let totalFemales = activeCitizens.filter(c => c.gender === 'মহিলা').length;
             
-            // নতুন শুমারির ভ্যারিয়েবলসমূহ
-            let addedFamilies = 0;
-            let addedOwners = 0;
-            let addedRenters = 0;
-            let outOfSchoolChildren = 0;
-
-            newCitizens.forEach(citizen => {
-                if (citizen.gender === 'পুরুষ') addedMale++;
-                if (citizen.gender === 'মহিলা') addedFemale++;
-                if (citizen.age >= 18) addedVoters++;
-                if (citizen.isPregnant === true) addedPregnant++;
-                if (citizen.wantsToVote === true) addedVoterWish++;
-
-                // স্কুল ঝরে পড়া শিশুর হিসাব
-                if (citizen.isStudent === 'no') outOfSchoolChildren++;
-
-                // পরিবার এবং মালিক/ভাড়াটিয়া গণনা
-                if (citizen.isFamilyHead === true) {
-                    addedFamilies++;
-                    if (citizen.homeStatus === 'মালিক') addedOwners++;
-                    if (citizen.homeStatus === 'ভাড়াটিয়া') addedRenters++;
-                }
-
-                if (citizen.age >= 0 && citizen.age <= 5) addedAge1++;
-                else if (citizen.age >= 6 && citizen.age <= 24) addedAge2++;
-                else if (citizen.age >= 25 && citizen.age <= 59) addedAge3++;
-                else if (citizen.age >= 60) addedAge4++;
-            });
-
-            let finalTotal = baseTotal + newCitizens.length;
-            let finalMale = baseMale + addedMale;
-            let finalFemale = baseFemale + addedFemale;
-            let finalVoters = baseVoters + addedVoters;
-            let finalPregnant = basePregnant + addedPregnant;
+            // ২. ভোটার ট্র্যাকিং (বয়স ১৮+)
+            let totalVoters = activeCitizens.filter(c => c.age >= 18).length;
             
-            // পরিবার ফাইনাল হিসাব
-            let finalFamilies = baseFamilies + addedFamilies;
-            let finalOwners = baseFamilies + addedOwners; // বেস সব পরিবারকে প্রাথমিকভাবে মালিক ধরা হলো
-            let finalRenters = addedRenters; 
-
-            let finalAge1 = baseAge1 + addedAge1;
-            let finalAge2 = baseAge2 + addedAge2;
-            let finalAge3 = baseAge3 + addedAge3;
-            let finalAge4 = baseAge4 + addedAge4;
-
-            let malePercent = ((finalMale / finalTotal) * 100).toFixed(2);
-            let femalePercent = ((finalFemale / finalTotal) * 100).toFixed(2);
+            // ৩. খানা এবং আবাসন স্থিতি
+            let familyHeads = activeCitizens.filter(c => c.isFamilyHead === true);
+            let totalHouseholds = familyHeads.length;
+            let permanentHouse = familyHeads.filter(c => c.homeStatus === 'মালিক').length;
+            let rentedHouse = familyHeads.filter(c => c.homeStatus === 'ভারাটিয়া' || c.homeStatus === 'ভাড়াটিয়া').length;
             
-            // আবাসন অনুপাত হিসাব
-            let ownerPercent = ((finalOwners / finalFamilies) * 100).toFixed(1);
-            let renterPercent = ((finalRenters / finalFamilies) * 100).toFixed(1);
+            // ৪. প্রজেকশন
+            let totalPregnant = activeCitizens.filter(c => c.isPregnant === true).length;
+            let expectedBirth = totalPregnant; 
 
-            // স্ক্রিনে ডাটা রেন্ডারিং
-            document.getElementById('totalPop').innerText = finalTotal.toLocaleString('bn-BD') + " জন";
-            document.getElementById('malePop').innerText = finalMale.toLocaleString('bn-BD') + " জন";
-            document.getElementById('femalePop').innerText = finalFemale.toLocaleString('bn-BD') + " জন";
-            document.getElementById('voterPop').innerText = finalVoters.toLocaleString('bn-BD') + " জন";
+            // ৫. ইমেজ ভিত্তিক বয়সের ৪টি প্রধান ক্যাটাগরি
+            let ageGroup1 = activeCitizens.filter(c => c.age >= 0 && c.age <= 5).length;
+            let ageGroup2 = activeCitizens.filter(c => c.age >= 6 && c.age <= 24).length;
+            let ageGroup3 = activeCitizens.filter(c => c.age >= 25 && c.age <= 59).length; 
+            let ageGroup4 = activeCitizens.filter(c => c.age >= 60).length;
+
+            // ৬. শিক্ষা (৫-১৮ বছর)
+            let kidsAgeGroup = activeCitizens.filter(c => c.age >= 5 && c.age <= 18);
+            let studentsCount = kidsAgeGroup.filter(c => c.isStudent === 'yes').length;
+            let droppedOutCount = kidsAgeGroup.filter(c => c.isStudent === 'no').length;
+
+            // --- ইন্টারফেসে পুশ ---
+            if(document.getElementById('statTotalPopulation')) document.getElementById('statTotalPopulation').innerText = totalPopulation;
+            if(document.getElementById('statTotalMales')) document.getElementById('statTotalMales').innerText = totalMales;
+            if(document.getElementById('statTotalFemales')) document.getElementById('statTotalFemales').innerText = totalFemales;
+            if(document.getElementById('statTotalVoters')) document.getElementById('statTotalVoters').innerText = totalVoters;
             
-            document.getElementById('malePercentage').innerText = malePercent + "%";
-            document.getElementById('femalePercentage').innerText = femalePercent + "%";
-            document.getElementById('pregnantCount').innerText = finalPregnant.toLocaleString('bn-BD') + " জন";
-            document.getElementById('babyCount').innerText = finalPregnant.toLocaleString('bn-BD') + " টি";
-            document.getElementById('voterWishCount').innerText = voterWishCount = addedVoterWish.toLocaleString('bn-BD') + " জন";
-
-            // শুমারির নতুন ডাটা রেন্ডার
-            document.getElementById('totalFamilies').innerText = finalFamilies.toLocaleString('bn-BD') + " টি";
-            document.getElementById('ownerFamilies').innerText = finalOwners.toLocaleString('bn-BD') + " টি";
-            document.getElementById('renterFamilies').innerText = finalRenters.toLocaleString('bn-BD') + " টি";
-            document.getElementById('outOfSchoolCount').innerText = outOfSchoolChildren.toLocaleString('bn-BD') + " জন";
+            if(document.getElementById('statTotalHouseholds')) document.getElementById('statTotalHouseholds').innerText = totalHouseholds;
+            if(document.getElementById('statPermanentHouse')) document.getElementById('statPermanentHouse').innerText = permanentHouse;
+            if(document.getElementById('statRentedHouse')) document.getElementById('statRentedHouse').innerText = rentedHouse;
             
-            document.getElementById('ownerPercent').innerText = ownerPercent + "%";
-            document.getElementById('renterPercent').innerText = renterPercent + "%";
+            if(document.getElementById('statPregnant')) document.getElementById('statPregnant').innerText = totalPregnant + " জন";
+            if(document.getElementById('statExpectedBirth')) document.getElementById('statExpectedBirth').innerText = expectedBirth + " টি";
+            
+            if(document.getElementById('age_group_1')) document.getElementById('age_group_1').innerText = ageGroup1 + " জন";
+            if(document.getElementById('age_group_2')) document.getElementById('age_group_2').innerText = ageGroup2 + " জন";
+            if(document.getElementById('age_group_3')) document.getElementById('age_group_3').innerText = ageGroup3 + " জন";
+            if(document.getElementById('age_group_4')) document.getElementById('age_group_4').innerText = ageGroup4 + " জন";
 
-            document.getElementById('ageGroup1').innerText = finalAge1.toLocaleString('bn-BD') + " জন";
-            document.getElementById('ageGroup2').innerText = finalAge2.toLocaleString('bn-BD') + " জন";
-            document.getElementById('ageGroup3').innerText = finalAge3.toLocaleString('bn-BD') + " জন";
-            document.getElementById('ageGroup4').innerText = finalAge4.toLocaleString('bn-BD') + " জন";
-        }
+            if(document.getElementById('statStudents')) document.getElementById('statStudents').innerText = studentsCount + " জন";
+            if(document.getElementById('statDroppedOut')) document.getElementById('statDroppedOut').innerText = droppedOutCount + " জন";
 
-        function resetData() {
-            if(confirm("আপনি কি নিশ্চিতভাবে সব নতুন টেস্ট ডেটা মুছে আগের অবস্থায় ফিরতে চান?")) {
-                localStorage.removeItem('unionCitizens');
-                updateDashboard();
+            // ৭. ওয়ার্ড বিতরণ
+            for (let w = 1; w <= 9; w++) {
+                let wardNumBangla = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"][w];
+                let wardCount = activeCitizens.filter(c => c.ward === wardNumBangla).length;
+                let wardEl = document.getElementById(`wardCount${w}`);
+                if(wardEl) wardEl.innerText = wardCount + " জন";
             }
+
+            // ৮. পেশা ম্যাপিং
+            const professionsList = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিণী', 'ছাত্র/ছাত্রী', 'প্রবাসী', 'অন্যান্য'];
+            professionsList.forEach(prof => {
+                let profCount = activeCitizens.filter(c => c.profession === prof).length;
+                let profEl = document.getElementById(`profCount_${prof}`);
+                if(profEl) profEl.innerText = profCount;
+            });
         }
 
-        window.onload = updateDashboard;
+        document.addEventListener('DOMContentLoaded', initLiveStatistics);
     </script>
 </body>
 </html>

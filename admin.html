@@ -160,15 +160,50 @@
             </div>
         </div>
 
-        <div id="tab-citizens" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 hidden">
-            <div class="p-6 border-b border-gray-100 bg-gray-50/50">
-                <h2 class="text-base font-bold text-gray-800 flex items-center gap-2">👥 নাগরিক আবেদনের তালিকা</h2>
-                <p class="text-xs text-gray-500 mt-0.5">নতুন নিবন্ধনকৃত নাগরিকদের তথ্য যাচাই করে মূল পরিসংখ্যানে যুক্ত করুন।</p>
-            </div>
-            <div class="p-6">
-                <div id="citizenPendingContainer" class="space-y-4"></div>
-            </div>
+ <div id="tab-citizens" class="tab-content bg-white rounded-2xl shadow-sm border border-gray-100 hidden">
+    <div class="p-6 space-y-6">
+         <div class="border-b border-gray-100 pb-4 mb-4">
+            <h2 class="text-base font-bold text-gray-800 flex items-center gap-2">
+            🎥 নাগরিক আবেদনের তালিকা
+           </h2>
+            <p class="text-xs text-gray-500 mt-0.5">নতুন নিবন্ধনকৃত নাগরিকদের তথ্য যাচাই করে মূল পরিসংখ্যানে যুক্ত করুন।</p>
+       </div>
+    
+    <div id="citizenPendingContainer" class="space-y-4"></div>
+
+    <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 shadow-sm">
+        <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" id="globalAdminSearchBox" onkeyup="runAdminGlobalSearch()" placeholder="নাম, পিতার নাম, মোবাইল বা NID/BRN লিখে রিয়েল-টাইমে খুঁজুন..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white text-sm">
         </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-slate-700 text-white px-4 py-3 flex justify-between items-center">
+            <h3 class="font-bold text-sm">
+                <i class="fas fa-users-cog mr-2 text-emerald-400"></i> অনুমোদিত নাগরিক ডাটাবেজ (সক্রিয় তালিকা)
+            </h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider">
+                        <th class="p-3 text-center w-16">ক্রমিক</th>
+                        <th class="p-3">নাগরিক ও পিতার নাম</th>
+                        <th class="p-3">মোবাইল নম্বর</th>
+                        <th class="p-3 text-center w-24">ওয়ার্ড</th>
+                        <th class="p-3 text-center w-40">অবস্থা / অ্যাকশন</th>
+                    </tr>
+                </thead>
+                     <tbody id="verifiedCitizensLedger" class="divide-y divide-gray-100 text-sm text-gray-700">
+                     </tbody>
+            </table>
+        </div>
+     </div>
+    </div>
+ </div>
 
         <div id="tab-notices" class="tab-content hidden bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
@@ -729,61 +764,70 @@ function deleteNotice(id) {
 document.addEventListener('DOMContentLoaded', () => {
     displayAdminNotices();
 });
+
 // ========================================================
-// নাগরিক যাচাইকরণ কন্টেইনার ম্যানেজমেন্ট ফাংশন
+// ১. নাগরিক কন্ট্রোল প্যানেল ম্যানেজমেন্ট (সম্পূর্ণ আপডেটেড ওয়ান-স্টপ ইঞ্জিন)
 // ========================================================
 function loadCitizenDashboardData() {
     let pendingCitizens = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
     let container = document.getElementById('citizenPendingContainer');
     let countEl = document.getElementById('pendingCitizensCount');
 
-    if (countEl) {
-        countEl.innerText = pendingCitizens.length;
+    if (countEl) countEl.innerText = pendingCitizens.length;
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (pendingCitizens.length === 0) {
+        container.innerHTML = `
+            <div class="text-center p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-sm text-slate-400 w-full col-span-full">
+                কোনো নতুন নাগরিক আবেদনের অনুরোধ পেন্ডিং নেই।
+            </div>`;
+        loadVerifiedCitizensLedger(); // নিচে ভেরিফাইড লিস্ট লোড
+        return;
     }
 
-    if (container) {
-        container.innerHTML = '';
+    pendingCitizens.forEach((citizen, index) => {
+        // ইভেন্ট টাইপ অনুযায়ী রঙিন ব্যাজ নির্ধারণ (আপনার আগের লজিক)
+        let typeBadge = '';
+        if(citizen.applicationType === 'birth') typeBadge = `<span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-md">👶 নতুন জন্ম</span>`;
+        else if(citizen.applicationType === 'death') typeBadge = `<span class="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded-md">🕊️ মৃত্যু হালনাগاد</span>`;
+        else if(citizen.applicationType === 'migration') typeBadge = `<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-md">🚛 ইউনিয়ন ত্যাগ</span>`;
+        else if(citizen.applicationType === 'member') typeBadge = `<span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-bold rounded-md">👨‍👩‍👦 পরিবার সদস্য</span>`;
+        else typeBadge = `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-md">🏠 নতুন পরিবার খানা</span>`;
 
-        if (pendingCitizens.length === 0) {
-            container.innerHTML = `
-                <div class="text-center p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-sm text-slate-400 w-full">
-                     কোনো নতুন নাগরিক নিবন্ধনের আবেদন পেন্ডিং নেই।
-                </div>`;
-            return;
-        }
+        // বাচ্চাদের ক্ষেত্রে জন্ম নিবন্ধন না থাকলে টেম্পোরারি আইডি জেনারেশন
+        let idDisplay = citizen.nid ? citizen.nid : `<span class="text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded font-mono text-xs border border-amber-200">TEMP-BRN-${1000 + index}</span>`;
 
-        pendingCitizens.forEach((citizen, index) => {
-            container.innerHTML += `
-                <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-slate-800 text-base">${citizen.name || 'নামহীন নাগরিক'}</span>
-                            <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-md">${citizen.ward || '০'} নং ওয়ার্ড</span>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-500">
-                            <div><strong>মোবাইল:</strong> ${citizen.phone || 'নেই'}</div>
-                            <div><strong>NID/জন্ম নিবন্ধন:</strong> ${citizen.nid || 'নেই'}</div>
-                            <div><strong>পেশা:</strong> ${citizen.profession || 'নেই'}</div>
-                            <div><strong>বয়স:</strong> ${citizen.age || '০'} বছর (${citizen.gender || 'অজানা'})</div>
-                            <div><strong>গ্রাম:</strong> ${citizen.village || 'নেই'}</div>
-                            <div><strong>আবাসন:</strong> ${citizen.homeStatus || 'সাধারণ সদস্য'}</div>
-                        </div>
+        container.innerHTML += `
+            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full mb-3 pending-card" data-searchable="${(citizen.name || '').toLowerCase()} ${(citizen.fatherName || '').toLowerCase()} ${(citizen.phone || '').toLowerCase()} ${(citizen.ward || '')}">
+                <div class="space-y-1 w-full">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="font-bold text-slate-800 text-base">${citizen.name || 'নামহীন ব্যক্তি'}</span>
+                        ${typeBadge}
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-md">${citizen.ward || '০'} নং ওয়ার্ড</span>
                     </div>
-                    <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                        <button onclick="approveCitizen('${citizen.id}')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition">
-                            ✅ অনুমোদন
-                        </button>
-                        <button onclick="rejectCitizen(${index})" class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition">
-                            ❌ বাতিল
-                        </button>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-500">
+                        <div><strong>পিতা/অভিভাবক:</strong> ${citizen.fatherName || 'নেই'}</div>
+                        <div><strong>মোবাইল:</strong> ${citizen.phone || 'নেই'} ${citizen.age < 18 ? '<span class="text-purple-500 font-semibold">(পিতার নম্বর)</span>' : ''}</div>
+                        <div><strong>NID/জন্ম নিবন্ধন:</strong> ${idDisplay}</div>
+                        ${citizen.familyMobile ? `<div><strong>পরিবার প্রধানের মোবাইল:</strong> <span class="text-indigo-600 font-bold">${citizen.familyMobile}</span></div>` : ''}
+                        <div><strong>পেশা:</strong> ${citizen.profession || 'নেই'}</div>
+                        <div><strong>বয়স:</strong> ${citizen.age || '০'} বছর (${citizen.gender || 'অজানা'})</div>
+                        <div><strong>গ্রাম:</strong> ${citizen.village || 'নেই'}</div>
                     </div>
                 </div>
-            `;
-        });
-    }
+                <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                    <button onclick="approveCitizen('${citizen.id}')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition">✅ অনুমোদন</button>
+                    <button onclick="rejectCitizen(${index})" class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition">❌ বাতিল</button>
+                </div>
+            </div>`;
+    });
+    loadVerifiedCitizensLedger();
 }
 
-// নাগরিক অনুমোদন করার ফাংশন
+// ২. ৪-ইভেন্ট ভিত্তিক নিখুঁত অনুমোদন চেইন (আপনার অক্ষুণ্ণ কোড)
+// ========================================================
 function approveCitizen(citizenId) {
     let pendingCitizens = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
     let verifiedCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
@@ -791,27 +835,176 @@ function approveCitizen(citizenId) {
     let citizenIndex = pendingCitizens.findIndex(c => c.id === citizenId);
     
     if (citizenIndex !== -1) {
-        let approvedCitizen = pendingCitizens[citizenIndex];
-        approvedCitizen.status = "Verified";
+        let app = pendingCitizens[citizenIndex];
         
-        verifiedCitizens.push(approvedCitizen);
+        if (app.applicationType === 'death') {
+            let indexInDB = verifiedCitizens.findIndex(c => c.name === app.name || (app.nid && c.nid === app.nid));
+            if(indexInDB !== -1) {
+                verifiedCitizens[indexInDB].isAlive = false;
+                alert("🕊️ নাগরিকের মৃত্যু রেকর্ড সফলভাবে ডাটাবেজে হালনাগাদ হয়েছে।");
+            } else {
+                alert("⚠️ এই নামের বা NID-র কোনো জীবিত নাগরিক মূল ডাটাবেজে পাওয়া যায়নি!");
+            }
+        } 
+        else if (app.applicationType === 'migration') {
+            let indexInDB = verifiedCitizens.findIndex(c => c.phone === app.phone || (app.nid && c.nid === app.nid));
+            if(indexInDB !== -1) {
+                verifiedCitizens[indexInDB].hasLeftUnion = true;
+                alert("🚛 স্থানান্তর রেকর্ড ড্যাশবোর্ডে সংরক্ষিত হয়েছে।");
+            } else {
+                alert("⚠️ এই নাগরিকের তথ্য মূল ডাটাবেজে পাওয়া যায়নি!");
+            }
+        } 
+        else {
+            app.status = "Verified";
+            app.isApproved = true; // লাইভ স্ট্যাটিস্টিক্স ট্র্যাকিং এনাবল
+            if(app.isAlive === undefined) app.isAlive = true;
+            if(app.hasLeftUnion === undefined) app.hasLeftUnion = false;
+            verifiedCitizens.push(app);
+            alert("🎉 আবেদনটি সফলভাবে অনুমোদিত এবং মূল ডাটাবেজে অন্তর্ভুক্ত হয়েছে!");
+        }
+        
         localStorage.setItem('unionCitizens', JSON.stringify(verifiedCitizens));
-        
         pendingCitizens.splice(citizenIndex, 1);
         localStorage.setItem('pendingRegistrations', JSON.stringify(pendingCitizens));
-        
-        alert("🎉 নাগরিক সফলভাবে অনুমোদিত হয়েছে! এখন এটি পরিসংখ্যানে যোগ হবে।");
         loadCitizenDashboardData();
     }
 }
 
-// নাগরিক আবেদন বাতিল করার ফাংশন
 function rejectCitizen(index) {
     if (confirm("⚠️ আপনি কি নিশ্চিত যে এই আবেদনটি বাতিল করতে চান?")) {
         let pendingCitizens = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
         pendingCitizens.splice(index, 1);
         localStorage.setItem('pendingRegistrations', JSON.stringify(pendingCitizens));
         loadCitizenDashboardData();
+    }
+}
+
+// ৩. নতুন রি-ডিজাইনকৃত সার্চবার এবং লেজার ইঞ্জিন (ভাঙা ছাড়া একবারে)
+// ========================================================
+function loadVerifiedCitizensLedger() {
+    let verifiedCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
+    let ledgerContainer = document.getElementById('verifiedCitizensLedger');
+    if (!ledgerContainer) return;
+
+    // পপ-আপ মডাল এবং সার্চবারের ডাইনামিক ইনজেকশন (যাতে আপনাকে কোথাও হাত দিতে না হয়)
+    injectRequiredAdminElements();
+
+    ledgerContainer.innerHTML = '';
+    if(verifiedCitizens.length === 0) {
+        ledgerContainer.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-400">কোনো অনুমোদিত নাগরিক ডাটাবেজে নেই।</td></tr>`;
+        return;
+    }
+
+    let serial = 1;
+    verifiedCitizens.forEach((c, originalIndex) => {
+        let conditionStyle = c.isAlive && !c.hasLeftUnion ? 'text-gray-800 font-bold' : 'text-rose-400 line-through';
+        let statusBadge = !c.isAlive ? 
+            `<span class="px-2 py-0.5 bg-rose-50 text-rose-600 rounded-md text-xs font-bold">🕊️ মৃত</span>` : 
+            (c.hasLeftUnion ? `<span class="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-md text-xs font-bold">🚛 স্থানান্তরিত</span>` : 
+            `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-bold">🟢 সক্রিয়</span>`);
+        
+        let idDisplay = c.nid ? c.nid : `<span class="text-amber-600 font-mono text-xs">TEMP-${2026}-${500 + originalIndex}</span>`;
+
+        ledgerContainer.innerHTML += `
+            <tr class="border-b border-gray-100 hover:bg-gray-50/50 text-sm ledger-row" data-searchable="${(c.name || '').toLowerCase()} ${(c.fatherName || '').toLowerCase()} ${(c.phone || '').toLowerCase()} ${(c.ward || '')} ${idDisplay.toLowerCase()}">
+                <td class="p-3 text-center font-bold text-gray-400">${serial++}</td>
+                <td class="p-3">
+                    <div class="${conditionStyle} text-base">${c.name}</div>
+                    <div class="text-xs text-gray-500 mt-0.5">পিতা: ${c.fatherName || 'উল্লেখ নেই'}</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: ${idDisplay}</div>
+                </td>
+                <td class="p-3 font-medium">
+                    ${c.phone || 'নেই'}
+                    ${c.age < 18 ? '<div class="text-[10px] text-purple-500 font-semibold">(পিতার নম্বর)</div>' : ''}
+                </td>
+                <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-100 rounded-full font-bold text-xs text-slate-600">${c.ward} নং</span></td>
+                <td class="p-3 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                        ${statusBadge}
+                        <button onclick="openAdminModal(${originalIndex})" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-xs font-bold text-slate-700 transition"><i class="fas fa-eye"></i> বিস্তারিত</button>
+                    </div>
+                </td>
+            </tr>`;
+    });
+}
+
+// ৪. রিয়েল-টাইম সার্চ ও ফিল্টার মেকানিজম
+// ========================================================
+function runAdminGlobalSearch() {
+    let query = document.getElementById('globalAdminSearchBox').value.toLowerCase();
+    let rows = document.querySelectorAll('.ledger-row');
+    let cards = document.querySelectorAll('.pending-card');
+
+    // ১. অনুমোদিত তালিকা ফিল্টার
+    rows.forEach(row => {
+        let text = row.getAttribute('data-searchable');
+        row.style.display = text.includes(query) ? "" : "none";
+    });
+
+    // ২. পেন্ডিং তালিকা ফিল্টার
+    cards.forEach(card => {
+        let text = card.getAttribute('data-searchable');
+        card.style.display = text.includes(query) ? "flex" : "none";
+    });
+}
+
+// ৫. সাপোর্টিং ফাংশন: বিস্তারিত দেখার পপ-আপ মডাল ওপেন
+// ========================================================
+function openAdminModal(index) {
+    let db = JSON.parse(localStorage.getItem('unionCitizens')) || [];
+    let c = db[index];
+    if(!c) return;
+
+    let modalHTML = `
+        <div id="dynamicAdminModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4 animate-fade-in">
+            <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-gray-100">
+                <div class="bg-slate-800 text-white p-5 flex justify-between items-center">
+                    <h3 class="font-bold text-md sm:text-lg flex items-center"><i class="fas fa-id-card text-emerald-400 mr-2"></i> নাগরিকের ফাইল রেকর্ড</h3>
+                    <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="p-6 space-y-2.5 max-h-[70vh] overflow-y-auto text-sm text-gray-700">
+                    <p class="text-lg font-bold text-emerald-800 border-b border-gray-100 pb-2">${c.name}</p>
+                    <p><b>👨‍👦 পিতার নাম:</b> ${c.fatherName || 'উল্লেখ নেই'}</p>
+                    <p><b>📞 মোবাইল নম্বর:</b> ${c.phone || 'নেই'}</p>
+                    <p><b>🎂 বয়স ও লিঙ্গ:</b> ${c.age || '০'} বছর (${c.gender || 'অজানা'})</p>
+                    <p><b>📍 ইউনিয়ন ওয়ার্ড:</b> ${c.ward || '০'} নং ওয়ার্ড</p>
+                    <p><b>🏡 গ্রাম/মহল্লা:</b> ${c.village || 'উল্লেখ নেই'}</p>
+                    <p><b>💼 প্রধান পেশা:</b> ${c.profession || 'উল্লেখ নেই'}</p>
+                    <p><b>👑 পরিবার প্রধান:</b> ${c.isFamilyHead ? '🏠 হ্যাঁ (খানা প্রধান)' : 'না'}</p>
+                    <p><b>🏠 বাসস্থানের ধরন:</b> ${c.homeStatus || 'উল্লেখ নেই'}</p>
+                    <p><b>🎓 শিক্ষা স্থিতি (৫-১৮):</b> ${c.isStudent === 'yes' ? '📚 নিয়মিত স্কুলগামী' : c.isStudent === 'no' ? '⚠️ স্কুল বহির্ভূত/ঝরে পড়া' : 'প্রযোজ্য নয়'}</p>
+                    <p><b>🤰 বিশেষ স্বাস্থ্য সেবা:</b> ${c.isPregnant ? '❤️ গর্ভবতী (বিশেষ পুষ্টির আওতাভুক্ত)' : 'না'}</p>
+                    <p><b>📊 বর্তমান অবস্থা:</b> ${!c.isAlive ? '🕊️ মৃত (নিষ্ক্রিয় খতিয়ান)' : (c.hasLeftUnion ? '🚛 স্থানান্তরিত' : '✅ সক্রিয় নাগরিক')}</p>
+                </div>
+            </div>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+
+function closeAdminModal() {
+    let m = document.getElementById('dynamicAdminModal');
+    if(m) m.remove();
+}
+
+// ৬. অটো-ইনজেকশন লেআউট স্ক্রিপ্ট (সার্চবার প্লেসমেন্ট ইঞ্জিন)
+// ========================================================
+function injectRequiredAdminElements() {
+    // যদি সার্চবার আগে থেকে না থাকে, তবে পেন্ডিং বক্সের ওপরে অটোমেটিক ডিজাইন প্লেস করবে
+    if (!document.getElementById('globalAdminSearchBox')) {
+        let parentContainer = document.getElementById('citizenPendingContainer')?.parentElement;
+        if (parentContainer) {
+            let searchHTML = `
+                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm mb-6 w-full">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="globalAdminSearchBox" onkeyup="runAdminGlobalSearch()" placeholder="নাম, পিতার নাম, মোবাইল, NID/BRN অথবা ওয়ার্ড নম্বর লিখে রিয়েল-টাইম খুঁজুন..." class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm">
+                    </div>
+                </div>`;
+            parentContainer.insertAdjacentHTML('afterbegin', searchHTML);
+        }
     }
 }
 </script>

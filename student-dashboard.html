@@ -372,23 +372,32 @@
             <!-- ==========================================
                  🪪 সেকশন ১: স্টুডেন্ট প্রোফাইল (১০ মৌলিক তথ্য)
                  ========================================== -->
-            <div id="section-student-profile" class="dashboard-section active-section">
-                <div class="info-card">
-                    <h3><i class="fa-solid fa-address-book"></i> শিক্ষার্থীর মৌলিক ১০টি তথ্য প্রোফাইল</h3>
-                    <div class="data-grid">
-                        <div class="data-item"><span>১. শিক্ষার্থীর নাম:</span><strong>মোঃ রাইয়ান রহমান</strong></div>
-                        <div class="data-item"><span>২. রোল নম্বর:</span><strong>০৫</strong></div>
-                        <div class="data-item"><span>৩. শ্রেণি ও শাখা:</span><strong>৯ম শ্রেণি (ক শাখা)</strong></div>
-                        <div class="data-item"><span>৪. স্টুডেন্ট আইডি (UID):</span><strong>STD-2026-9055</strong></div>
-                        <div class="data-item"><span>৫. জন্ম তারিখ:</span><strong>১২/১০/২০১১</strong></div>
-                        <div class="data-item"><span>৬. রক্তের গ্রুপ:</span><strong>B+ (পজিটিভ)</strong></div>
-                        <div class="data-item"><span>৭. পিতার নাম ও মোবাইল:</span><strong>মোঃ আবদুর রহমান (01711-XXXXXX)</strong></div>
-                        <div class="data-item"><span>৮. মাতার নাম:</span><strong> মোসাম্মৎ রহিমা বেগম</strong></div>
-                        <div class="data-item"><span>৯. বর্তমান ও স্থায়ী ঠিকানা:</span><strong>কাউন্দিয়া, সাভার, ঢাকা</strong></div>
-                        <div class="data-item"><span>১০. জরুরি যোগাযোগের নাম্বার:</span><strong>01911-XXXXXX (অভিভাবক)</strong></div>
-                    </div>
-                </div>
-            </div>
+<div id="section-student-profile" class="dashboard-section active-section">
+    <div class="info-card">
+        <h3><i class="fa-solid fa-address-book"></i> শিক্ষার্থীর মৌলিক ১০টি তথ্য প্রোফাইল</h3>
+        <div class="data-grid">
+            <div class="data-item"><span>১. শিক্ষার্থীর নাম:</span><strong id="prof-name"></strong></div>
+            
+            <div class="data-item"><span>২. রোল নম্বর:</span><strong id="prof-roll"></strong></div>
+            
+            <div class="data-item"><span>৩. শ্রেণি ও শাখা:</span><strong id="prof-class-section"></strong></div>
+            
+            <div class="data-item"><span>৪. স্টুডেন্ট আইডি (UID):</span><strong id="prof-uid"></strong></div>
+            
+            <div class="data-item"><span>৫. জন্ম তারিখ:</span><strong id="prof-brn"></strong></div>
+            
+            <div class="data-item"><span>৬. রক্তের গ্রুপ:</span><strong id="prof-blood"></strong></div>
+            
+            <div class="data-item"><span>৭. পিতার নাম ও মোবাইল:</span><strong id="prof-father-info"></strong></div>
+            
+            <div class="data-item"><span>৮. মাতার নাম:</span><strong id="prof-mother"></strong></div>
+            
+            <div class="data-item"><span>৯. বর্তমান ও স্থায়ী ঠিকানা:</span><strong id="prof-address"></strong></div>
+            
+            <div class="data-item"><span>১০. জরুরি যোগাযোগের নাম্বার:</span><strong id="prof-emergency"></strong></div>
+        </div>
+    </div>
+</div>
             <!-- 📆 শিক্ষার্থীর পরীক্ষার রুটিন সেকশন -->
 <div id="section-exam-routine" class="dashboard-section" style="display: none; width: 100%; height: 100vh;">
     <!-- জাভাস্ক্রিপ্ট দিয়ে এই iframe এর src আমরা ডাইনামিকালি পরিবর্তন করব -->

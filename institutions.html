@@ -841,16 +841,28 @@
 
             if (foundStudent) {
                 // 🎫 ডাইনামিক সেশন ডেটা জেনারেশন (স্টুডেন্ট ড্যাশবোর্ড পেজের জন্য)
-                const sessionData = {
-                    role: 'student', 
-                    schoolName: currentInstName, // যে স্কুলের কার্ড থেকে লগইন করছে
-                    schoolEiin: currentInstEiin || '',
-                    id: foundStudent.uid,
-                    studentName: foundStudent.name, 
-                    className: `${foundStudent.class || 'N/A'} (${foundStudent.section || 'সাধারণ'})`, 
-                    rollNo: foundStudent.roll || 'N/A',
-                    gender: foundStudent.gender || 'N/A'
-                };
+               // ৮৪৫ নম্বর লাইন থেকে নিচের মতো করে পরিবর্তন করুন
+const sessionData = {
+    role: 'student',
+    schoolName: currentInstName, 
+    schoolEiin: currentInstEiin || '',
+    
+    // আপনার আগের কোডের নাম ও ফরম্যাট হুবহু ঠিক রেখে বাকিগুলো যোগ করা হলো
+    id: foundStudent.uid,
+    studentName: foundStudent.name,
+    className: foundStudent.class || 'N/A',
+    rollNo: foundStudent.roll || 'N/A',
+    gender: foundStudent.gender || 'N/A',
+    
+    // অতিরিক্ত প্রয়োজনীয় প্রোপার্টিগুলো (যা শিক্ষক প্যানেল থেকে আসছে)
+    section: foundStudent.section || '',
+    brn: foundStudent.brn || 'N/A',
+    phone: foundStudent.phone || 'N/A',
+    blood: foundStudent.blood || 'N/A',
+    father: foundStudent.father || 'N/A',
+    mother: foundStudent.mother || 'N/A',
+    currentAddress: foundStudent.currentAddress || 'N/A'
+};
                 
                 // সেশন স্টোরেজে ডেটা সেভ করা হলো
                 localStorage.setItem('user_dashboard_session', JSON.stringify(sessionData));
