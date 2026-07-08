@@ -904,7 +904,7 @@ function loadVerifiedCitizensLedger() {
             (c.hasLeftUnion ? `<span class="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-md text-xs font-bold">🚛 স্থানান্তরিত</span>` : 
             `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-bold">🟢 সক্রিয়</span>`);
         
-        let idDisplay = c.nid ? c.nid : `<span class="text-amber-600 font-mono text-xs">TEMP-${2026}-${500 + originalIndex}</span>`;
+        let idDisplay = c.nid ? c.nid : `TEMP-2026-${500 + originalIndex}`;
 
         ledgerContainer.innerHTML += `
             <tr class="border-b border-gray-100 hover:bg-gray-50/50 text-sm ledger-row" data-searchable="${(c.name || '').toLowerCase()} ${(c.fatherName || '').toLowerCase()} ${(c.phone || '').toLowerCase()} ${(c.ward || '')} ${idDisplay.toLowerCase()}">
@@ -912,7 +912,7 @@ function loadVerifiedCitizensLedger() {
                 <td class="p-3">
                     <div class="${conditionStyle} text-base">${c.name}</div>
                     <div class="text-xs text-gray-500 mt-0.5">পিতা: ${c.fatherName || 'উল্লেখ নেই'}</div>
-                    <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: ${idDisplay}</div>
+                   <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: <span class="text-amber-600 font-semibold">${idDisplay}</span></div>
                 </td>
                 <td class="p-3 font-medium">
                     ${c.phone || 'নেই'}
