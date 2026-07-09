@@ -765,8 +765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayAdminNotices();
 });
 
-// ========================================================
-// ১. নাগরিক কন্ট্রোল প্যানেল ম্যানেজমেন্ট (সম্পূর্ণ আপডেটেড ওয়ান-স্টপ ইঞ্জিন)
+// ১. নাগরিক কন্ট্রোল প্যানেল ম্যানেজমেন্ট (সহজীকৃত ও ফ্যামিলি-লিঙ্কড ইঞ্জিন)
 // ========================================================
 function loadCitizenDashboardData() {
     let pendingCitizens = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
@@ -788,16 +787,22 @@ function loadCitizenDashboardData() {
     }
 
     pendingCitizens.forEach((citizen, index) => {
-        // ইভেন্ট টাইপ অনুযায়ী রঙিন ব্যাজ নির্ধারণ (আপনার আগের লজিক)
+        // নতুন ৩টি অপশন ও ফ্যামিলি পজিশন অনুযায়ী রঙিন ব্যাজ নির্ধারণ
         let typeBadge = '';
-        if(citizen.applicationType === 'birth') typeBadge = `<span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-md">👶 নতুন জন্ম</span>`;
-        else if(citizen.applicationType === 'death') typeBadge = `<span class="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded-md">🕊️ মৃত্যু হালনাগاد</span>`;
-        else if(citizen.applicationType === 'migration') typeBadge = `<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-md">🚛 ইউনিয়ন ত্যাগ</span>`;
-        else if(citizen.applicationType === 'member') typeBadge = `<span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-bold rounded-md">👨‍👩‍👦 পরিবার সদস্য</span>`;
-        else typeBadge = `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-md">🏠 নতুন পরিবার খানা</span>`;
+        if(citizen.applicationType === 'death') {
+            typeBadge = `<span class="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded-md">🕊️ মৃত্যু হালনাগাদ</span>`;
+        } else if(citizen.applicationType === 'migration') {
+            typeBadge = `<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-md">🚛 ইউনিয়ন ত্যাগ</span>`;
+        } else {
+            // খানা বা নাগরিক তথ্য এন্ট্রি (প্রধান বনাম সাধারণ সদস্য)
+            if(citizen.familyMobile) {
+                typeBadge = `<span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-bold rounded-md">👨‍👩‍👦 পরিবারের সদস্য</span>`;
+            } else {
+                typeBadge = `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-md">🏠 পরিবার প্রধান</span>`;
+            }
+        }
 
-        // বাচ্চাদের ক্ষেত্রে জন্ম নিবন্ধন না থাকলে টেম্পোরারি আইডি জেনারেশন
-        let idDisplay = citizen.nid ? citizen.nid : `<span class="text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded font-mono text-xs border border-amber-200">TEMP-BRN-${1000 + index}</span>`;
+        let idDisplay = citizen.nid ? citizen.nid : `<span class="text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded font-mono text-xs border border-amber-200">TEMP-REG-${1000 + index}</span>`;
 
         container.innerHTML += `
             <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full mb-3 pending-card" data-searchable="${(citizen.name || '').toLowerCase()} ${(citizen.fatherName || '').toLowerCase()} ${(citizen.phone || '').toLowerCase()} ${(citizen.ward || '')}">
@@ -809,9 +814,9 @@ function loadCitizenDashboardData() {
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-500">
                         <div><strong>পিতা/অভিভাবক:</strong> ${citizen.fatherName || 'নেই'}</div>
-                        <div><strong>মোবাইল:</strong> ${citizen.phone || 'নেই'} ${citizen.age < 18 ? '<span class="text-purple-500 font-semibold">(পিতার নম্বর)</span>' : ''}</div>
+                        <div><strong>মোবাইল:</strong> ${citizen.phone || 'নেই'}</div>
                         <div><strong>NID/জন্ম নিবন্ধন:</strong> ${idDisplay}</div>
-                        ${citizen.familyMobile ? `<div><strong>পরিবার প্রধানের মোবাইল:</strong> <span class="text-indigo-600 font-bold">${citizen.familyMobile}</span></div>` : ''}
+                        ${citizen.familyMobile ? `<div><strong>পরিবার প্রধানের মোবাইল:</strong> <span class="text-indigo-600 font-bold">${citizen.familyMobile} (${citizen.relationWithHead || 'সদস্য'})</span></div>` : ''}
                         <div><strong>পেশা:</strong> ${citizen.profession || 'নেই'}</div>
                         <div><strong>বয়স:</strong> ${citizen.age || '০'} বছর (${citizen.gender || 'অজানা'})</div>
                         <div><strong>গ্রাম:</strong> ${citizen.village || 'নেই'}</div>
@@ -826,7 +831,7 @@ function loadCitizenDashboardData() {
     loadVerifiedCitizensLedger();
 }
 
-// ২. ৪-ইভেন্ট ভিত্তিক নিখুঁত অনুমোদন চেইন (আপনার অক্ষুণ্ণ কোড)
+// ২. বাল্ক ফ্যামিলি ট্র্যাকিং ও ৩-ইভেন্ট ভিত্তিক অনুমোদন চেইন
 // ========================================================
 function approveCitizen(citizenId) {
     let pendingCitizens = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
@@ -837,33 +842,48 @@ function approveCitizen(citizenId) {
     if (citizenIndex !== -1) {
         let app = pendingCitizens[citizenIndex];
         
+        // ক) মৃত্যু রেকর্ড অনুমোদন
         if (app.applicationType === 'death') {
-            let indexInDB = verifiedCitizens.findIndex(c => c.name === app.name || (app.nid && c.nid === app.nid));
+            let indexInDB = verifiedCitizens.findIndex(c => (c.name === app.name && c.phone === app.phone) || (app.nid && c.nid === app.nid));
             if(indexInDB !== -1) {
                 verifiedCitizens[indexInDB].isAlive = false;
-                alert("🕊️ নাগরিকের মৃত্যু রেকর্ড সফলভাবে ডাটাবেজে হালনাগাদ হয়েছে।");
+                verifiedCitizens[indexInDB].deathDate = app.deathDate || '';
+                alert("🕊️ নাগরিকের মৃত্যু রেকর্ড সফলভাবে ডাটাবেজে হালনাগাদ হয়েছে এবং লাইভ আপডেট হয়েছে।");
             } else {
-                alert("⚠️ এই নামের বা NID-র কোনো জীবিত নাগরিক মূল ডাটাবেজে পাওয়া যায়নি!");
+                alert("⚠️ এই নাম এবং মোবাইল নম্বরের কোনো জীবিত নাগরিক মূল ডাটাবেজে পাওয়া যায়নি!");
+                return; // মূল ডাটাবেজে না থাকলে পেন্ডিং থেকে কাটবে না
             }
         } 
+        // খ) ইউনিয়ন ত্যাগ (বাল্ক ফ্যামিলি রিমুভাল মেকানিজম)
         else if (app.applicationType === 'migration') {
-            let indexInDB = verifiedCitizens.findIndex(c => c.phone === app.phone || (app.nid && c.nid === app.nid));
-            if(indexInDB !== -1) {
-                verifiedCitizens[indexInDB].hasLeftUnion = true;
-                alert("🚛 স্থানান্তর রেকর্ড ড্যাশবোর্ডে সংরক্ষিত হয়েছে।");
+            // পরিবার প্রধানের নিজস্ব নম্বর অথবা সাধারণ সদস্যের ফ্যামিলি নম্বর মিলিয়ে সবাইকে একসাথে ট্র্যাক করবে
+            let targetPhone = app.phone;
+            let familyMatches = verifiedCitizens.filter(c => c.phone === targetPhone || c.familyMobile === targetPhone);
+            
+            if(familyMatches.length > 0) {
+                verifiedCitizens.forEach(c => {
+                    if (c.phone === targetPhone || c.familyMobile === targetPhone) {
+                        c.hasLeftUnion = true;
+                    }
+                });
+                alert(`🚛 স্থানান্তর রেকর্ড সফল! এই পরিবারের যুক্ত সকল সদস্যকে একসাথে নিষ্ক্রিয় করা হয়েছে।`);
             } else {
-                alert("⚠️ এই নাগরিকের তথ্য মূল ডাটাবেজে পাওয়া যায়নি!");
+                alert("⚠️ এই মোবাইল নম্বরের সাথে যুক্ত কোনো নাগরিক মূল ডাটাবেজে পাওয়া যায়নি!");
+                return;
             }
         } 
+        // গ) নতুন নাগরিক বা সাধারণ সদস্য এন্ট্রি অনুমোদন
         else {
             app.status = "Verified";
-            app.isApproved = true; // লাইভ স্ট্যাটিস্টিক্স ট্র্যাকিং এনাবল
+            app.isApproved = true; 
             if(app.isAlive === undefined) app.isAlive = true;
             if(app.hasLeftUnion === undefined) app.hasLeftUnion = false;
+            
             verifiedCitizens.push(app);
-            alert("🎉 আবেদনটি সফলভাবে অনুমোদিত এবং মূল ডাটাবেজে অন্তর্ভুক্ত হয়েছে!");
+            alert("🎉 আবেদনটি সফলভাবে অনুমোদিত এবং মূল লাইভ ডাটাবেজে অন্তর্ভুক্ত হয়েছে!");
         }
         
+        // লোকাল স্টোরেজ আপডেট ও রিফ্রেশ
         localStorage.setItem('unionCitizens', JSON.stringify(verifiedCitizens));
         pendingCitizens.splice(citizenIndex, 1);
         localStorage.setItem('pendingRegistrations', JSON.stringify(pendingCitizens));
@@ -880,14 +900,13 @@ function rejectCitizen(index) {
     }
 }
 
-// ৩. নতুন রি-ডিজাইনকৃত সার্চবার এবং লেজার ইঞ্জিন (ভাঙা ছাড়া একবারে)
+// ৩. নতুন রি-ডিজাইনকৃত সার্চবার এবং লেজার ইঞ্জিন
 // ========================================================
 function loadVerifiedCitizensLedger() {
     let verifiedCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
     let ledgerContainer = document.getElementById('verifiedCitizensLedger');
     if (!ledgerContainer) return;
 
-    // পপ-আপ মডাল এবং সার্চবারের ডাইনামিক ইনজেকশন (যাতে আপনাকে কোথাও হাত দিতে না হয়)
     injectRequiredAdminElements();
 
     ledgerContainer.innerHTML = '';
@@ -902,7 +921,7 @@ function loadVerifiedCitizensLedger() {
         let statusBadge = !c.isAlive ? 
             `<span class="px-2 py-0.5 bg-rose-50 text-rose-600 rounded-md text-xs font-bold">🕊️ মৃত</span>` : 
             (c.hasLeftUnion ? `<span class="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-md text-xs font-bold">🚛 স্থানান্তরিত</span>` : 
-            `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-bold">🟢 সক্রিয়</span>`);
+            `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-bold">🟢 সক্রিয়</span>`);
         
         let idDisplay = c.nid ? c.nid : `TEMP-2026-${500 + originalIndex}`;
 
@@ -912,11 +931,11 @@ function loadVerifiedCitizensLedger() {
                 <td class="p-3">
                     <div class="${conditionStyle} text-base">${c.name}</div>
                     <div class="text-xs text-gray-500 mt-0.5">পিতা: ${c.fatherName || 'উল্লেখ নেই'}</div>
-                   <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: <span class="text-amber-600 font-semibold">${idDisplay}</span></div>
+                    <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: <span class="text-amber-600 font-semibold">${idDisplay}</span></div>
                 </td>
                 <td class="p-3 font-medium">
                     ${c.phone || 'নেই'}
-                    ${c.age < 18 ? '<div class="text-[10px] text-purple-500 font-semibold">(পিতার নম্বর)</div>' : ''}
+                    ${c.familyMobile ? `<div class="text-[10px] text-indigo-500 font-semibold">(প্রধানের নম্বর)</div>` : ''}
                 </td>
                 <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-100 rounded-full font-bold text-xs text-slate-600">${c.ward} নং</span></td>
                 <td class="p-3 text-center">
@@ -929,32 +948,43 @@ function loadVerifiedCitizensLedger() {
     });
 }
 
-// ৪. রিয়েল-টাইম সার্চ ও ফিল্টার মেকানিজম
+// ৪. রিয়েল-টাইম সার্চ ও ফিল্টার মেকানিزم
 // ========================================================
 function runAdminGlobalSearch() {
     let query = document.getElementById('globalAdminSearchBox').value.toLowerCase();
     let rows = document.querySelectorAll('.ledger-row');
     let cards = document.querySelectorAll('.pending-card');
 
-    // ১. অনুমোদিত তালিকা ফিল্টার
     rows.forEach(row => {
         let text = row.getAttribute('data-searchable');
         row.style.display = text.includes(query) ? "" : "none";
     });
 
-    // ২. পেন্ডিং তালিকা ফিল্টার
     cards.forEach(card => {
         let text = card.getAttribute('data-searchable');
         card.style.display = text.includes(query) ? "flex" : "none";
     });
 }
 
-// ৫. সাপোর্টিং ফাংশন: বিস্তারিত দেখার পপ-আপ মডাল ওপেন
+// ৫. বিস্তারিত পপ-আপ মডাল ওপেন (নতুন ফ্যামিলি লিঙ্কিং ডেটাসহ এবং ৪-১৮ শিক্ষা স্থিতি)
 // ========================================================
 function openAdminModal(index) {
     let db = JSON.parse(localStorage.getItem('unionCitizens')) || [];
     let c = db[index];
     if(!c) return;
+
+    // সাধারণ সদস্য হলে মডালে পরিবার প্রধানের তথ্য ডাইনামিক ইনজেকশন করার লজিক
+    let familyLinkHTML = '';
+    if(c.familyMobile) {
+        familyLinkHTML = `
+            <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-xs space-y-1">
+                <p class="font-bold text-indigo-800"><i class="fas fa-link"></i> সংযুক্ত খানা/পরিবারের প্রধানের তথ্য:</p>
+                <p><b>🏠 পরিবার প্রধানের নাম:</b> ${c.familyHeadName || 'উল্লেখ নেই'}</p>
+                <p><b>📱 প্রধানের মোবাইল নম্বর:</b> ${c.familyMobile}</p>
+                <p><b>🔗 প্রধানের সাথে সম্পর্ক:</b> ${c.relationWithHead || 'সদস্য'}</p>
+            </div>
+        `;
+    }
 
     let modalHTML = `
         <div id="dynamicAdminModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4 animate-fade-in">
@@ -963,19 +993,21 @@ function openAdminModal(index) {
                     <h3 class="font-bold text-md sm:text-lg flex items-center"><i class="fas fa-id-card text-emerald-400 mr-2"></i> নাগরিকের ফাইল রেকর্ড</h3>
                     <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
                 </div>
-                <div class="p-6 space-y-2.5 max-h-[70vh] overflow-y-auto text-sm text-gray-700">
+                <div class="p-6 space-y-3 max-h-[70vh] overflow-y-auto text-sm text-gray-700">
                     <p class="text-lg font-bold text-emerald-800 border-b border-gray-100 pb-2">${c.name}</p>
                     <p><b>👨‍👦 পিতার নাম:</b> ${c.fatherName || 'উল্লেখ নেই'}</p>
                     <p><b>📞 মোবাইল নম্বর:</b> ${c.phone || 'নেই'}</p>
-                    <p><b>🎂 বয়স ও লিঙ্গ:</b> ${c.age || '০'} বছর (${c.gender || 'অজানা'})</p>
-                    <p><b>📍 ইউনিয়ন ওয়ার্ড:</b> ${c.ward || '০'} নং ওয়ার্ড</p>
+                    <p><b>🎂 বয়স ও লিঙ্গ:</b> ${c.age || '০'} বছর (${c.gender || 'অজানা'})</p>
+                    <p><b>📍 ইউনিয়ন ওয়ার্ড:</b> ${c.ward || '০'} নং ওয়ার্ড</p>
                     <p><b>🏡 গ্রাম/মহল্লা:</b> ${c.village || 'উল্লেখ নেই'}</p>
                     <p><b>💼 প্রধান পেশা:</b> ${c.profession || 'উল্লেখ নেই'}</p>
-                    <p><b>👑 পরিবার প্রধান:</b> ${c.isFamilyHead ? '🏠 হ্যাঁ (খানা প্রধান)' : 'না'}</p>
-                    <p><b>🏠 বাসস্থানের ধরন:</b> ${c.homeStatus || 'উল্লেখ নেই'}</p>
-                    <p><b>🎓 শিক্ষা স্থিতি (৫-১৮):</b> ${c.isStudent === 'yes' ? '📚 নিয়মিত স্কুলগামী' : c.isStudent === 'no' ? '⚠️ স্কুল বহির্ভূত/ঝরে পড়া' : 'প্রযোজ্য নয়'}</p>
-                    <p><b>🤰 বিশেষ স্বাস্থ্য সেবা:</b> ${c.isPregnant ? '❤️ গর্ভবতী (বিশেষ পুষ্টির আওতাভুক্ত)' : 'না'}</p>
-                    <p><b>📊 বর্তমান অবস্থা:</b> ${!c.isAlive ? '🕊️ মৃত (নিষ্ক্রিয় খতিয়ান)' : (c.hasLeftUnion ? '🚛 স্থানান্তরিত' : '✅ সক্রিয় নাগরিক')}</p>
+                    <p><b>👑 পরিবার প্রধান:</b> ${c.isFamilyHead ? '🏠 হ্যাঁ (খানা প্রধান)' : 'না (সাধারণ সদস্য)'}</p>
+                    <p><b>🏠 বাসস্থানের ধরন:</b> ${c.homeStatus === 'সদস্য ফাইল' ? '🏠 প্রধানের নিজস্ব/ভাড়া বাড়ি (লিঙ্কড)' : (c.homeStatus || 'উল্লেখ নেই')}</p>
+                    <p><b>🎓 শিক্ষা স্থিতি (৪-১৮):</b> ${c.isStudent === 'yes' ? '📚 নিয়মিত স্কুলগামী' : c.isStudent === 'no' ? '⚠️ স্কুল বহির্ভূত/ঝরে পড়া' : 'প্রযোজ্য নয়'}</p>
+                    
+                    ${familyLinkHTML}
+
+                    <p class="border-t border-gray-100 pt-2"><b>📊 বর্তমান অবস্থা:</b> ${!c.isAlive ? '🕊️ মৃত (নিষ্ক্রিয় খতিয়ান)' : (c.hasLeftUnion ? '🚛 স্থানান্তরিত' : '✅ সক্রিয় নাগরিক')}</p>
                 </div>
             </div>
         </div>`;
@@ -987,10 +1019,9 @@ function closeAdminModal() {
     if(m) m.remove();
 }
 
-// ৬. অটো-ইনজেকশন লেআউট স্ক্রিপ্ট (সার্চবার প্লেসমেন্ট ইঞ্জিন)
+// ৬. অটো-ইনজেকশন লেআউট স্ক্রিপ্ট
 // ========================================================
 function injectRequiredAdminElements() {
-    // যদি সার্চবার আগে থেকে না থাকে, তবে পেন্ডিং বক্সের ওপরে অটোমেটিক ডিজাইন প্লেস করবে
     if (!document.getElementById('globalAdminSearchBox')) {
         let parentContainer = document.getElementById('citizenPendingContainer')?.parentElement;
         if (parentContainer) {

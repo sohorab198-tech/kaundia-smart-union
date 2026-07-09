@@ -13,32 +13,41 @@
 </head>
 <body class="bg-gray-50 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
 
+    <div class="max-w-2xl mx-auto mb-4 flex justify-end">
+        <a href="statistics.html" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition duration-200">
+            <i class="fas fa-chart-bar text-emerald-400"></i>
+            <span>লাইভ পরিসংখ্যান ড্যাশবোর্ড</span>
+        </a>
+    </div>
+
     <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-        <!-- হেডার -->
         <div class="bg-slate-800 text-white p-6 text-center space-y-2">
             <div class="text-3xl text-emerald-400"><i class="fas fa-landmark"></i></div>
             <h2 class="text-xl sm:text-2xl font-bold">কাউন্দিয়া ইউনিয়ন ডিজিটাল সিটিজেন পোর্টাল</h2>
-            <p class="text-xs text-slate-300">সঠিক তথ্য দিয়ে ডিজিটাল ডাটাবেজ গঠনে সহায়তা করুন</p>
+            <p class="text-xs text-slate-300">সঠি তথ্য দিয়ে ডিজিটাল ডাটাবেজ গঠনে সহায়তা করুন</p>
         </div>
 
-        <!-- মূল ফরম -->
         <form id="citizenRegForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-5">
             
-            <!-- আবেদন বা নিবন্ধনের ধরন -->
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">আবেদনের ধরন সিলেক্ট করুন <span class="text-rose-500">*</span></label>
                 <select id="applicationType" onchange="toggleApplicationFields()" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm font-semibold text-gray-700">
-                    <option value="khana">🏠 নতুন পরিবার প্রধান নিবন্ধন</option>
-                    <option value="member">👨‍👩‍👦 বিদ্যমান পরিবারের নতুন সদস্য যোগ করুন</option>
-                    <option value="birth">👶 নতুন জন্মগ্রহণকারী শিশু নিবন্ধন</option>
+                    <option value="khana">👤 নাগরিকের তথ্য দিন (নতুন এন্ট্রি)</option>
                     <option value="death">🕊️ পরিবারের কোনো সদস্যের মৃত্যু হালনাগাদ</option>
-                    <option value="migration">🚛 স্থায়ীভাবে ইউনিয়ন ত্যাগের আবেদন</option>
+                    <option value="migration">🚛 স্থায়ীভাবে ইউনিয়ন ত্যাগের আবেদন</option>
                 </select>
             </div>
 
-            <!-- সেকশন এ: বিদ্যমান পরিবার/শিশুর জন্য পরিবার প্রধানের তথ্য -->
-            <div id="familyHeadSection" class="hidden p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 space-y-4">
-                <p class="text-xs font-bold text-indigo-700 flex items-center"><i class="fas fa-link mr-1"></i> লিংক ডাটা: পরিবার প্রধানের তথ্য দিন (মা প্রধান হতে পারেন)</p>
+            <div id="familyPositionSection" class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 space-y-3">
+                <label class="block text-sm font-bold text-emerald-900">পরিবারে আপনার অবস্থান নিশ্চিত করুন <span class="text-rose-500">*</span></label>
+                <select id="familyPosition" onchange="toggleFamilyFields()" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white text-sm font-semibold text-gray-700">
+                    <option value="head">🏠 আমি পরিবারের প্রধান (Family Head)</option>
+                    <option value="member">👨‍👩‍👦 আমি পরিবারের একজন সাধারণ সদস্য</option>
+                </select>
+            </div>
+
+            <div id="familyMemberLinkSection" class="hidden p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 space-y-4">
+                <p class="text-xs font-bold text-indigo-700 flex items-center"><i class="fas fa-link mr-1"></i> লিংক ডাটা: পরিবার প্রধানের তথ্য দিন</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-600 mb-1">পরিবার প্রধানের নাম <span class="text-indigo-600">*</span></label>
@@ -46,12 +55,30 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-600 mb-1">পরিবার প্রধানের ফোন নম্বর <span class="text-indigo-600">*</span></label>
-                        <input type="text" id="familyHeadPhone" placeholder="যেমন: ০১৭XXXXXXXX" class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <input type="text" id="familyHeadPhone" placeholder="প্রধান যে নম্বর দিয়ে রেজিস্টার্ড হয়েছেন" class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                     </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">পরিবার প্রধানের সাথে সম্পর্ক <span class="text-indigo-600">*</span></label>
+                    <select id="familyRelation" class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <option value="স্ত্রী">স্ত্রী</option>
+                        <option value="ছেলে">ছেলে</option>
+                        <option value="মেয়ে">মেয়ে</option>
+                        <option value="ভাই">ভাই</option>
+                        <option value="বোন">বোন</option>
+                        <option value="মা">মা</option>
+                        <option value="বাবা">বাবা</option>
+                        <option value="অন্যান্য">অন্যান্য</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- সেকশন বি: মৃত্যু নিবন্ধনের জন্য তথ্যদাতার বিশেষ ফিল্ড -->
+            <div id="migrationScopeSection" class="hidden p-4 bg-purple-50/50 rounded-2xl border border-purple-100">
+                <label class="block text-sm font-bold text-purple-900 mb-1">পরিবারের মোট কতজন সদস্য একসাথে ইউনিয়ন ত্যাগ করছেন? <span class="text-rose-500">*</span></label>
+                <input type="number" id="migratedCount" min="1" value="1" class="w-full px-4 py-2 border border-purple-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white font-bold">
+                <p class="text-[11px] text-purple-700 mt-1"><i class="fas fa-info-circle"></i> নিচে দেওয়া মোবাইল নম্বরের সাথে যুক্ত সকল সদস্যের ফাইল একসাথে আপডেট হয়ে যাবে।</p>
+            </div>
+
             <div id="informantSection" class="hidden p-4 bg-amber-50/50 rounded-2xl border border-amber-100 space-y-4">
                 <p class="text-xs font-bold text-amber-800 flex items-center"><i class="fas fa-user-shield mr-1"></i> তথ্য প্রদানকারীর বিবরণ (যিনি মৃত্যুর তথ্য দিচ্ছেন)</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -78,45 +105,37 @@
 
             <hr class="border-gray-100">
 
-            <!-- সাধারণ বা মূল নাগরিক তথ্য সেকশন -->
             <div class="space-y-4">
                 <p id="sectionTitle" class="text-xs font-bold text-emerald-700 flex items-center"><i class="fas fa-user mr-1"></i> নাগরিকের ব্যক্তিগত তথ্যাদি</p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- নাম (ডাইনামিক লেবেল) -->
                     <div>
                         <label id="nameLabel" class="block text-sm font-bold text-gray-700 mb-1">নাগরিকের পূর্ণ নাম <span class="text-rose-500">*</span></label>
                         <input type="text" id="citizenName" required placeholder="নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
-                    <!-- পিতা বা আসল অভিভাবকের নাম -->
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">পিতা বা আসল অভিভাবকের নাম <span class="text-rose-500">*</span></label>
-                        <input type="text" id="citizenFatherName" required placeholder="পিতার নাম লিখুন (মা প্রধান হলেও এখানে আসল বাবার নাম দিন)" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
+                        <input type="text" id="citizenFatherName" required placeholder="পিতার নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
                 </div>
 
-                <!-- তারিখ ও বয়স সেকশন -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- জন্ম তারিখ ক্যালেন্ডার -->
                     <div id="dobField">
                         <label class="block text-sm font-bold text-gray-700 mb-1">জন্ম তারিখ <span class="text-rose-500">*</span></label>
                         <input type="date" id="citizenDob" onchange="calculateAgeFromDates()" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
-                    <!-- মৃত্যু তারিখ ক্যালেন্ডার (শুধুমাত্র মৃত্যু নিবন্ধনে দেখাবে) -->
                     <div id="dodField" class="hidden">
                         <label class="block text-sm font-bold text-gray-700 mb-1">মৃত্যুর তারিখ <span class="text-rose-500">*</span></label>
                         <input type="date" id="citizenDod" onchange="calculateAgeFromDates()" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
-                    <!-- বয়স (স্বয়ংক্রিয় বা ম্যানুয়াল ইনপুট) -->
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">বয়স (বছর) <span class="text-rose-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">বয়স (বছর) <span class="text-rose-500">*</span></label>
                         <input type="number" id="citizenAge" required min="0" max="120" placeholder="বছর" oninput="toggleDynamicSpecs()" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
-                    <!-- লিঙ্গ -->
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">লিঙ্গ <span class="text-rose-500">*</span></label>
                         <select id="citizenGender" onchange="toggleDynamicSpecs()" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm text-gray-700">
-                            <option value="पुरुष">পুরুষ</option>
+                            <option value="পুরুষ">পুরুষ</option>
                             <option value="নারী">নারী</option>
                             <option value="অন্যান্য">অন্যান্য</option>
                         </select>
@@ -124,12 +143,10 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- মোবাইল নম্বর -->
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">মোবাইল নম্বর <span class="text-rose-500">*</span></label>
                         <input type="text" id="citizenPhone" required placeholder="১১ ডিজিটের মোবাইল নম্বর" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
-                    <!-- NID বা জন্ম নিবন্ধন -->
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">NID অথবা জন্ম নিবন্ধন নম্বর</label>
                         <input type="text" id="citizenNidBrn" oninput="toggleDynamicSpecs()" placeholder="NID বা জন্ম নিবন্ধন থাকলে লিখুন" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
@@ -137,81 +154,26 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!--ওয়ার্ড নম্বর -->
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">ওয়ার্ড নম্বর <span class="text-rose-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">ওয়ার্ড নম্বর <span class="text-rose-500">*</span></label>
                         <select id="citizenWard" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm text-gray-700 font-bold">
-                            <option value="১">১ নং ওয়ার্ড</option>
-                            <option value="২">২ নং ওয়ার্ড</option>
-                            <option value="৩">৩ নং ওয়ার্ড</option>
-                            <option value="৪">৪ নং ওয়ার্ড</option>
-                            <option value="৫">৫ নং ওয়ার্ড</option>
-                            <option value="৬">৬ নং ওয়ার্ড</option>
-                            <option value="৭">৭ নং ওয়ার্ড</option>
-                            <option value="৮">৮ নং ওয়ার্ড</option>
-                            <option value="৯">৯ নং ওয়ার্ড</option>
+                            <option value="১">১ নং ওয়ার্ড</option>
+                            <option value="২">২ নং ওয়ার্ড</option>
+                            <option value="৩">৩ নং ওয়ার্ড</option>
+                            <option value="৪">৪ নং ওয়ার্ড</option>
+                            <option value="৫">৫ নং ওয়ার্ড</option>
+                            <option value="৬">৬ নং ওয়ার্ড</option>
+                            <option value="৭">৭ নং ওয়ার্ড</option>
+                            <option value="৮">৮ নং ওয়ার্ড</option>
+                            <option value="৯">৯ নং ওয়ার্ড</option>
                         </select>
                     </div>
-                    <!-- গ্রাম/মহল্লা -->
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">গ্রাম / পাড়া / মহল্লা <span class="text-rose-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">গ্রাম / পাড়া / মহল্লা <span class="text-rose-500">*</span></label>
                         <input type="text" id="citizenVillage" required placeholder="যেমন: পশ্চিম কাউন্দিয়া" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
                     </div>
                 </div>
 
-                <!-- ================= ডাইনামিক স্পেশাল কন্ডিশন সেকশন (রিয়েল-টাইম ইন্টেলিজেন্ট ট্রিগার) ================= -->
-                <div id="specialInfoSection" class="space-y-3 p-4 bg-gray-50 rounded-2xl border border-gray-200 hidden">
-                    <p class="text-xs font-bold text-slate-700 flex items-center"><i class="fas fa-heartbeat mr-1 text-rose-500"></i> বয়স ও বিশেষ তথ্য (পরিসংখ্যানের জন্য)</p>
-                    
-                    <!-- গর্ভবতী মায়ের ফিল্ড -->
-                    <div id="pregnantMotherField" class="hidden items-center gap-2 p-2.5 bg-rose-50 rounded-xl text-sm text-rose-800">
-                        <input type="checkbox" id="isPregnant" class="w-4 h-4 accent-rose-600">
-                        <label for="isPregnant" class="font-bold cursor-pointer">আপনি কি একজন গর্ভবতী/প্রসূতি মা? (টিক দিন)</label>
-                    </div>
-
-                    <!-- শিক্ষা স্থিতি ফিল্ড (৫-১৮ বছর) -->
-                    <div id="studentStatusField" class="hidden space-y-1 text-sm">
-                        <label class="block font-bold text-gray-700">শিশু/কিশোরটি কি বর্তমানে শিক্ষা প্রতিষ্ঠানে অধ্যয়নরত আছে? <span class="text-rose-500">*</span></label>
-                        <select id="isStudent" class="w-full px-3 py-2 border border-gray-200 rounded-xl bg-white text-sm">
-                            <option value="yes">হ্যাঁ, নিয়মিত পড়াশোনা করছে 📚</option>
-                            <option value="no">না, বর্তমানে স্কুলে যাচ্ছে না (ঝরে পড়া/অন্যান্য) ⚠️</option>
-                            <option value="not_applicable">প্রযোজ্য নয় (বয়স অনুপযোগী)</option>
-                        </select>
-                    </div>
-
-                    <!-- ১৮+ নতুন ভোটার হওয়ার আগ্রহের ড্রপডাউন (আপনার স্পেশাল রিকুয়েস্ট করা ফিচার) -->
-                    <div id="newVoterField" class="hidden space-y-1 text-sm">
-                        <label class="block font-bold text-indigo-800">⚠️ আপনার বয়স ১৮+ কিন্তু ডাটাতে কোনো NID বা ভোটার রেকর্ড পাওয়া যায়নি। আপনি কি নতুন ভোটার তালিকায় অন্তর্ভুক্ত হতে চান? <span class="text-rose-500">*</span></label>
-                        <select id="wantsToBeVoter" class="w-full px-3 py-2 border border-indigo-200 rounded-xl bg-indigo-50 text-sm font-semibold text-indigo-900">
-                            <option value="no">না, আমার ইতিমধ্যেই এনআইডি/ভোটার কার্ড আছে</option>
-                            <option value="yes">🙋‍♂️ হ্যাঁ, আমি নতুন ভোটার হতে আগ্রহী (তালিকায় নাম তুলুন)</option>
-                        </select>
-                    </div>
-
-                    <!-- পরিবার প্রধান চেক বক্স -->
-                    <div id="isFamilyHeadField" class="flex items-center gap-2 p-2 bg-white rounded-xl border border-gray-100">
-                        <input type="checkbox" id="isFamilyHead" class="w-4 h-4 accent-emerald-600">
-                        <label for="isFamilyHead" class="font-semibold text-gray-700 text-sm cursor-pointer">আপনি কি আপনার পরিবারের প্রধান (Family Head)? (টিক দিন)</label>
-                    </div>
-                </div>
-                <!-- ======================================================================================== -->
-
-                <!-- ডাইনামিক সেকশন: পরিবার প্রধানের সাথে সম্পর্ক -->
-                <div id="relationSection" class="hidden">
-                    <label class="block text-sm font-bold text-gray-700 mb-1">পরিবার প্রধানের সাথে সম্পর্ক <span class="text-rose-500">*</span></label>
-                    <select id="familyRelation" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm text-gray-700">
-                        <option value="স্ত্রী">স্ত্রী</option>
-                        <option value="ছেলে">ছেলে</option>
-                        <option value="মেয়ে">মেয়ে</option>
-                        <option value="ভাই">ভাই</option>
-                        <option value="বোন">বোন</option>
-                        <option value="মা">মা</option>
-                        <option value="বাবা">বাবা</option>
-                        <option value="অন্যান্য">অন্যান্য</option>
-                    </select>
-                </div>
-
-                <!-- পেশা ও মালিকানা সেকশন (মৃত্যু, মাইগ্রেশন ও সদ্যোজাতদের জন্য হাইড হবে) -->
                 <div id="professionAndPropertySection" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">প্রধান পেশা <span class="text-rose-500">*</span></label>
@@ -222,26 +184,46 @@
                             <option value="অটো চালক">অটো চালক 🛺</option>
                             <option value="শিক্ষক">শিক্ষক 👨‍🏫</option>
                             <option value="ডাক্তার">ডাক্তার 🩺</option>
-                            <option value="চাকুরীজীবী">চাকুরীজীবী</option>
+                            <option value="চাকরিজীবী">চাকরিজীবী</option>
                             <option value="গৃহিণী">গৃহিণী</option>
                             <option value="ছাত্র/ছাত্রী">ছাত্র/ছাত্রী</option>
                             <option value="প্রবাসী">প্রবাসী</option>
                             <option value="দিনমজুর">দিনমজুর</option>
-                            <option value="কোনোটিই নয়">কোনোটিই নয় (অন্যান্য)</option>
+                            <option value="কোনোটিই নয়">কোনোটিই নয় (অন্যান্য)</option>
                         </select>
                     </div>
-                    <div>
+                    <div id="homeStatusField">
                         <label class="block text-sm font-bold text-gray-700 mb-1">বাসস্থানের মালিকানার অবস্থা <span class="text-rose-500">*</span></label>
                         <select id="homeStatus" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50 text-sm text-gray-700">
-                            <option value="মালিক">🏠 নিজস্ব বাড়ি (মালিক)</option>
-                            <option value="ভাড়াটিয়ার">🏢 ভাড়াটিয়া</option>
+                            <option value="মালিক">🏠 নিজস্ব বাড়ি (মালিক)</option>
+                            <option value="ভাড়াটিয়া">🏢 ভাড়াটিয়া</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="specialInfoSection" class="space-y-3 p-4 bg-gray-50 rounded-2xl border border-gray-200 hidden">
+                    <p class="text-xs font-bold text-slate-700 flex items-center"><i class="fas fa-chart-line mr-1 text-emerald-500"></i> অতিরিক্ত ট্র্যাকিং তথ্য</p>
+                    
+                    <div id="studentStatusField" class="hidden space-y-1 text-sm">
+                        <label class="block font-bold text-gray-700">শিশু/কিশোরটি কি বর্তমানে শিক্ষা প্রতিষ্ঠানে অধ্যয়নরত আছে? <span class="text-rose-500">*</span></label>
+                        <select id="isStudent" class="w-full px-3 py-2 border border-gray-200 rounded-xl bg-white text-sm">
+                            <option value="yes">হ্যাঁ, নিয়মিত পড়াশোনা করছে 📚</option>
+                            <option value="no">না, বর্তমানে স্কুলে যাচ্ছে না (ঝরে পড়া) ⚠️</option>
+                            <option value="not_applicable">প্রযোজ্য নয় (বয়স অনুপযোগী)</option>
+                        </select>
+                    </div>
+
+                    <div id="newVoterField" class="hidden space-y-1 text-sm">
+                        <label class="block font-bold text-indigo-800">⚠️ আপনার বয়স ১৮+ কিন্তু কোনো NID নম্বর প্রদান করা হয়নি। আপনি কি নতুন ভোটার তালিকায় নাম অন্তর্ভুক্ত করতে চান? <span class="text-rose-500">*</span></label>
+                        <select id="wantsToBeVoter" class="w-full px-3 py-2 border border-indigo-200 rounded-xl bg-indigo-50 text-sm font-semibold text-indigo-900">
+                            <option value="no">না, আমার ইতিমধ্যেই এনআইডি/ভোটার কার্ড আছে</option>
+                            <option value="yes">🙋‍♂️ হ্যাঁ, আমি নতুন ভোটার হতে আগ্রহী (তালিকায় নাম তুলুন)</option>
                         </select>
                     </div>
                 </div>
 
             </div>
 
-            <!-- সাবমিট বাটন -->
             <div class="pt-4">
                 <button type="submit" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-md transition duration-200 flex items-center justify-center gap-2 text-base">
                     <i class="fas fa-paper-plane"></i>
@@ -251,7 +233,6 @@
         </form>
     </div>
 
-    <!-- গোপন আইডি হোল্ডার: এই কন্টেইনারটি hidden থাকায় নিচে কোনো অহেতুক ফাঁকা জায়গা গ্রাস করবে না -->
     <div id="hiddenIdContainer" class="hidden"></div>
 
     <script>
@@ -259,68 +240,75 @@
         function toggleApplicationFields() {
             let type = document.getElementById('applicationType').value;
             
-            let familyHeadSection = document.getElementById('familyHeadSection');
+            let familyPositionSection = document.getElementById('familyPositionSection');
+            let familyMemberLinkSection = document.getElementById('familyMemberLinkSection');
             let informantSection = document.getElementById('informantSection');
-            let relationSection = document.getElementById('relationSection');
+            let migrationScopeSection = document.getElementById('migrationScopeSection');
             let profPropSection = document.getElementById('professionAndPropertySection');
             
             let dobField = document.getElementById('dobField');
             let dodField = document.getElementById('dodField');
-            let isFamilyHeadField = document.getElementById('isFamilyHeadField');
             
             let nameLabel = document.getElementById('nameLabel');
             let sectionTitle = document.getElementById('sectionTitle');
             let submitBtnText = document.getElementById('submitBtnText');
             let ageInput = document.getElementById('citizenAge');
 
-            // ডিফল্ট রিসেট কন্ডিশন
-            familyHeadSection.classList.add('hidden');
+            // ডিফল্ট রিসেট
+            familyPositionSection.classList.add('hidden');
+            familyMemberLinkSection.classList.add('hidden');
             informantSection.classList.add('hidden');
-            relationSection.classList.add('hidden');
+            migrationScopeSection.classList.add('hidden');
             profPropSection.classList.remove('hidden');
             dodField.classList.add('hidden');
-            isFamilyHeadField.classList.remove('hidden');
             ageInput.readOnly = false;
             
             nameLabel.innerHTML = 'নাগরিকের পূর্ণ নাম <span class="text-rose-500">*</span>';
             sectionTitle.innerHTML = '<i class="fas fa-user mr-1"></i> নাগরিকের ব্যক্তিগত তথ্যাদি';
             submitBtnText.innerText = 'নিবন্ধনের জন্য আবেদন জমা দিন';
 
-            if (type === 'member') {
-                familyHeadSection.classList.remove('hidden');
-                relationSection.classList.remove('hidden');
-            } 
-            else if (type === 'birth') {
-                familyHeadSection.classList.remove('hidden');
-                profPropSection.classList.add('hidden'); 
-                isFamilyHeadField.classList.add('hidden'); 
-                nameLabel.innerHTML = 'আপনার শিশু/বাচ্চার নাম দিন <span class="text-rose-500">*</span>';
-                ageInput.readOnly = true;
+            if (type === 'khana') {
+                familyPositionSection.classList.remove('hidden');
+                toggleFamilyFields(); // পজিশন অনুযায়ী ফিল্ড দেখাবে
             } 
             else if (type === 'death') {
                 informantSection.classList.remove('hidden'); 
                 profPropSection.classList.add('hidden'); 
                 dodField.classList.remove('hidden'); 
-                isFamilyHeadField.classList.add('hidden');
                 ageInput.readOnly = true;
                 
                 nameLabel.innerHTML = 'মৃত ব্যক্তির নাম <span class="text-rose-500">*</span>';
                 sectionTitle.innerHTML = '<i class="fas fa-monument mr-1 text-amber-600"></i> মৃত ব্যক্তির চিরস্থায়ী রেকর্ড ফর্ম';
                 submitBtnText.innerText = 'মৃত্যু রেকর্ড হালনাগাদ করুন';
             }
-            // স্থানান্তরিত পরিবারের কন্ডিশন
             else if (type === 'migration') {
+                migrationScopeSection.classList.remove('hidden');
                 profPropSection.classList.add('hidden');
-                isFamilyHeadField.classList.add('hidden');
-                nameLabel.innerHTML = 'স্থানান্তরিত খানা প্রধান/সদস্যের নাম <span class="text-rose-500">*</span>';
-                sectionTitle.innerHTML = '<i class="fas fa-shipping-fast mr-1 text-indigo-600"></i> স্থায়ীভাবে ইউনিয়ন ত্যাগের নোটিশ ফর্ম';
+                nameLabel.innerHTML = 'স্থানান্তরকারী প্রধান/সদস্যের নাম <span class="text-rose-500">*</span>';
+                sectionTitle.innerHTML = '<i class="fas fa-shipping-fast mr-1 text-indigo-600"></i> স্থায়ীভাবে ইউনিয়ন ত্যাগের নোটিশ ফর্ম';
                 submitBtnText.innerText = 'স্থানান্তর রেকর্ড আপডেট করুন';
             }
 
             toggleDynamicSpecs();
         }
 
-        // ২. জন্ম ও মৃত্যু তারিখ দিয়ে অটোমেটিক নিখুঁত বয়স হিসাব ইঞ্জিন
+        // পরিবার প্রধান বনাম সাধারণ সদস্য ফিল্ড ডাইনামিক হ্যান্ডলার
+        function toggleFamilyFields() {
+            let type = document.getElementById('applicationType').value;
+            let position = document.getElementById('familyPosition').value;
+            let linkSection = document.getElementById('familyMemberLinkSection');
+            let homeField = document.getElementById('homeStatusField');
+
+            if (type === 'khana' && position === 'member') {
+                linkSection.classList.remove('hidden');
+                homeField.classList.add('hidden'); // সাধারণ সদস্য হলে আবাসন মালিকানা হাইড
+            } else {
+                linkSection.classList.add('hidden');
+                homeField.classList.remove('hidden');
+            }
+        }
+
+        // ২. অটোমেটিক নিখুঁত বয়স হিসাব ইঞ্জিন
         function calculateAgeFromDates() {
             let type = document.getElementById('applicationType').value;
             let dobValue = document.getElementById('citizenDob').value;
@@ -329,7 +317,7 @@
             if (!dobValue) return;
 
             let birthDate = new Date(dobValue);
-            let endDate = new Date(); // আজ
+            let endDate = new Date(); 
 
             if (type === 'death') {
                 let dodValue = document.getElementById('citizenDod').value;
@@ -346,19 +334,16 @@
             toggleDynamicSpecs();
         }
 
-        // ৩. বয়স, লিঙ্গ ও এনআইডি ট্র্রিগার ফিল্টারিং (ভোটার, গর্ভবতী মা ও শিশু প্রটেকশন)
+        // ৩. বয়স ও এনআইডি ট্রিগার ফিল্টারিং (শিক্ষা স্থিতি ৪-১৮ বছর)
         function toggleDynamicSpecs() {
             let age = parseInt(document.getElementById('citizenAge').value) || 0;
-            let gender = document.getElementById('citizenGender').value;
             let nidBrnValue = document.getElementById('citizenNidBrn').value.trim();
             let type = document.getElementById('applicationType').value;
 
             let specSection = document.getElementById('specialInfoSection');
-            let pregField = document.getElementById('pregnantMotherField');
             let studentField = document.getElementById('studentStatusField');
             let newVoterField = document.getElementById('newVoterField');
 
-            // মৃত্যু ও স্থানান্তরের জন্য বিশেষ ধূসর বক্স প্রযোজ্য নয়
             if (type === 'death' || type === 'migration') {
                 specSection.classList.add('hidden');
                 return;
@@ -366,19 +351,8 @@
 
             let showSection = false;
 
-            // ক) গর্ভবতী মা ফিল্ড (বয়স ৫ এর নিচে হলে প্রটেক্টেড)
-            if (gender === 'নারী' && age >= 12 && age <= 50 && type !== 'birth') {
-                pregField.classList.remove('hidden');
-                pregField.classList.add('flex');
-                showSection = true;
-            } else {
-                pregField.classList.add('hidden');
-                pregField.classList.remove('flex');
-                document.getElementById('isPregnant').checked = false;
-            }
-
-            // খ) শিক্ষা স্থিতি (৫-১৮ বছর)
-            if (age >= 5 && age <= 18 && type !== 'birth') {
+            // ক) শিক্ষা স্থিতি (৪-১৮ বছর) - ড্যাশবোর্ডের সাথে সামঞ্জস্যপূর্ণ
+            if (age >= 4 && age <= 18) {
                 studentField.classList.remove('hidden');
                 showSection = true;
             } else {
@@ -386,7 +360,7 @@
                 document.getElementById('isStudent').value = 'not_applicable';
             }
 
-            // গ) ১৮+ সম্ভাব্য নতুন ভোটার লজিক (আপনার স্পেশাল রিকুয়েস্ট)
+            // খ) ১৮+ সম্ভাব্য নতুন ভোটার লজিক
             if (age >= 18 && nidBrnValue.length === 0) {
                 newVoterField.classList.remove('hidden');
                 showSection = true;
@@ -395,15 +369,14 @@
                 document.getElementById('wantsToBeVoter').value = 'no';
             }
 
-            // সেকশন ডিসপ্লে লজিক
-            if (showSection || type === 'birth' || age > 0) {
+            if (showSection || age > 0) {
                 specSection.classList.remove('hidden');
             } else {
                 specSection.classList.add('hidden');
             }
         }
 
-        // ৪. তথ্য জমাদান ও ডাটাবেজ প্রсеসিং
+        // ৪. তথ্য জমাদান ও ডাটাবেজ প্রসেসিং (ড্যাশবোর্ড ইন্টিগ্রেশন লজিক)
         function handleFormSubmit(event) {
             event.preventDefault();
 
@@ -416,27 +389,27 @@
             let gender = document.getElementById('citizenGender').value;
             let ward = document.getElementById('citizenWard').value;
             let village = document.getElementById('citizenVillage').value.trim();
+            let position = document.getElementById('familyPosition').value;
 
             let verifiedCitizens = JSON.parse(localStorage.getItem('unionCitizens')) || [];
             let pendingRegistrations = JSON.parse(localStorage.getItem('pendingRegistrations')) || [];
 
-            // মোবাইল ডুপ্লিকেট পলিসি ফিল্টার
-            if (appType === 'khana') {
-                let isDuplicate = verifiedCitizens.some(c => c.phone === phone && c.isAlive === true) || 
-                                  pendingRegistrations.some(c => c.phone === phone);
+            // মোবাইল ডুপ্লিকেট পলিসি ফিল্টার (শুধুমাত্র নতুন পরিবার প্রধানদের জন্য)
+            if (appType === 'khana' && position === 'head') {
+                let isDuplicate = verifiedCitizens.some(c => c.phone === phone && c.isAlive === true && c.hasLeftUnion === false) || 
+                                  pendingRegistrations.some(c => c.phone === phone && c.isFamilyHead === true);
                 if (isDuplicate) {
                     alert("⚠️ এই মোবাইল নম্বরটি অলরেডি ডাটাবেজে খানা প্রধান হিসেবে নিবন্ধিত আছে!");
                     return;
                 }
             }
 
-            // সিক্রেট ব্যাকগ্রাউন্ড আইডি জেনারেশন (স্পেস খাবে না)
             let autoGenId = 'CZ-' + Date.now();
             document.getElementById('hiddenIdContainer').innerText = autoGenId;
 
+            // মূল অবজেক্ট স্ট্রাকচার (ড্যাশবোর্ডের সাথে ১০০% সামঞ্জস্যপূর্ণ)
             let citizenData = {
                 id: autoGenId,
-                applicationType: appType,
                 name: name,
                 fatherName: fatherName,
                 phone: phone,
@@ -445,25 +418,27 @@
                 gender: gender,
                 ward: ward,
                 village: village,
-                isPregnant: document.getElementById('isPregnant').checked,
                 isStudent: document.getElementById('isStudent').value,
                 wantsToBeVoter: document.getElementById('wantsToBeVoter').value === 'yes' ? true : false,
-                isFamilyHead: document.getElementById('isFamilyHead').checked,
-                isAlive: true, // ডিফল্ট জীবিত ও সক্রিয়
-                profession: (appType === 'birth') ? 'কোনোটিই নয়' : document.getElementById('citizenProfession').value,
-                homeStatus: (appType === 'birth') ? 'মালিক' : document.getElementById('homeStatus').value
+                isFamilyHead: (appType === 'khana' && position === 'head') ? true : false,
+                isAlive: true,
+                hasLeftUnion: false,
+                profession: (appType === 'khana') ? document.getElementById('citizenProfession').value : 'কোনোটিই নয়',
+                homeStatus: (appType === 'khana' && position === 'head') ? document.getElementById('homeStatus').value : 'ভাড়াটিয়া'
             };
 
-            // খানা লিঙ্কিং
-            if (appType === 'member' || appType === 'birth') {
+            // খানা লিঙ্কিং (সাধারণ সদস্য হলে)
+            if (appType === 'khana' && position === 'member') {
                 citizenData.familyHeadName = document.getElementById('familyHeadName').value.trim();
                 citizenData.familyMobile = document.getElementById('familyHeadPhone').value.trim();
-                citizenData.relationWithHead = appType === 'birth' ? 'সন্তান' : document.getElementById('familyRelation').value;
+                citizenData.relationWithHead = document.getElementById('familyRelation').value;
+                // সদস্যের আবাসন স্ট্যাটাস প্রধানের নম্বর থেকে ট্র্যাকিং উপযোগী
+                citizenData.homeStatus = 'সদস্য ফাইল'; 
             }
 
-            // মৃত্যু প্রসেসিং
+            // মৃত্যু প্রসেসিং লজিক সিঙ্ক
             if (appType === 'death') {
-                citizenData.isAlive = false; // ডেটাবেজ স্ট্যাটাস: মৃত
+                citizenData.isAlive = false; 
                 citizenData.deathDate = document.getElementById('citizenDod').value;
                 citizenData.informantName = document.getElementById('informantName').value.trim();
                 citizenData.informantPhone = document.getElementById('informantPhone').value.trim();
@@ -473,35 +448,51 @@
                 if (existingIndex !== -1) {
                     verifiedCitizens[existingIndex].isAlive = false;
                     localStorage.setItem('unionCitizens', JSON.stringify(verifiedCitizens));
-                    alert("🕊️ ডাটাবেজে উক্ত নাগরিকের ফাইল সফলভাবে 'মৃত' স্ট্যাটাসে আপডেট করা হয়েছে।");
-                    document.getElementById('citizenRegForm').reset();
-                    toggleApplicationFields();
+                    alert("🕊️ ডাটাবেজে উক্ত নাগরিকের ফাইল সফলভাবে 'মৃত' স্ট্যাটাসে আপডেট করা হয়েছে।");
+                    resetFormState();
                     return;
                 }
             }
 
-            // স্থানান্তরিত পরিবার প্রসেসিং
+            // ইউনিয়ন ত্যাগ প্রসেসিং লজিক (একসাথে পুরো পরিবার রিমুভ করার চমৎকার মেকানিজম)
             if (appType === 'migration') {
-                citizenData.isAlive = 'migrated'; // ডেটাবেজ স্ট্যাটাস: স্থানান্তরিত
+                let countToMigrate = parseInt(document.getElementById('migratedCount').value) || 1;
                 
-                let existingIndex = verifiedCitizens.findIndex(c => (c.name === name && c.phone === phone) || (nid_brn && c.nid === nid_brn));
-                if (existingIndex !== -1) {
-                    verifiedCitizens[existingIndex].isAlive = 'migrated';
+                // ১. পরিবার প্রধান বা যে কেউ ওই একই ফোন নাম্বার বা ফ্যামিলি মোবাইল নম্বরে ম্যাচ করা সবাইকে খুঁজবে
+                let familyMatches = verifiedCitizens.filter(c => c.phone === phone || c.familyMobile === phone);
+                
+                if (familyMatches.length > 0) {
+                    verifiedCitizens.forEach(c => {
+                        if (c.phone === phone || c.familyMobile === phone) {
+                            c.hasLeftUnion = true; // ড্যাশবোর্ড ফিল্টার ম্যাচিং
+                        }
+                    });
                     localStorage.setItem('unionCitizens', JSON.stringify(verifiedCitizens));
-                    alert("🚛 উক্ত নাগরিক/খানার ফাইল সফলভাবে 'স্থানান্তরিত' হিসেবে আপডেট করা হয়েছে।");
-                    document.getElementById('citizenRegForm').reset();
-                    toggleApplicationFields();
+                    alert(`🚛 উক্ত মোবাইল নম্বরের সাথে যুক্ত পরিবারের সফলভাবে আপডেট করা হয়েছে। ড্যাশবোর্ড থেকে সংখ্যা মাইনাস হয়েছে।`);
+                    resetFormState();
                     return;
                 }
             }
 
+            // অপেক্ষমাণ তালিকায় পুশ
             pendingRegistrations.push(citizenData);
             localStorage.setItem('pendingRegistrations', JSON.stringify(pendingRegistrations));
 
-            alert("🎉 আবেদনটি সফলভাবে অপেক্ষমাণ তালিকায় জমা হয়েছে!");
+            alert("🎉 আবেদনটি সফলভাবে অপেক্ষমাণ তালিকায় জমা হয়েছে!");
+            resetFormState();
+        }
+
+        // ফর্ম রিসেট ও ডাইনামিক স্ট্যাটাস ঠিক করার হেল্পার ফাংশন
+        function resetFormState() {
             document.getElementById('citizenRegForm').reset();
+            document.getElementById('applicationType').value = 'khana';
             toggleApplicationFields();
         }
+
+        // উইন্ডো লোড হওয়ার সময় ইনিশিয়াল কল
+        window.onload = function() {
+            toggleApplicationFields();
+        };
     </script>
 </body>
 </html>
