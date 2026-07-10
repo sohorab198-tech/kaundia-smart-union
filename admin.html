@@ -934,8 +934,8 @@ function loadVerifiedCitizensLedger() {
                     <div class="text-[10px] text-slate-400 mt-0.5 font-mono">ID: <span class="text-amber-600 font-semibold">${idDisplay}</span></div>
                 </td>
                 <td class="p-3 font-medium">
-                    ${c.phone || 'নেই'}
-                    ${c.familyMobile ? `<div class="text-[10px] text-indigo-500 font-semibold">(প্রধানের নম্বর)</div>` : ''}
+                    ${c.phone ? c.phone : (c.familyMobile ? c.familyMobile : 'নেই')}
+                    ${(!c.phone && c.familyMobile) ? `<div class="text-[10px] text-indigo-500 font-semibold">(প্রধানের নম্বর)</div>` : ''}
                 </td>
                 <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-100 rounded-full font-bold text-xs text-slate-600">${c.ward} নং</span></td>
                 <td class="p-3 text-center">

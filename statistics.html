@@ -212,10 +212,10 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-300 shadow-sm">
                 <h3 class="font-bold text-gray-800 text-lg mb-4 flex items-center">
                     <i class="fas fa-briefcase text-emerald-600 mr-2"></i> পেশা ভিত্তিক সক্রিয় তালিকা
-                </h3>
+                </h3> 
                 <div class="space-y-3">
                     <script>
-                        const professionsListArray = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিনী', 'ছাত্র/ছাত্রী', 'নৌকা চালক', 'অটো চালক', 'শিক্ষক', 'ডাক্তার', 'দিনমজুর', 'প্রবাসী', 'অন্যান্য', 'কোনোটিই নয়'];
+                        const professionsListArray = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিণী', 'ছাত্র/ছাত্রী', 'নৌকা চালক', 'অটো চালক', 'শিক্ষক', 'ডাক্তার', 'দিনমজুর', 'প্রবাসী', 'অন্যান্য', 'কোনোটিই নয়'];
                         professionsListArray.forEach(p => {
                             document.write(`
                                 <div class="flex justify-between items-center text-sm border-b border-gray-50 pb-2">
@@ -308,7 +308,7 @@
             }
 
             // ৮. পেশা ভিত্তিক সক্রিয় তালিকা কাউন্টার 
-            const professionsList = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিনী', 'ছাত্র/ছাত্রী', 'নৌকা চালক', 'অটো চালক', 'শিক্ষক', 'ডাক্তার', 'দিনমজুর', 'প্রবাসী', 'অন্যান্য', 'কোনোটিই নয়'];
+            const professionsList = ['কৃষক', 'ব্যবসায়ী', 'চাকরিজীবী', 'গৃহিণী', 'ছাত্র/ছাত্রী', 'নৌকা চালক', 'অটো চালক', 'শিক্ষক', 'ডাক্তার', 'দিনমজুর', 'প্রবাসী', 'অন্যান্য', 'কোনোটিই নয়'];
             professionsList.forEach(prof => {
                 let profCount = activeCitizens.filter(c => c.profession === prof).length;
                 let elementId = `profCount_${prof.replace('/', '_').replace(' ', '_')}`;
